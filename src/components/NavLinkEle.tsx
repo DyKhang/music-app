@@ -11,7 +11,7 @@ export const NavLinkEle: React.FC<Props> = ({ to, Icon, title }) => {
   return (
     <NavLink
       to={to}
-      className={`navlink flex items-center text-[1.4rem] py-[12px] px-[21px] gap-[12px] hover:text-[#614646]`}
+      className="group/nav-link navlink flex items-center text-[1.4rem] py-[12px] px-[18px] gap-[12px] hover:text-[#614646] font-medium"
     >
       <Icon /> {title}{" "}
       {title === "Radio" && (
@@ -21,7 +21,7 @@ export const NavLinkEle: React.FC<Props> = ({ to, Icon, title }) => {
           alt=""
         />
       )}
-      <PlayCircleIcon className="navlink-play-btn size-[24px] ml-auto" />
+      <PlayCircleIcon className="navlink-play-btn size-[24px] ml-auto invisible group/nav-link group-hover/nav-link:visible" />
     </NavLink>
   );
 };
