@@ -7,6 +7,7 @@ import {
 import { Search } from "../components/Search";
 import { Button } from "../components/Button";
 import { useState } from "react";
+import { PopOver } from "../components/PopOver";
 
 export const Header = () => {
   const [show, setShow] = useState(false);
@@ -55,6 +56,11 @@ export const Header = () => {
           />
         </div>
       </div>
+
+      <PopOver>
+        <PopOver.Button />
+        <PopOver.Content />
+      </PopOver>
     </header>
   );
 };

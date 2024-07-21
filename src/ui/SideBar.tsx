@@ -49,7 +49,7 @@ export const SideBar = () => {
         />
       </div>
       <div className="w-[80%] h-[1px] bg-[#c3c1be] my-[15px] mx-auto"></div>
-      <div className="h-[275px] overflow-y-scroll">
+      <div className="sub-sidebar">
         <NavLinkEle
           Icon={() => <MusicalNoteIcon className="size-[24px]" />}
           to="moi-phat-hanh"

@@ -1,44 +1,30 @@
-import { createContext, useState, ReactNode, useContext } from "react";
+import { createContext, ReactNode, useContext, useState } from "react";
 
-interface Props {
-  children: ReactNode;
+interface value {
+  show: boolean;
+  setShow: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const PopOverContext = createContext({
-  show: boolean,
-  setShow: React.Dispatch<React.SetStateAction<boolean>>,
-});
+const PopOverContext = createContext<value | undefined>(undefined);
 
-export const PopOver: React.FC<Props> & {
-  Button: React.FC;
-  Content: React.FC;
-} = ({ children }) => {
+export const PopOver = ({ children }: { children: ReactNode }) => {
   const [show, setShow] = useState(false);
 
-  const value = { show, setShow };
-
+  const value = { setShow, show };
   return (
     <PopOverContext.Provider value={value}>{children}</PopOverContext.Provider>
   );
 };
 
-function Button() {
-  const { setShow, show } = useContext(PopOverContext);
+const Button = () => {
+  const { show, setShow } = useContext(PopOverContext);
 
-  return (
-    <button
-      onClick={() => {
-        setShow(!show);
-      }}
-    >
-      Click me
-    </button>
-  );
-}
+  return <button onClick={() => setShow(!show)}>Click me!</button>;
+};
 
-function Content() {
-  return <p>content</p>;
-}
+const Content = () => {
+  return <p>hihihi</p>;
+};
 
 PopOver.Button = Button;
 PopOver.Content = Content;

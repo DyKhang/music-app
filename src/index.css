@@ -53,3 +53,8 @@
 .navlink.navlink.active .navlink-play-btn {
   display: none;
 }
+
+.sub-sidebar {
+  overflow-y: scroll;
+  height: calc(100vh - 42rem);
+}
