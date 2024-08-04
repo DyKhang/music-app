@@ -8,7 +8,9 @@ export const MusicPlayer = () => {
   const [isShuffle, setIsShuffle] = useState(false);
   const [isReplay, setIsReplay] = useState(false);
   const rangeInputRef = useRef<HTMLInputElement>(null);
-  const audio = useSelector((state: RootState) => state.player.currentSong);
+  const audio = useSelector(
+    (state: RootState) => state.player.currentSong.audio
+  );
 
   useEffect(() => {
     const handleChangeBgRange = () => {
