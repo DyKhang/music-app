@@ -6,16 +6,10 @@ import {
 } from "@heroicons/react/24/outline";
 import { Search } from "../components/Search";
 import { Button } from "../components/Button";
-import { useState } from "react";
 import { PopOver } from "../components/PopOver";
+import { POContentHeader } from "../components/POContentHeader";
 
 export const Header = () => {
-  const [show, setShow] = useState(false);
-
-  function handleShow() {
-    setShow(!show);
-  }
-
   return (
     <header className="px-[60px] flex items-center h-[70px]">
       <div className="flex items-center gap-9">
@@ -26,28 +20,27 @@ export const Header = () => {
           <ArrowRightIcon className="size-[20px] opacity-25 cursor-default" />
         </button>
       </div>
-      <div className="ml-9">
+      <div className="ml-9 w-[36%]">
         <Search />
       </div>
       <div className="flex items-center ml-auto gap-3">
-        <Button title="Nâng cấp tài khoản" solid href="#!" />
+        <Button title="Nâng cấp tài khoản" solid href="#!" width="250px" />
         <Button
           title="Tải bản window"
           href="#!"
           Icon={() => <ArchiveBoxArrowDownIcon className="size-[24px]" />}
+          width="190"
         />
-        <button
-          onClick={handleShow}
-          className="size-[40px] rounded-full bg-[#d9d7d4] flex items-center justify-center relative"
-        >
-          <Cog8ToothIcon className="size-[22px] text-[#4c5259]" />
-
-          {show && (
-            <div className="bg-red-500 p-[6px] text-white absolute top-[140%] right-0">
-              Test
+        <PopOver>
+          <PopOver.Button>
+            <div className="size-[40px] rounded-full bg-[#d9d7d4] flex items-center justify-center relative">
+              <Cog8ToothIcon className="size-[22px] text-[#4c5259]" />
             </div>
-          )}
-        </button>
+            <PopOver.Content>
+              <POContentHeader />
+            </PopOver.Content>
+          </PopOver.Button>
+        </PopOver>
         <div className="size-[40px] flex-shrink-0 overflow-hidden rounded-full cursor-pointer">
           <img
             src="./image.png"
@@ -56,11 +49,6 @@ export const Header = () => {
           />
         </div>
       </div>
-
-      <PopOver>
-        <PopOver.Button />
-        <PopOver.Content />
-      </PopOver>
     </header>
   );
 };

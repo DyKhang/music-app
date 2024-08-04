@@ -11,7 +11,7 @@ export const Search = () => {
 
   return (
     <form
-      className="group/search w-[440px] gap-3 flex items-center bg-[rgba(0,0,0,0.05)] h-[40px] rounded-[20px] p-6 focus-within:shadow-lg"
+      className="group/search gap-3 flex items-center bg-[rgba(0,0,0,0.05)] h-[40px] rounded-[20px] p-6 focus-within:shadow-lg"
       onSubmit={handleSubmit}
     >
       <MagnifyingGlassIcon className="size-[24px] text-[#989796] group-focus-within/search:text-[#614646]" />

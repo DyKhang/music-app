@@ -1,0 +1,57 @@
+import {
+  ArrowUpRightIcon,
+  ChevronRightIcon,
+  ClipboardDocumentCheckIcon,
+  FlagIcon,
+  InformationCircleIcon,
+  NewspaperIcon,
+  PaintBrushIcon,
+  PhoneIcon,
+  PlayCircleIcon,
+  ShieldCheckIcon,
+} from "@heroicons/react/24/outline";
+import { HoverTag } from "./HoverTag";
+
+export const POContentHeader = () => {
+  return (
+    <div className="w-[288px]">
+      <HoverTag
+        title="Trình phát nhạc"
+        LeftIcon={() => <PlayCircleIcon />}
+        RightIcon={() => <ChevronRightIcon />}
+      />
+      <HoverTag
+        title="Giao diện"
+        LeftIcon={() => <PaintBrushIcon />}
+        RightIcon={() => <ChevronRightIcon />}
+      />
+      <div className="h-[1px] bg-[#dedcda] m-[10px]"></div>
+      <HoverTag title="Giới thiệu" LeftIcon={() => <InformationCircleIcon />} />
+      <HoverTag
+        title="Thỏa thuận sử dụng"
+        LeftIcon={() => <ClipboardDocumentCheckIcon />}
+        RightIcon={() => <ArrowUpRightIcon className="text-[#bebdbc]" />}
+      />
+      <HoverTag
+        title="Chính sách bảo mật"
+        LeftIcon={() => <ShieldCheckIcon />}
+        RightIcon={() => <ArrowUpRightIcon className="text-[#bebdbc]" />}
+      />
+      <HoverTag
+        title="Báo cáo vi phạm bản quyền"
+        LeftIcon={() => <FlagIcon />}
+        RightIcon={() => <ArrowUpRightIcon className="text-[#bebdbc]" />}
+      />
+      <HoverTag
+        title="Quảng cáo"
+        LeftIcon={() => <NewspaperIcon />}
+        RightIcon={() => <ArrowUpRightIcon className="text-[#bebdbc]" />}
+      />
+      <HoverTag
+        title="Liên hệ"
+        LeftIcon={() => <PhoneIcon />}
+        RightIcon={() => <ArrowUpRightIcon className="text-[#bebdbc]" />}
+      />
+    </div>
+  );
+};

@@ -13,6 +13,7 @@
   body {
     font-size: 1.6rem;
     background-color: #e5e3df;
+    color: #32323d;
   }
 
   /* custom scroll bar */
@@ -57,4 +58,28 @@
 .sub-sidebar {
   overflow-y: scroll;
   height: calc(100vh - 42rem);
+}
+
+.range {
+  width: 100%;
+  display: block;
+  border-radius: 4px;
+  -webkit-appearance: none;
+  background: linear-gradient(90deg, #614646 0%, #c6c4bc 0%);
+}
+
+.range::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: 4px;
+}
+
+.range::-webkit-slider-thumb {
+  appearance: none;
+  background-color: #614646;
+  width: 12px;
+  border-radius: 50%;
+  height: 12px;
+  box-shadow: 0 0 5px rgba(255, 194, 39, 0.2);
+  cursor: pointer;
+  translate: 0 -3px;
 }
