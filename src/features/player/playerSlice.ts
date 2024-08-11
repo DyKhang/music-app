@@ -12,10 +12,10 @@ export interface initialState {
 
 const initialState: initialState = {
   currentSong: {
-    audio: new Audio(songs[5].path),
-    image: songs[5].image,
-    name: songs[5].name,
-    singer: songs[5].singer,
+    audio: new Audio(songs[1].path),
+    image: songs[1].image,
+    name: songs[1].name,
+    singer: songs[1].singer,
   },
 };
 

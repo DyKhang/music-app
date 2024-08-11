@@ -37,7 +37,7 @@ const Content = ({ children }: { children: ReactNode }) => {
 
   return (
     value?.show && (
-      <div className="bg-white absolute top-[130%] right-0 p-[6px] rounded-[8px] shadow-shadow-popover">
+      <div className="bg-white absolute top-[130%] right-0 p-[6px] rounded-[8px] shadow-shadow-popover z-10">
         {children}
       </div>
     )

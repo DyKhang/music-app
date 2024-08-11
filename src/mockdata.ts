@@ -9,7 +9,7 @@ export const songs = [
     name: "Âm Thầm Bên Em",
     singer: "Sơn Tùng MTP",
     path: "./musics/song2.mp3",
-    image: "./thumbs/song2.JPG",
+    image: "./thumbs/song2.jpg",
   },
   {
     name: "Anh Là Ngoại Lệ Của Em",

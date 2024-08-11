@@ -12,6 +12,9 @@ export default {
       boxShadow: {
         "shadow-popover": "0 0 5px 0 rgba(0, 0, 0, .2)",
       },
+      backgroundColor: {
+        "button-slider": "hsla(0,0%,100%, 0.15)",
+      },
     },
   },
   plugins: [],
