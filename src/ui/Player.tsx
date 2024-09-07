@@ -9,16 +9,14 @@ import { MusicPlayer } from "../features/player/MusicPlayer";
 import { PlayerActions } from "../features/player/PlayerActions";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
-// import { useSelector } from "react-redux";
-// import { RootState } from "../store";
 
 export const Player = () => {
   const songName = useSelector(
-    (state: RootState) => state.player.currentSong.name
+    (state: RootState) => state.player.currentSong.name,
   );
 
   const singer = useSelector(
-    (state: RootState) => state.player.currentSong.singer
+    (state: RootState) => state.player.currentSong.singer,
   );
 
   const img = useSelector((state: RootState) => state.player.currentSong.image);
@@ -30,38 +28,38 @@ export const Player = () => {
   }
 
   return (
-    <div className="fixed w-full bottom-0 ">
-      <div className="w-[240px] group/new-playlist border-[#c3c1be] border-t-[1px] flex px-[24px] py-[16px] gap-3 items-center cursor-pointer bg-[#d9d7d4]">
-        <div className="bg-[#b2b0ae] rounded-xl p-[2px] flex items-center justify-center flex-shrink-0">
-          <PlusIcon className="size-[20px] text-white group-hover/new-playlist:scale-[80%] transition-transform duration-[300ms]" />
+    <div className="fixed bottom-0 z-50 w-full">
+      <div className="group/new-playlist flex w-[240px] cursor-pointer items-center gap-3 border-t-[1px] border-[#c3c1be] bg-[#d9d7d4] px-[24px] py-[16px]">
+        <div className="flex flex-shrink-0 items-center justify-center rounded-xl bg-[#b2b0ae] p-[2px]">
+          <PlusIcon className="size-[20px] text-white transition-transform duration-[300ms] group-hover/new-playlist:scale-[80%]" />
         </div>
-        <span className="text-[1.4rem] text-black font-medium group-hover/new-playlist:text-[#5f4646]">
+        <span className="text-[1.4rem] font-medium text-black group-hover/new-playlist:text-[#5f4646]">
           Tạo playlist mới
         </span>
       </div>
-      <div className="bg-[#dddad1] h-[90px] px-[20px] flex items-center select-none justify-between">
+      <div className="flex h-[90px] select-none items-center justify-between bg-[#dddad1] px-[20px]">
         <div className="flex items-center">
           <img
             src={img}
             alt=""
-            className="size-[64px] object-cover rounded-[5px]"
+            className="size-[64px] rounded-[5px] object-cover"
           />
-          <div className="flex flex-col ml-4 ">
+          <div className="ml-4 flex flex-col">
             <span className="text-[1.4rem] font-[500]">{songName}</span>
             <span className="text-[1.2rem] text-[#696969]">{singer}</span>
           </div>
           {isLove ? (
             <HeartIconSolid
-              className="size-[18px] text-[#4d4c54] ml-8 cursor-pointer"
+              className="ml-8 size-[18px] cursor-pointer text-[#4d4c54]"
               onClick={handleToggleLove}
             />
           ) : (
             <HeartIcon
-              className="size-[18px] text-[#4d4c54] ml-8 cursor-pointer"
+              className="ml-8 size-[18px] cursor-pointer text-[#4d4c54]"
               onClick={handleToggleLove}
             />
           )}
-          <EllipsisHorizontalIcon className="size-[24px] rounded-full ml-[12px] cursor-pointer" />
+          <EllipsisHorizontalIcon className="ml-[12px] size-[24px] cursor-pointer rounded-full" />
         </div>
         <MusicPlayer />
         <PlayerActions />

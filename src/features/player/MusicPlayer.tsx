@@ -10,7 +10,7 @@ export const MusicPlayer = () => {
   const [isReplay, setIsReplay] = useState(false);
   const [range, setRange] = useState(0);
   const song = useSelector(
-    (state: RootState) => state.player.currentSong.audio
+    (state: RootState) => state.player.currentSong.audio,
   );
   const { rangeInputRef, handleChangeBgRange } = useCalRange();
 
@@ -48,7 +48,7 @@ export const MusicPlayer = () => {
   }
   return (
     <div>
-      <div className="flex items-center gap-16 text-[1.8rem] justify-center">
+      <div className="flex items-center justify-center gap-16 text-[1.8rem]">
         <i
           className={`fa-solid fa-shuffle cursor-pointer ${
             isShuffle && "text-[#7f4d4d]"
@@ -58,12 +58,12 @@ export const MusicPlayer = () => {
         <i className="fa-solid fa-backward-step cursor-pointer"></i>
         <div
           onClick={handlePlaysong}
-          className="size-[40px] border-[2px] border-[#42424b] rounded-full cursor-pointer flex items-center justify-center"
+          className="flex size-[40px] cursor-pointer items-center justify-center rounded-full border-[2px] border-[#42424b]"
         >
           {isPlay ? (
             <PauseIcon className="size-[22px]" />
           ) : (
-            <PlayIcon className="size-[22px]" />
+            <PlayIcon className="size-[22px] translate-x-[1px]" />
           )}
         </div>
         <i className="fa-solid fa-forward-step cursor-pointer"></i>
@@ -74,11 +74,11 @@ export const MusicPlayer = () => {
           onClick={handleToggleReplay}
         ></i>
       </div>
-      <div className="flex items-center w-[500px] gap-2 mt-3">
+      <div className="mt-3 flex w-[500px] items-center gap-2">
         <span className="text-[1.2rem] text-[#32323d]">00:00</span>
         <input
           type="range"
-          className="flex-1 range"
+          className="range flex-1"
           ref={rangeInputRef}
           value={range}
           onChange={(e) => setRange(Number(e.target.value))}

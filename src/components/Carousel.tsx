@@ -1,64 +1,89 @@
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
-import { useHome } from "../features/home/useHome";
 import { useEffect, useRef } from "react";
+import { useBanner } from "../features/home/useBanner";
+import { getArrSlider } from "../utils/helper";
 
 export const Carousel = () => {
-  const { data, isPending } = useHome();
+  const { data, isPending } = useBanner();
   const slideItemRef = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
+    const sliderEls = slideItemRef.current;
     let min = 0;
     let max = 2;
+    const intervalId = setInterval(() => {
+      const list = getArrSlider(min, max, sliderEls.length - 1);
+      for (let i = 0; i < sliderEls.length; i++) {
+        // Delete classnames (css)
+        sliderEls[i]?.classList?.remove(
+          "animate-slide-right",
+          "order-last",
+          "z-9",
+        );
+        sliderEls[i]?.classList?.remove(
+          "animate-slide-left",
+          "order-first",
+          "z-10",
+        );
+        sliderEls[i]?.classList?.remove(
+          "animate-slide-left2",
+          "order-2",
+          "z-10",
+        );
 
-    const timerId = setInterval(() => {
-      slideItemRef.current.forEach((item, index) => {
-        if (index <= max && index >= min && item) {
-          item.style.display = "block";
+        // Hide or Show images
+        if (list.some((item) => item === i)) {
+          sliderEls[i]!.style.cssText = `display: block`;
         } else {
-          if (item) {
-            item.style.display = "none";
-          }
-        }
-      });
-      min++;
-      max++;
-      if (data && data.items) {
-        if (max > data.items.length - 1) {
-          max = 2;
-          min = 0;
+          sliderEls[i]!.style.cssText = `display: none`;
         }
       }
-      console.log(`min: ${min}, max: ${max}`);
-    }, 3000);
-
+      // Add animation by adding classnames
+      list.forEach((item) => {
+        if (item === max) {
+          sliderEls[item]?.classList?.add(
+            "animate-slide-right",
+            "order-last",
+            "z-9",
+          );
+        } else if (item === min) {
+          sliderEls[item]?.classList?.add(
+            "animate-slide-left",
+            "order-first",
+            "z-10",
+          );
+        } else {
+          sliderEls[item]?.classList?.add(
+            "animate-slide-left2",
+            "order-2",
+            "z-10",
+          );
+        }
+      });
+      min = min === sliderEls.length - 1 ? 0 : min + 1;
+      max = max === sliderEls.length - 1 ? 0 : max + 1;
+    }, 10000);
     return () => {
-      clearInterval(timerId);
+      intervalId && clearInterval(intervalId);
     };
-  }, [data]);
+  }, []);
 
   return isPending ? (
     "is loading..."
   ) : (
     <div>
-      <section className="group/slider flex mt-24 overflow-hidden relative">
-        <div className="group-hover/slider:visible invisible size-[55px] hover:opacity-100 cursor-pointer bg-button-slider absolute flex justify-center items-center rounded-full top-[50%] translate-y-[-50%] left-11">
-          <ChevronLeftIcon className="size-[40px] text-white " />{" "}
-        </div>
+      <section className="group/slider relative mt-24 flex overflow-hidden">
         {data?.items?.map((item, index) => (
           <div
-            className="slider-item w-[33.3%] flex-shrink-0 px-[15px]"
+            className="w-[33.3%] flex-shrink-0 px-[15px]"
             key={item.banner}
             ref={(el) => (slideItemRef.current[index] = el)}
           >
             <img
               src={item.banner}
-              className="object-cover rounded-[8px] w-full"
+              className="w-full rounded-[8px] object-cover"
             />
           </div>
         ))}
-        <div className="group-hover/slider:visible invisible size-[55px] cursor-pointer hover:opacity-100 bg-button-slider absolute flex justify-center items-center rounded-full top-[50%] translate-y-[-50%] right-11">
-          <ChevronRightIcon className="size-[40px] text-white " />
-        </div>
       </section>
     </div>
   );
