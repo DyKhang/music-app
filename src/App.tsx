@@ -1,6 +1,6 @@
 import { MainLayout } from "./ui/MainLayout";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { Explore } from "./pages/Explore";
+import { Explore } from "./pages/Explore/Explore";
 import { Library } from "./pages/Library";
 import { NotFound } from "./pages/NotFound";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";

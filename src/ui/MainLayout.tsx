@@ -5,9 +5,9 @@ import { SideBar } from "./SideBar";
 
 export const MainLayout = () => {
   return (
-    <div className="flex h-[100vh]">
+    <div className="flex h-screen">
       <SideBar />
-      <div className="flex-1 flex flex-col">
+      <div className="flex flex-1 flex-col">
         <Header />
         <Main />
       </div>

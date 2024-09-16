@@ -1,7 +1,7 @@
 export function getArrSlider(
   start: number,
   end: number,
-  number: number
+  number: number,
 ): number[] {
   const output = [];
   const limit = start > end ? number : end;
@@ -15,5 +15,3 @@ export function getArrSlider(
   }
   return output;
 }
-
-console.log(getArrSlider(1, 3, 5));

@@ -1,33 +1,45 @@
 import { PauseIcon, PlayIcon } from "@heroicons/react/24/solid";
-import { RootState } from "../../store";
-import { useEffect, useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
-import { useCalRange } from "../../hooks/useCalRange";
+import { RootState } from "../../store";
 
 export const MusicPlayer = () => {
   const [isPlay, setPlay] = useState(false);
   const [isShuffle, setIsShuffle] = useState(false);
   const [isReplay, setIsReplay] = useState(false);
-  const [range, setRange] = useState(0);
-  const song = useSelector(
-    (state: RootState) => state.player.currentSong.audio,
+  const songUrl = useSelector(
+    (state: RootState) => state.player.currentSong.songUrl,
   );
-  const { rangeInputRef, handleChangeBgRange } = useCalRange();
+
+  const songRef = useRef(new Audio());
+  const [range, setRange] = useState(0);
+  const volume = useSelector(
+    (state: RootState) => state.player.currentSong.volume,
+  );
+
+  useEffect(() => {
+    songRef.current.src = songUrl;
+    setPlay(true);
+    songRef.current.play();
+  }, [songUrl]);
+
+  useEffect(() => {
+    songRef.current.volume = volume;
+  }, [volume]);
 
   useEffect(() => {
     function handleSetRange() {
-      setRange((song.currentTime / song.duration) * 100);
+      setRange((songRef.current.currentTime / songRef.current.duration) * 100);
     }
 
     const id = setInterval(() => {
       handleSetRange();
-      handleChangeBgRange();
     }, 500);
 
     return () => {
       clearInterval(id);
     };
-  }, [song.currentTime, song.duration, handleChangeBgRange]);
+  }, [songRef.current.currentTime, songRef.current.duration]);
 
   function handleToggleShuffle() {
     setIsShuffle(!isShuffle);
@@ -37,17 +49,17 @@ export const MusicPlayer = () => {
     setIsReplay(!isReplay);
   }
 
-  function handlePlaysong() {
+  function handlePlaySong() {
     if (isPlay) {
       setPlay(!isPlay);
-      song.pause();
+      songRef.current.pause();
     } else {
       setPlay(!isPlay);
-      song.play();
+      songRef.current.play();
     }
   }
   return (
-    <div>
+    <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
       <div className="flex items-center justify-center gap-16 text-[1.8rem]">
         <i
           className={`fa-solid fa-shuffle cursor-pointer ${
@@ -57,11 +69,11 @@ export const MusicPlayer = () => {
         ></i>
         <i className="fa-solid fa-backward-step cursor-pointer"></i>
         <div
-          onClick={handlePlaysong}
           className="flex size-[40px] cursor-pointer items-center justify-center rounded-full border-[2px] border-[#42424b]"
+          onClick={handlePlaySong}
         >
           {isPlay ? (
-            <PauseIcon className="size-[22px]" />
+            <PauseIcon className="size-[22px] translate-x-[-0.5px]" />
           ) : (
             <PlayIcon className="size-[22px] translate-x-[1px]" />
           )}
@@ -79,7 +91,6 @@ export const MusicPlayer = () => {
         <input
           type="range"
           className="range flex-1"
-          ref={rangeInputRef}
           value={range}
           onChange={(e) => setRange(Number(e.target.value))}
         />

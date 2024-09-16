@@ -65,7 +65,7 @@
   display: block;
   border-radius: 4px;
   -webkit-appearance: none;
-  background: linear-gradient(90deg, #614646 0%, #c6c4bc 0%);
+  background: #c6c4bc;
 }
 
 .range::-webkit-slider-runnable-track {
