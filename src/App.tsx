@@ -4,15 +4,9 @@ import { Explore } from "./pages/Explore/Explore";
 import { Library } from "./pages/Library";
 import { NotFound } from "./pages/NotFound";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+// import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 0,
-    },
-  },
-});
+const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
   {
@@ -37,7 +31,7 @@ const router = createBrowserRouter([
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools initialIsOpen={false} />
+      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
       <RouterProvider router={router} />
     </QueryClientProvider>
   );

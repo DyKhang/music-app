@@ -21,27 +21,25 @@ export interface BannerType {
   items: BannerItemChild[];
 }
 
-interface NewReleasesItemChild {
+export interface NewReleasesItemChild {
   encodeId: string;
   title: string;
   alias: string;
   isOffical: boolean;
   username: string;
   artistsNames: string;
-  artists: [
-    {
-      id: string;
-      name: string;
-      link: string;
-      spotlight: boolean;
-      alias: string;
-      thumbnail: string;
-      thumbnailM: string;
-      isOA: false;
-      isOABrand: false;
-      playlistId: string;
-    },
-  ];
+  artists: {
+    id: string;
+    name: string;
+    link: string;
+    spotlight: boolean;
+    alias: string;
+    thumbnail: string;
+    thumbnailM: string;
+    isOA: false;
+    isOABrand: false;
+    playlistId: string;
+  }[];
   isWorldWide: boolean;
   previewInfo: {
     startTime: number;
@@ -56,6 +54,11 @@ interface NewReleasesItemChild {
   preRelease: boolean;
   releaseDate: number;
   genreIds: string[];
+  distributor: string;
+  isIndie: boolean;
+  streamingStatus: number;
+  allowAudioAds: boolean;
+  hasLyric: boolean;
 }
 
 export interface NewReleasesType {
@@ -68,6 +71,41 @@ export interface NewReleasesType {
     vPop: NewReleasesItemChild[];
     others: NewReleasesItemChild[];
   };
+}
+
+export interface PlayListItemChild {
+  encodeId: string;
+  thumbnail: string;
+  thumbnailM: string;
+  link: string;
+  title: string;
+  sortDescription: string;
+  artistsNames: string;
+  artists: {
+    id: string;
+    name: string;
+    link: string;
+    spotlight: boolean;
+    alias: string;
+    thumbnail: string;
+    thumbnailM: string;
+    isOA: boolean;
+    isOABrand: boolean;
+    playlistId: string;
+    totalFollow: number;
+  }[];
+}
+
+export interface PlayListType {
+  title: string;
+  sectionType: string;
+  viewType: string;
+  itemType: string;
+  options: {
+    hideTitle: true;
+  };
+  sectionId: string;
+  items: PlayListItemChild[];
 }
 
 interface HomeBanner {
@@ -92,6 +130,17 @@ interface HomeNewRelease {
   timestamp: number;
 }
 
+interface HomePlayList {
+  err: number;
+  msg: string;
+  data: {
+    hasMore: boolean;
+    total: number;
+    items: PlayListType[];
+  };
+  timestamp: number;
+}
+
 export const homeApi = {
   getBanner: async () => {
     const homeData = await axiosClient.get<HomeBanner>("/home");
@@ -105,6 +154,35 @@ export const homeApi = {
 
     return data.data.data.items.find(
       (item) => item.sectionType === "new-release",
+    );
+  },
+  getTrending: async () => {
+    const data = await axiosClient.get<HomePlayList>("/home");
+
+    return data.data.data.items.find(
+      (item) =>
+        item.sectionType === "playlist" && item.title === "Nhạc hot thịnh hành",
+    );
+  },
+  getChill: async () => {
+    const data = await axiosClient.get<HomePlayList>("/home");
+
+    return data.data.data.items.find(
+      (item) => item.sectionType === "playlist" && item.title === "Chill",
+    );
+  },
+  getTop100: async () => {
+    const data = await axiosClient.get<HomePlayList>("/home");
+
+    return data.data.data.items.find(
+      (item) => item.sectionType === "playlist" && item.title === "Top 100",
+    );
+  },
+  getAlbumHot: async () => {
+    const data = await axiosClient.get<HomePlayList>("/home");
+
+    return data.data.data.items.find(
+      (item) => item.sectionType === "playlist" && item.title === "Album Hot",
     );
   },
 };

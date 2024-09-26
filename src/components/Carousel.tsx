@@ -1,9 +1,12 @@
 import { useEffect, useRef } from "react";
-import { useBanner } from "../features/home/useBanner";
 import { getArrSlider } from "../utils/helper";
+import { BannerType } from "../api/homeApi";
 
-export const Carousel = () => {
-  const { data, isPending } = useBanner();
+interface Props {
+  data: BannerType | undefined;
+}
+
+export const Carousel: React.FC<Props> = ({ data }) => {
   const slideItemRef = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
@@ -67,11 +70,9 @@ export const Carousel = () => {
     };
   }, []);
 
-  return isPending ? (
-    "is loading..."
-  ) : (
+  return (
     <div>
-      <section className="group/slider relative mt-24 flex overflow-hidden">
+      <section className="relative mt-[32px] flex overflow-hidden">
         {data?.items?.map((item, index) => (
           <div
             className="w-[33.3%] flex-shrink-0 px-[15px]"

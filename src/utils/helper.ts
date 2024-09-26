@@ -15,3 +15,12 @@ export function getArrSlider(
   }
   return output;
 }
+
+export function upperCaseFirstLetter(title: string | undefined) {
+  const newTitle = title
+    ?.split(" ")
+    .map((item) => item[0].toLocaleUpperCase() + item.slice(1))
+    .join(" ");
+
+  return newTitle;
+}

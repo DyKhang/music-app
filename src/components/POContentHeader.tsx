@@ -14,7 +14,7 @@ import { HoverTag } from "./HoverTag";
 
 export const POContentHeader = () => {
   return (
-    <div className="w-[288px]">
+    <div className="w-[300px]">
       <HoverTag
         title="Trình phát nhạc"
         LeftIcon={() => <PlayCircleIcon />}
@@ -25,7 +25,7 @@ export const POContentHeader = () => {
         LeftIcon={() => <PaintBrushIcon />}
         RightIcon={() => <ChevronRightIcon />}
       />
-      <div className="h-[1px] bg-[#dedcda] m-[10px]"></div>
+      <div className="m-[10px] h-[1px] bg-[#dedcda]"></div>
       <HoverTag title="Giới thiệu" LeftIcon={() => <InformationCircleIcon />} />
       <HoverTag
         title="Thỏa thuận sử dụng"

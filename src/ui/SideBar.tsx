@@ -19,12 +19,12 @@ import { ClockIcon } from "@heroicons/react/24/outline";
 
 export const SideBar = () => {
   return (
-    <aside className="bg-[#d9d7d4] w-[240px]">
+    <aside className="w-[240px] bg-[#d9d7d4]">
       <Link
         to="/"
-        className="transition-opacity duration-[0.5s] flex p-5 items-center justify-center opacity-80 hover:opacity-100"
+        className="flex items-center justify-center p-5 opacity-80 transition-opacity duration-[0.5s] hover:opacity-100"
       >
-        <img src="./logo-light.svg" alt="" className="object-cover w-[150px]" />
+        <img src="./logo-light.svg" alt="" className="w-[150px] object-cover" />
       </Link>
       <div>
         <NavLinkEle
@@ -48,7 +48,7 @@ export const SideBar = () => {
           title="Radio"
         />
       </div>
-      <div className="w-[80%] h-[1px] bg-[#c3c1be] my-[15px] mx-auto"></div>
+      <div className="mx-auto my-[15px] h-[1px] w-[80%] bg-[#c3c1be]"></div>
       <div className="sub-sidebar">
         <NavLinkEle
           Icon={() => <MusicalNoteIcon className="size-[24px]" />}
@@ -71,7 +71,7 @@ export const SideBar = () => {
         <div>
           <NavLinkEle
             Icon={() => (
-              <div className="bg-[#7c36ff] rounded-xl p-[2px] flex items-center justify-center">
+              <div className="flex items-center justify-center rounded-xl bg-[#7c36ff] p-[2px]">
                 <ClockIcon className="size-[20px] text-white" />
               </div>
             )}
@@ -80,7 +80,7 @@ export const SideBar = () => {
           />
           <NavLinkEle
             Icon={() => (
-              <div className="bg-[#4ac4ff] rounded-xl p-[2px] flex items-center justify-center">
+              <div className="flex items-center justify-center rounded-xl bg-[#4ac4ff] p-[2px]">
                 <HeartIcon className="size-[20px] text-white" />
               </div>
             )}
@@ -89,7 +89,7 @@ export const SideBar = () => {
           />
           <NavLinkEle
             Icon={() => (
-              <div className="bg-[#ef7735] rounded-xl p-[2px] flex items-center justify-center">
+              <div className="flex items-center justify-center rounded-xl bg-[#ef7735] p-[2px]">
                 <ListBulletIcon className="size-[20px] text-white" />
               </div>
             )}
@@ -98,7 +98,7 @@ export const SideBar = () => {
           />
           <NavLinkEle
             Icon={() => (
-              <div className="bg-[#f447ad] rounded-xl p-[2px] flex items-center justify-center">
+              <div className="flex items-center justify-center rounded-xl bg-[#f447ad] p-[2px]">
                 <SignalIcon className="size-[20px] text-white" />
               </div>
             )}
@@ -107,15 +107,15 @@ export const SideBar = () => {
           />
           <NavLinkEle
             Icon={() => (
-              <div className="bg-[#f4514f] rounded-xl p-[2px] flex items-center justify-center">
+              <div className="flex items-center justify-center rounded-xl bg-[#f4514f] p-[2px]">
                 <CloudArrowUpIcon className="size-[20px] text-white" />
               </div>
             )}
             to="e"
             title="Đã tải lên"
           />
-          <div className="w-[80%] h-[1px] bg-[#c3c1be] my-[15px] mx-auto"></div>
-          <div className="flex px-[21px] justify-between items-center cursor-pointer pb-14 hover:text-[#5f4646]">
+          <div className="mx-auto my-[15px] h-[1px] w-[80%] bg-[#c3c1be]"></div>
+          <div className="flex cursor-pointer items-center justify-between px-[21px] pb-14 hover:text-[#5f4646]">
             <span className="text-[1.4rem]">Indie</span>
             <EllipsisHorizontalIcon className="size-[24px] rounded-full hover:bg-[#cecdcd]" />
           </div>

@@ -1,32 +1,54 @@
 import { PauseIcon, PlayIcon } from "@heroicons/react/24/solid";
 import { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "../../store";
+import { AppDispatch, RootState } from "../../store";
+import { useDispatch } from "react-redux";
+import { togglePlaying } from "./playerSlice";
+import { LoaderSmall } from "../../components/LoaderSmall";
 
 export const MusicPlayer = () => {
-  const [isPlay, setPlay] = useState(false);
   const [isShuffle, setIsShuffle] = useState(false);
   const [isReplay, setIsReplay] = useState(false);
+  const [range, setRange] = useState(0);
+  const [currentTime, setCurrentTime] = useState(0);
   const songUrl = useSelector(
     (state: RootState) => state.player.currentSong.songUrl,
   );
-
+  const dispatch: AppDispatch = useDispatch();
   const songRef = useRef(new Audio());
-  const [range, setRange] = useState(0);
-  const volume = useSelector(
-    (state: RootState) => state.player.currentSong.volume,
-  );
 
+  const volume = useSelector((state: RootState) => state.player.volume);
+
+  const isPlay = useSelector((state: RootState) => state.player.isPlaying);
+
+  const loading = useSelector((state: RootState) => state.player.status);
+  const minutes = Math.floor(songRef.current.duration / 60);
+  const seconds = Math.floor(songRef.current.duration % 60);
+
+  // play lại bài hát khi isReplay là đúng
+  useEffect(() => {
+    if (isReplay) {
+      songRef.current.onended = () => {
+        songRef.current.play();
+      };
+    } else {
+      songRef.current.onended = () => null;
+    }
+  }, [isReplay]);
+
+  // Set lại url của bài hát khi có bài hát mới thay đổi
   useEffect(() => {
     songRef.current.src = songUrl;
-    setPlay(true);
+    dispatch(togglePlaying(true));
     songRef.current.play();
-  }, [songUrl]);
+  }, [songUrl, dispatch]);
 
+  // Xử lý khi change thanh volume
   useEffect(() => {
     songRef.current.volume = volume;
   }, [volume]);
 
+  // Tự động set thanh tiến độ bài hát khi currentTime thay đổi
   useEffect(() => {
     function handleSetRange() {
       setRange((songRef.current.currentTime / songRef.current.duration) * 100);
@@ -34,12 +56,33 @@ export const MusicPlayer = () => {
 
     const id = setInterval(() => {
       handleSetRange();
-    }, 500);
+    }, 200);
 
     return () => {
       clearInterval(id);
     };
   }, [songRef.current.currentTime, songRef.current.duration]);
+
+  // Kiểm tra khi có isPlay thì bài hát sẽ được play và ngược lại, dùng khi trạng thái isPlay bị thay đổi ở các nơi khác
+  useEffect(() => {
+    if (isPlay) {
+      songRef.current.play();
+    } else {
+      songRef.current.pause();
+    }
+  }, [isPlay]);
+
+  useEffect(() => {
+    setCurrentTime(Math.floor(songRef.current.currentTime));
+  }, [songRef.current.currentTime]);
+
+  function formatTime(time: number) {
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+    return `${minutes.toString().padStart(2, "0")}:${seconds
+      .toString()
+      .padStart(2, "0")}`;
+  }
 
   function handleToggleShuffle() {
     setIsShuffle(!isShuffle);
@@ -49,12 +92,13 @@ export const MusicPlayer = () => {
     setIsReplay(!isReplay);
   }
 
+  // Sự kiện play và dừng bài hát khi click
   function handlePlaySong() {
     if (isPlay) {
-      setPlay(!isPlay);
+      dispatch(togglePlaying(false));
       songRef.current.pause();
     } else {
-      setPlay(!isPlay);
+      dispatch(togglePlaying(true));
       songRef.current.play();
     }
   }
@@ -72,7 +116,9 @@ export const MusicPlayer = () => {
           className="flex size-[40px] cursor-pointer items-center justify-center rounded-full border-[2px] border-[#42424b]"
           onClick={handlePlaySong}
         >
-          {isPlay ? (
+          {loading === "loading" ? (
+            <LoaderSmall />
+          ) : isPlay ? (
             <PauseIcon className="size-[22px] translate-x-[-0.5px]" />
           ) : (
             <PlayIcon className="size-[22px] translate-x-[1px]" />
@@ -86,15 +132,21 @@ export const MusicPlayer = () => {
           onClick={handleToggleReplay}
         ></i>
       </div>
-      <div className="mt-3 flex w-[500px] items-center gap-2">
-        <span className="text-[1.2rem] text-[#32323d]">00:00</span>
+      <div className="relative mt-3 flex w-[500px] items-center gap-2">
+        <span className="absolute left-[-38px] top-1/2 -translate-y-1/2 text-[1.2rem] text-[#32323d]">
+          {loading === "loading" ? "00:00" : formatTime(currentTime)}
+        </span>
         <input
           type="range"
           className="range flex-1"
           value={range}
           onChange={(e) => setRange(Number(e.target.value))}
         />
-        <span className="text-[1.2rem] text-[#32323d]">05:29</span>
+        <span className="text-[1.2rem] text-[#32323d]">
+          {loading === "loading"
+            ? "00:00"
+            : `${minutes < 10 ? `0${minutes}` : minutes}:${seconds < 10 ? `0${seconds}` : seconds}`}
+        </span>
       </div>
     </div>
   );

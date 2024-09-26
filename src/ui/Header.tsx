@@ -6,7 +6,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { Search } from "../components/Search";
 import { Button } from "../components/Button";
-import { PopOver } from "../components/PopOver";
+import { PopOvers } from "../components/PopOvers";
 import { POContentHeader } from "../components/POContentHeader";
 
 export const Header = () => {
@@ -31,16 +31,18 @@ export const Header = () => {
           Icon={() => <ArchiveBoxArrowDownIcon className="size-[24px]" />}
           width="190"
         />
-        <PopOver>
-          <PopOver.Button>
-            <div className="relative flex size-[40px] items-center justify-center rounded-full bg-[#d9d7d4]">
-              <Cog8ToothIcon className="size-[22px] text-[#4c5259]" />
-            </div>
-            <PopOver.Content>
+        <PopOvers.PopOver>
+          <>
+            <PopOvers.Button open="header">
+              <div className="relative flex size-[40px] cursor-pointer items-center justify-center rounded-full bg-[#d9d7d4]">
+                <Cog8ToothIcon className="size-[22px] text-[#4c5259]" />
+              </div>
+            </PopOvers.Button>
+            <PopOvers.Content name="header">
               <POContentHeader />
-            </PopOver.Content>
-          </PopOver.Button>
-        </PopOver>
+            </PopOvers.Content>
+          </>
+        </PopOvers.PopOver>
         <div className="size-[40px] flex-shrink-0 cursor-pointer overflow-hidden rounded-full">
           <img
             src="./image.png"

@@ -8,21 +8,29 @@ import { AppDispatch } from "../../store";
 import { changeVolume } from "./playerSlice";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMicrophone } from "@fortawesome/free-solid-svg-icons";
 
-export const PlayerActions = () => {
+interface Props {
+  showPlayList: boolean;
+  setShowPlayList: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export const PlayerActions: React.FC<Props> = ({
+  setShowPlayList,
+  showPlayList,
+}) => {
   const dispatch: AppDispatch = useDispatch();
 
-  const volume = useSelector(
-    (state: RootState) => state.player.currentSong.volume,
-  );
+  const volume = useSelector((state: RootState) => state.player.volume);
 
   return (
     <div className="flex items-center gap-[20px] text-[#47474f]">
       <button className="cursor-pointer rounded-lg border border-[#a5a3a1] p-[2px] text-[0.8rem] font-semibold text-[#a5a3a1]">
         MV
       </button>
-      <i className="fa-solid fa-microphone-lines flex size-[16px] cursor-pointer items-center justify-center"></i>
-      <div>
+      <FontAwesomeIcon icon={faMicrophone} className="cursor-pointer" />
+      <div className="cursor-pointer">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16px"
@@ -40,7 +48,7 @@ export const PlayerActions = () => {
           </g>
         </svg>
       </div>
-      <div className="flex items-center gap-3">
+      <div className="flex cursor-pointer items-center gap-3">
         {volume > 0 ? (
           <SpeakerWaveIcon className="size-[16px]" />
         ) : (
@@ -57,7 +65,10 @@ export const PlayerActions = () => {
         </div>
       </div>
       <div className="h-[33px] w-[1px] flex-shrink-0 bg-[#d2cfc6]"></div>
-      <button>
+      <button
+        className={`flex size-[28px] items-center justify-center rounded-[4px] ${showPlayList && "bg-[#644646] text-white"}`}
+        onClick={() => setShowPlayList(!showPlayList)}
+      >
         <ListBulletIcon className="size-[18px]" />
       </button>
     </div>
