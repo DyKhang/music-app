@@ -10,7 +10,6 @@ export interface SongReducer {
 }
 
 export interface initialState {
-  currentSong: SongReducer;
   songs: SongReducer[];
   status: "idle" | "loading";
   volume: number;
@@ -19,71 +18,25 @@ export interface initialState {
 }
 
 const initialState: initialState = {
-  currentSong: {
-    image: "",
-    name: "",
-    singer: "",
-    songUrl: "",
-    encodeId: "",
-  },
   songs: [
     {
+      encodeId: "Z7AD7A9Z",
       image:
-        "https://photo-resize-zmp3.zmdcdn.me/w240_r1x1_jpeg/cover/1/6/9/d/169db75865305cd8dd29019b4e704e8c.jpg",
-      encodeId: "Z7BZBE7E",
-      name: "Tình Đầu Quá Chén",
-      singer: "Nhiều nghệ sĩ",
-      songUrl: "Test",
-    },
-    {
-      image:
-        "https://photo-resize-zmp3.zmdcdn.me/w240_r1x1_jpeg/cover/1/6/9/d/169db75865305cd8dd29019b4e704e8c.jpg",
-      encodeId: "Z7BZBE7E",
-      name: "Tình Đầu Quá Chén",
-      singer: "Nhiều nghệ sĩ",
-      songUrl: "Test",
-    },
-    {
-      image:
-        "https://photo-resize-zmp3.zmdcdn.me/w240_r1x1_jpeg/cover/1/6/9/d/169db75865305cd8dd29019b4e704e8c.jpg",
-      encodeId: "Z7BZBE7E",
-      name: "Tình Đầu Quá Chén",
-      singer: "Nhiều nghệ sĩ",
-      songUrl: "Test",
-    },
-    {
-      image:
-        "https://photo-resize-zmp3.zmdcdn.me/w240_r1x1_jpeg/cover/1/6/9/d/169db75865305cd8dd29019b4e704e8c.jpg",
-      encodeId: "Z7BZBE7E",
-      name: "Tình Đầu Quá Chén",
-      singer: "Nhiều nghệ sĩ",
-      songUrl: "Test",
-    },
-    {
-      image:
-        "https://photo-resize-zmp3.zmdcdn.me/w240_r1x1_jpeg/cover/1/6/9/d/169db75865305cd8dd29019b4e704e8c.jpg",
-      encodeId: "Z7BZBE7E",
-      name: "Tình Đầu Quá Chén",
-      singer: "Nhiều nghệ sĩ",
-      songUrl: "Test",
-    },
-    {
-      image:
-        "https://photo-resize-zmp3.zmdcdn.me/w240_r1x1_jpeg/cover/1/6/9/d/169db75865305cd8dd29019b4e704e8c.jpg",
-      encodeId: "Z7BZBE7E",
-      name: "Tình Đầu Quá Chén",
-      singer: "Nhiều nghệ sĩ",
-      songUrl: "Test",
+        "https://photo-resize-zmp3.zmdcdn.me/w240_r1x1_jpeg/cover/2/d/2/6/2d26c133d28f2ebf7c2c2613b692b6a0.jpg",
+      name: "Không Ai Hiểu Được Em",
+      singer: "MYLINA, 4GOD",
+      songUrl:
+        "https://a128-z3.zmdcdn.me/dbbd1211e9bc44baa036a65a029d199a?authen=exp=1727553879~acl=/dbbd1211e9bc44baa036a65a029d199a*~hmac=0cbba328bf213388a737c999ba77c7cb",
     },
   ],
   status: "idle",
-  volume: 0.5,
+  volume: 0,
   isPlaying: false,
   currentIndex: 0,
 };
 
-export const getCurrentSong = createAsyncThunk(
-  "player/getCurrentSong",
+export const getSongReducer = createAsyncThunk(
+  "player/getSongReducer",
   async (id: string) => {
     const songRes = await musicApi.getSong(id);
     const songInfoRes = await musicApi.getInfoSong(id);
@@ -104,28 +57,45 @@ const playerSlice = createSlice({
     togglePlaying: (state, action) => {
       state.isPlaying = action.payload;
     },
+    previousSong: (state) => {
+      if (state.currentIndex > 0) {
+        state.currentIndex -= 1;
+      }
+    },
+    nextSong: (state) => {
+      if (state.currentIndex < state.songs.length - 1) {
+        state.currentIndex += 1;
+      }
+    },
   },
   extraReducers(builder) {
     builder
-      .addCase(getCurrentSong.fulfilled, (state, action) => {
-        state.currentSong.image = action.payload.songInfo.data.thumbnailM;
-        state.currentSong.name = action.payload.songInfo.data.title;
-        state.currentSong.singer = action.payload.songInfo.data.artistsNames;
-        state.currentSong.encodeId = action.payload.songInfo.data.encodeId;
+      .addCase(getSongReducer.fulfilled, (state, action) => {
+        const songUrl = action.payload.songUrl.data?.["128"];
+        const newSong: SongReducer = {
+          encodeId: action.payload.songInfo.data.encodeId,
+          image: action.payload.songInfo.data.thumbnailM,
+          name: action.payload.songInfo.data.title,
+          singer: action.payload.songInfo.data.artistsNames,
+          songUrl: songUrl ? songUrl : "./musics/premium.mp3",
+        };
+        const isAppeared =
+          state.songs.findIndex(
+            (song) => song.encodeId === newSong.encodeId,
+          ) !== -1;
 
-        const song = action.payload.songUrl.data?.["128"];
-        if (song) {
-          state.currentSong.songUrl = song;
-        } else {
-          state.currentSong.songUrl = "./musics/premium.mp3";
+        if (!isAppeared) {
+          state.songs.unshift(newSong);
+          state.currentIndex = 0;
+          state.status = "idle";
         }
-        state.status = "idle";
       })
-      .addCase(getCurrentSong.pending, (state) => {
+      .addCase(getSongReducer.pending, (state) => {
         state.status = "loading";
       });
   },
 });
-export const { changeVolume, togglePlaying } = playerSlice.actions;
+export const { changeVolume, togglePlaying, previousSong, nextSong } =
+  playerSlice.actions;
 
 export default playerSlice.reducer;

@@ -1,7 +1,7 @@
 import { faEllipsis, faPlay } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  getCurrentSong,
+  getSongReducer,
   togglePlaying,
 } from "../../../features/player/playerSlice";
 import { RootState, useAppDispatch } from "../../../store";
@@ -9,8 +9,9 @@ import { useSelector } from "react-redux";
 import { AudioAnimation } from "../../../components/AudioAnimation";
 import { PopOvers } from "../../../components/PopOvers";
 import { NewReleasePop } from "./NewReleasePop";
-import { NewReleasesItemChild } from "../../../api/homeApi";
+import { NewReleasesItemChild, StreamingStatus } from "../../../api/homeApi";
 import { PremiumIcon } from "../../../components/PremiumIcon";
+import { currentSongSelector } from "../../../features/player/selectors";
 
 interface Props {
   data: NewReleasesItemChild;
@@ -19,9 +20,8 @@ interface Props {
 export const NewReleaseItem: React.FC<Props> = ({ data }) => {
   const { title, artists, encodeId, releaseDate, thumbnailM, streamingStatus } =
     data;
-  const currentEncodeId = useSelector(
-    (state: RootState) => state.player.currentSong.encodeId,
-  );
+  const currentSong = useSelector(currentSongSelector);
+  const currentEncodeId = currentSong.encodeId;
   const currentPlay = currentEncodeId === encodeId;
   const isPlaying = useSelector((state: RootState) => state.player.isPlaying);
 
@@ -48,7 +48,7 @@ export const NewReleaseItem: React.FC<Props> = ({ data }) => {
 
   function handleClickImg() {
     if (!currentPlay) {
-      dispatch(getCurrentSong(encodeId));
+      dispatch(getSongReducer(encodeId));
     } else {
       if (isPlaying) {
         dispatch(togglePlaying(false));
@@ -86,7 +86,8 @@ export const NewReleaseItem: React.FC<Props> = ({ data }) => {
       </div>
       <div className="flex flex-col gap-[3px]">
         <span className="flex cursor-pointer items-center gap-[8px] text-[1.4rem] font-[500] hover:text-[#844d4d]">
-          {newTile} {streamingStatus === 2 && <PremiumIcon />}
+          {newTile}
+          {streamingStatus === StreamingStatus.premium && <PremiumIcon />}
         </span>
         <span className="cursor-pointer text-[1.2rem] text-[#696969] hover:text-[#844d4d] hover:underline">
           {artistsStrings}

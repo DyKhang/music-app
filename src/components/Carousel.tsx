@@ -71,21 +71,19 @@ export const Carousel: React.FC<Props> = ({ data }) => {
   }, []);
 
   return (
-    <div>
-      <section className="relative mt-[32px] flex overflow-hidden">
-        {data?.items?.map((item, index) => (
-          <div
-            className="w-[33.3%] flex-shrink-0 px-[15px]"
-            key={item.banner}
-            ref={(el) => (slideItemRef.current[index] = el)}
-          >
-            <img
-              src={item.banner}
-              className="w-full rounded-[8px] object-cover"
-            />
-          </div>
-        ))}
-      </section>
-    </div>
+    <section className="relative mt-[32px] flex overflow-hidden">
+      {data?.items?.map((item, index) => (
+        <div
+          className="w-[33.3%] flex-shrink-0 px-[15px]"
+          key={item.banner}
+          ref={(el) => (slideItemRef.current[index] = el)}
+        >
+          <img
+            src={item.banner}
+            className="w-full rounded-[8px] object-cover"
+          />
+        </div>
+      ))}
+    </section>
   );
 };

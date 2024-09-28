@@ -1,12 +1,11 @@
 import { useSelector } from "react-redux";
 import { Outlet } from "react-router";
-import { RootState } from "../store";
 import { useEffect, useRef } from "react";
+import { currentSongSelector } from "../features/player/selectors";
 
 export const Main = () => {
-  const songName = useSelector(
-    (state: RootState) => state.player.currentSong.name,
-  );
+  const currentSong = useSelector(currentSongSelector);
+  const songName = currentSong.name;
   const mainRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const headerElement = document.querySelector("header");

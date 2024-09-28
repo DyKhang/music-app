@@ -8,30 +8,24 @@ import { useState } from "react";
 import { MusicPlayer } from "../features/player/MusicPlayer";
 import { PlayerActions } from "../features/player/PlayerActions";
 import { useSelector } from "react-redux";
-import { RootState } from "../store";
 
 import { PlayListSideBar } from "./PlayListSideBar";
 import { PremiumIcon } from "../components/PremiumIcon";
 import { PremiumUpdateTag } from "../components/PremiumUpdateTag";
+import { currentSongSelector } from "../features/player/selectors";
 
 export const Player = () => {
   const [showPlayList, setShowPlayList] = useState(false);
-
-  const songName = useSelector(
-    (state: RootState) => state.player.currentSong.name,
-  );
-
-  const singer = useSelector(
-    (state: RootState) => state.player.currentSong.singer,
-  );
-
-  const img = useSelector((state: RootState) => state.player.currentSong.image);
-
-  const isPremium = useSelector(
-    (state: RootState) => state.player.currentSong.songUrl,
-  ).includes("musics/premium.mp3");
-
+  const currentSong = useSelector(currentSongSelector);
   const [isLove, setLove] = useState(false);
+
+  const songName = currentSong.name;
+
+  const singer = currentSong.singer;
+
+  const img = currentSong.image;
+
+  const isPremium = currentSong.songUrl.includes("musics/premium.mp3");
 
   function handleToggleLove() {
     setLove(!isLove);
@@ -50,7 +44,7 @@ export const Player = () => {
         </span>
       </div>
       <div
-        className={`fixed ${songName && "translate-y-[-90px]"} bottom-[-90px] z-50 w-full bg-[#dddad1] transition duration-300`}
+        className={`fixed ${songName && "translate-y-[-90px]"} bottom-[-90px] z-[56] w-full bg-[#dddad1] transition duration-300`}
       >
         <div className="flex h-[90px] select-none items-center justify-between px-[20px]">
           <div className="flex items-center">

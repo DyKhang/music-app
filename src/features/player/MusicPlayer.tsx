@@ -3,17 +3,17 @@ import { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store";
 import { useDispatch } from "react-redux";
-import { togglePlaying } from "./playerSlice";
+import { nextSong, previousSong, togglePlaying } from "./playerSlice";
 import { LoaderSmall } from "../../components/LoaderSmall";
+import { currentSongSelector } from "./selectors";
 
 export const MusicPlayer = () => {
   const [isShuffle, setIsShuffle] = useState(false);
   const [isReplay, setIsReplay] = useState(false);
   const [range, setRange] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
-  const songUrl = useSelector(
-    (state: RootState) => state.player.currentSong.songUrl,
-  );
+  const currentSong = useSelector(currentSongSelector);
+  const songUrl = currentSong.songUrl;
   const dispatch: AppDispatch = useDispatch();
   const songRef = useRef(new Audio());
 
@@ -24,6 +24,12 @@ export const MusicPlayer = () => {
   const loading = useSelector((state: RootState) => state.player.status);
   const minutes = Math.floor(songRef.current.duration / 60);
   const seconds = Math.floor(songRef.current.duration % 60);
+  const currentIndex = useSelector(
+    (state: RootState) => state.player.currentIndex,
+  );
+  const songLength = useSelector(
+    (state: RootState) => state.player.songs,
+  ).length;
 
   // play lại bài hát khi isReplay là đúng
   useEffect(() => {
@@ -45,7 +51,7 @@ export const MusicPlayer = () => {
 
   // Xử lý khi change thanh volume
   useEffect(() => {
-    songRef.current.volume = volume;
+    songRef.current.volume = volume / 100;
   }, [volume]);
 
   // Tự động set thanh tiến độ bài hát khi currentTime thay đổi
@@ -102,6 +108,15 @@ export const MusicPlayer = () => {
       songRef.current.play();
     }
   }
+
+  function handlePreviousSong() {
+    dispatch(previousSong());
+  }
+
+  function handleNextSong() {
+    dispatch(nextSong());
+  }
+
   return (
     <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
       <div className="flex items-center justify-center gap-16 text-[1.8rem]">
@@ -111,7 +126,10 @@ export const MusicPlayer = () => {
           }`}
           onClick={handleToggleShuffle}
         ></i>
-        <i className="fa-solid fa-backward-step cursor-pointer"></i>
+        <i
+          className={`fa-solid fa-backward-step ${currentIndex === 0 ? "cursor-not-allowed opacity-20" : "cursor-pointer"}`}
+          onClick={handlePreviousSong}
+        ></i>
         <div
           className="flex size-[40px] cursor-pointer items-center justify-center rounded-full border-[2px] border-[#42424b]"
           onClick={handlePlaySong}
@@ -119,12 +137,15 @@ export const MusicPlayer = () => {
           {loading === "loading" ? (
             <LoaderSmall />
           ) : isPlay ? (
-            <PauseIcon className="size-[22px] translate-x-[-0.5px]" />
+            <PauseIcon className="translate-[-0.5px] size-[22px]" />
           ) : (
             <PlayIcon className="size-[22px] translate-x-[1px]" />
           )}
         </div>
-        <i className="fa-solid fa-forward-step cursor-pointer"></i>
+        <i
+          className={`fa-solid fa-forward-step ${currentIndex === songLength - 1 ? "cursor-not-allowed opacity-20" : "cursor-pointer"}`}
+          onClick={handleNextSong}
+        ></i>
         <i
           className={`fa-solid fa-arrow-rotate-left cursor-pointer ${
             isReplay && "text-[#7f4d4d]"

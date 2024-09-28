@@ -58,8 +58,9 @@ export const PlayerActions: React.FC<Props> = ({
           <input
             type="range"
             className="range"
+            value={volume}
             onChange={(e) => {
-              dispatch(changeVolume(Number(e.target.value)));
+              dispatch(changeVolume(Number(e.target.value) * 100));
             }}
           />
         </div>

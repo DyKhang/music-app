@@ -18,11 +18,11 @@ export const SideBarItem: React.FC<Props> = ({ song }) => {
           className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 text-white group-hover/tag:block"
         />
       </div>
-      <div className="flex flex-col gap-[3px]">
-        <span className="cursor-pointer text-[1.4rem] font-[500] hover:text-[#844d4d]">
+      <div className="flex w-[51%] flex-col gap-[3px]">
+        <span className="playlist-item__title cursor-pointer text-[1.4rem] font-[500] hover:text-[#844d4d]">
           {song.name}
         </span>
-        <span className="cursor-pointer text-[1.2rem] text-[#696969] hover:text-[#844d4d] hover:underline">
+        <span className="playlist-item__title cursor-pointer text-[1.2rem] text-[#696969] hover:text-[#844d4d] hover:underline">
           {song.singer}
         </span>
       </div>

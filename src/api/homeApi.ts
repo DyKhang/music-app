@@ -21,6 +21,11 @@ export interface BannerType {
   items: BannerItemChild[];
 }
 
+export enum StreamingStatus {
+  normal = 1,
+  premium = 2,
+}
+
 export interface NewReleasesItemChild {
   encodeId: string;
   title: string;
@@ -56,7 +61,7 @@ export interface NewReleasesItemChild {
   genreIds: string[];
   distributor: string;
   isIndie: boolean;
-  streamingStatus: number;
+  streamingStatus: StreamingStatus;
   allowAudioAds: boolean;
   hasLyric: boolean;
 }

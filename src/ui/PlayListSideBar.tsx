@@ -16,7 +16,7 @@ export const PlayListSideBar: React.FC<Props> = ({ isShow }) => {
 
   return (
     <section
-      className={`fixed right-[-330px] ${isShow && "translate-x-[-330px]"} z-55 top-0 h-screen w-[330px] bg-[#e5e3df] px-[8px] pb-[150px] pt-[14px] shadow-2xl transition duration-700`}
+      className={`fixed right-[-330px] ${isShow && "translate-x-[-330px]"} top-0 z-[55] h-screen w-[330px] bg-[#e5e3df] px-[8px] pb-[150px] pt-[14px] shadow-2xl transition duration-700`}
     >
       <div className="flex items-center justify-between">
         <div className="flex rounded-full bg-[rgba(0,0,0,0.05)] p-[3px]">

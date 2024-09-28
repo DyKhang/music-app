@@ -9,7 +9,7 @@ export interface Song {
   timestamp: number;
 }
 
-interface Artist {
+export interface Artist {
   id: string;
   name: string;
   link: string;
@@ -23,7 +23,7 @@ interface Artist {
   totalFollow: number;
 }
 
-interface Genre {
+export interface Genre {
   id: string;
   name: string;
   title: string;
@@ -31,7 +31,7 @@ interface Genre {
   link: string;
 }
 
-interface Composer {
+export interface Composer {
   id: string;
   name: string;
   link: string;
@@ -43,7 +43,7 @@ interface Composer {
   totalFollow: number;
 }
 
-interface Album {
+export interface Album {
   encodeId: string;
   title: string;
   thumbnail: string;
