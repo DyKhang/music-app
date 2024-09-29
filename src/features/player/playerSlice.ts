@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { musicApi } from "../../api/musicApi";
+import toast from "react-hot-toast";
 
 export interface SongReducer {
   singer: string;
@@ -20,13 +21,11 @@ export interface initialState {
 const initialState: initialState = {
   songs: [
     {
-      encodeId: "Z7AD7A9Z",
-      image:
-        "https://photo-resize-zmp3.zmdcdn.me/w240_r1x1_jpeg/cover/2/d/2/6/2d26c133d28f2ebf7c2c2613b692b6a0.jpg",
-      name: "Không Ai Hiểu Được Em",
-      singer: "MYLINA, 4GOD",
-      songUrl:
-        "https://a128-z3.zmdcdn.me/dbbd1211e9bc44baa036a65a029d199a?authen=exp=1727553879~acl=/dbbd1211e9bc44baa036a65a029d199a*~hmac=0cbba328bf213388a737c999ba77c7cb",
+      encodeId: "",
+      image: "",
+      name: "",
+      singer: "",
+      songUrl: "",
     },
   ],
   status: "idle",
@@ -37,13 +36,13 @@ const initialState: initialState = {
 
 export const getSongReducer = createAsyncThunk(
   "player/getSongReducer",
-  async (id: string) => {
+  async ({ id, type }: { id: string; type: "play" | "next" }) => {
     const songRes = await musicApi.getSong(id);
     const songInfoRes = await musicApi.getInfoSong(id);
     const songUrl = songRes.data;
     const songInfo = songInfoRes.data;
 
-    return { songUrl, songInfo };
+    return { songUrl, songInfo, type };
   },
 );
 
@@ -51,11 +50,11 @@ const playerSlice = createSlice({
   name: "player",
   initialState,
   reducers: {
-    changeVolume: (state, action) => {
-      state.volume = action.payload / 100;
+    changeVolume: (state, { payload }: { payload: number }) => {
+      state.volume = payload / 100;
     },
-    togglePlaying: (state, action) => {
-      state.isPlaying = action.payload;
+    togglePlaying: (state, { payload }: { payload: boolean }) => {
+      state.isPlaying = payload;
     },
     previousSong: (state) => {
       if (state.currentIndex > 0) {
@@ -66,6 +65,9 @@ const playerSlice = createSlice({
       if (state.currentIndex < state.songs.length - 1) {
         state.currentIndex += 1;
       }
+    },
+    selectSong: (state, { payload }: { payload: number }) => {
+      state.currentIndex = payload;
     },
   },
   extraReducers(builder) {
@@ -79,23 +81,44 @@ const playerSlice = createSlice({
           singer: action.payload.songInfo.data.artistsNames,
           songUrl: songUrl ? songUrl : "./musics/premium.mp3",
         };
-        const isAppeared =
-          state.songs.findIndex(
-            (song) => song.encodeId === newSong.encodeId,
-          ) !== -1;
+        // const isAppeared =
+        //   state.songs.findIndex(
+        //     (song) => song.encodeId === newSong.encodeId,
+        //   ) !== -1;
 
-        if (!isAppeared) {
-          state.songs.unshift(newSong);
+        // if (!isAppeared) {
+        //   state.songs.unshift(newSong);
+        //   state.currentIndex = 0;
+        //   state.status = "idle";
+        // }
+
+        if (action.payload.type === "play") {
+          state.songs = [newSong];
           state.currentIndex = 0;
-          state.status = "idle";
+        } else if (action.payload.type === "next") {
+          const isHadSongInSongs = state.songs[state.currentIndex].name; // check if there is any song in the list (the first time you come in)
+
+          if (!isHadSongInSongs) {
+            state.songs = [newSong];
+          } else {
+            state.songs.push(newSong);
+          }
+          toast.success("Đã thêm bài hát vào danh sách phát");
         }
+
+        state.status = "idle";
       })
       .addCase(getSongReducer.pending, (state) => {
         state.status = "loading";
       });
   },
 });
-export const { changeVolume, togglePlaying, previousSong, nextSong } =
-  playerSlice.actions;
+export const {
+  changeVolume,
+  togglePlaying,
+  previousSong,
+  nextSong,
+  selectSong,
+} = playerSlice.actions;
 
 export default playerSlice.reducer;

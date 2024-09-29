@@ -5,6 +5,7 @@ import { useState } from "react";
 import { SideBarItem } from "../components/SideBarItem";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
+import { currentSongSelector } from "../features/player/selectors";
 
 interface Props {
   isShow: boolean;
@@ -13,6 +14,7 @@ interface Props {
 export const PlayListSideBar: React.FC<Props> = ({ isShow }) => {
   const [state, setState] = useState<"playlist" | "recent">("playlist");
   const songs = useSelector((state: RootState) => state.player.songs);
+  const currentSong = useSelector(currentSongSelector);
 
   return (
     <section
@@ -41,36 +43,22 @@ export const PlayListSideBar: React.FC<Props> = ({ isShow }) => {
         </div>
       </div>
 
-      <div className="mt-[22px] h-full overflow-y-scroll">
+      <div className="mt-[14px] h-full overflow-y-scroll">
         <div>
           {songs.map((song) => (
             <SideBarItem key={song.encodeId} song={song} />
           ))}
         </div>
-        <div className="sticky top-0 z-[1] bg-[#e5e3df] px-[8px] pb-[5px] pt-[15px]">
-          <h3 className="text-[1.4rem] font-[700]">Tiếp theo</h3>
-          <div className="text-[1.4rem]">
-            <span className="text-[rgba(20,20,20,0.4)]">
-              Từ danh sách bài hát
-            </span>
-            <a href="#!" className="ml-[5px] font-[500] text-[#844d4d]">
-              Mới phát hành
-            </a>
-          </div>
+        <h3 className="sticky top-0 z-[1] bg-[#e5e3df] px-[8px] pb-[5px] pt-[15px] text-[1.4rem] font-[700]">
+          Tiếp theo
+        </h3>
+        <div className="">
+          {songs
+            .filter((song) => song.encodeId !== currentSong.encodeId)
+            .map((song) => (
+              <SideBarItem key={song.encodeId} song={song} />
+            ))}
         </div>
-        {/* <div className="mt-[5px]">
-          <SideBarItem />
-          <SideBarItem />
-          <SideBarItem />
-          <SideBarItem />
-          <SideBarItem />
-          <SideBarItem />
-          <SideBarItem />
-          <SideBarItem />
-          <SideBarItem />
-          <SideBarItem />
-          <SideBarItem />
-        </div> */}
       </div>
     </section>
   );

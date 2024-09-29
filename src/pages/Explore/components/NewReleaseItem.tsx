@@ -48,7 +48,7 @@ export const NewReleaseItem: React.FC<Props> = ({ data }) => {
 
   function handleClickImg() {
     if (!currentPlay) {
-      dispatch(getSongReducer(encodeId));
+      dispatch(getSongReducer({ id: encodeId, type: "play" }));
     } else {
       if (isPlaying) {
         dispatch(togglePlaying(false));

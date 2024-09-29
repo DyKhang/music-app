@@ -12,18 +12,16 @@ export const MusicPlayer = () => {
   const [isReplay, setIsReplay] = useState(false);
   const [range, setRange] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
-  const currentSong = useSelector(currentSongSelector);
-  const songUrl = currentSong.songUrl;
+
   const dispatch: AppDispatch = useDispatch();
   const songRef = useRef(new Audio());
 
+  const currentSong = useSelector(currentSongSelector);
   const volume = useSelector((state: RootState) => state.player.volume);
-
   const isPlay = useSelector((state: RootState) => state.player.isPlaying);
-
   const loading = useSelector((state: RootState) => state.player.status);
-  const minutes = Math.floor(songRef.current.duration / 60);
-  const seconds = Math.floor(songRef.current.duration % 60);
+  const songUrl = currentSong.songUrl;
+
   const currentIndex = useSelector(
     (state: RootState) => state.player.currentIndex,
   );
@@ -31,30 +29,47 @@ export const MusicPlayer = () => {
     (state: RootState) => state.player.songs,
   ).length;
 
-  // play lại bài hát khi isReplay là đúng
+  // Checks when has isPlay the song will be play and vice versa, used when isPlay state is changed elsewhere
   useEffect(() => {
-    if (isReplay) {
-      songRef.current.onended = () => {
-        songRef.current.play();
-      };
+    if (isPlay) {
+      songRef.current.play();
     } else {
-      songRef.current.onended = () => null;
+      songRef.current.pause();
     }
-  }, [isReplay]);
+  }, [isPlay]);
 
-  // Set lại url của bài hát khi có bài hát mới thay đổi
+  // Handle event when the song ended
+  useEffect(() => {
+    const songElement = songRef.current;
+
+    function handleEndSong() {
+      if (isReplay) {
+        songElement.play();
+      } else {
+        dispatch(nextSong());
+      }
+    }
+
+    songElement.addEventListener("ended", handleEndSong);
+
+    return () => {
+      songElement.removeEventListener("ended", handleEndSong);
+    };
+  }, [isReplay, dispatch]);
+
+  // When has the new song, the url of the song will be changed
   useEffect(() => {
     songRef.current.src = songUrl;
     dispatch(togglePlaying(true));
     songRef.current.play();
   }, [songUrl, dispatch]);
 
-  // Xử lý khi change thanh volume
+  // Handle change volume range
   useEffect(() => {
     songRef.current.volume = volume / 100;
   }, [volume]);
 
-  // Tự động set thanh tiến độ bài hát khi currentTime thay đổi
+  // Auto change song progress bar when currentTime changed
   useEffect(() => {
     function handleSetRange() {
       setRange((songRef.current.currentTime / songRef.current.duration) * 100);
@@ -68,15 +83,6 @@ export const MusicPlayer = () => {
       clearInterval(id);
     };
   }, [songRef.current.currentTime, songRef.current.duration]);
-
-  // Kiểm tra khi có isPlay thì bài hát sẽ được play và ngược lại, dùng khi trạng thái isPlay bị thay đổi ở các nơi khác
-  useEffect(() => {
-    if (isPlay) {
-      songRef.current.play();
-    } else {
-      songRef.current.pause();
-    }
-  }, [isPlay]);
 
   useEffect(() => {
     setCurrentTime(Math.floor(songRef.current.currentTime));
@@ -98,14 +104,11 @@ export const MusicPlayer = () => {
     setIsReplay(!isReplay);
   }
 
-  // Sự kiện play và dừng bài hát khi click
   function handlePlaySong() {
     if (isPlay) {
       dispatch(togglePlaying(false));
-      songRef.current.pause();
     } else {
       dispatch(togglePlaying(true));
-      songRef.current.play();
     }
   }
 
@@ -166,7 +169,7 @@ export const MusicPlayer = () => {
         <span className="text-[1.2rem] text-[#32323d]">
           {loading === "loading"
             ? "00:00"
-            : `${minutes < 10 ? `0${minutes}` : minutes}:${seconds < 10 ? `0${seconds}` : seconds}`}
+            : formatTime(songRef.current.duration)}
         </span>
       </div>
     </div>

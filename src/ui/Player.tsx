@@ -16,16 +16,11 @@ import { currentSongSelector } from "../features/player/selectors";
 
 export const Player = () => {
   const [showPlayList, setShowPlayList] = useState(false);
-  const currentSong = useSelector(currentSongSelector);
   const [isLove, setLove] = useState(false);
+  const currentSong = useSelector(currentSongSelector);
 
-  const songName = currentSong.name;
-
-  const singer = currentSong.singer;
-
-  const img = currentSong.image;
-
-  const isPremium = currentSong.songUrl.includes("musics/premium.mp3");
+  const { image, name, singer, songUrl } = currentSong;
+  const isPremium = songUrl.includes("musics/premium.mp3");
 
   function handleToggleLove() {
     setLove(!isLove);
@@ -34,7 +29,7 @@ export const Player = () => {
   return (
     <>
       <div
-        className={`group/new-playlist fixed ${songName && "translate-y-[-90px]"} bottom-[0px] left-0 z-50 flex w-[240px] cursor-pointer items-center gap-3 border-t-[1px] border-[#c3c1be] bg-[#d9d7d4] px-[24px] py-[16px] transition duration-300`}
+        className={`group/new-playlist fixed ${name && "translate-y-[-90px]"} bottom-[0px] left-0 z-50 flex w-[240px] cursor-pointer items-center gap-3 border-t-[1px] border-[#c3c1be] bg-[#d9d7d4] px-[24px] py-[16px] transition duration-300`}
       >
         <div className="flex flex-shrink-0 items-center justify-center rounded-xl bg-[#b2b0ae] p-[2px]">
           <PlusIcon className="size-[20px] text-white transition-transform duration-[300ms] group-hover/new-playlist:scale-[80%]" />
@@ -44,18 +39,18 @@ export const Player = () => {
         </span>
       </div>
       <div
-        className={`fixed ${songName && "translate-y-[-90px]"} bottom-[-90px] z-[56] w-full bg-[#dddad1] transition duration-300`}
+        className={`fixed ${name && "translate-y-[-90px]"} bottom-[-90px] z-[56] w-full bg-[#dddad1] transition duration-300`}
       >
         <div className="flex h-[90px] select-none items-center justify-between px-[20px]">
           <div className="flex items-center">
             <img
-              src={img}
-              alt={songName}
+              src={image}
+              alt={name}
               className="size-[64px] rounded-[5px] object-cover"
             />
             <div className="ml-4 flex flex-col">
               <span className="flex items-center gap-[8px] text-[1.4rem] font-[500]">
-                {songName} {isPremium && <PremiumIcon />}
+                {name} {isPremium && <PremiumIcon />}
               </span>
               <span className="text-[1.2rem] text-[#696969]">{singer}</span>
             </div>
