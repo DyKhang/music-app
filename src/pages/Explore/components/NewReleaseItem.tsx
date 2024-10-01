@@ -80,7 +80,7 @@ export const NewReleaseItem: React.FC<Props> = ({ data }) => {
         ) : (
           <FontAwesomeIcon
             icon={faPlay}
-            className={`absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 text-white group-hover/tag:block`}
+            className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 text-white group-hover/tag:block"
           />
         )}
       </div>

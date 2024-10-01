@@ -5,7 +5,6 @@ import { useState } from "react";
 import { SideBarItem } from "../components/SideBarItem";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
-import { currentSongSelector } from "../features/player/selectors";
 
 interface Props {
   isShow: boolean;
@@ -14,7 +13,8 @@ interface Props {
 export const PlayListSideBar: React.FC<Props> = ({ isShow }) => {
   const [state, setState] = useState<"playlist" | "recent">("playlist");
   const songs = useSelector((state: RootState) => state.player.songs);
-  const currentSong = useSelector(currentSongSelector);
+  const playedSongs = songs.filter((song) => song.isPlayed);
+  const unPlayedSongs = songs.filter((song) => !song.isPlayed);
 
   return (
     <section
@@ -44,21 +44,17 @@ export const PlayListSideBar: React.FC<Props> = ({ isShow }) => {
       </div>
 
       <div className="mt-[14px] h-full overflow-y-scroll">
-        <div>
-          {songs.map((song) => (
-            <SideBarItem key={song.encodeId} song={song} />
-          ))}
-        </div>
-        <h3 className="sticky top-0 z-[1] bg-[#e5e3df] px-[8px] pb-[5px] pt-[15px] text-[1.4rem] font-[700]">
-          Tiếp theo
-        </h3>
-        <div className="">
-          {songs
-            .filter((song) => song.encodeId !== currentSong.encodeId)
-            .map((song) => (
-              <SideBarItem key={song.encodeId} song={song} />
-            ))}
-        </div>
+        {playedSongs.map((song) => (
+          <SideBarItem key={song.encodeId} song={song} />
+        ))}
+        {unPlayedSongs[0] && (
+          <h3 className="sticky top-0 z-[1] bg-[#e5e3df] px-[8px] pb-[5px] pt-[15px] text-[1.4rem] font-[700]">
+            Tiếp theo
+          </h3>
+        )}
+        {unPlayedSongs.map((song) => (
+          <SideBarItem key={song.encodeId} song={song} />
+        ))}
       </div>
     </section>
   );

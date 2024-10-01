@@ -8,6 +8,7 @@ export interface SongReducer {
   image: string;
   songUrl: string;
   encodeId: string;
+  isPlayed: boolean;
 }
 
 export interface initialState {
@@ -16,6 +17,10 @@ export interface initialState {
   volume: number;
   isPlaying: boolean;
   currentIndex: number;
+  replayStatus: {
+    replay: ["none", "replayList", "replaySong"];
+    currentIndex: number;
+  };
 }
 
 const initialState: initialState = {
@@ -26,17 +31,28 @@ const initialState: initialState = {
       name: "",
       singer: "",
       songUrl: "",
+      isPlayed: false,
     },
   ],
   status: "idle",
-  volume: 0,
+  volume: 50,
   isPlaying: false,
   currentIndex: 0,
+  replayStatus: {
+    replay: ["none", "replayList", "replaySong"],
+    currentIndex: 0,
+  },
 };
 
 export const getSongReducer = createAsyncThunk(
   "player/getSongReducer",
-  async ({ id, type }: { id: string; type: "play" | "next" }) => {
+  async ({
+    id,
+    type,
+  }: {
+    id: string;
+    type: "play" | "addBottom" | "addNext";
+  }) => {
     const songRes = await musicApi.getSong(id);
     const songInfoRes = await musicApi.getInfoSong(id);
     const songUrl = songRes.data;
@@ -56,18 +72,34 @@ const playerSlice = createSlice({
     togglePlaying: (state, { payload }: { payload: boolean }) => {
       state.isPlaying = payload;
     },
+    changeReplayStatus: (state) => {
+      state.replayStatus.currentIndex =
+        state.replayStatus.currentIndex >= 2
+          ? 0
+          : (state.replayStatus.currentIndex += 1);
+    },
     previousSong: (state) => {
       if (state.currentIndex > 0) {
+        state.songs[state.currentIndex].isPlayed = false;
         state.currentIndex -= 1;
       }
     },
     nextSong: (state) => {
       if (state.currentIndex < state.songs.length - 1) {
+        state.songs[state.currentIndex].isPlayed = true;
         state.currentIndex += 1;
       }
     },
-    selectSong: (state, { payload }: { payload: number }) => {
+    selectSongInPlayList: (state, { payload }: { payload: number }) => {
+      state.songs = state.songs.map((song, index) =>
+        index <= payload
+          ? { ...song, isPlayed: true }
+          : { ...song, isPlayed: false },
+      );
       state.currentIndex = payload;
+    },
+    setIsPlayed: (state, { payload }: { payload: boolean }) => {
+      state.songs[state.currentIndex].isPlayed = payload;
     },
   },
   extraReducers(builder) {
@@ -80,32 +112,43 @@ const playerSlice = createSlice({
           name: action.payload.songInfo.data.title,
           singer: action.payload.songInfo.data.artistsNames,
           songUrl: songUrl ? songUrl : "./musics/premium.mp3",
+          isPlayed: false,
         };
-        // const isAppeared =
-        //   state.songs.findIndex(
-        //     (song) => song.encodeId === newSong.encodeId,
-        //   ) !== -1;
-
-        // if (!isAppeared) {
-        //   state.songs.unshift(newSong);
-        //   state.currentIndex = 0;
-        //   state.status = "idle";
-        // }
 
         if (action.payload.type === "play") {
           state.songs = [newSong];
           state.currentIndex = 0;
-        } else if (action.payload.type === "next") {
+        } else {
           const isHadSongInSongs = state.songs[state.currentIndex].name; // check if there is any song in the list (the first time you come in)
 
           if (!isHadSongInSongs) {
             state.songs = [newSong];
           } else {
-            state.songs.push(newSong);
+            const isAppeared =
+              state.songs.findIndex(
+                (song) => song.encodeId === newSong.encodeId,
+              ) !== -1;
+
+            if (!isAppeared) {
+              if (action.payload.type === "addBottom") {
+                state.songs.push(newSong);
+              } else if (action.payload.type === "addNext") {
+                state.songs.splice(state.currentIndex + 1, 0, newSong);
+              }
+            } else {
+              toast("Bài hát đã có sẵn trong danh sách", {
+                icon: "🤒",
+                position: "bottom-left",
+                style: {
+                  padding: "12px",
+                },
+              });
+              state.status = "idle";
+              return;
+            }
           }
           toast.success("Đã thêm bài hát vào danh sách phát");
         }
-
         state.status = "idle";
       })
       .addCase(getSongReducer.pending, (state) => {
@@ -118,7 +161,9 @@ export const {
   togglePlaying,
   previousSong,
   nextSong,
-  selectSong,
+  selectSongInPlayList,
+  setIsPlayed,
+  changeReplayStatus,
 } = playerSlice.actions;
 
 export default playerSlice.reducer;

@@ -16,6 +16,7 @@ import { SwatchIcon } from "@heroicons/react/24/outline";
 import { StarIcon } from "@heroicons/react/24/outline";
 import { UpdateAccount } from "../components/UpdateAccount";
 import { ClockIcon } from "@heroicons/react/24/outline";
+import logo from "../../public/logo-light.svg";
 
 export const SideBar = () => {
   return (
@@ -24,7 +25,7 @@ export const SideBar = () => {
         to="/"
         className="flex items-center justify-center p-5 opacity-80 transition-opacity duration-[0.5s] hover:opacity-100"
       >
-        <img src="./logo-light.svg" alt="" className="w-[150px] object-cover" />
+        <img src={logo} alt="" className="w-[150px] object-cover" />
       </Link>
       <div>
         <NavLinkEle

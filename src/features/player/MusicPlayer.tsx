@@ -1,25 +1,29 @@
 import { PauseIcon, PlayIcon } from "@heroicons/react/24/solid";
 import { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../store";
-import { useDispatch } from "react-redux";
-import { nextSong, previousSong, togglePlaying } from "./playerSlice";
+import { RootState, useAppDispatch } from "../../store";
+import {
+  changeReplayStatus,
+  nextSong,
+  previousSong,
+  setIsPlayed,
+  togglePlaying,
+} from "./playerSlice";
 import { LoaderSmall } from "../../components/LoaderSmall";
-import { currentSongSelector } from "./selectors";
+import { currentSongSelector, replayStatusSelector } from "./selectors";
 
 export const MusicPlayer = () => {
   const [isShuffle, setIsShuffle] = useState(false);
-  const [isReplay, setIsReplay] = useState(false);
+  const replayStatus = useSelector(replayStatusSelector);
   const [range, setRange] = useState(0);
-  const [currentTime, setCurrentTime] = useState(0);
-
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const songRef = useRef(new Audio());
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   const currentSong = useSelector(currentSongSelector);
   const volume = useSelector((state: RootState) => state.player.volume);
   const isPlay = useSelector((state: RootState) => state.player.isPlaying);
-  const loading = useSelector((state: RootState) => state.player.status);
+  const status = useSelector((state: RootState) => state.player.status);
   const songUrl = currentSong.songUrl;
 
   const currentIndex = useSelector(
@@ -43,7 +47,7 @@ export const MusicPlayer = () => {
     const songElement = songRef.current;
 
     function handleEndSong() {
-      if (isReplay) {
+      if (replayStatus === "replaySong") {
         songElement.play();
       } else {
         dispatch(nextSong());
@@ -55,12 +59,13 @@ export const MusicPlayer = () => {
     return () => {
       songElement.removeEventListener("ended", handleEndSong);
     };
-  }, [isReplay, dispatch]);
+  }, [dispatch, replayStatus]);
 
-  // When has the new song, the url of the song will be changed
+  // When has the new song, the url of the songRef will be changed
   useEffect(() => {
     songRef.current.src = songUrl;
     dispatch(togglePlaying(true));
+    dispatch(setIsPlayed(true));
     songRef.current.play();
   }, [songUrl, dispatch]);
 
@@ -71,22 +76,19 @@ export const MusicPlayer = () => {
 
   // Auto change song progress bar when currentTime changed
   useEffect(() => {
+    const songElement = songRef.current;
     function handleSetRange() {
       setRange((songRef.current.currentTime / songRef.current.duration) * 100);
+
+      inputRef.current!.style.background = `linear-gradient(to right, #614646 ${inputRef.current?.value}%, #c6c4bc ${inputRef.current?.value}%)`;
     }
 
-    const id = setInterval(() => {
-      handleSetRange();
-    }, 200);
+    songElement.addEventListener("timeupdate", handleSetRange);
 
     return () => {
-      clearInterval(id);
+      songElement.removeEventListener("timeupdate", handleSetRange);
     };
-  }, [songRef.current.currentTime, songRef.current.duration]);
-
-  useEffect(() => {
-    setCurrentTime(Math.floor(songRef.current.currentTime));
-  }, [songRef.current.currentTime]);
+  }, [range]);
 
   function formatTime(time: number) {
     const minutes = Math.floor(time / 60);
@@ -101,7 +103,7 @@ export const MusicPlayer = () => {
   }
 
   function handleToggleReplay() {
-    setIsReplay(!isReplay);
+    dispatch(changeReplayStatus());
   }
 
   function handlePlaySong() {
@@ -137,7 +139,7 @@ export const MusicPlayer = () => {
           className="flex size-[40px] cursor-pointer items-center justify-center rounded-full border-[2px] border-[#42424b]"
           onClick={handlePlaySong}
         >
-          {loading === "loading" ? (
+          {status === "loading" ? (
             <LoaderSmall />
           ) : isPlay ? (
             <PauseIcon className="translate-[-0.5px] size-[22px]" />
@@ -149,25 +151,38 @@ export const MusicPlayer = () => {
           className={`fa-solid fa-forward-step ${currentIndex === songLength - 1 ? "cursor-not-allowed opacity-20" : "cursor-pointer"}`}
           onClick={handleNextSong}
         ></i>
-        <i
-          className={`fa-solid fa-arrow-rotate-left cursor-pointer ${
-            isReplay && "text-[#7f4d4d]"
-          }`}
-          onClick={handleToggleReplay}
-        ></i>
+        <div className="relative" onClick={handleToggleReplay}>
+          <i
+            className={`fa-solid fa-arrow-rotate-left cursor-pointer ${replayStatus !== "none" && "text-[#614646]"}`}
+          ></i>
+          {replayStatus === "replaySong" && (
+            <div className="absolute right-[-1px] top-[1px] flex h-[12px] items-center justify-center overflow-hidden bg-[#dddad1] p-[0.3px] text-[1.3rem] font-semibold text-[#614646]">
+              <span>1</span>
+            </div>
+          )}
+        </div>
       </div>
       <div className="relative mt-3 flex w-[500px] items-center gap-2">
-        <span className="absolute left-[-38px] top-1/2 -translate-y-1/2 text-[1.2rem] text-[#32323d]">
-          {loading === "loading" ? "00:00" : formatTime(currentTime)}
+        <span className="absolute left-[-38px] top-1/2 -translate-y-1/2 text-[1.2rem] text-[#050505]">
+          {status === "loading"
+            ? "00:00"
+            : formatTime(songRef.current.currentTime)}
         </span>
         <input
+          ref={inputRef}
           type="range"
           className="range flex-1"
           value={range}
-          onChange={(e) => setRange(Number(e.target.value))}
+          onInput={(e) => {
+            const newValue = Number(e.currentTarget.value);
+            e.currentTarget.style.background = `linear-gradient(to right, #614646 ${newValue}%, #c6c4bc ${newValue}%)`;
+            setRange(Number(newValue));
+            songRef.current.currentTime =
+              (newValue / 100) * songRef.current.duration;
+          }}
         />
         <span className="text-[1.2rem] text-[#32323d]">
-          {loading === "loading"
+          {status === "loading"
             ? "00:00"
             : formatTime(songRef.current.duration)}
         </span>

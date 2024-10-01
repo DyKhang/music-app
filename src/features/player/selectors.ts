@@ -12,3 +12,11 @@ export const currentSongSelector = createSelector(
     return songs[currentIndex];
   },
 );
+
+export const replayStatusSelector = createSelector(
+  (state: RootState) => state.player.replayStatus.replay,
+  (state: RootState) => state.player.replayStatus.currentIndex,
+  (replayStatus, index) => {
+    return replayStatus[index];
+  },
+);

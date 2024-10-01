@@ -4,6 +4,7 @@ import { Explore } from "./pages/Explore/Explore";
 import { Library } from "./pages/Library";
 import { NotFound } from "./pages/NotFound";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Album } from "./pages/Album/Album";
 // import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const queryClient = new QueryClient();
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
       {
         path: "mymusic",
         element: <Library />,
+      },
+      {
+        path: "album/:id",
+        element: <Album />,
       },
       {
         path: "*",

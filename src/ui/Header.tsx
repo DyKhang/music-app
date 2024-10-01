@@ -8,6 +8,7 @@ import { Search } from "../components/Search";
 import { Button } from "../components/Button";
 import { PopOvers } from "../components/PopOvers";
 import { POContentHeader } from "../components/POContentHeader";
+import avatar from "../../public/image.png";
 
 export const Header = () => {
   return (
@@ -44,11 +45,7 @@ export const Header = () => {
           </>
         </PopOvers.PopOver>
         <div className="size-[40px] flex-shrink-0 cursor-pointer overflow-hidden rounded-full">
-          <img
-            src="./image.png"
-            alt=""
-            className="h-full w-full object-cover"
-          />
+          <img src={avatar} alt="" className="h-full w-full object-cover" />
         </div>
       </div>
     </header>

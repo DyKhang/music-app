@@ -2,7 +2,7 @@ import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { EllipsisHorizontalIcon, HeartIcon } from "@heroicons/react/24/outline";
 import {
-  selectSong,
+  selectSongInPlayList,
   SongReducer,
   togglePlaying,
 } from "../features/player/playerSlice";
@@ -13,6 +13,8 @@ import {
   songsSelector,
 } from "../features/player/selectors";
 import { RootState, useAppDispatch } from "../store";
+import { PopOvers } from "./PopOvers";
+import { NewReleasePop } from "../pages/Explore/components/NewReleasePop";
 
 interface Props {
   song: SongReducer;
@@ -35,7 +37,7 @@ export const SideBarItem: React.FC<Props> = ({ song }) => {
 
   function handleSelectSong() {
     const index = songs.findIndex((item) => item.encodeId === song.encodeId);
-    dispatch(selectSong(index));
+    dispatch(selectSongInPlayList(index));
   }
 
   if (currentPlay)
@@ -76,7 +78,9 @@ export const SideBarItem: React.FC<Props> = ({ song }) => {
     );
 
   return (
-    <div className="group/tag flex items-center gap-[10px] rounded-[5px] p-[8px] hover:bg-[rgba(0,0,0,0.05)]">
+    <div
+      className={`group/tag flex items-center gap-[10px] rounded-[5px] p-[8px] hover:bg-[rgba(0,0,0,0.05)] ${song.isPlayed && "opacity-40 hover:opacity-100"}`}
+    >
       <div
         className="relative size-[40px] cursor-pointer overflow-hidden rounded-[4px]"
         onClick={handleSelectSong}
@@ -100,9 +104,19 @@ export const SideBarItem: React.FC<Props> = ({ song }) => {
         <div className="flex size-[26px] cursor-pointer items-center justify-center rounded-full hover:bg-[rgba(0,0,0,0.05)]">
           <HeartIcon className="size-[18px]" />
         </div>
-        <div className="flex size-[26px] cursor-pointer items-center justify-center rounded-full hover:bg-[rgba(0,0,0,0.05)]">
-          <EllipsisHorizontalIcon className="size-[18px]" />
-        </div>
+
+        <PopOvers.PopOver>
+          <>
+            <PopOvers.Button open={song.encodeId}>
+              <div className="flex size-[26px] cursor-pointer items-center justify-center rounded-full hover:bg-[rgba(0,0,0,0.05)]">
+                <EllipsisHorizontalIcon className="size-[18px]" />
+              </div>
+            </PopOvers.Button>
+            <PopOvers.Content name={song.encodeId}>
+              <NewReleasePop encodeId={song.encodeId} />
+            </PopOvers.Content>
+          </>
+        </PopOvers.PopOver>
       </div>
     </div>
   );

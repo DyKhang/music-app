@@ -83,6 +83,7 @@ export const NewReleasePop: React.FC<Props> = ({ encodeId }) => {
         <PopHoverTag title="Thêm vào thư viện" LeftIcon={() => <HeartIcon />} />
         <PopHoverTag
           title="Thêm vào danh sách phát"
+          encodeId={encodeId}
           LeftIcon={() => <QueueListIcon />}
         />
         <PopHoverTag

@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMicrophone } from "@fortawesome/free-solid-svg-icons";
+import { useEffect, useRef } from "react";
 
 interface Props {
   showPlayList: boolean;
@@ -21,8 +22,12 @@ export const PlayerActions: React.FC<Props> = ({
   showPlayList,
 }) => {
   const dispatch: AppDispatch = useDispatch();
-
   const volume = useSelector((state: RootState) => state.player.volume);
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    inputRef.current!.style.background = `linear-gradient(to right, #614646 ${volume}%, #c6c4bc ${volume}%)`;
+  });
 
   return (
     <div className="flex items-center gap-[20px] text-[#47474f]">
@@ -56,11 +61,14 @@ export const PlayerActions: React.FC<Props> = ({
         )}
         <div className="w-[70px]">
           <input
+            ref={inputRef}
             type="range"
             className="range"
             value={volume}
-            onChange={(e) => {
-              dispatch(changeVolume(Number(e.target.value) * 100));
+            onInput={(e) => {
+              const newValue = Number(e.currentTarget.value);
+              dispatch(changeVolume(newValue * 100));
+              e.currentTarget.style.background = `linear-gradient(to right, #614646 ${newValue}%, #c6c4bc ${newValue}%)`;
             }}
           />
         </div>

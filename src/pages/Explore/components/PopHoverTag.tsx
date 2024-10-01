@@ -17,7 +17,11 @@ export const PopHoverTag: React.FC<Props> = ({
   const dispatch = useAppDispatch();
   function handleClick() {
     if (encodeId) {
-      dispatch(getSongReducer({ id: encodeId, type: "next" }));
+      if (title.toLowerCase().includes("thêm vào danh sách phát")) {
+        dispatch(getSongReducer({ id: encodeId, type: "addBottom" }));
+      } else if (title.toLowerCase().includes("phát tiếp theo")) {
+        dispatch(getSongReducer({ id: encodeId, type: "addNext" }));
+      }
     } else {
       return null;
     }

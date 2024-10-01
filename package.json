@@ -28,9 +28,7 @@
     "react-loader-spinner": "^6.1.6",
     "react-redux": "^9.1.2",
     "react-router": "6",
-    "react-router-dom": "6",
-    "react-slick": "^0.30.2",
-    "slick-carousel": "^1.8.1"
+    "react-router-dom": "6"
   },
   "devDependencies": {
     "@tanstack/react-query-devtools": "^5.51.21",
