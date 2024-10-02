@@ -6,4 +6,5 @@ export const queryKeys = {
   top100: "top100",
   albumHot: "albumHot",
   infoSong: "infoSong",
+  detailPlaylist: "detailPlaylist",
 };
