@@ -98,12 +98,12 @@ export const NewReleaseItem: React.FC<Props> = ({ data }) => {
       </div>
       <PopOvers.PopOver>
         <>
-          <PopOvers.Button open={encodeId}>
+          <PopOvers.Button open={`new-release-${encodeId}`}>
             <div className="invisible absolute right-8 top-1/2 flex size-[40px] -translate-y-1/2 cursor-pointer items-center justify-center rounded-full hover:bg-[rgba(0,0,0,0.05)] group-hover/tag:visible">
               <FontAwesomeIcon icon={faEllipsis} />
             </div>
           </PopOvers.Button>
-          <PopOvers.Content name={encodeId}>
+          <PopOvers.Content name={`new-release-${encodeId}`}>
             <NewReleasePop encodeId={data.encodeId} />
           </PopOvers.Content>
         </>

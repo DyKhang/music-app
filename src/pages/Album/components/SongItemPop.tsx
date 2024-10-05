@@ -20,7 +20,7 @@ interface Props {
   encodeId: string;
 }
 
-export const NewReleasePop: React.FC<Props> = ({ encodeId }) => {
+export const SongItemPop: React.FC<Props> = ({ encodeId }) => {
   const { data, isLoading } = useInfoSong(encodeId);
   function calNumber(number: number) {
     let newNumber: string | number = number;
@@ -80,7 +80,6 @@ export const NewReleasePop: React.FC<Props> = ({ encodeId }) => {
       </div>
 
       <div>
-        <PopHoverTag title="Thêm vào thư viện" LeftIcon={() => <HeartIcon />} />
         <PopHoverTag
           title="Thêm vào danh sách phát"
           encodeId={encodeId}

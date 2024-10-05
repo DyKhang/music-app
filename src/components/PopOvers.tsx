@@ -117,7 +117,7 @@ const Content = ({
         [position]: coords.x,
       }}
       // ref={nodeRef}
-      className="fixed z-[60] rounded-[8px] bg-white p-[6px] shadow-shadow-popover"
+      className="fixed z-[60] rounded-[8px] bg-white shadow-shadow-popover"
     >
       {children}
     </div>,

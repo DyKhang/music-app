@@ -21,7 +21,7 @@ export const PlayListItem: React.FC<Props> = ({ isAlbum = false, item }) => {
         />
         <div
           className="absolute inset-0 bg-black/50 opacity-0 transition duration-300 group-hover/tag:opacity-100"
-          onClick={() => navigate(`album/${item.encodeId}`)}
+          onClick={() => navigate(`/album/${item.encodeId}`)}
         ></div>
         <div className="absolute hidden items-center gap-8 text-white group-hover/tag:flex">
           <div className="flex size-[28px] items-center justify-center rounded-full hover:bg-white/30">

@@ -1,5 +1,8 @@
-import { getSongReducer } from "../../../features/player/playerSlice";
-import { useAppDispatch } from "../../../store";
+import {
+  deleteSongInPlayList,
+  getSongReducer,
+} from "../features/player/playerSlice";
+import { useAppDispatch } from "../store";
 
 interface Props {
   RightIcon?: React.FC<{ className?: string }>;
@@ -21,6 +24,8 @@ export const PopHoverTag: React.FC<Props> = ({
         dispatch(getSongReducer({ id: encodeId, type: "addBottom" }));
       } else if (title.toLowerCase().includes("phát tiếp theo")) {
         dispatch(getSongReducer({ id: encodeId, type: "addNext" }));
+      } else if (title.toLowerCase().includes("xóa")) {
+        dispatch(deleteSongInPlayList(encodeId));
       }
     } else {
       return null;

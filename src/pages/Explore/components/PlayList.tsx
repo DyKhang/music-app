@@ -4,10 +4,11 @@ import { upperCaseFirstLetter } from "../../../utils/helper";
 
 interface Props {
   data: PlayListType | undefined;
+  isAlbum?: boolean;
 }
 
-export const PlayList: React.FC<Props> = ({ data }) => {
-  const isAlbum = data?.title.toLocaleLowerCase().includes("album");
+export const PlayList: React.FC<Props> = ({ data, isAlbum }) => {
+  // const isAlbum = data?.title.toLocaleLowerCase().includes("album");
   return (
     <section>
       <h2 className="text-[2rem] font-bold">

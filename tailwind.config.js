@@ -6,6 +6,7 @@ export default {
       boxShadowColor: {
         playListSideBar:
           "0 1px 0 rgba(0,0,0,0.3),0 1px 6px rgba(0,0,0,0.3),inset 0 1px 1px hsla(0,0%,100%,0.3)",
+        filterTag: "0 2px 8px 0 rgba(0,0,0,.2)",
       },
       fontFamily: {
         sans: ["Inter", "sans-serif"],

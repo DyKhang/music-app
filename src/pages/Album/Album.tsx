@@ -1,7 +1,6 @@
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  AdjustmentsVerticalIcon,
   EllipsisHorizontalIcon,
   HeartIcon,
   PauseIcon,
@@ -11,15 +10,46 @@ import { SongItem } from "./components/SongItem";
 import { ArtistList } from "./components/ArtistList";
 import { useDetailPlayList } from "../../features/playlist/useDetailPlaylist";
 import { useSelector } from "react-redux";
-import { RootState } from "../../store";
+import { RootState, useAppDispatch } from "../../store";
 import { AudioAnimation } from "../../components/AudioAnimation";
+import { togglePlaying } from "../../features/player/playerSlice";
+import { Filter } from "./components/Filter";
+import { useSearchParams } from "react-router-dom";
 
 export const Album = () => {
   const { id } = useParams();
+  const dispatch = useAppDispatch();
   const { data, isLoading } = useDetailPlayList(id);
   const isPlaying = useSelector((state: RootState) => state.player.isPlaying);
+  const [searchParams] = useSearchParams();
 
   if (isLoading) return null;
+  const filterState = searchParams.get("filter") || "all";
+  let songsFiltered = data?.song.items;
+
+  if (filterState === "all") {
+    songsFiltered = data?.song.items;
+  } else if (filterState === "song") {
+    songsFiltered = data?.song.items.sort((a, b) =>
+      a.title.localeCompare(b.title),
+    );
+  } else if (filterState === "artist") {
+    songsFiltered = data?.song.items.sort((a, b) =>
+      a.artistsNames.localeCompare(b.artistsNames),
+    );
+  } else if (filterState === "album") {
+    songsFiltered = data?.song.items.sort((a, b) =>
+      a.album?.title.localeCompare(b.album?.title),
+    );
+  }
+
+  function handleTogglePlay() {
+    if (isPlaying) {
+      dispatch(togglePlaying(false));
+    } else {
+      dispatch(togglePlaying(true));
+    }
+  }
 
   return (
     <>
@@ -27,7 +57,10 @@ export const Album = () => {
         className={`${data && data.song.items.length < 5 && "h-screen"}`}
       >
         <div className="sticky top-[40px] float-left w-[300px]">
-          <div className="album-img-shadow group/list relative cursor-pointer overflow-hidden rounded-[8px]">
+          <div
+            className="album-img-shadow group/list relative cursor-pointer overflow-hidden rounded-[8px]"
+            onClick={handleTogglePlay}
+          >
             <img
               src={data?.thumbnailM}
               alt=""
@@ -59,7 +92,10 @@ export const Album = () => {
                 <span className="text-center">{data?.artistsNames}</span>
                 <span>{data?.like} người yêu thích</span>
               </div>
-              <div className="mt-[16px] flex h-[36px] cursor-pointer items-center rounded-full bg-[#644646] px-[24px] text-[1.4rem] uppercase text-white hover:brightness-[0.9]">
+              <div
+                onClick={handleTogglePlay}
+                className="mt-[16px] flex h-[36px] cursor-pointer items-center rounded-full bg-[#644646] px-[24px] text-[1.4rem] uppercase text-white hover:brightness-[0.9]"
+              >
                 {isPlaying ? (
                   <PauseIcon className="mr-[5px] size-[24px]" />
                 ) : (
@@ -96,9 +132,7 @@ export const Album = () => {
             <div className="z-10 flex items-center border-b-[1px] border-[rgba(0,0,0,0.05)] bg-[#e5e3df] p-[10px] text-[1.2rem] font-[500] uppercase text-[#696969]">
               <div className="mr-[10px] w-1/2">
                 <div className="flex items-center gap-[10px]">
-                  <div className="flex size-[16px] cursor-pointer items-center justify-center rounded-md border-[0.5px] border-[#b4b4b4]">
-                    <AdjustmentsVerticalIcon className="size-[14px] text-[#b4b4b4]" />
-                  </div>
+                  <Filter />
                   <span>bài hát</span>
                 </div>
               </div>
@@ -107,11 +141,12 @@ export const Album = () => {
 
               <span>thời gian</span>
             </div>
-            {data?.song.items.map((song) => (
+            {songsFiltered?.map((song) => (
               <SongItem key={song.encodeId} song={song} />
             ))}
             <div className="mt-[16px] flex items-center gap-[8px] text-[1.3rem] text-[#696969]">
-              <span>100 bài hát</span> <div>•</div> <span>7 giờ 39 phút</span>
+              <span>{data?.song.items.length} bài hát</span> <div>•</div>
+              <span>7 giờ 39 phút</span>
             </div>
           </div>
         </div>

@@ -6,22 +6,23 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   ChevronRightIcon,
-  ForwardIcon,
+  DevicePhoneMobileIcon,
   HeartIcon,
   LinkIcon,
   PlusCircleIcon,
-  QueueListIcon,
   ShareIcon,
+  TrashIcon,
 } from "@heroicons/react/24/outline";
-import { PopHoverTag } from "../../../components/PopHoverTag";
-import { useInfoSong } from "../../../features/home/useInfoSong";
+import { useInfoSong } from "../features/home/useInfoSong";
+import { PopHoverTag } from "./PopHoverTag";
 
 interface Props {
   encodeId: string;
 }
 
-export const NewReleasePop: React.FC<Props> = ({ encodeId }) => {
+export const SideBarItemPop: React.FC<Props> = ({ encodeId }) => {
   const { data, isLoading } = useInfoSong(encodeId);
+
   function calNumber(number: number) {
     let newNumber: string | number = number;
 
@@ -80,16 +81,9 @@ export const NewReleasePop: React.FC<Props> = ({ encodeId }) => {
       </div>
 
       <div>
-        <PopHoverTag title="Thêm vào thư viện" LeftIcon={() => <HeartIcon />} />
         <PopHoverTag
-          title="Thêm vào danh sách phát"
-          encodeId={encodeId}
-          LeftIcon={() => <QueueListIcon />}
-        />
-        <PopHoverTag
-          title="Phát tiếp theo"
-          LeftIcon={() => <ForwardIcon />}
-          encodeId={encodeId}
+          title="Cài đặt nhạc chờ"
+          LeftIcon={() => <DevicePhoneMobileIcon />}
         />
         <PopHoverTag
           title="Phát nội dung tương tự"
@@ -116,6 +110,11 @@ export const NewReleasePop: React.FC<Props> = ({ encodeId }) => {
           title="Chia sẻ"
           LeftIcon={() => <ShareIcon />}
           RightIcon={() => <ChevronRightIcon />}
+        />
+        <PopHoverTag
+          title="Xóa"
+          LeftIcon={() => <TrashIcon />}
+          encodeId={encodeId}
         />
       </div>
       <p className="mt-[6px] text-center text-[1.3rem] font-[500] text-[#696969]">

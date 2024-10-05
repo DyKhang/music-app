@@ -1,6 +1,6 @@
 import axiosClient from "./axios";
 
-interface BannerItemChild {
+export interface BannerItemChild {
   type: number;
   link: string;
   banner: string;

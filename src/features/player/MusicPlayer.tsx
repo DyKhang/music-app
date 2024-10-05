@@ -11,6 +11,7 @@ import {
 } from "./playerSlice";
 import { LoaderSmall } from "../../components/LoaderSmall";
 import { currentSongSelector, replayStatusSelector } from "./selectors";
+import { formatTime } from "../../utils/helper";
 
 export const MusicPlayer = () => {
   const [isShuffle, setIsShuffle] = useState(false);
@@ -89,14 +90,6 @@ export const MusicPlayer = () => {
       songElement.removeEventListener("timeupdate", handleSetRange);
     };
   }, [range]);
-
-  function formatTime(time: number) {
-    const minutes = Math.floor(time / 60);
-    const seconds = Math.floor(time % 60);
-    return `${minutes.toString().padStart(2, "0")}:${seconds
-      .toString()
-      .padStart(2, "0")}`;
-  }
 
   function handleToggleShuffle() {
     setIsShuffle(!isShuffle);

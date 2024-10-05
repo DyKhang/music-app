@@ -39,11 +39,11 @@ export const Explore = () => {
       </div>
 
       <div className="mt-[48px]">
-        <PlayList data={top100} />
+        <PlayList data={top100} isAlbum />
       </div>
 
       <div className="mt-[48px]">
-        <PlayList data={albumHot} />
+        <PlayList data={albumHot} isAlbum />
       </div>
     </>
   );

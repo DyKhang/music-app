@@ -1,6 +1,8 @@
 import { useEffect, useRef } from "react";
 import { getArrSlider } from "../utils/helper";
 import { BannerType } from "../api/homeApi";
+import { CarouselItem } from "./CarouselItem";
+// import { useNavigate } from "react-router";
 
 interface Props {
   data: BannerType | undefined;
@@ -8,6 +10,8 @@ interface Props {
 
 export const Carousel: React.FC<Props> = ({ data }) => {
   const slideItemRef = useRef<(HTMLDivElement | null)[]>([]);
+  // const [isModal, setIsModal] = useState(false);
+  // const navigate = useNavigate();
 
   useEffect(() => {
     const sliderEls = slideItemRef.current;
@@ -73,16 +77,7 @@ export const Carousel: React.FC<Props> = ({ data }) => {
   return (
     <section className="relative mt-[32px] flex overflow-hidden">
       {data?.items?.map((item, index) => (
-        <div
-          className="w-[33.3%] flex-shrink-0 px-[15px]"
-          key={item.banner}
-          ref={(el) => (slideItemRef.current[index] = el)}
-        >
-          <img
-            src={item.banner}
-            className="w-full rounded-[8px] object-cover"
-          />
-        </div>
+        <CarouselItem item={item} index={index} slideItemRef={slideItemRef} />
       ))}
     </section>
   );

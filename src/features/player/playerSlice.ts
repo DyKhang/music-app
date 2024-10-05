@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { musicApi } from "../../api/musicApi";
+import premiumSound from "../../../public/musics/premium.mp3";
 import toast from "react-hot-toast";
 
 export interface SongReducer {
@@ -98,6 +99,17 @@ const playerSlice = createSlice({
       );
       state.currentIndex = payload;
     },
+    deleteSongInPlayList: (state, { payload }: { payload: string }) => {
+      const deletedSongIndex = state.songs.findIndex(
+        (song) => song.encodeId === payload,
+      );
+      state.songs = state.songs.filter((song) => song.encodeId !== payload);
+      const isDeletedSongBeforeCurrentSong =
+        deletedSongIndex < state.currentIndex;
+      if (isDeletedSongBeforeCurrentSong) {
+        state.currentIndex--;
+      }
+    },
     setIsPlayed: (state, { payload }: { payload: boolean }) => {
       state.songs[state.currentIndex].isPlayed = payload;
     },
@@ -111,7 +123,7 @@ const playerSlice = createSlice({
           image: action.payload.songInfo.data.thumbnailM,
           name: action.payload.songInfo.data.title,
           singer: action.payload.songInfo.data.artistsNames,
-          songUrl: songUrl ? songUrl : "./musics/premium.mp3",
+          songUrl: songUrl ? songUrl : premiumSound,
           isPlayed: false,
         };
 
@@ -163,6 +175,7 @@ export const {
   nextSong,
   selectSongInPlayList,
   setIsPlayed,
+  deleteSongInPlayList,
   changeReplayStatus,
 } = playerSlice.actions;
 

@@ -14,7 +14,7 @@ import {
 } from "../features/player/selectors";
 import { RootState, useAppDispatch } from "../store";
 import { PopOvers } from "./PopOvers";
-import { NewReleasePop } from "../pages/Explore/components/NewReleasePop";
+import { SideBarItemPop } from "./SideBarItemPop";
 
 interface Props {
   song: SongReducer;
@@ -107,13 +107,13 @@ export const SideBarItem: React.FC<Props> = ({ song }) => {
 
         <PopOvers.PopOver>
           <>
-            <PopOvers.Button open={song.encodeId}>
+            <PopOvers.Button open={`side-bar-${song.encodeId}`}>
               <div className="flex size-[26px] cursor-pointer items-center justify-center rounded-full hover:bg-[rgba(0,0,0,0.05)]">
                 <EllipsisHorizontalIcon className="size-[18px]" />
               </div>
             </PopOvers.Button>
-            <PopOvers.Content name={song.encodeId}>
-              <NewReleasePop encodeId={song.encodeId} />
+            <PopOvers.Content name={`side-bar-${song.encodeId}`}>
+              <SideBarItemPop encodeId={song.encodeId} />
             </PopOvers.Content>
           </>
         </PopOvers.PopOver>

@@ -13,7 +13,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <Toaster
         reverseOrder={true}
         gutter={8}
-        containerClassName="text-red-200"
         toastOptions={{
           duration: 4000,
           success: {
