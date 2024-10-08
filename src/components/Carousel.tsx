@@ -77,7 +77,12 @@ export const Carousel: React.FC<Props> = ({ data }) => {
   return (
     <section className="relative mt-[32px] flex overflow-hidden">
       {data?.items?.map((item, index) => (
-        <CarouselItem item={item} index={index} slideItemRef={slideItemRef} />
+        <CarouselItem
+          key={item.encodeId}
+          item={item}
+          index={index}
+          slideItemRef={slideItemRef}
+        />
       ))}
     </section>
   );

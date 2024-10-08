@@ -1,18 +1,15 @@
 import { EllipsisHorizontalIcon, HeartIcon } from "@heroicons/react/24/outline";
 import { PlayIcon } from "@heroicons/react/24/solid";
-import { PlayListItemChild } from "../api/homeApi";
 import { useNavigate } from "react-router";
-import { useAppDispatch } from "../store";
-import { getPlayList } from "../features/player/playerSlice";
+import { SectionItem } from "../../../api/artistApi";
 
 interface Props {
-  item: PlayListItemChild;
-  isAlbum: boolean | undefined;
+  item: SectionItem;
+  hasArtistName: boolean;
 }
 
-export const PlayListItem: React.FC<Props> = ({ isAlbum = false, item }) => {
+export const PlayListItem: React.FC<Props> = ({ item, hasArtistName }) => {
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
 
   return (
     <div>
@@ -31,10 +28,7 @@ export const PlayListItem: React.FC<Props> = ({ isAlbum = false, item }) => {
             <HeartIcon className="size-[20px]" />
           </div>
 
-          <div
-            onClick={() => dispatch(getPlayList(item.encodeId))}
-            className="flex size-[48px] items-center justify-center rounded-full border-[0.5px] border-white"
-          >
+          <div className="flex size-[48px] items-center justify-center rounded-full border-[0.5px] border-white">
             <PlayIcon className="size-[28px]" />
           </div>
 
@@ -43,19 +37,17 @@ export const PlayListItem: React.FC<Props> = ({ isAlbum = false, item }) => {
           </div>
         </div>
       </div>
-      {!isAlbum ? (
-        <p className="playlist-item__desc mt-[12px] text-[1.4rem] font-[400] text-[#696969]">
-          {item.sortDescription}
+      <p className="oneline-letters mb-[4px] mt-[12px] text-[1.4rem] font-[700] text-[#32323d]">
+        {item.title}
+      </p>
+      {hasArtistName ? (
+        <p className="text-[1.4rem] font-[400] text-[#696969]">
+          {item.artistsNames}
         </p>
       ) : (
-        <>
-          <p className="oneline-letters mb-[4px] mt-[12px] text-[1.4rem] font-[700] text-[#32323d]">
-            {item.title}
-          </p>
-          <p className="text-[1.4rem] font-[400] text-[#696969]">
-            {item.artistsNames}
-          </p>
-        </>
+        <p className="text-[1.4rem] font-[400] text-[#696969]">
+          {item.releaseDate}
+        </p>
       )}
     </div>
   );

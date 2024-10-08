@@ -22,7 +22,7 @@ export const PlayerActions: React.FC<Props> = ({
   showPlayList,
 }) => {
   const dispatch: AppDispatch = useDispatch();
-  const volume = useSelector((state: RootState) => state.player.volume);
+  const volume = useSelector((state: RootState) => state.volume);
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {

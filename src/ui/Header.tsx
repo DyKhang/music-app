@@ -12,7 +12,7 @@ import avatar from "../../public/image.png";
 
 export const Header = () => {
   return (
-    <header className="flex h-[70px] items-center px-[60px]">
+    <header className="header-inset fixed z-[40] flex h-[70px] items-center px-[60px]">
       <div className="flex items-center gap-9">
         <button>
           <ArrowLeftIcon className="size-[20px] cursor-default opacity-25" />

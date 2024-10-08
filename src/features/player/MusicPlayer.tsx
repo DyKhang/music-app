@@ -22,17 +22,13 @@ export const MusicPlayer = () => {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const currentSong = useSelector(currentSongSelector);
-  const volume = useSelector((state: RootState) => state.player.volume);
-  const isPlay = useSelector((state: RootState) => state.player.isPlaying);
-  const status = useSelector((state: RootState) => state.player.status);
+  const volume = useSelector((state: RootState) => state.volume);
+  const isPlay = useSelector((state: RootState) => state.isPlaying);
+  const status = useSelector((state: RootState) => state.status);
   const songUrl = currentSong.songUrl;
 
-  const currentIndex = useSelector(
-    (state: RootState) => state.player.currentIndex,
-  );
-  const songLength = useSelector(
-    (state: RootState) => state.player.songs,
-  ).length;
+  const currentIndex = useSelector((state: RootState) => state.currentIndex);
+  const songLength = useSelector((state: RootState) => state.songs).length;
 
   // Checks when has isPlay the song will be play and vice versa, used when isPlay state is changed elsewhere
   useEffect(() => {

@@ -12,6 +12,7 @@ import { NewReleasePop } from "./NewReleasePop";
 import { NewReleasesItemChild, StreamingStatus } from "../../../api/homeApi";
 import { PremiumIcon } from "../../../components/PremiumIcon";
 import { currentSongSelector } from "../../../features/player/selectors";
+import { useNavigate } from "react-router";
 
 interface Props {
   data: NewReleasesItemChild;
@@ -23,20 +24,13 @@ export const NewReleaseItem: React.FC<Props> = ({ data }) => {
   const currentSong = useSelector(currentSongSelector);
   const currentEncodeId = currentSong.encodeId;
   const currentPlay = currentEncodeId === encodeId;
-  const isPlaying = useSelector((state: RootState) => state.player.isPlaying);
-
+  const isPlaying = useSelector((state: RootState) => state.isPlaying);
   const dispatch = useAppDispatch();
-  let artistsStrings = "";
+  const navigate = useNavigate();
   let newTile = title;
-
-  artists.forEach((artist) => (artistsStrings += `${artist.name}, `));
 
   if (title.length >= 20) {
     newTile = newTile.slice(0, 20) + "...";
-  }
-
-  if (artistsStrings.length >= 20) {
-    artistsStrings = artistsStrings.slice(0, 20) + "...";
   }
 
   const oldDay = new Date(releaseDate * 1000);
@@ -89,9 +83,21 @@ export const NewReleaseItem: React.FC<Props> = ({ data }) => {
           {newTile}
           {streamingStatus === StreamingStatus.premium && <PremiumIcon />}
         </span>
-        <span className="cursor-pointer text-[1.2rem] text-[#696969] hover:text-[#844d4d] hover:underline">
-          {artistsStrings}
-        </span>
+        <div className="flex items-center gap-[4px]">
+          {artists.map(
+            (artist, index) =>
+              index <= 1 && (
+                <span
+                  key={artist.id}
+                  onClick={() => navigate(`/nghe-si/${artist.alias}`)}
+                  className="cursor-pointer text-[1.2rem] text-[#696969] hover:text-[#844d4d] hover:underline"
+                >
+                  {artist.name}
+                  {index !== artists.length - 1 && ","}
+                </span>
+              ),
+          )}
+        </div>
         <span className="text-[1.2rem] text-[#696969]">
           {numDays > 1 ? `${numDays} ngày trước` : "Hôm qua"}
         </span>

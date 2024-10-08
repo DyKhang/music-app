@@ -99,7 +99,7 @@
   overflow: hidden;
 }
 
-.playlist-item__title {
+.oneline-letters {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -107,6 +107,7 @@
 
 .header-bg-scroll {
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.08);
+  background-color: #e5e3df;
 }
 
 .shadow-playListSideBarActiveTag {
@@ -119,6 +120,22 @@
 
 .filter-tag {
   box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.width-hero-detail-artist {
+  width: calc(100vw - 240px);
+}
+
+.header-inset {
+  inset: 0 0 0 240px;
+}
+
+.bg-new-single-of-artist {
+  background: linear-gradient(
+    286.07deg,
+    rgba(229, 227, 223, 0.95) 55.21%,
+    rgba(229, 227, 223, 0.6)
+  );
 }
 
 /* .new-release-pop-title {

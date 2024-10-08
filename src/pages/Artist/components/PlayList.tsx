@@ -1,16 +1,18 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { PlayListType } from "../../../api/homeApi";
-import { PlayListItem } from "../../../components/PlayListItem";
 import { upperCaseFirstLetter } from "../../../utils/helper";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { Section } from "../../../api/artistApi";
+import { PlayListItem } from "./PlayListItem";
 
 interface Props {
-  data: PlayListType | undefined;
-  isAlbum?: boolean;
+  data: Section | undefined;
   hasLink?: boolean;
 }
 
-export const PlayList: React.FC<Props> = ({ data, isAlbum, hasLink }) => {
+export const PlayList: React.FC<Props> = ({ data, hasLink }) => {
+  const hasArtistName =
+    data?.title === "Tuyển tập" || data?.title === "Xuất hiện trong";
+
   return (
     <section>
       <div className="flex items-center justify-between">
@@ -28,7 +30,11 @@ export const PlayList: React.FC<Props> = ({ data, isAlbum, hasLink }) => {
         {data?.items.map(
           (item, index) =>
             index <= 4 && (
-              <PlayListItem item={item} isAlbum={isAlbum} key={item.encodeId} />
+              <PlayListItem
+                hasArtistName={hasArtistName}
+                item={item}
+                key={item.encodeId}
+              />
             ),
         )}
       </div>

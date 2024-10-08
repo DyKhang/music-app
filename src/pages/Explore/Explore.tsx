@@ -24,7 +24,7 @@ export const Explore = () => {
     return <Loader />;
 
   return (
-    <>
+    <section className="pt-[70px]">
       <Carousel data={bannerData} />
       <div className="mt-[48px]">
         <NewReleaseList />
@@ -35,16 +35,16 @@ export const Explore = () => {
       </div>
 
       <div className="mt-[48px]">
-        <PlayList data={chills} />
+        <PlayList data={chills} hasLink />
       </div>
 
       <div className="mt-[48px]">
-        <PlayList data={top100} isAlbum />
+        <PlayList data={top100} isAlbum hasLink />
       </div>
 
       <div className="mt-[48px]">
         <PlayList data={albumHot} isAlbum />
       </div>
-    </>
+    </section>
   );
 };

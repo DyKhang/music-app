@@ -19,11 +19,11 @@ export const Main = () => {
   }, []);
 
   return (
-    <div
+    <main
       ref={mainRef}
-      className={`flex-1 overflow-y-scroll px-[60px] ${songName ? "pb-[130px]" : "pb-[40px]"}`}
+      className={`flex-1 overflow-x-hidden overflow-y-scroll px-[60px] ${songName ? "pb-[130px]" : "pb-[40px]"}`}
     >
       <Outlet />
-    </div>
+    </main>
   );
 };

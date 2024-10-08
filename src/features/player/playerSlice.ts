@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { musicApi } from "../../api/musicApi";
 import premiumSound from "../../../public/musics/premium.mp3";
 import toast from "react-hot-toast";
+import { playlistApi } from "../../api/playlistApi";
 
 export interface SongReducer {
   singer: string;
@@ -60,6 +61,13 @@ export const getSongReducer = createAsyncThunk(
     const songInfo = songInfoRes.data;
 
     return { songUrl, songInfo, type };
+  },
+);
+
+export const getPlayList = createAsyncThunk(
+  "player/getPlayList",
+  async (id: string) => {
+    return playlistApi.getDetailPlaylist(id);
   },
 );
 
@@ -165,6 +173,13 @@ const playerSlice = createSlice({
       })
       .addCase(getSongReducer.pending, (state) => {
         state.status = "loading";
+      })
+      .addCase(getPlayList.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(getPlayList.fulfilled, (state, action) => {
+        console.log(action.payload);
+        state.status = "idle";
       });
   },
 });

@@ -28,7 +28,7 @@ interface Props {
 
 export const SongItem: React.FC<Props> = ({ song }) => {
   const currentSong = useSelector(currentSongSelector);
-  const isPlaying = useSelector((state: RootState) => state.player.isPlaying);
+  const isPlaying = useSelector((state: RootState) => state.isPlaying);
   const [isChecked, setIsChecked] = useState(false);
   const dispatch = useAppDispatch();
   const hasAlbum = Boolean(song.album);

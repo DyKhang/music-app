@@ -21,7 +21,7 @@ interface Props {
 }
 
 export const SideBarItem: React.FC<Props> = ({ song }) => {
-  const isPlaying = useSelector((state: RootState) => state.player.isPlaying);
+  const isPlaying = useSelector((state: RootState) => state.isPlaying);
   const songs = useSelector(songsSelector);
   const currentSong = useSelector(currentSongSelector);
   const currentPlay = currentSong.encodeId === song.encodeId;
@@ -59,10 +59,10 @@ export const SideBarItem: React.FC<Props> = ({ song }) => {
           )}
         </div>
         <div className="flex w-[51%] flex-col gap-[3px]">
-          <span className="playlist-item__title cursor-pointer text-[1.4rem] font-[500] text-white">
+          <span className="oneline-letters cursor-pointer text-[1.4rem] font-[500] text-white">
             {song.name}
           </span>
-          <span className="playlist-item__title cursor-pointer text-[1.2rem] text-[#696969] text-[hsla(0,0%,100%,.6)] hover:underline">
+          <span className="oneline-letters cursor-pointer text-[1.2rem] text-[#696969] text-[hsla(0,0%,100%,.6)] hover:underline">
             {song.singer}
           </span>
         </div>
@@ -93,10 +93,10 @@ export const SideBarItem: React.FC<Props> = ({ song }) => {
         />
       </div>
       <div className="flex w-[51%] flex-col gap-[3px]">
-        <span className="playlist-item__title cursor-pointer text-[1.4rem] font-[500] hover:text-[#844d4d]">
+        <span className="oneline-letters cursor-pointer text-[1.4rem] font-[500] hover:text-[#844d4d]">
           {song.name}
         </span>
-        <span className="playlist-item__title cursor-pointer text-[1.2rem] text-[#696969] hover:text-[#844d4d] hover:underline">
+        <span className="oneline-letters cursor-pointer text-[1.2rem] text-[#696969] hover:text-[#844d4d] hover:underline">
           {song.singer}
         </span>
       </div>

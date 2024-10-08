@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   EllipsisHorizontalIcon,
   HeartIcon,
+  MusicalNoteIcon,
   PauseIcon,
 } from "@heroicons/react/24/outline";
 import { useParams } from "react-router";
@@ -15,15 +16,16 @@ import { AudioAnimation } from "../../components/AudioAnimation";
 import { togglePlaying } from "../../features/player/playerSlice";
 import { Filter } from "./components/Filter";
 import { useSearchParams } from "react-router-dom";
+import { Loader } from "../../components/Loader";
 
 export const Album = () => {
   const { id } = useParams();
   const dispatch = useAppDispatch();
   const { data, isLoading } = useDetailPlayList(id);
-  const isPlaying = useSelector((state: RootState) => state.player.isPlaying);
+  const isPlaying = useSelector((state: RootState) => state.isPlaying);
   const [searchParams] = useSearchParams();
 
-  if (isLoading) return null;
+  if (isLoading) return <Loader />;
   const filterState = searchParams.get("filter") || "all";
   let songsFiltered = data?.song.items;
 
@@ -51,12 +53,14 @@ export const Album = () => {
     }
   }
 
+  const hasSongs = data?.song.items || false;
+
   return (
-    <>
+    <section className="pt-[110px]">
       <section
-        className={`${data && data.song.items.length < 5 && "h-screen"}`}
+        className={`${hasSongs && data!.song.items.length < 10 ? "h-screen" : ""}`}
       >
-        <div className="sticky top-[40px] float-left w-[300px]">
+        <div className="sticky top-[110px] float-left w-[300px]">
           <div
             className="album-img-shadow group/list relative cursor-pointer overflow-hidden rounded-[8px]"
             onClick={handleTogglePlay}
@@ -118,7 +122,7 @@ export const Album = () => {
           </div>
         </div>
 
-        <div className="ml-[330px] pt-[40px]">
+        <div className="ml-[330px]">
           {data?.sortDescription && (
             <p>
               <span className="text-[1.4rem] text-[#696969]">Lời tựa</span>
@@ -128,35 +132,48 @@ export const Album = () => {
             </p>
           )}
 
-          <div className={`${data?.sortDescription && "mt-[10px]"}`}>
-            <div className="z-10 flex items-center border-b-[1px] border-[rgba(0,0,0,0.05)] bg-[#e5e3df] p-[10px] text-[1.2rem] font-[500] uppercase text-[#696969]">
-              <div className="mr-[10px] w-1/2">
-                <div className="flex items-center gap-[10px]">
-                  <Filter />
-                  <span>bài hát</span>
+          {hasSongs ? (
+            <div className={`${data?.sortDescription && "mt-[10px]"}`}>
+              <div className="z-10 flex items-center border-b-[1px] border-[rgba(0,0,0,0.05)] bg-[#e5e3df] p-[10px] text-[1.2rem] font-[500] uppercase text-[#696969]">
+                <div className="mr-[10px] w-1/2">
+                  <div className="flex items-center gap-[10px]">
+                    <Filter />
+                    <span>bài hát</span>
+                  </div>
                 </div>
+
+                <span className="flex-1">album</span>
+
+                <span>thời gian</span>
               </div>
-
-              <span className="flex-1">album</span>
-
-              <span>thời gian</span>
+              {songsFiltered?.map((song) => (
+                <SongItem key={song.encodeId} song={song} />
+              ))}
+              {hasSongs && (
+                <div className="mt-[16px] flex items-center gap-[8px] text-[1.3rem] text-[#696969]">
+                  <span>{data?.song.items.length} bài hát</span> <div>•</div>
+                  <span>7 giờ 39 phút</span>
+                </div>
+              )}
             </div>
-            {songsFiltered?.map((song) => (
-              <SongItem key={song.encodeId} song={song} />
-            ))}
-            <div className="mt-[16px] flex items-center gap-[8px] text-[1.3rem] text-[#696969]">
-              <span>{data?.song.items.length} bài hát</span> <div>•</div>
-              <span>7 giờ 39 phút</span>
+          ) : (
+            <div className="mt-[30px] flex h-[220px] flex-col items-center justify-center gap-[20px] bg-[rgba(0,0,0,0.05)] py-[30px] text-[#696969]">
+              <MusicalNoteIcon className="size-[90px]" />
+              Danh sách bài hát đang được cập nhật
             </div>
-          </div>
+          )}
         </div>
       </section>
 
-      <h2 className="mb-[20px] mt-[48px] text-[2rem] font-[700]">
-        Nghệ Sĩ Tham Gia
-      </h2>
+      {hasSongs && (
+        <>
+          <h2 className="mb-[20px] mt-[48px] text-[2rem] font-[700]">
+            Nghệ Sĩ Tham Gia
+          </h2>
 
-      <ArtistList />
-    </>
+          <ArtistList />
+        </>
+      )}
+    </section>
   );
 };
