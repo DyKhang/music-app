@@ -3,14 +3,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { NewReleaseItem } from "./NewReleaseItem";
 import { useNewRelease } from "../../../features/home/useNewReleases";
-import { useSearchParams } from "react-router-dom";
 import { upperCaseFirstLetter } from "../../../utils/helper";
+import { useState } from "react";
 
 export const NewReleaseList = () => {
   const { data } = useNewRelease();
-
-  const [searchParams] = useSearchParams();
-  const status = searchParams.get("new-releases") || "all";
+  const [status, setStatus] = useState<"all" | "vPop" | "others">("all");
 
   return (
     <section>
@@ -20,9 +18,15 @@ export const NewReleaseList = () => {
 
       <div className="mt-[20px] flex items-center justify-between">
         <div className="flex items-center gap-[15px]">
-          <Tag name="all">tất cả</Tag>
-          <Tag name="vPop">việt nam</Tag>
-          <Tag name="others">quốc tế</Tag>
+          <Tag currentStatus={status} setStatus={setStatus} status="all">
+            tất cả
+          </Tag>
+          <Tag currentStatus={status} setStatus={setStatus} status="vPop">
+            việt nam
+          </Tag>
+          <Tag currentStatus={status} setStatus={setStatus} status="others">
+            quốc tế
+          </Tag>
         </div>
 
         <div className="flex cursor-pointer items-center gap-[6px] text-[#696969] hover:text-[#844d4d]">

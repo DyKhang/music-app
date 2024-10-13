@@ -32,3 +32,19 @@ export function formatTime(time: number) {
     .toString()
     .padStart(2, "0")}`;
 }
+
+export function convertTotalFollow(totalFollow: number) {
+  if (totalFollow >= 1000) {
+    return `${Math.floor(totalFollow / 1000)}K`;
+  } else {
+    return totalFollow;
+  }
+}
+
+export function timestampToFormat(timestamp: number) {
+  const date = new Date(timestamp * 1000);
+  const day = date.getDate();
+  const month = date.getMonth() + 1;
+  const year = date.getFullYear();
+  return `${day < 10 ? `0${day}` : day}.${month}.${year}`;
+}

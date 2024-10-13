@@ -10,7 +10,8 @@ import { useState } from "react";
 import { Song } from "../../../api/playlistApi";
 import { RootState, useAppDispatch } from "../../../store";
 import {
-  getSongReducer,
+  getPlayList,
+  selectSongInPlayList,
   togglePlaying,
 } from "../../../features/player/playerSlice";
 import { useSelector } from "react-redux";
@@ -18,37 +19,44 @@ import { currentSongSelector } from "../../../features/player/selectors";
 import { AudioAnimation } from "../../../components/AudioAnimation";
 import { PremiumIcon } from "../../../components/PremiumIcon";
 import { formatTime } from "../../../utils/helper";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { PopOvers } from "../../../components/PopOvers";
 import { SongItemPop } from "./SongItemPop";
 
 interface Props {
   song: Song;
+  index: number;
 }
 
-export const SongItem: React.FC<Props> = ({ song }) => {
+export const SongItem: React.FC<Props> = ({ song, index }) => {
+  const { id } = useParams();
+  const currentPlayListId = useSelector(
+    (state: RootState) => state.playList.id,
+  );
   const currentSong = useSelector(currentSongSelector);
   const isPlaying = useSelector((state: RootState) => state.isPlaying);
   const [isChecked, setIsChecked] = useState(false);
   const dispatch = useAppDispatch();
+  const songs = useSelector((state: RootState) => state.songs);
   const hasAlbum = Boolean(song.album);
   const currentPlay = currentSong.encodeId === song.encodeId;
   const isPremium = song.streamingStatus === 2;
   const navigate = useNavigate();
+
+  const isCurrentPlayList = id === currentPlayListId;
 
   function handleCheckSong() {
     setIsChecked(!isChecked);
   }
 
   function handleClickImg() {
-    if (currentPlay) {
-      if (isPlaying) {
-        dispatch(togglePlaying(false));
-      } else {
-        dispatch(togglePlaying(true));
-      }
+    if (isCurrentPlayList) {
+      const index = songs.findIndex(
+        (songReducer) => songReducer.encodeId === song.encodeId,
+      );
+      dispatch(selectSongInPlayList(index));
     } else {
-      dispatch(getSongReducer({ id: song.encodeId, type: "play" }));
+      dispatch(getPlayList({ id: id!, songIndex: index }));
     }
   }
 
@@ -66,7 +74,13 @@ export const SongItem: React.FC<Props> = ({ song }) => {
 
           <div
             className="relative mx-[10px] flex size-[40px] flex-shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-[4px]"
-            onClick={handleClickImg}
+            onClick={() => {
+              if (isPlaying) {
+                dispatch(togglePlaying(false));
+              } else {
+                dispatch(togglePlaying(true));
+              }
+            }}
           >
             <img src={song.thumbnailM} alt="" className="w-full object-cover" />
             <div className="absolute inset-0 bg-black/50"></div>
@@ -130,9 +144,7 @@ export const SongItem: React.FC<Props> = ({ song }) => {
 
         <div
           className="relative mx-[10px] flex size-[40px] flex-shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-[4px]"
-          onClick={() =>
-            dispatch(getSongReducer({ id: song.encodeId, type: "play" }))
-          }
+          onClick={handleClickImg}
         >
           <img src={song.thumbnailM} alt="" className="w-full object-cover" />
           <div className="absolute inset-0 hidden bg-black/50 group-hover/item:block"></div>

@@ -23,6 +23,10 @@ export interface initialState {
     replay: ["none", "replayList", "replaySong"];
     currentIndex: number;
   };
+  playList: {
+    name: string;
+    id: string;
+  };
 }
 
 const initialState: initialState = {
@@ -43,6 +47,10 @@ const initialState: initialState = {
   replayStatus: {
     replay: ["none", "replayList", "replaySong"],
     currentIndex: 0,
+  },
+  playList: {
+    id: "",
+    name: "",
   },
 };
 
@@ -66,8 +74,24 @@ export const getSongReducer = createAsyncThunk(
 
 export const getPlayList = createAsyncThunk(
   "player/getPlayList",
-  async (id: string) => {
-    return playlistApi.getDetailPlaylist(id);
+  async ({ id, songIndex = 0 }: { id: string; songIndex?: number }) => {
+    const playList = await playlistApi.getDetailPlaylist(id);
+
+    const songIds = playList.song.items.map((item) => item.encodeId);
+
+    const songPromises = songIds.map((id) => musicApi.getSong(id));
+    const songInfoResPromises = songIds.map((id) => musicApi.getInfoSong(id));
+
+    const songUrlsRes = await Promise.all(songPromises);
+    const songInfosRes = await Promise.all(songInfoResPromises);
+
+    const songUrls = songUrlsRes.map((res) => res.data);
+    const songInfos = songInfosRes.map((res) => res.data);
+
+    const playListName = playList.title;
+    const playListId = playList.encodeId;
+
+    return { songUrls, songInfos, playListName, playListId, songIndex };
   },
 );
 
@@ -137,6 +161,8 @@ const playerSlice = createSlice({
 
         if (action.payload.type === "play") {
           state.songs = [newSong];
+          state.playList.name = "";
+          state.playList.id = "";
           state.currentIndex = 0;
         } else {
           const isHadSongInSongs = state.songs[state.currentIndex].name; // check if there is any song in the list (the first time you come in)
@@ -177,10 +203,44 @@ const playerSlice = createSlice({
       .addCase(getPlayList.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(getPlayList.fulfilled, (state, action) => {
-        console.log(action.payload);
-        state.status = "idle";
-      });
+      .addCase(
+        getPlayList.fulfilled,
+        (
+          state,
+          {
+            payload: {
+              songInfos,
+              playListId,
+              playListName,
+              songUrls,
+              songIndex,
+            },
+          },
+        ) => {
+          const songs = songInfos.map((item, index): SongReducer => {
+            return {
+              encodeId: item.data.encodeId,
+              image: item.data.thumbnailM,
+              isPlayed: false,
+              name: item.data.title,
+              singer: item.data.artistsNames,
+              songUrl: songUrls[index].data?.["128"]
+                ? songUrls[index].data?.["128"]
+                : premiumSound,
+            };
+          });
+          state.songs = songs;
+          state.currentIndex = songIndex;
+          state.songs = state.songs.map((song, index) =>
+            index <= songIndex
+              ? { ...song, isPlayed: true }
+              : { ...song, isPlayed: false },
+          );
+          state.playList.name = playListName;
+          state.playList.id = playListId;
+          state.status = "idle";
+        },
+      );
   },
 });
 export const {

@@ -48,7 +48,10 @@ export const Artist = () => {
 
       {hotSongs && (
         <section
-          className={`mt-[30px] grid ${hasNewRelease ? "grid-cols-3" : "grid-cols-2"} gap-[28px]`}
+          style={{
+            gridTemplateColumns: hasNewRelease ? "393px 1fr 1fr" : "",
+          }}
+          className={`mt-[30px] grid ${!hasNewRelease && "grid-cols-2"} gap-[28px]`}
         >
           {hasNewRelease && <NewRelease data={data} />}
           <HotSongs data={data} />

@@ -1,7 +1,8 @@
 export const queryKeys = {
   banner: "banner",
   newReleases: "newReleases",
-  playlist: "playlist",
+  popular: "popular",
+  topsongs: "topsongs",
   chills: "chills",
   top100: "top100",
   albumHot: "albumHot",

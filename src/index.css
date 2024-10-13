@@ -107,7 +107,8 @@
 
 .header-bg-scroll {
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.08);
-  background-color: #e5e3df;
+  background-color: rgba(229, 227, 223, 0.8);
+  backdrop-filter: blur(50px);
 }
 
 .shadow-playListSideBarActiveTag {
@@ -136,6 +137,23 @@
     rgba(229, 227, 223, 0.95) 55.21%,
     rgba(229, 227, 223, 0.6)
   );
+}
+
+.text-number {
+  -webkit-text-stroke: 1px #6b3483;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+.slick-slide > div {
+  margin: 0 4px;
+}
+.slick-list {
+  margin: 0 -4px;
+}
+
+.slick-slider.slick-initialized {
+  margin: 0 -10px 0 -10px;
 }
 
 /* .new-release-pop-title {

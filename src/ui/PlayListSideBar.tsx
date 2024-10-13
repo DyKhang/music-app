@@ -5,6 +5,7 @@ import { useState } from "react";
 import { SideBarItem } from "../components/SideBarItem";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
+import { useNavigate } from "react-router";
 
 interface Props {
   isShow: boolean;
@@ -12,7 +13,9 @@ interface Props {
 
 export const PlayListSideBar: React.FC<Props> = ({ isShow }) => {
   const [state, setState] = useState<"playlist" | "recent">("playlist");
+  const navigate = useNavigate();
   const songs = useSelector((state: RootState) => state.songs);
+  const playListInfo = useSelector((state: RootState) => state.playList);
   const playedSongs = songs.filter((song) => song.isPlayed);
   const unPlayedSongs = songs.filter((song) => !song.isPlayed);
 
@@ -48,9 +51,24 @@ export const PlayListSideBar: React.FC<Props> = ({ isShow }) => {
           <SideBarItem key={song.encodeId} song={song} />
         ))}
         {unPlayedSongs[0] && (
-          <h3 className="sticky top-0 z-[1] bg-[#e5e3df] px-[8px] pb-[5px] pt-[15px] text-[1.4rem] font-[700]">
-            Tiếp theo
-          </h3>
+          <>
+            <div className="sticky top-[58px] z-[1] bg-[#e5e3df] px-[8px] pb-[5px] pt-[15px] text-[1.4rem] font-[700]">
+              Tiếp theo
+              {playListInfo.name && (
+                <div className="flex items-center gap-[5px]">
+                  <span className="flex-shrink-0 font-[400] text-[rgba(20,20,20,0.4)]">
+                    Từ playlist
+                  </span>
+                  <span
+                    className="oneline-letters cursor-pointer font-[500] text-[#844d4d]"
+                    onClick={() => navigate(`/album/${playListInfo.id}`)}
+                  >
+                    {playListInfo.name}
+                  </span>
+                </div>
+              )}
+            </div>
+          </>
         )}
         {unPlayedSongs.map((song) => (
           <SideBarItem key={song.encodeId} song={song} />

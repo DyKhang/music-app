@@ -4,7 +4,7 @@ import { homeApi } from "../../api/homeApi";
 
 export const useTrending = () => {
   return useQuery({
-    queryKey: [queryKeys.playlist],
+    queryKey: [queryKeys.popular],
     queryFn: homeApi.getTrending,
   });
 };

@@ -1,15 +1,12 @@
 import { Link } from "react-router-dom";
 import { NavLinkEle } from "../components/NavLinkEle";
 import {
-  BuildingLibraryIcon,
   CloudArrowUpIcon,
   EllipsisHorizontalIcon,
   HeartIcon,
   ListBulletIcon,
   SignalIcon,
 } from "@heroicons/react/24/outline";
-import { GlobeAltIcon } from "@heroicons/react/24/outline";
-import { ChartBarIcon } from "@heroicons/react/24/outline";
 import { RadioIcon } from "@heroicons/react/24/outline";
 import { MusicalNoteIcon } from "@heroicons/react/24/outline";
 import { SwatchIcon } from "@heroicons/react/24/outline";
@@ -17,6 +14,9 @@ import { StarIcon } from "@heroicons/react/24/outline";
 import { UpdateAccount } from "../components/UpdateAccount";
 import { ClockIcon } from "@heroicons/react/24/outline";
 import logo from "../../public/logo-light.svg";
+import { LibraryIcon } from "../components/LibraryIcon";
+import { DvdIcon } from "../components/DvdIcon";
+import { ChartIcon } from "../components/ChartIcon";
 
 export const SideBar = () => {
   return (
@@ -29,17 +29,13 @@ export const SideBar = () => {
       </Link>
       <div>
         <NavLinkEle
-          Icon={() => <BuildingLibraryIcon className="size-[24px]" />}
+          Icon={() => <LibraryIcon />}
           to="mymusic"
           title="Thư Viện"
         />
+        <NavLinkEle Icon={() => <DvdIcon />} to="/" title="Khám Phá" />
         <NavLinkEle
-          Icon={() => <GlobeAltIcon className="size-[24px]" />}
-          to="/"
-          title="Khám Phá"
-        />
-        <NavLinkEle
-          Icon={() => <ChartBarIcon className="size-[24px]" />}
+          Icon={() => <ChartIcon />}
           to="zing-chart"
           title="#zingchart"
         />

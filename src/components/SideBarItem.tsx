@@ -15,6 +15,7 @@ import {
 import { RootState, useAppDispatch } from "../store";
 import { PopOvers } from "./PopOvers";
 import { SideBarItemPop } from "./SideBarItemPop";
+import { useEffect, useRef } from "react";
 
 interface Props {
   song: SongReducer;
@@ -26,6 +27,12 @@ export const SideBarItem: React.FC<Props> = ({ song }) => {
   const currentSong = useSelector(currentSongSelector);
   const currentPlay = currentSong.encodeId === song.encodeId;
   const dispatch = useAppDispatch();
+  const activeRef = useRef<HTMLDivElement | null>(null);
+
+  // scroll when change currentPlay
+  useEffect(() => {
+    activeRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [currentPlay]);
 
   function handleTogglePlay() {
     if (isPlaying) {
@@ -42,7 +49,10 @@ export const SideBarItem: React.FC<Props> = ({ song }) => {
 
   if (currentPlay)
     return (
-      <div className="group/tag flex items-center gap-[10px] rounded-[5px] bg-[#644646] p-[8px] text-white">
+      <div
+        ref={activeRef}
+        className="group/tag sticky top-0 z-[1] flex items-center gap-[10px] rounded-[5px] bg-[#644646] p-[8px] text-white"
+      >
         <div
           className="relative size-[40px] cursor-pointer overflow-hidden rounded-[4px]"
           onClick={handleTogglePlay}

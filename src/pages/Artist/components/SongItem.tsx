@@ -25,9 +25,18 @@ export const SongItem: React.FC<Props> = ({ item }) => {
   const currentPlay = currentSong.encodeId === item.encodeId;
   const dispatch = useAppDispatch();
 
+  let title = item.title;
+  let artistsNames = item.artistsNames;
+  if (title.length > 20) {
+    title = item.title.slice(0, 20) + "...";
+  }
+  if (artistsNames.length > 20) {
+    artistsNames = item.artistsNames.slice(0, 20) + "...";
+  }
+
   if (currentPlay)
     return (
-      <div className="group/item flex items-center rounded-[5px] border-b-[1px] border-b-[rgba(0,0,0,0.05)] bg-[rgba(0,0,0,0.05)] p-[10px]">
+      <div className="group/item flex h-[61.35px] items-center rounded-[5px] border-b-[1px] border-b-[rgba(0,0,0,0.05)] bg-[rgba(0,0,0,0.05)] p-[10px]">
         <div
           onClick={() => {
             if (isPlaying) {
@@ -51,10 +60,10 @@ export const SongItem: React.FC<Props> = ({ item }) => {
         </div>
         <div className="ml-[10px] flex flex-col">
           <span className="flex cursor-pointer items-center gap-[6px] text-[1.4rem] font-[500] hover:text-[#844d4d]">
-            {item.title} {item.streamingStatus === 2 && <PremiumIcon />}
+            {title} {item.streamingStatus === 2 && <PremiumIcon />}
           </span>
           <span className="mt-[4px] cursor-pointer text-[1.2rem] text-[#696969] hover:text-[#844d4d] hover:underline">
-            {item.artistsNames}
+            {artistsNames}
           </span>
         </div>
         <div className="ml-auto hidden items-center gap-[8px] group-hover/item:flex">
@@ -84,7 +93,7 @@ export const SongItem: React.FC<Props> = ({ item }) => {
     );
 
   return (
-    <div className="group/item flex items-center rounded-[5px] border-b-[1px] border-b-[rgba(0,0,0,0.05)] p-[10px] hover:bg-[rgba(0,0,0,0.05)]">
+    <div className="group/item flex h-[61.35px] items-center rounded-[5px] border-b-[1px] border-b-[rgba(0,0,0,0.05)] p-[10px] hover:bg-[rgba(0,0,0,0.05)]">
       <div
         onClick={() =>
           dispatch(getSongReducer({ id: item.encodeId, type: "play" }))
@@ -100,10 +109,10 @@ export const SongItem: React.FC<Props> = ({ item }) => {
       </div>
       <div className="ml-[10px] flex flex-col">
         <span className="flex cursor-pointer items-center gap-[6px] text-[1.4rem] font-[500] hover:text-[#844d4d]">
-          {item.title} {item.streamingStatus === 2 && <PremiumIcon />}
+          {title} {item.streamingStatus === 2 && <PremiumIcon />}
         </span>
         <span className="mt-[4px] cursor-pointer text-[1.2rem] text-[#696969] hover:text-[#844d4d] hover:underline">
-          {item.artistsNames}
+          {artistsNames}
         </span>
       </div>
       <div className="ml-auto hidden items-center gap-[8px] group-hover/item:flex">

@@ -8,11 +8,9 @@ export const MainLayout = () => {
   return (
     <div className="flex h-screen">
       <PopOvers>
+        <Header />
         <SideBar />
-        <div className="flex flex-1 flex-col">
-          <Header />
-          <Main />
-        </div>
+        <Main />
         <Player />
       </PopOvers>
     </div>

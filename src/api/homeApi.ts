@@ -146,6 +146,96 @@ interface HomePlayList {
   timestamp: number;
 }
 
+export interface TopSongsItemChild {
+  encodeId: string;
+  title: string;
+  alias: string;
+  isOffical: boolean;
+  username: string;
+  artistsNames: string;
+  artists: {
+    id: string;
+    name: string;
+    link: string;
+    spotlight: boolean;
+    alias: string;
+    thumbnail: string;
+    thumbnailM: string;
+    isOA: boolean;
+    isOABrand: boolean;
+    playlistId: string;
+  }[];
+  isWorldWide: boolean;
+  thumbnailM: string;
+  link: string;
+  thumbnail: string;
+  duration: number;
+  zingChoice: boolean;
+  isPrivate: boolean;
+  preRelease: boolean;
+  releaseDate: number;
+  genreIds: string[];
+  album: {
+    encodeId: string;
+    title: string;
+    thumbnail: string;
+    isoffical: boolean;
+    link: string;
+    isIndie: boolean;
+    releaseDate: string;
+    sortDescription: string;
+    releasedAt: number;
+    genreIds: string[];
+    PR: boolean;
+    artists: {
+      id: string;
+      name: string;
+      link: string;
+      spotlight: boolean;
+      alias: string;
+      thumbnail: string;
+      thumbnailM: string;
+      isOA: boolean;
+      isOABrand: boolean;
+      playlistId: string;
+    }[];
+    artistsNames: string;
+  };
+  distributor: string;
+  isIndie: boolean;
+  streamingStatus: number;
+  allowAudioAds: boolean;
+  hasLyric: boolean;
+  rakingStatus: number;
+  releasedAt: number;
+}
+
+export interface TopSongsType {
+  banner: string;
+  type: string;
+  link: string;
+  title: string;
+  sectionType: string;
+  sectionId: string;
+  viewType: string;
+  options: {
+    autoSlider: boolean;
+    hideArrow: boolean;
+  };
+  items: TopSongsItemChild[];
+}
+
+interface HomeTopSongs {
+  err: number;
+  msg: string;
+  data: {
+    hasMore: boolean;
+    total: number;
+    items: TopSongsType[];
+  };
+  timestamp: number;
+}
+
 export const homeApi = {
   getBanner: async () => {
     const homeData = await axiosClient.get<HomeBanner>("/home");
@@ -189,5 +279,10 @@ export const homeApi = {
     return data.data.data.items.find(
       (item) => item.sectionType === "playlist" && item.title === "Album Hot",
     );
+  },
+  getTopSongs: async () => {
+    const data = await axiosClient.get<HomeTopSongs>("/home");
+
+    return data.data.data.items.find((item) => item.title === "BXH Nhạc Mới");
   },
 };

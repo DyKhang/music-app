@@ -67,7 +67,8 @@ export const Hero: React.FC<Props> = ({ data }) => {
           </div>
           <div className="mt-[16px] flex items-center gap-[24px]">
             <span className="text-[1.4rem] font-[500]">
-              {data?.data.data.totalFollow} người quan tâm
+              {data?.data.data.totalFollow.toLocaleString("vi-VN")} người quan
+              tâm
             </span>
             <div
               onClick={handleFollow}

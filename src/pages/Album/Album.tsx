@@ -13,17 +13,24 @@ import { useDetailPlayList } from "../../features/playlist/useDetailPlaylist";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../store";
 import { AudioAnimation } from "../../components/AudioAnimation";
-import { togglePlaying } from "../../features/player/playerSlice";
+import { getPlayList, togglePlaying } from "../../features/player/playerSlice";
 import { Filter } from "./components/Filter";
 import { useSearchParams } from "react-router-dom";
 import { Loader } from "../../components/Loader";
+import toast from "react-hot-toast";
+import { convertTotalFollow } from "../../utils/helper";
 
 export const Album = () => {
   const { id } = useParams();
+  const currentPlaylistId = useSelector(
+    (state: RootState) => state.playList.id,
+  );
   const dispatch = useAppDispatch();
   const { data, isLoading } = useDetailPlayList(id);
   const isPlaying = useSelector((state: RootState) => state.isPlaying);
   const [searchParams] = useSearchParams();
+
+  const isCurrentPlaylist = id === currentPlaylistId;
 
   if (isLoading) return <Loader />;
   const filterState = searchParams.get("filter") || "all";
@@ -46,10 +53,24 @@ export const Album = () => {
   }
 
   function handleTogglePlay() {
-    if (isPlaying) {
-      dispatch(togglePlaying(false));
+    if (!hasSongs) {
+      toast("Danh sách này không có bài hát nào", {
+        icon: "🤕",
+        position: "bottom-left",
+        style: {
+          padding: "12px",
+        },
+      });
     } else {
-      dispatch(togglePlaying(true));
+      if (isCurrentPlaylist) {
+        if (isPlaying) {
+          dispatch(togglePlaying(false));
+        } else {
+          dispatch(togglePlaying(true));
+        }
+      } else {
+        dispatch(getPlayList({ id: id! }));
+      }
     }
   }
 
@@ -74,9 +95,9 @@ export const Album = () => {
               <div className="absolute inset-0 hidden bg-black/50 group-hover/list:block"></div>
             )}
             <div
-              className={`absolute left-1/2 top-1/2 size-[48px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-[0.5px] border-white text-white ${isPlaying ? "flex" : "hidden group-hover/list:flex"}`}
+              className={`absolute left-1/2 top-1/2 size-[48px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-[0.5px] border-white text-white ${isPlaying && isCurrentPlaylist ? "flex" : "hidden group-hover/list:flex"}`}
             >
-              {isPlaying ? (
+              {isPlaying && isCurrentPlaylist ? (
                 <AudioAnimation />
               ) : (
                 <FontAwesomeIcon
@@ -94,21 +115,36 @@ export const Album = () => {
               <div className="flex flex-col items-center text-[1.2rem] leading-[1.75] text-[#696969]">
                 <span>Cập nhật: 20/06/2024</span>
                 <span className="text-center">{data?.artistsNames}</span>
-                <span>{data?.like} người yêu thích</span>
+                <span>
+                  {`${data?.like && convertTotalFollow(data.like)} người yêu thích`}
+                </span>
               </div>
               <div
                 onClick={handleTogglePlay}
                 className="mt-[16px] flex h-[36px] cursor-pointer items-center rounded-full bg-[#644646] px-[24px] text-[1.4rem] uppercase text-white hover:brightness-[0.9]"
               >
-                {isPlaying ? (
-                  <PauseIcon className="mr-[5px] size-[24px]" />
+                {isCurrentPlaylist ? (
+                  isPlaying ? (
+                    <PauseIcon className="mr-[5px] size-[24px]" />
+                  ) : (
+                    <FontAwesomeIcon
+                      icon={faPlay}
+                      className="mr-[5px] text-[1.6rem]"
+                    />
+                  )
                 ) : (
                   <FontAwesomeIcon
                     icon={faPlay}
                     className="mr-[5px] text-[1.6rem]"
                   />
                 )}
-                <span>{isPlaying ? "Tạm dừng" : "Tiếp tục phát"}</span>
+                <span>
+                  {isCurrentPlaylist
+                    ? isPlaying
+                      ? "Tạm dừng"
+                      : "Tiếp tục phát"
+                    : "Phát ngẫu nhiên"}
+                </span>
               </div>
               <div className="mt-[16px] flex gap-[10px]">
                 <div className="flex size-[35px] cursor-pointer items-center justify-center rounded-full bg-[rgba(0,0,0,0.05)]">
@@ -146,8 +182,8 @@ export const Album = () => {
 
                 <span>thời gian</span>
               </div>
-              {songsFiltered?.map((song) => (
-                <SongItem key={song.encodeId} song={song} />
+              {songsFiltered?.map((song, index) => (
+                <SongItem key={song.encodeId} song={song} index={index} />
               ))}
               {hasSongs && (
                 <div className="mt-[16px] flex items-center gap-[8px] text-[1.3rem] text-[#696969]">

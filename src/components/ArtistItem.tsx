@@ -1,6 +1,7 @@
 import { UserPlusIcon } from "@heroicons/react/24/outline";
 import { useDetailArtist } from "../features/artist/useDetailArtist";
 import { useNavigate } from "react-router";
+import { convertTotalFollow } from "../utils/helper";
 
 interface Props {
   alias: string;
@@ -58,7 +59,10 @@ export const ArtistItem: React.FC<Props> = ({ alias }) => {
         {data?.data.data.name}
       </h3>
       <span className="text-[1.2rem] text-[#696969]">
-        {data?.data.data.totalFollow}K quan tâm
+        {`${
+          data?.data.data.totalFollow &&
+          convertTotalFollow(data!.data.data.totalFollow)
+        }  quan tâm`}
       </span>
       <div className="mt-[15px] flex cursor-pointer items-center gap-[5px] rounded-full bg-[#644646] px-[19px] py-[6px] text-white hover:brightness-[0.9]">
         <UserPlusIcon className="size-[18px]" />
