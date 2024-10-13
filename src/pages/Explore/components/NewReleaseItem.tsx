@@ -1,9 +1,6 @@
 import { faEllipsis, faPlay } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  getSongReducer,
-  togglePlaying,
-} from "../../../features/player/playerSlice";
+import { getSongReducer } from "../../../features/player/playerSlice";
 import { RootState, useAppDispatch } from "../../../store";
 import { useSelector } from "react-redux";
 import { AudioAnimation } from "../../../components/AudioAnimation";
@@ -13,6 +10,7 @@ import { NewReleasesItemChild, StreamingStatus } from "../../../api/homeApi";
 import { PremiumIcon } from "../../../components/PremiumIcon";
 import { currentSongSelector } from "../../../features/player/selectors";
 import { useNavigate } from "react-router";
+import { useTogglePlay } from "../../../hooks/useTogglePlay";
 
 interface Props {
   data: NewReleasesItemChild;
@@ -27,6 +25,7 @@ export const NewReleaseItem: React.FC<Props> = ({ data }) => {
   const isPlaying = useSelector((state: RootState) => state.isPlaying);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const togglePlay = useTogglePlay();
   let newTile = title;
 
   if (title.length >= 20) {
@@ -44,11 +43,7 @@ export const NewReleaseItem: React.FC<Props> = ({ data }) => {
     if (!currentPlay) {
       dispatch(getSongReducer({ id: encodeId, type: "play" }));
     } else {
-      if (isPlaying) {
-        dispatch(togglePlaying(false));
-      } else {
-        dispatch(togglePlaying(true));
-      }
+      togglePlay();
     }
   }
 

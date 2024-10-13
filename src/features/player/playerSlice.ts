@@ -145,6 +145,35 @@ const playerSlice = createSlice({
     setIsPlayed: (state, { payload }: { payload: boolean }) => {
       state.songs[state.currentIndex].isPlayed = payload;
     },
+    setSongsWhenDrag: (
+      state,
+      {
+        payload,
+      }: {
+        payload: {
+          songs: SongReducer[];
+          activeSongId: string;
+          overSongId: string;
+        };
+      },
+    ) => {
+      const currentSongId = state.songs[state.currentIndex].encodeId;
+      const isChangeCurrentSongIndex = payload.activeSongId === currentSongId;
+      if (isChangeCurrentSongIndex) {
+        const newCurrentIndex = state.songs.findIndex(
+          (song) => song.encodeId === payload.overSongId,
+        );
+        state.currentIndex = newCurrentIndex;
+        const songs = payload.songs.map((song, index) =>
+          index <= newCurrentIndex
+            ? { ...song, isPlayed: true }
+            : { ...song, isPlayed: false },
+        );
+        state.songs = songs;
+      } else {
+        state.songs = payload.songs;
+      }
+    },
   },
   extraReducers(builder) {
     builder
@@ -252,6 +281,7 @@ export const {
   setIsPlayed,
   deleteSongInPlayList,
   changeReplayStatus,
+  setSongsWhenDrag,
 } = playerSlice.actions;
 
 export default playerSlice.reducer;

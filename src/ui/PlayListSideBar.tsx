@@ -4,8 +4,11 @@ import { EllipsisHorizontalIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import { SideBarItem } from "../components/SideBarItem";
 import { useSelector } from "react-redux";
-import { RootState } from "../store";
-import { useNavigate } from "react-router";
+import { RootState, useAppDispatch } from "../store";
+import { DndContext, DragEndEvent, DragStartEvent } from "@dnd-kit/core";
+import { arrayMove, SortableContext } from "@dnd-kit/sortable";
+import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
+import { setSongsWhenDrag } from "../features/player/playerSlice";
 
 interface Props {
   isShow: boolean;
@@ -13,11 +16,32 @@ interface Props {
 
 export const PlayListSideBar: React.FC<Props> = ({ isShow }) => {
   const [state, setState] = useState<"playlist" | "recent">("playlist");
-  const navigate = useNavigate();
+  const [draggedItemId, setDraggedItemId] = useState("");
   const songs = useSelector((state: RootState) => state.songs);
-  const playListInfo = useSelector((state: RootState) => state.playList);
   const playedSongs = songs.filter((song) => song.isPlayed);
   const unPlayedSongs = songs.filter((song) => !song.isPlayed);
+  const dispatch = useAppDispatch();
+
+  function handleDragStart(e: DragStartEvent) {
+    const { active } = e;
+    setDraggedItemId(active.id as string);
+  }
+
+  function handleDragEnd(e: DragEndEvent) {
+    const { over, active } = e;
+    setDraggedItemId("");
+    if (over && active.id !== over.id) {
+      const oldIndex = songs.findIndex((song) => song.encodeId === active.id);
+      const newIndex = songs.findIndex((song) => song.encodeId === over.id);
+      dispatch(
+        setSongsWhenDrag({
+          songs: arrayMove(songs, oldIndex, newIndex),
+          activeSongId: active.id as string,
+          overSongId: over.id as string,
+        }),
+      );
+    }
+  }
 
   return (
     <section
@@ -46,34 +70,37 @@ export const PlayListSideBar: React.FC<Props> = ({ isShow }) => {
         </div>
       </div>
 
-      <div className="mt-[14px] h-full overflow-y-scroll">
-        {playedSongs.map((song) => (
-          <SideBarItem key={song.encodeId} song={song} />
-        ))}
-        {unPlayedSongs[0] && (
-          <>
-            <div className="sticky top-[58px] z-[1] bg-[#e5e3df] px-[8px] pb-[5px] pt-[15px] text-[1.4rem] font-[700]">
-              Tiếp theo
-              {playListInfo.name && (
-                <div className="flex items-center gap-[5px]">
-                  <span className="flex-shrink-0 font-[400] text-[rgba(20,20,20,0.4)]">
-                    Từ playlist
-                  </span>
-                  <span
-                    className="oneline-letters cursor-pointer font-[500] text-[#844d4d]"
-                    onClick={() => navigate(`/album/${playListInfo.id}`)}
-                  >
-                    {playListInfo.name}
-                  </span>
-                </div>
-              )}
-            </div>
-          </>
-        )}
-        {unPlayedSongs.map((song) => (
-          <SideBarItem key={song.encodeId} song={song} />
-        ))}
-      </div>
+      <DndContext
+        onDragStart={handleDragStart}
+        modifiers={[restrictToVerticalAxis]}
+        onDragEnd={handleDragEnd}
+      >
+        <SortableContext
+          items={songs.map(({ encodeId, ...rest }) => {
+            return {
+              id: encodeId,
+              ...rest,
+            };
+          })}
+        >
+          <div className="mt-[14px] h-full overflow-y-scroll">
+            {playedSongs.map((song) => (
+              <SideBarItem
+                key={song.encodeId}
+                song={song}
+                draggedItemId={draggedItemId}
+              />
+            ))}
+            {unPlayedSongs.map((song) => (
+              <SideBarItem
+                key={song.encodeId}
+                song={song}
+                draggedItemId={draggedItemId}
+              />
+            ))}
+          </div>
+        </SortableContext>
+      </DndContext>
     </section>
   );
 };

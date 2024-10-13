@@ -5,12 +5,10 @@ import { EllipsisHorizontalIcon, HeartIcon } from "@heroicons/react/24/outline";
 import { useNavigate } from "react-router";
 import { RootState, useAppDispatch } from "../../../store";
 import { useSelector } from "react-redux";
-import {
-  getPlayList,
-  togglePlaying,
-} from "../../../features/player/playerSlice";
+import { getPlayList } from "../../../features/player/playerSlice";
 import { AudioAnimation } from "../../../components/AudioAnimation";
 import { LoaderSmall } from "../../../components/LoaderSmall";
+import { useTogglePlay } from "../../../hooks/useTogglePlay";
 
 interface Props {
   data: AxiosResponse<ArtistApi, unknown> | undefined;
@@ -28,6 +26,8 @@ export const NewRelease: React.FC<Props> = ({ data }) => {
 
   const isLoading =
     useSelector((state: RootState) => state.status) === "loading";
+
+  const togglePlay = useTogglePlay();
 
   if (isCurrentPlayList)
     return (
@@ -76,13 +76,7 @@ export const NewRelease: React.FC<Props> = ({ data }) => {
 
             <div
               className="flex size-[48px] cursor-pointer items-center justify-center rounded-full border-[0.5px] border-white"
-              onClick={() => {
-                if (isPlaying) {
-                  dispatch(togglePlaying(false));
-                } else {
-                  dispatch(togglePlaying(true));
-                }
-              }}
+              onClick={togglePlay}
             >
               {isPlaying ? (
                 <AudioAnimation />

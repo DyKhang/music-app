@@ -3,10 +3,12 @@ import { PlayIcon } from "@heroicons/react/24/solid";
 import { PlayListItemChild } from "../api/homeApi";
 import { useNavigate } from "react-router";
 import { RootState, useAppDispatch } from "../store";
-import { getPlayList, togglePlaying } from "../features/player/playerSlice";
+import { getPlayList } from "../features/player/playerSlice";
 import { LoaderSmall } from "./LoaderSmall";
 import { useSelector } from "react-redux";
 import { AudioAnimation } from "./AudioAnimation";
+import { useTogglePlay } from "../hooks/useTogglePlay";
+import { useIsCurrentPlayList } from "../hooks/useIsCurrentPlayList";
 
 interface Props {
   item: PlayListItemChild;
@@ -16,23 +18,15 @@ interface Props {
 export const PlayListItem: React.FC<Props> = ({ isAlbum = false, item }) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-
-  const currentPlaylistId = useSelector(
-    (state: RootState) => state.playList.id,
-  );
   const isPlaying = useSelector((state: RootState) => state.isPlaying);
-  const isCurrentPlayList = item.encodeId === currentPlaylistId;
-
   const isLoading =
     useSelector((state: RootState) => state.status) === "loading";
+  const togglePlay = useTogglePlay();
+  const { isCurrentPlayList } = useIsCurrentPlayList(item.encodeId);
 
   function handleClick() {
     if (isCurrentPlayList) {
-      if (isPlaying) {
-        dispatch(togglePlaying(false));
-      } else {
-        dispatch(togglePlaying(true));
-      }
+      togglePlay();
     } else {
       dispatch(getPlayList({ id: item.encodeId }));
     }

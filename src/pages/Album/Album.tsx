@@ -13,24 +13,27 @@ import { useDetailPlayList } from "../../features/playlist/useDetailPlaylist";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../store";
 import { AudioAnimation } from "../../components/AudioAnimation";
-import { getPlayList, togglePlaying } from "../../features/player/playerSlice";
+import { getPlayList } from "../../features/player/playerSlice";
 import { Filter } from "./components/Filter";
 import { useSearchParams } from "react-router-dom";
 import { Loader } from "../../components/Loader";
 import toast from "react-hot-toast";
 import { convertTotalFollow } from "../../utils/helper";
+import { useTogglePlay } from "../../hooks/useTogglePlay";
+import { useIsCurrentPlayList } from "../../hooks/useIsCurrentPlayList";
 
 export const Album = () => {
   const { id } = useParams();
   const currentPlaylistId = useSelector(
     (state: RootState) => state.playList.id,
   );
+  const isPlaying = useSelector((state: RootState) => state.isPlaying);
   const dispatch = useAppDispatch();
   const { data, isLoading } = useDetailPlayList(id);
-  const isPlaying = useSelector((state: RootState) => state.isPlaying);
   const [searchParams] = useSearchParams();
-
   const isCurrentPlaylist = id === currentPlaylistId;
+  const togglePlay = useTogglePlay();
+  const { isCurrentPlayList } = useIsCurrentPlayList(id!);
 
   if (isLoading) return <Loader />;
   const filterState = searchParams.get("filter") || "all";
@@ -63,11 +66,7 @@ export const Album = () => {
       });
     } else {
       if (isCurrentPlaylist) {
-        if (isPlaying) {
-          dispatch(togglePlaying(false));
-        } else {
-          dispatch(togglePlaying(true));
-        }
+        togglePlay();
       } else {
         dispatch(getPlayList({ id: id! }));
       }
@@ -97,7 +96,7 @@ export const Album = () => {
             <div
               className={`absolute left-1/2 top-1/2 size-[48px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-[0.5px] border-white text-white ${isPlaying && isCurrentPlaylist ? "flex" : "hidden group-hover/list:flex"}`}
             >
-              {isPlaying && isCurrentPlaylist ? (
+              {isPlaying && isCurrentPlayList ? (
                 <AudioAnimation />
               ) : (
                 <FontAwesomeIcon

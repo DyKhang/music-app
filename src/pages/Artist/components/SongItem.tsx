@@ -7,13 +7,11 @@ import { useSelector } from "react-redux";
 import { currentSongSelector } from "../../../features/player/selectors";
 import { RootState, useAppDispatch } from "../../../store";
 import { AudioAnimation } from "../../../components/AudioAnimation";
-import {
-  getSongReducer,
-  togglePlaying,
-} from "../../../features/player/playerSlice";
+import { getSongReducer } from "../../../features/player/playerSlice";
 import { PopOvers } from "../../../components/PopOvers";
 import { SongItemPop } from "../../Album/components/SongItemPop";
 import { PremiumIcon } from "../../../components/PremiumIcon";
+import { useTogglePlay } from "../../../hooks/useTogglePlay";
 
 interface Props {
   item: SectionItem;
@@ -24,6 +22,7 @@ export const SongItem: React.FC<Props> = ({ item }) => {
   const isPlaying = useSelector((state: RootState) => state.isPlaying);
   const currentPlay = currentSong.encodeId === item.encodeId;
   const dispatch = useAppDispatch();
+  const togglePlay = useTogglePlay();
 
   let title = item.title;
   let artistsNames = item.artistsNames;
@@ -38,13 +37,7 @@ export const SongItem: React.FC<Props> = ({ item }) => {
     return (
       <div className="group/item flex h-[61.35px] items-center rounded-[5px] border-b-[1px] border-b-[rgba(0,0,0,0.05)] bg-[rgba(0,0,0,0.05)] p-[10px]">
         <div
-          onClick={() => {
-            if (isPlaying) {
-              dispatch(togglePlaying(false));
-            } else {
-              dispatch(togglePlaying(true));
-            }
-          }}
+          onClick={togglePlay}
           className="relative flex size-[40px] flex-shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-[4px]"
         >
           <img src={item.thumbnailM} alt="" className="w-full object-cover" />

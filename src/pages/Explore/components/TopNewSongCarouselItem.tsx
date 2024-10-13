@@ -3,13 +3,11 @@ import { TopSongsItemChild } from "../../../api/homeApi";
 import React from "react";
 import { timestampToFormat } from "../../../utils/helper";
 import { RootState, useAppDispatch } from "../../../store";
-import {
-  getSongReducer,
-  togglePlaying,
-} from "../../../features/player/playerSlice";
+import { getSongReducer } from "../../../features/player/playerSlice";
 import { useSelector } from "react-redux";
-import { currentSongSelector } from "../../../features/player/selectors";
 import { AudioAnimation } from "../../../components/AudioAnimation";
+import { useTogglePlay } from "../../../hooks/useTogglePlay";
+import { useIsCurrentSong } from "../../../hooks/useIsCurrentSong";
 
 interface Props {
   item: TopSongsItemChild;
@@ -18,12 +16,11 @@ interface Props {
 
 export const TopNewSongCarouselItem: React.FC<Props> = ({ item, index }) => {
   const dispatch = useAppDispatch();
-  const currentSong = useSelector(currentSongSelector);
   const isPlaying = useSelector((state: RootState) => state.isPlaying);
-  const currentEncodeId = currentSong.encodeId;
-  const currentPlay = currentEncodeId === item.encodeId;
+  const togglePlay = useTogglePlay();
+  const { isCurrentSong } = useIsCurrentSong(item.encodeId);
 
-  if (currentPlay)
+  if (isCurrentSong)
     return (
       <div
         style={{
@@ -40,13 +37,7 @@ export const TopNewSongCarouselItem: React.FC<Props> = ({ item, index }) => {
             />
             <div className="absolute inset-0 bg-black/50"></div>
             <div
-              onClick={() => {
-                if (isPlaying) {
-                  dispatch(togglePlaying(false));
-                } else {
-                  dispatch(togglePlaying(true));
-                }
-              }}
+              onClick={togglePlay}
               className="absolute flex size-[48px] items-center justify-center rounded-full border-[0.5px] border-white"
             >
               {isPlaying ? (

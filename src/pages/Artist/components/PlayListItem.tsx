@@ -4,12 +4,11 @@ import { useNavigate } from "react-router";
 import { SectionItem } from "../../../api/artistApi";
 import { RootState, useAppDispatch } from "../../../store";
 import { useSelector } from "react-redux";
-import {
-  getPlayList,
-  togglePlaying,
-} from "../../../features/player/playerSlice";
+import { getPlayList } from "../../../features/player/playerSlice";
 import { AudioAnimation } from "../../../components/AudioAnimation";
 import { LoaderSmall } from "../../../components/LoaderSmall";
+import { useTogglePlay } from "../../../hooks/useTogglePlay";
+import { useIsCurrentPlayList } from "../../../hooks/useIsCurrentPlayList";
 
 interface Props {
   item: SectionItem;
@@ -19,14 +18,11 @@ interface Props {
 export const PlayListItem: React.FC<Props> = ({ item, hasArtistName }) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const currentPlaylistId = useSelector(
-    (state: RootState) => state.playList.id,
-  );
   const isPlaying = useSelector((state: RootState) => state.isPlaying);
-  const isCurrentPlayList = item.encodeId === currentPlaylistId;
-
   const isLoading =
     useSelector((state: RootState) => state.status) === "loading";
+  const togglePlay = useTogglePlay();
+  const { isCurrentPlayList } = useIsCurrentPlayList(item.encodeId);
 
   if (isCurrentPlayList)
     return (
@@ -48,13 +44,7 @@ export const PlayListItem: React.FC<Props> = ({ item, hasArtistName }) => {
 
             <div
               className="flex size-[48px] items-center justify-center rounded-full border-[0.5px] border-white"
-              onClick={() => {
-                if (isPlaying) {
-                  dispatch(togglePlaying(false));
-                } else {
-                  dispatch(togglePlaying(true));
-                }
-              }}
+              onClick={togglePlay}
             >
               {isPlaying ? (
                 <AudioAnimation />

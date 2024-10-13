@@ -12,16 +12,17 @@ import { RootState, useAppDispatch } from "../../../store";
 import {
   getPlayList,
   selectSongInPlayList,
-  togglePlaying,
 } from "../../../features/player/playerSlice";
 import { useSelector } from "react-redux";
-import { currentSongSelector } from "../../../features/player/selectors";
 import { AudioAnimation } from "../../../components/AudioAnimation";
 import { PremiumIcon } from "../../../components/PremiumIcon";
 import { formatTime } from "../../../utils/helper";
 import { useNavigate, useParams } from "react-router";
 import { PopOvers } from "../../../components/PopOvers";
 import { SongItemPop } from "./SongItemPop";
+import { useTogglePlay } from "../../../hooks/useTogglePlay";
+import { useIsCurrentPlayList } from "../../../hooks/useIsCurrentPlayList";
+import { useIsCurrentSong } from "../../../hooks/useIsCurrentSong";
 
 interface Props {
   song: Song;
@@ -30,20 +31,16 @@ interface Props {
 
 export const SongItem: React.FC<Props> = ({ song, index }) => {
   const { id } = useParams();
-  const currentPlayListId = useSelector(
-    (state: RootState) => state.playList.id,
-  );
-  const currentSong = useSelector(currentSongSelector);
   const isPlaying = useSelector((state: RootState) => state.isPlaying);
   const [isChecked, setIsChecked] = useState(false);
   const dispatch = useAppDispatch();
   const songs = useSelector((state: RootState) => state.songs);
   const hasAlbum = Boolean(song.album);
-  const currentPlay = currentSong.encodeId === song.encodeId;
   const isPremium = song.streamingStatus === 2;
   const navigate = useNavigate();
-
-  const isCurrentPlayList = id === currentPlayListId;
+  const togglePlay = useTogglePlay();
+  const { isCurrentPlayList } = useIsCurrentPlayList(id!);
+  const { isCurrentSong } = useIsCurrentSong(song.encodeId);
 
   function handleCheckSong() {
     setIsChecked(!isChecked);
@@ -60,7 +57,7 @@ export const SongItem: React.FC<Props> = ({ song, index }) => {
     }
   }
 
-  if (currentPlay)
+  if (isCurrentSong)
     return (
       <div className="group/item flex items-center rounded-[4px] border-b-[1px] border-[rgba(0,0,0,0.05)] bg-[rgba(0,0,0,0.05)] p-[10px]">
         <div className="mr-[10px] flex w-1/2 items-center">
@@ -74,13 +71,7 @@ export const SongItem: React.FC<Props> = ({ song, index }) => {
 
           <div
             className="relative mx-[10px] flex size-[40px] flex-shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-[4px]"
-            onClick={() => {
-              if (isPlaying) {
-                dispatch(togglePlaying(false));
-              } else {
-                dispatch(togglePlaying(true));
-              }
-            }}
+            onClick={togglePlay}
           >
             <img src={song.thumbnailM} alt="" className="w-full object-cover" />
             <div className="absolute inset-0 bg-black/50"></div>
