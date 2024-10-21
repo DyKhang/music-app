@@ -54,6 +54,15 @@ const initialState: initialState = {
   },
 };
 
+export const getSongUrl = createAsyncThunk(
+  "player/getSongUrl",
+  async (_, { getState }) => {
+    const state = getState();
+
+    return state;
+  },
+);
+
 export const getSongReducer = createAsyncThunk(
   "player/getSongReducer",
   async ({
@@ -269,7 +278,15 @@ const playerSlice = createSlice({
           state.playList.id = playListId;
           state.status = "idle";
         },
-      );
+      )
+      .addCase(getSongUrl.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(getSongUrl.fulfilled, (state, test) => {
+        console.log(test.payload.isPlaying);
+
+        state.status = "idle";
+      });
   },
 });
 export const {

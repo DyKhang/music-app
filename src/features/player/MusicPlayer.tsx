@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../store";
 import {
   changeReplayStatus,
+  getSongUrl,
   nextSong,
   previousSong,
   setIsPlayed,
@@ -63,6 +64,7 @@ export const MusicPlayer = () => {
     songRef.current.src = songUrl;
     dispatch(togglePlaying(true));
     dispatch(setIsPlayed(true));
+    dispatch(getSongUrl());
     songRef.current.play();
   }, [songUrl, dispatch]);
 
