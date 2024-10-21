@@ -1,4 +1,5 @@
 import axiosClient from "./axios";
+import { Song } from "./playlistApi";
 
 export interface BannerItemChild {
   type: number;
@@ -236,6 +237,115 @@ interface HomeTopSongs {
   timestamp: number;
 }
 
+export interface ChartType {
+  chartType: string;
+  sectionType: string;
+  sectionId: string;
+  promotes: Song[];
+  items: ChartItemChild[];
+  chart: {
+    times: {
+      hour: string;
+    }[];
+    minScore: number;
+    maxScore: number;
+    items: {
+      [key: string]: {
+        time: number;
+        hour: string;
+        counter: number;
+      }[];
+    };
+    totalScore: number;
+  };
+}
+
+export interface ChartItemChild {
+  encodeId: string;
+  title: string;
+  alias: string;
+  isOffical: boolean;
+  username: string;
+  artistsNames: string;
+  artists: {
+    id: string;
+    name: string;
+    link: string;
+    spotlight: boolean;
+    alias: string;
+    thumbnail: string;
+    thumbnailM: string;
+    isOA: boolean;
+    isOABrand: boolean;
+    playlistId: string;
+  }[];
+  isWorldWide: boolean;
+  thumbnailM: string;
+  link: string;
+  thumbnail: string;
+  duration: number;
+  zingChoice: boolean;
+  isPrivate: boolean;
+  preRelease: boolean;
+  releaseDate: number;
+  genreIds: string[];
+  album: {
+    encodeId: string;
+    title: string;
+    thumbnail: string;
+    isoffical: boolean;
+    link: string;
+    isIndie: boolean;
+    releaseDate: string;
+    sortDescription: string;
+    releasedAt: number;
+    genreIds: string[];
+    PR: boolean;
+    artists: {
+      id: string;
+      name: string;
+      link: string;
+      spotlight: boolean;
+      alias: string;
+      thumbnail: string;
+      thumbnailM: string;
+      isOA: boolean;
+      isOABrand: boolean;
+      playlistId: string;
+    }[];
+    artistsNames: string;
+  };
+  distributor: string;
+  isIndie: boolean;
+  streamingStatus: number;
+  allowAudioAds: boolean;
+  hasLyric: boolean;
+  rakingStatus: number;
+  score: number;
+  totalTopZing: number;
+  artist: {
+    id: string;
+    name: string;
+    link: string;
+    spotlight: boolean;
+    alias: string;
+    playlistId: string;
+    cover: string;
+    thumbnail: string;
+  };
+}
+
+interface HomeChart {
+  err: number;
+  msg: string;
+  data: {
+    hasMore: boolean;
+    total: number;
+    items: ChartType[];
+  };
+  timestamp: number;
+}
+
 export const homeApi = {
   getBanner: async () => {
     const homeData = await axiosClient.get<HomeBanner>("/home");
@@ -284,5 +394,10 @@ export const homeApi = {
     const data = await axiosClient.get<HomeTopSongs>("/home");
 
     return data.data.data.items.find((item) => item.title === "BXH Nhạc Mới");
+  },
+  getChart: async () => {
+    const data = await axiosClient.get<HomeChart>("/home");
+
+    return data.data.data.items.find((item) => item.sectionType === "RTChart");
   },
 };

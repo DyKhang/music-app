@@ -2,6 +2,7 @@ import { Carousel } from "../../components/Carousel";
 import { Loader } from "../../components/Loader";
 import { useAlbumHot } from "../../features/home/useAlbumHot";
 import { useBanner } from "../../features/home/useBanner";
+import { useChart } from "../../features/home/useChart";
 import { useChills } from "../../features/home/useChills";
 import { useTop100 } from "../../features/home/useTop100";
 import { useTopSongs } from "../../features/home/useTopSongs";
@@ -9,6 +10,8 @@ import { useTrending } from "../../features/home/useTrending";
 import { NewReleaseList } from "./components/NewReleaseList";
 import { PlayList } from "./components/PlayList";
 import { TopNewSongs } from "./components/TopNewSongs";
+import { ZingChart } from "./components/ZingChart";
+
 export const Explore = () => {
   const { data: bannerData, isLoading: bannerLoading } = useBanner();
   const { data: trendingData, isLoading: trendingLoading } = useTrending();
@@ -16,6 +19,7 @@ export const Explore = () => {
   const { data: top100, isLoading: top100Loading } = useTop100();
   const { data: albumHot, isLoading: albumHotLoading } = useAlbumHot();
   const { data: topSongs, isLoading: topSongLoading } = useTopSongs();
+  const { data: chart, isLoading: chartLoading } = useChart();
 
   if (
     bannerLoading ||
@@ -23,7 +27,8 @@ export const Explore = () => {
     chillsLoading ||
     albumHotLoading ||
     top100Loading ||
-    topSongLoading
+    topSongLoading ||
+    chartLoading
   )
     return <Loader />;
 
@@ -46,7 +51,11 @@ export const Explore = () => {
         <TopNewSongs data={topSongs} />
       </div>
 
-      <div className="mt-[48px]">
+      <div className="mt-[38px]">
+        <ZingChart data={chart} />
+      </div>
+
+      <div className="mt-[38px]">
         <PlayList data={top100} isAlbum hasLink />
       </div>
 

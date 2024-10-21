@@ -6,13 +6,22 @@ import { NotFound } from "./pages/NotFound";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Album } from "./pages/Album/Album";
 import { Artist } from "./pages/Artist/Artist";
+import { ErrorBoundary } from "react-error-boundary";
+import { ErrorPage } from "./pages/ErrorPage";
 // import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
   {
-    element: <MainLayout />,
+    element: (
+      <ErrorBoundary
+        FallbackComponent={ErrorPage}
+        onReset={() => window.location.replace("/")}
+      >
+        <MainLayout />
+      </ErrorBoundary>
+    ),
     children: [
       {
         path: "/",
@@ -41,7 +50,7 @@ const router = createBrowserRouter([
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+      {/* <ReactQueryDevtools initialIsOpen={false} position="top" /> */}
       <RouterProvider router={router} />
     </QueryClientProvider>
   );

@@ -11,7 +11,7 @@ interface Props {
 export const TopNewSongs: React.FC<Props> = ({ data }) => {
   return (
     <>
-      <div className="mb-[20px] flex items-center justify-between">
+      <div className="mb-[10px] flex items-center justify-between">
         <h2 className="text-[2rem] font-bold">
           {upperCaseFirstLetter(data?.title)}
         </h2>

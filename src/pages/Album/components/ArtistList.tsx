@@ -5,6 +5,7 @@ import { useDetailPlayList } from "../../../features/playlist/useDetailPlaylist"
 export const ArtistList = () => {
   const { id } = useParams();
   const { data } = useDetailPlayList(id);
+
   const artistAliases: string[] = [];
   data?.song.items.forEach((song) =>
     song.artists.forEach((artist) => {
