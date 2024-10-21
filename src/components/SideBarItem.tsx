@@ -7,10 +7,7 @@ import {
 } from "../features/player/playerSlice";
 import { AudioAnimation } from "./AudioAnimation";
 import { useSelector } from "react-redux";
-import {
-  currentSongSelector,
-  songsSelector,
-} from "../features/player/selectors";
+import { songsSelector } from "../features/player/selectors";
 import { RootState, useAppDispatch } from "../store";
 import { PopOvers } from "./PopOvers";
 import { SideBarItemPop } from "./SideBarItemPop";
@@ -24,13 +21,9 @@ import { useNavigate } from "react-router";
 
 interface Props {
   song: SongReducer;
-  draggedItemId: string;
 }
 
-export const SideBarItem: React.FC<Props> = ({ song, draggedItemId }) => {
-  const currentSongReducer = useSelector(currentSongSelector);
-  const isDraggingCurrentSongReducer =
-    currentSongReducer.encodeId === draggedItemId;
+export const SideBarItem: React.FC<Props> = ({ song }) => {
   const isPlaying = useSelector((state: RootState) => state.isPlaying);
   const songs = useSelector(songsSelector);
   const playListInfo = useSelector((state: RootState) => state.playList);
@@ -63,10 +56,10 @@ export const SideBarItem: React.FC<Props> = ({ song, draggedItemId }) => {
   } = useSortable({ id: song.encodeId });
 
   const style = {
-    transform: CSS.Transform.toString(transform),
+    transform: CSS.Translate.toString(transform),
     transition,
     backgroundColor: isDragging ? "#f3f1ed" : "",
-    zIndex: isDragging ? "1" : "",
+    zIndex: isDragging ? "2" : "",
     boxShadow: isDragging ? "rgba(0, 0, 0, 0.35) 0px 5px 15px" : "",
   };
 
@@ -75,7 +68,7 @@ export const SideBarItem: React.FC<Props> = ({ song, draggedItemId }) => {
       <div
         ref={setNodeRef}
         style={style}
-        className="playlist-item-active sticky top-0 z-[1]"
+        className="playlist-item-active sticky top-0 z-[1] overflow-hidden rounded-[5px]"
       >
         <div className="group/tag relative flex items-center gap-[10px] rounded-[5px] bg-[#644646] p-[8px] text-white">
           <div
@@ -115,7 +108,7 @@ export const SideBarItem: React.FC<Props> = ({ song, draggedItemId }) => {
             </div>
           </div>
         </div>
-        {unPlayedSongs[0] && !isDraggingCurrentSongReducer && (
+        {unPlayedSongs[0] && !isDragging && (
           <div className="bg-[#e5e3df] px-[8px] pb-[5px] pt-[15px] text-[1.4rem] font-[700]">
             Tiếp theo
             {playListInfo.name && (

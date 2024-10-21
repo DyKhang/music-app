@@ -13,6 +13,8 @@ import { ArtistBiography } from "./components/ArtistBiography";
 export const Artist = () => {
   const { alias } = useParams();
   const { data, isLoading } = useDetailArtist(alias!);
+  if (isLoading) return <Loader />;
+
   const hasNewRelease = Boolean(data?.data.data.topAlbum);
   const singlePlaylist = data?.data.data.sections.find(
     (section) => section.sectionId === "aSingle",
@@ -39,8 +41,6 @@ export const Artist = () => {
   );
 
   const artistDesc = data?.data.data.sortBiography;
-
-  if (isLoading) return <Loader />;
 
   return (
     <section>

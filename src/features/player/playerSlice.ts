@@ -80,13 +80,11 @@ export const getPlayList = createAsyncThunk(
     const songIds = playList.song.items.map((item) => item.encodeId);
 
     const songPromises = songIds.map((id) => musicApi.getSong(id));
-    const songInfoResPromises = songIds.map((id) => musicApi.getInfoSong(id));
 
     const songUrlsRes = await Promise.all(songPromises);
-    const songInfosRes = await Promise.all(songInfoResPromises);
 
     const songUrls = songUrlsRes.map((res) => res.data);
-    const songInfos = songInfosRes.map((res) => res.data);
+    const songInfos = playList.song.items;
 
     const playListName = playList.title;
     const playListId = playList.encodeId;
@@ -123,6 +121,9 @@ const playerSlice = createSlice({
         state.currentIndex += 1;
       }
     },
+    replayPlaylist: (state) => {
+      state.currentIndex = 0;
+    },
     selectSongInPlayList: (state, { payload }: { payload: number }) => {
       state.songs = state.songs.map((song, index) =>
         index <= payload
@@ -148,7 +149,7 @@ const playerSlice = createSlice({
     setSongsWhenDrag: (
       state,
       {
-        payload,
+        payload: { activeSongId, overSongId, songs },
       }: {
         payload: {
           songs: SongReducer[];
@@ -158,20 +159,52 @@ const playerSlice = createSlice({
       },
     ) => {
       const currentSongId = state.songs[state.currentIndex].encodeId;
-      const isChangeCurrentSongIndex = payload.activeSongId === currentSongId;
+      const isChangeCurrentSongIndex = activeSongId === currentSongId;
       if (isChangeCurrentSongIndex) {
         const newCurrentIndex = state.songs.findIndex(
-          (song) => song.encodeId === payload.overSongId,
+          (song) => song.encodeId === overSongId,
         );
         state.currentIndex = newCurrentIndex;
-        const songs = payload.songs.map((song, index) =>
+        state.songs = songs.map((song, index) =>
           index <= newCurrentIndex
             ? { ...song, isPlayed: true }
             : { ...song, isPlayed: false },
         );
-        state.songs = songs;
       } else {
-        state.songs = payload.songs;
+        const activeSongIndex = state.songs.findIndex(
+          (song) => song.encodeId === activeSongId,
+        );
+        const overSongIndex = state.songs.findIndex(
+          (song) => song.encodeId === overSongId,
+        );
+
+        const isActiveSongAfterCurrentSong =
+          activeSongIndex > state.currentIndex;
+        const isActiveSongBeforeCurrentSong =
+          activeSongIndex < state.currentIndex;
+
+        const isOverSongBeforeCurrentSong = overSongIndex <= state.currentIndex;
+        const isOverSongAfterCurrentSong = overSongIndex >= state.currentIndex;
+
+        if (isActiveSongAfterCurrentSong && isOverSongBeforeCurrentSong) {
+          state.currentIndex++;
+          state.songs = songs.map((song) =>
+            song.encodeId === activeSongId ? { ...song, isPlayed: true } : song,
+          );
+          return;
+        } else if (
+          isActiveSongBeforeCurrentSong &&
+          isOverSongAfterCurrentSong
+        ) {
+          state.currentIndex--;
+          state.songs = songs.map((song) =>
+            song.encodeId === activeSongId
+              ? { ...song, isPlayed: false }
+              : song,
+          );
+          return;
+        }
+        state.songs = songs;
       }
     },
   },
@@ -248,11 +281,11 @@ const playerSlice = createSlice({
         ) => {
           const songs = songInfos.map((item, index): SongReducer => {
             return {
-              encodeId: item.data.encodeId,
-              image: item.data.thumbnailM,
+              encodeId: item.encodeId,
+              image: item.thumbnailM,
               isPlayed: false,
-              name: item.data.title,
-              singer: item.data.artistsNames,
+              name: item.title,
+              singer: item.artistsNames,
               songUrl: songUrls[index].data?.["128"]
                 ? songUrls[index].data?.["128"]
                 : premiumSound,
@@ -282,6 +315,7 @@ export const {
   deleteSongInPlayList,
   changeReplayStatus,
   setSongsWhenDrag,
+  replayPlaylist,
 } = playerSlice.actions;
 
 export default playerSlice.reducer;

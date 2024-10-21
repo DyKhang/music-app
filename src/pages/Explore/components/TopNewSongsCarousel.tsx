@@ -22,7 +22,7 @@ const NextArrow = ({
       style={{
         boxShadow: "0 2px 4px 0 rgba(0,0,0,.2)",
       }}
-      className={`absolute right-[-9px] top-1/2 z-[1] flex size-[38px] -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-white hover:brightness-[0.9] ${atEnded && "cursor-auto select-none opacity-[0.1]"}`}
+      className={`absolute right-[-9px] top-1/2 z-[1] flex size-[38px] -translate-y-1/2 items-center justify-center rounded-full bg-white hover:brightness-[0.9] ${atEnded ? "cursor-default select-none opacity-[0.1]" : "cursor-pointer"}`}
       onClick={onClick}
     >
       <ChevronRightIcon className="size-[22px]" />
@@ -42,7 +42,7 @@ const PreviousArrow = ({
       style={{
         boxShadow: "0 2px 4px 0 rgba(0,0,0,.2)",
       }}
-      className={`absolute left-[-9px] top-1/2 z-[1] flex size-[38px] -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-white hover:brightness-[0.9] ${atInitial && "cursor-auto select-none opacity-[0.1]"}`}
+      className={`absolute left-[-9px] top-1/2 z-[1] flex size-[38px] -translate-y-1/2 items-center justify-center rounded-full bg-white hover:brightness-[0.9] ${atInitial ? "cursor-default select-none opacity-[0.1]" : "cursor-pointer"}`}
       onClick={onClick}
     >
       <ChevronLeftIcon className="size-[22px]" />

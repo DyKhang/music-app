@@ -9,4 +9,5 @@ export const queryKeys = {
   infoSong: "infoSong",
   detailPlaylist: "detailPlaylist",
   detailArtist: "detailArtist",
+  chart: "chart",
 };

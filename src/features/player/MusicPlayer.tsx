@@ -6,6 +6,7 @@ import {
   changeReplayStatus,
   nextSong,
   previousSong,
+  replayPlaylist,
   setIsPlayed,
   togglePlaying,
 } from "./playerSlice";
@@ -42,21 +43,24 @@ export const MusicPlayer = () => {
   // Handle event when the song ended
   useEffect(() => {
     const songElement = songRef.current;
+    const isLastSong = currentIndex === songLength - 1;
 
-    function handleEndSong() {
+    function handleEndedSong() {
       if (replayStatus === "replaySong") {
         songElement.play();
+      } else if (replayStatus === "replayList" && isLastSong) {
+        dispatch(replayPlaylist());
       } else {
         dispatch(nextSong());
       }
     }
 
-    songElement.addEventListener("ended", handleEndSong);
+    songElement.addEventListener("ended", handleEndedSong);
 
     return () => {
-      songElement.removeEventListener("ended", handleEndSong);
+      songElement.removeEventListener("ended", handleEndedSong);
     };
-  }, [dispatch, replayStatus]);
+  }, [dispatch, replayStatus, currentIndex, songLength]);
 
   // When has the new song, the url of the songRef will be changed
   useEffect(() => {

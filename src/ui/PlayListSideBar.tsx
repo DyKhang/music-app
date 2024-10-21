@@ -5,7 +5,14 @@ import { useState } from "react";
 import { SideBarItem } from "../components/SideBarItem";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../store";
-import { DndContext, DragEndEvent, DragStartEvent } from "@dnd-kit/core";
+import {
+  closestCenter,
+  DndContext,
+  DragEndEvent,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
 import { arrayMove, SortableContext } from "@dnd-kit/sortable";
 import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
 import { setSongsWhenDrag } from "../features/player/playerSlice";
@@ -16,20 +23,23 @@ interface Props {
 
 export const PlayListSideBar: React.FC<Props> = ({ isShow }) => {
   const [state, setState] = useState<"playlist" | "recent">("playlist");
-  const [draggedItemId, setDraggedItemId] = useState("");
+
   const songs = useSelector((state: RootState) => state.songs);
   const playedSongs = songs.filter((song) => song.isPlayed);
   const unPlayedSongs = songs.filter((song) => !song.isPlayed);
   const dispatch = useAppDispatch();
 
-  function handleDragStart(e: DragStartEvent) {
-    const { active } = e;
-    setDraggedItemId(active.id as string);
-  }
+  // cursor move 0px then fire event drag, avoid case cursor click element then fire drag
+  const pointerSensor = useSensor(PointerSensor, {
+    activationConstraint: {
+      distance: 0,
+    },
+  });
+  const sensors = useSensors(pointerSensor);
 
   function handleDragEnd(e: DragEndEvent) {
     const { over, active } = e;
-    setDraggedItemId("");
+
     if (over && active.id !== over.id) {
       const oldIndex = songs.findIndex((song) => song.encodeId === active.id);
       const newIndex = songs.findIndex((song) => song.encodeId === over.id);
@@ -71,9 +81,10 @@ export const PlayListSideBar: React.FC<Props> = ({ isShow }) => {
       </div>
 
       <DndContext
-        onDragStart={handleDragStart}
         modifiers={[restrictToVerticalAxis]}
         onDragEnd={handleDragEnd}
+        sensors={sensors}
+        collisionDetection={closestCenter}
       >
         <SortableContext
           items={songs.map(({ encodeId, ...rest }) => {
@@ -85,18 +96,10 @@ export const PlayListSideBar: React.FC<Props> = ({ isShow }) => {
         >
           <div className="mt-[14px] h-full overflow-y-scroll">
             {playedSongs.map((song) => (
-              <SideBarItem
-                key={song.encodeId}
-                song={song}
-                draggedItemId={draggedItemId}
-              />
+              <SideBarItem key={song.encodeId} song={song} />
             ))}
             {unPlayedSongs.map((song) => (
-              <SideBarItem
-                key={song.encodeId}
-                song={song}
-                draggedItemId={draggedItemId}
-              />
+              <SideBarItem key={song.encodeId} song={song} />
             ))}
           </div>
         </SortableContext>
