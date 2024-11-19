@@ -46,6 +46,17 @@ const initialState: initialState = {
       isPlayed: false,
       hasLyric: true,
     },
+    {
+      encodeId: "Z7OOF9F9",
+      hasLyric: true,
+      image:
+        "https://photo-resize-zmp3.zmdcdn.me/w240_r1x1_jpeg/cover/9/4/2/c/942c265290248155a5ed85e929ba683d.jpg",
+      isPlayed: false,
+      name: "Thương Nhầm Người",
+      singer: "Vũ Duy Khánh, ACV",
+      songUrl:
+        "https://vnso-zn-24-tf-a128-z3.zmdcdn.me/666e05ed534db73af216c0e6f929d555?authen=exp=1732180085~acl=/666e05ed534db73af216c0e6f929d555*~hmac=9d8b71ced7d768b7aeb1568c20f65365",
+    },
   ],
   isShuffle: false,
   status: "idle",
