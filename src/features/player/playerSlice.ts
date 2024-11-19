@@ -43,7 +43,7 @@ const initialState: initialState = {
       singer: "Trúc Nhân",
       songUrl:
         "https://a128-z3.zmdcdn.me/6d941f24c32b8adb6ab1f09491a4a12e?authen=exp=1732179537~acl=/6d941f24c32b8adb6ab1f09491a4a12e*~hmac=62506bf4be7a83c9d7e745e55598105e",
-      isPlayed: false,
+      isPlayed: true,
       hasLyric: true,
     },
     {
