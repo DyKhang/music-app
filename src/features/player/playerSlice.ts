@@ -36,11 +36,13 @@ export interface initialState {
 const initialState: initialState = {
   songs: [
     {
-      encodeId: "",
-      image: "",
-      name: "",
-      singer: "",
-      songUrl: "",
+      encodeId: "Z6WDAAZA",
+      image:
+        "https://photo-resize-zmp3.zmdcdn.me/w780_r1x1_jpeg/cover/b/d/4/b/bd4b8122a514f70e9bfe2bae802f4c04.jpg",
+      name: "Vẽ Đường Cong",
+      singer: "Trúc Nhân",
+      songUrl:
+        "https://a128-z3.zmdcdn.me/6d941f24c32b8adb6ab1f09491a4a12e?authen=exp=1732179537~acl=/6d941f24c32b8adb6ab1f09491a4a12e*~hmac=62506bf4be7a83c9d7e745e55598105e",
       isPlayed: false,
       hasLyric: true,
     },
