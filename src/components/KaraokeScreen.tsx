@@ -38,7 +38,10 @@ export const KaraokeScreen: React.FC<Props> = ({ isShow, setIsShow }) => {
       className={`fixed inset-0 z-[50] transition-all duration-500 ${!isShow && "translate-y-[100%]"}`}
     >
       <div className="absolute inset-0 bg-black"></div>
-      <div className="absolute inset-0 bg-cover bg-center bg-no-repeat"></div>
+      <div
+        style={{ backgroundImage: `url(${currentSong.image})` }}
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+      ></div>
       <div className="absolute inset-0 bg-black/50 backdrop-blur-[50px]"></div>
       <div className="relative flex items-center justify-center p-[20px]">
         <div className="flex rounded-full bg-[hsla(0,0%,100%,.1)] p-[3px] font-[700] text-[hsla(0,0%,100%,.5)]">
