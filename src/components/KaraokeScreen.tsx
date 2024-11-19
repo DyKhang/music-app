@@ -1,12 +1,10 @@
 import { createPortal } from "react-dom";
 import { ChevronDownIcon, Cog8ToothIcon } from "@heroicons/react/24/outline";
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import { LyricsScreen } from "./LyricsScreen";
 import { useSelector } from "react-redux";
 import { currentSongSelector } from "../features/player/selectors";
 import { useLyric } from "../features/lyric/useLyric";
-import { PopOvers } from "./PopOvers";
-import { KaraokePopContent } from "./KaraokePopContent";
 
 interface Props {
   isShow: boolean;
@@ -19,7 +17,8 @@ export const KaraokeScreen: React.FC<Props> = ({ isShow, setIsShow }) => {
   const currentSong = useSelector(currentSongSelector);
   const { data } = useLyric(currentSong.encodeId);
   const [tag, setTag] = useState<tagType>("lyrics");
-  const [onBg, setOnBg] = useState(false);
+
+  if (!data) return null;
 
   const tagContents: { label: string; tag: tagType }[] = [
     {
@@ -36,26 +35,13 @@ export const KaraokeScreen: React.FC<Props> = ({ isShow, setIsShow }) => {
     },
   ];
 
-  const bgImg = useMemo(() => {
-    return data?.data.data?.defaultIBGUrls[
-      Math.floor(Math.random() * data.data.data?.defaultIBGUrls.length)
-    ];
-  }, [data?.data.data.defaultIBGUrls]);
-
   return createPortal(
     <div
       className={`fixed inset-0 z-[50] transition-all duration-500 ${!isShow && "translate-y-[100%]"}`}
     >
       <div className="absolute inset-0 bg-black"></div>
-      <div
-        style={{
-          backgroundImage: `url(${onBg ? bgImg || currentSong.image : currentSong.image})`,
-        }}
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-      ></div>
-      {!onBg && (
-        <div className="absolute inset-0 bg-black/50 backdrop-blur-[50px]"></div>
-      )}
+      <div className="absolute inset-0 bg-cover bg-center bg-no-repeat"></div>
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-[50px]"></div>
       <div className="relative flex items-center justify-center p-[20px]">
         <div className="flex rounded-full bg-[hsla(0,0%,100%,.1)] p-[3px] font-[700] text-[hsla(0,0%,100%,.5)]">
           {tagContents.map((item) => (
@@ -84,16 +70,9 @@ export const KaraokeScreen: React.FC<Props> = ({ isShow, setIsShow }) => {
               ></path>
             </svg>
           </div>
-          <PopOvers>
-            <PopOvers.Button open="karaoke">
-              <div className="flex size-[44px] cursor-pointer items-center justify-center rounded-full bg-[hsla(0,0%,100%,0.1)] hover:brightness-[0.9]">
-                <Cog8ToothIcon className="size-[24px]" />
-              </div>
-            </PopOvers.Button>
-            <PopOvers.Content name="karaoke">
-              <KaraokePopContent onBg={onBg} setOnBg={setOnBg} />
-            </PopOvers.Content>
-          </PopOvers>
+          <div className="flex size-[44px] cursor-pointer items-center justify-center rounded-full bg-[hsla(0,0%,100%,0.1)] hover:brightness-[0.9]">
+            <Cog8ToothIcon className="size-[24px]" />
+          </div>
 
           <div
             onClick={() => setIsShow(false)}

@@ -42,7 +42,7 @@ const initialState: initialState = {
       singer: "",
       songUrl: "",
       isPlayed: false,
-      hasLyric: false,
+      hasLyric: true,
     },
   ],
   isShuffle: false,
