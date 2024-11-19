@@ -28,19 +28,19 @@ const router = createBrowserRouter([
         element: <Explore />,
       },
       {
-        path: "album/:id",
+        path: "/album/:id",
         element: <Album />,
       },
       {
-        path: "nghe-si/:alias",
+        path: "/nghe-si/:alias",
         element: <Artist />,
       },
       {
-        path: "tim-kiem",
+        path: "/tim-kiem",
         element: <SearchResults />,
       },
       {
-        path: "*",
+        path: "/*",
         element: <NotFound />,
       },
     ],
