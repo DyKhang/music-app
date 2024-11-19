@@ -1,6 +1,5 @@
 import { EllipsisHorizontalIcon, HeartIcon } from "@heroicons/react/24/outline";
 import { PlayIcon } from "@heroicons/react/24/solid";
-import { PlayListItemChild } from "../api/homeApi";
 import { useNavigate } from "react-router";
 import { RootState, useAppDispatch } from "../store";
 import { getPlayList } from "../features/player/playerSlice";
@@ -11,11 +10,18 @@ import { useTogglePlay } from "../hooks/useTogglePlay";
 import { useIsCurrentPlayList } from "../hooks/useIsCurrentPlayList";
 
 interface Props {
-  item: PlayListItemChild;
-  isAlbum: boolean | undefined;
+  item: {
+    encodeId: string;
+    thumbnailM: string;
+    sortDescription: string;
+    title: string;
+    artistsNames: string;
+    releaseDate: number;
+  };
+  type?: "desc" | "date" | "artist";
 }
 
-export const PlayListItem: React.FC<Props> = ({ isAlbum = false, item }) => {
+export const PlayListItem: React.FC<Props> = ({ item, type = "desc" }) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const isPlaying = useSelector((state: RootState) => state.isPlaying);
@@ -66,11 +72,22 @@ export const PlayListItem: React.FC<Props> = ({ isAlbum = false, item }) => {
             </div>
           </div>
         </div>
-        {!isAlbum ? (
+        {type === "desc" && (
           <p className="playlist-item__desc mt-[12px] text-[1.4rem] font-[400] text-[#696969]">
             {item.sortDescription}
           </p>
-        ) : (
+        )}
+        {type === "date" && (
+          <>
+            <p className="oneline-letters mb-[4px] mt-[12px] text-[1.4rem] font-[700] text-[#32323d]">
+              {item.title}
+            </p>
+            <p className="text-[1.4rem] font-[400] text-[#696969]">
+              {item.releaseDate}
+            </p>
+          </>
+        )}
+        {type === "artist" && (
           <>
             <p className="oneline-letters mb-[4px] mt-[12px] text-[1.4rem] font-[700] text-[#32323d]">
               {item.title}
@@ -116,11 +133,22 @@ export const PlayListItem: React.FC<Props> = ({ isAlbum = false, item }) => {
           </div>
         </div>
       </div>
-      {!isAlbum ? (
+      {type === "desc" && (
         <p className="playlist-item__desc mt-[12px] text-[1.4rem] font-[400] text-[#696969]">
           {item.sortDescription}
         </p>
-      ) : (
+      )}
+      {type === "date" && (
+        <>
+          <p className="oneline-letters mb-[4px] mt-[12px] text-[1.4rem] font-[700] text-[#32323d]">
+            {item.title}
+          </p>
+          <p className="text-[1.4rem] font-[400] text-[#696969]">
+            {item.releaseDate}
+          </p>
+        </>
+      )}
+      {type === "artist" && (
         <>
           <p className="oneline-letters mb-[4px] mt-[12px] text-[1.4rem] font-[700] text-[#32323d]">
             {item.title}

@@ -8,6 +8,7 @@ import { Album } from "./pages/Album/Album";
 import { Artist } from "./pages/Artist/Artist";
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorPage } from "./pages/ErrorPage";
+import { SearchResults } from "./pages/SearchResults/SearchResults";
 // import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const queryClient = new QueryClient();
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
       {
         path: "nghe-si/:alias",
         element: <Artist />,
+      },
+      {
+        path: "tim-kiem",
+        element: <SearchResults />,
       },
       {
         path: "*",

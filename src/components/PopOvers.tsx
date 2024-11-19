@@ -97,7 +97,8 @@ const Content = ({
   // useEffect(() => {
   //   function handleClickOutSidePopOver(e: MouseEvent) {
   //     if (nodeRef.current && !nodeRef.current.contains(e.target as Node)) {
-  //       setShow("");
+  //       console.log(show);
+  //       // setShow("");
   //     }
   //   }
 

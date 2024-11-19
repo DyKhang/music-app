@@ -1,16 +1,16 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { PlayListType } from "../../../api/homeApi";
-import { PlayListItem } from "../../../components/PlayListItem";
 import { upperCaseFirstLetter } from "../../../utils/helper";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { PlayListItem } from "../../../components/PlayListItem";
 
 interface Props {
   data: PlayListType | undefined;
-  isAlbum?: boolean;
   hasLink?: boolean;
+  type?: "desc" | "date" | "artist";
 }
 
-export const PlayList: React.FC<Props> = ({ data, isAlbum, hasLink }) => {
+export const PlayList: React.FC<Props> = ({ data, hasLink, type }) => {
   return (
     <section>
       <div className="flex items-center justify-between">
@@ -28,7 +28,18 @@ export const PlayList: React.FC<Props> = ({ data, isAlbum, hasLink }) => {
         {data?.items.map(
           (item, index) =>
             index <= 4 && (
-              <PlayListItem item={item} isAlbum={isAlbum} key={item.encodeId} />
+              <PlayListItem
+                item={{
+                  artistsNames: item.artistsNames,
+                  encodeId: item.encodeId,
+                  sortDescription: item.sortDescription,
+                  thumbnailM: item.thumbnailM,
+                  title: item.title,
+                  releaseDate: 0,
+                }}
+                key={item.encodeId}
+                type={type}
+              />
             ),
         )}
       </div>

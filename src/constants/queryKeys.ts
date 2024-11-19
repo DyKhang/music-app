@@ -10,4 +10,7 @@ export const queryKeys = {
   detailPlaylist: "detailPlaylist",
   detailArtist: "detailArtist",
   chart: "chart",
+  lyric: "lyric",
+  suggest: "suggest",
+  search: "search",
 };

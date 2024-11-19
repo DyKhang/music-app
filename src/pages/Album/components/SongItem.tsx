@@ -23,6 +23,7 @@ import { SongItemPop } from "./SongItemPop";
 import { useTogglePlay } from "../../../hooks/useTogglePlay";
 import { useIsCurrentPlayList } from "../../../hooks/useIsCurrentPlayList";
 import { useIsCurrentSong } from "../../../hooks/useIsCurrentSong";
+import { ArtistsSpan } from "../../../components/ArtistsSpan";
 
 interface Props {
   song: Song;
@@ -88,9 +89,14 @@ export const SongItem: React.FC<Props> = ({ song, index }) => {
             <p className="flex items-center gap-[8px] text-[1.4rem] font-[500] leading-[1.6]">
               {song.title} {isPremium && <PremiumIcon />}
             </p>
-            <span className="mt-[3px] text-[1.2rem] text-[#696969]">
-              {song.artistsNames}
-            </span>
+            <div className="mt-[3px]">
+              <ArtistsSpan
+                artists={song.artists.map((item) => ({
+                  alias: item.alias,
+                  name: item.name,
+                }))}
+              />
+            </div>
           </div>
         </div>
         <span className="flex-1 cursor-pointer text-[1.2rem] text-[rgba(50,50,61,0.5)] hover:text-[#844d4d] hover:underline">
@@ -148,9 +154,14 @@ export const SongItem: React.FC<Props> = ({ song, index }) => {
           <span className="flex items-center gap-[8px] text-[1.4rem] font-[500] leading-[1.6]">
             {song.title} {isPremium && <PremiumIcon />}
           </span>
-          <span className="mt-[3px] text-[1.2rem] text-[#696969]">
-            {song.artistsNames}
-          </span>
+          <div className="mt-[3px]">
+            <ArtistsSpan
+              artists={song.artists.map((item) => ({
+                alias: item.alias,
+                name: item.name,
+              }))}
+            />
+          </div>
         </div>
       </div>
       <span

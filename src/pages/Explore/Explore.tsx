@@ -4,6 +4,7 @@ import { useAlbumHot } from "../../features/home/useAlbumHot";
 import { useBanner } from "../../features/home/useBanner";
 import { useChart } from "../../features/home/useChart";
 import { useChills } from "../../features/home/useChills";
+import { useNewRelease } from "../../features/home/useNewReleases";
 import { useTop100 } from "../../features/home/useTop100";
 import { useTopSongs } from "../../features/home/useTopSongs";
 import { useTrending } from "../../features/home/useTrending";
@@ -20,6 +21,7 @@ export const Explore = () => {
   const { data: albumHot, isLoading: albumHotLoading } = useAlbumHot();
   const { data: topSongs, isLoading: topSongLoading } = useTopSongs();
   const { data: chart, isLoading: chartLoading } = useChart();
+  const { data: newRelease, isLoading: newReleaseLoading } = useNewRelease();
 
   if (
     bannerLoading ||
@@ -28,6 +30,7 @@ export const Explore = () => {
     albumHotLoading ||
     top100Loading ||
     topSongLoading ||
+    newReleaseLoading ||
     chartLoading
   )
     return <Loader />;
@@ -36,7 +39,7 @@ export const Explore = () => {
     <section className="pt-[70px]">
       <Carousel data={bannerData} />
       <div className="mt-[48px]">
-        <NewReleaseList />
+        <NewReleaseList data={newRelease} />
       </div>
 
       <div className="mt-[48px]">
@@ -56,11 +59,11 @@ export const Explore = () => {
       </div>
 
       <div className="mt-[38px]">
-        <PlayList data={top100} isAlbum hasLink />
+        <PlayList data={top100} hasLink type="artist" />
       </div>
 
       <div className="mt-[48px]">
-        <PlayList data={albumHot} isAlbum />
+        <PlayList data={albumHot} type="artist" />
       </div>
     </section>
   );

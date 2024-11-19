@@ -2,9 +2,7 @@ import { EllipsisHorizontalIcon, HeartIcon } from "@heroicons/react/24/outline";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMicrophone, faPlay } from "@fortawesome/free-solid-svg-icons";
 import { formatTime } from "../../../utils/helper";
-import { SectionItem } from "../../../api/artistApi";
 import { useSelector } from "react-redux";
-import { currentSongSelector } from "../../../features/player/selectors";
 import { RootState, useAppDispatch } from "../../../store";
 import { AudioAnimation } from "../../../components/AudioAnimation";
 import { getSongReducer } from "../../../features/player/playerSlice";
@@ -12,28 +10,36 @@ import { PopOvers } from "../../../components/PopOvers";
 import { SongItemPop } from "../../Album/components/SongItemPop";
 import { PremiumIcon } from "../../../components/PremiumIcon";
 import { useTogglePlay } from "../../../hooks/useTogglePlay";
+import { ArtistsSpan } from "../../../components/ArtistsSpan";
+import { useIsCurrentSong } from "../../../hooks/useIsCurrentSong";
 
 interface Props {
-  item: SectionItem;
+  item: {
+    encodeId: string;
+    title: string;
+    artistsNames: string;
+    thumbnailM: string;
+    streamingStatus: number;
+    artists: {
+      alias: string;
+      name: string;
+    }[];
+    duration: number;
+  };
 }
 
 export const SongItem: React.FC<Props> = ({ item }) => {
-  const currentSong = useSelector(currentSongSelector);
   const isPlaying = useSelector((state: RootState) => state.isPlaying);
-  const currentPlay = currentSong.encodeId === item.encodeId;
+  const { isCurrentSong } = useIsCurrentSong(item.encodeId);
   const dispatch = useAppDispatch();
   const togglePlay = useTogglePlay();
 
   let title = item.title;
-  let artistsNames = item.artistsNames;
   if (title.length > 20) {
     title = item.title.slice(0, 20) + "...";
   }
-  if (artistsNames.length > 20) {
-    artistsNames = item.artistsNames.slice(0, 20) + "...";
-  }
 
-  if (currentPlay)
+  if (isCurrentSong)
     return (
       <div className="group/item flex h-[61.35px] items-center rounded-[5px] border-b-[1px] border-b-[rgba(0,0,0,0.05)] bg-[rgba(0,0,0,0.05)] p-[10px]">
         <div
@@ -55,9 +61,14 @@ export const SongItem: React.FC<Props> = ({ item }) => {
           <span className="flex cursor-pointer items-center gap-[6px] text-[1.4rem] font-[500] hover:text-[#844d4d]">
             {title} {item.streamingStatus === 2 && <PremiumIcon />}
           </span>
-          <span className="mt-[4px] cursor-pointer text-[1.2rem] text-[#696969] hover:text-[#844d4d] hover:underline">
-            {artistsNames}
-          </span>
+          <div className="mt-[4px]">
+            <ArtistsSpan
+              artists={item.artists.map((item) => ({
+                alias: item.alias,
+                name: item.name,
+              }))}
+            />
+          </div>
         </div>
         <div className="ml-auto hidden items-center gap-[8px] group-hover/item:flex">
           <div className="flex size-[36px] cursor-pointer items-center justify-center rounded-full hover:bg-[rgba(0,0,0,0.05)]">
@@ -104,9 +115,14 @@ export const SongItem: React.FC<Props> = ({ item }) => {
         <span className="flex cursor-pointer items-center gap-[6px] text-[1.4rem] font-[500] hover:text-[#844d4d]">
           {title} {item.streamingStatus === 2 && <PremiumIcon />}
         </span>
-        <span className="mt-[4px] cursor-pointer text-[1.2rem] text-[#696969] hover:text-[#844d4d] hover:underline">
-          {artistsNames}
-        </span>
+        <div className="mt-[4px]">
+          <ArtistsSpan
+            artists={item.artists.map((item) => ({
+              alias: item.alias,
+              name: item.name,
+            }))}
+          />
+        </div>
       </div>
       <div className="ml-auto hidden items-center gap-[8px] group-hover/item:flex">
         <div className="flex size-[36px] cursor-pointer items-center justify-center rounded-full hover:bg-[rgba(0,0,0,0.05)]">

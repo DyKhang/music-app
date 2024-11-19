@@ -15,7 +15,7 @@ export const CarouselItem: React.FC<Props> = ({
   index,
 }) => {
   const navigate = useNavigate();
-  const isPlayList = item.link.includes("album");
+  const isPlayList = item.link.includes("album") || item.type === 4;
 
   return isPlayList ? (
     <div

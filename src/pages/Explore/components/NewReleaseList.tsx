@@ -2,12 +2,15 @@ import { Tag } from "./Tag";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { NewReleaseItem } from "./NewReleaseItem";
-import { useNewRelease } from "../../../features/home/useNewReleases";
 import { upperCaseFirstLetter } from "../../../utils/helper";
 import { useState } from "react";
+import { NewReleasesType } from "../../../api/homeApi";
 
-export const NewReleaseList = () => {
-  const { data } = useNewRelease();
+interface Props {
+  data: NewReleasesType | undefined;
+}
+
+export const NewReleaseList: React.FC<Props> = ({ data }) => {
   const [status, setStatus] = useState<"all" | "vPop" | "others">("all");
 
   return (

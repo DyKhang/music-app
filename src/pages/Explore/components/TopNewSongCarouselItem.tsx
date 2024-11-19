@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { AudioAnimation } from "../../../components/AudioAnimation";
 import { useTogglePlay } from "../../../hooks/useTogglePlay";
 import { useIsCurrentSong } from "../../../hooks/useIsCurrentSong";
+import { ArtistsSpan } from "../../../components/ArtistsSpan";
 
 interface Props {
   item: TopSongsItemChild;
@@ -49,9 +50,14 @@ export const TopNewSongCarouselItem: React.FC<Props> = ({ item, index }) => {
           </div>
           <div className="flex flex-1 flex-col">
             <span className="text-[1.4rem] font-[500]">{item.title}</span>
-            <p className="mt-[3px] text-[1.2rem] text-[#696969]">
-              {item.artistsNames}
-            </p>
+            <div className="mt-[3px]">
+              <ArtistsSpan
+                artists={item.artists.map((item) => ({
+                  alias: item.alias,
+                  name: item.name,
+                }))}
+              />
+            </div>
 
             <div className="mt-auto flex items-baseline justify-between">
               <span className="text-number font-robo text-[4rem] font-[900] leading-none text-transparent opacity-40">
@@ -92,10 +98,14 @@ export const TopNewSongCarouselItem: React.FC<Props> = ({ item, index }) => {
         </div>
         <div className="flex flex-1 flex-col">
           <span className="text-[1.4rem] font-[500]">{item.title}</span>
-          <p className="mt-[3px] text-[1.2rem] text-[#696969]">
-            {item.artistsNames}
-          </p>
-
+          <div className="mt-[3px]">
+            <ArtistsSpan
+              artists={item.artists.map((item) => ({
+                alias: item.alias,
+                name: item.name,
+              }))}
+            />
+          </div>
           <div className="mt-auto flex items-baseline justify-between">
             <span className="text-number font-robo text-[4rem] font-[900] leading-none text-transparent opacity-40">
               #{index + 1}

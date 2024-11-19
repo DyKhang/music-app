@@ -94,6 +94,7 @@ export interface InfoSong {
     listen: number;
     liked: boolean;
     comment: number;
+    hasLyric: boolean;
   };
 }
 

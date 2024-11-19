@@ -6,13 +6,11 @@ import { SideBar } from "./SideBar";
 
 export const MainLayout = () => {
   return (
-    <div className="flex h-screen">
-      <PopOvers>
-        <Header />
-        <SideBar />
-        <Main />
-        <Player />
-      </PopOvers>
-    </div>
+    <PopOvers>
+      <Header />
+      <SideBar />
+      <Main />
+      <Player />
+    </PopOvers>
   );
 };

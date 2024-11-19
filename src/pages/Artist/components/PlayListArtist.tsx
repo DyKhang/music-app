@@ -2,16 +2,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { upperCaseFirstLetter } from "../../../utils/helper";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { Section } from "../../../api/artistApi";
-import { PlayListItem } from "./PlayListItem";
+import { PlayListItem } from "../../../components/PlayListItem";
 
 interface Props {
   data: Section | undefined;
   hasLink?: boolean;
 }
 
-export const PlayList: React.FC<Props> = ({ data, hasLink }) => {
-  const hasArtistName =
-    data?.title === "Tuyển tập" || data?.title === "Xuất hiện trong";
+export const PlayListArtist: React.FC<Props> = ({ data, hasLink }) => {
+  let hasArtistName: "desc" | "date" | "artist" = "date";
+  if (data?.title === "Tuyển tập" || data?.title === "Xuất hiện trong") {
+    hasArtistName = "artist";
+  }
 
   return (
     <section>
@@ -31,9 +33,16 @@ export const PlayList: React.FC<Props> = ({ data, hasLink }) => {
           (item, index) =>
             index <= 4 && (
               <PlayListItem
-                hasArtistName={hasArtistName}
-                item={item}
+                item={{
+                  artistsNames: item.artistsNames,
+                  encodeId: item.encodeId,
+                  releaseDate: item.releaseDate,
+                  thumbnailM: item.thumbnailM,
+                  title: item.title,
+                  sortDescription: "_",
+                }}
                 key={item.encodeId}
+                type={hasArtistName}
               />
             ),
         )}

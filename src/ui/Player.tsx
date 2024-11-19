@@ -13,10 +13,12 @@ import { PlayListSideBar } from "./PlayListSideBar";
 import { PremiumIcon } from "../components/PremiumIcon";
 import { PremiumUpdateTag } from "../components/PremiumUpdateTag";
 import { currentSongSelector } from "../features/player/selectors";
+import { KaraokeScreen } from "../components/KaraokeScreen";
 
 export const Player = () => {
   const [showPlayList, setShowPlayList] = useState(false);
   const [isLove, setLove] = useState(false);
+  const [showKaraoke, setShowKaraoke] = useState(false);
   const currentSong = useSelector(currentSongSelector);
 
   const { image, name, singer, songUrl } = currentSong;
@@ -39,10 +41,10 @@ export const Player = () => {
         </span>
       </div>
       <div
-        className={`fixed ${name && "translate-y-[-90px]"} bottom-[-90px] z-[56] w-full bg-[#dddad1] transition duration-300`}
+        className={`fixed ${name && "translate-y-[-90px]"} bottom-[-90px] z-[56] w-full bg-[#dddad1] transition duration-300 ${showKaraoke && "bg-transparent"}`}
       >
         <div className="flex h-[90px] select-none items-center justify-between px-[20px]">
-          <div className="flex items-center">
+          <div className={`flex items-center ${showKaraoke && "invisible"}`}>
             <img
               src={image}
               alt={name}
@@ -67,15 +69,18 @@ export const Player = () => {
             )}
             <EllipsisHorizontalIcon className="ml-[12px] size-[24px] cursor-pointer rounded-full" />
           </div>
-          <MusicPlayer />
+          <MusicPlayer showKaraoke={showKaraoke} />
           <PlayerActions
             setShowPlayList={setShowPlayList}
             showPlayList={showPlayList}
+            setShowKaraoke={setShowKaraoke}
+            showKaraoke={showKaraoke}
           />
         </div>
       </div>
       {isPremium && <PremiumUpdateTag />}
-      <PlayListSideBar isShow={showPlayList} />
+      <PlayListSideBar isShow={showPlayList} showKaraoke={showKaraoke} />
+      <KaraokeScreen isShow={showKaraoke} setIsShow={setShowKaraoke} />
     </>
   );
 };

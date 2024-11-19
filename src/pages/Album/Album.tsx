@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   EllipsisHorizontalIcon,
   HeartIcon,
-  MusicalNoteIcon,
   PauseIcon,
 } from "@heroicons/react/24/outline";
 import { useParams } from "react-router";
@@ -21,6 +20,7 @@ import toast from "react-hot-toast";
 import { convertTotalFollow } from "../../utils/helper";
 import { useTogglePlay } from "../../hooks/useTogglePlay";
 import { useIsCurrentPlayList } from "../../hooks/useIsCurrentPlayList";
+import { ResultNotFound } from "../../components/ResultNotFound";
 
 export const Album = () => {
   const { id } = useParams();
@@ -192,10 +192,7 @@ export const Album = () => {
               )}
             </div>
           ) : (
-            <div className="mt-[30px] flex h-[220px] flex-col items-center justify-center gap-[20px] bg-[rgba(0,0,0,0.05)] py-[30px] text-[#696969]">
-              <MusicalNoteIcon className="size-[90px]" />
-              Danh sách bài hát đang được cập nhật
-            </div>
+            <ResultNotFound title="Danh sách bài hát đang được cập nhật" />
           )}
         </div>
       </section>

@@ -9,22 +9,21 @@ import { NewReleasePop } from "./NewReleasePop";
 import { NewReleasesItemChild, StreamingStatus } from "../../../api/homeApi";
 import { PremiumIcon } from "../../../components/PremiumIcon";
 import { currentSongSelector } from "../../../features/player/selectors";
-import { useNavigate } from "react-router";
 import { useTogglePlay } from "../../../hooks/useTogglePlay";
+import { ArtistsSpan } from "../../../components/ArtistsSpan";
 
 interface Props {
   data: NewReleasesItemChild;
 }
 
 export const NewReleaseItem: React.FC<Props> = ({ data }) => {
-  const { title, artists, encodeId, releaseDate, thumbnailM, streamingStatus } =
+  const { title, encodeId, releaseDate, thumbnailM, streamingStatus, artists } =
     data;
   const currentSong = useSelector(currentSongSelector);
   const currentEncodeId = currentSong.encodeId;
   const currentPlay = currentEncodeId === encodeId;
   const isPlaying = useSelector((state: RootState) => state.isPlaying);
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   const togglePlay = useTogglePlay();
   let newTile = title;
 
@@ -79,19 +78,13 @@ export const NewReleaseItem: React.FC<Props> = ({ data }) => {
           {streamingStatus === StreamingStatus.premium && <PremiumIcon />}
         </span>
         <div className="flex items-center gap-[4px]">
-          {artists.map(
-            (artist, index) =>
-              index <= 1 && (
-                <span
-                  key={artist.id}
-                  onClick={() => navigate(`/nghe-si/${artist.alias}`)}
-                  className="cursor-pointer text-[1.2rem] text-[#696969] hover:text-[#844d4d] hover:underline"
-                >
-                  {artist.name}
-                  {index !== artists.length - 1 && ","}
-                </span>
-              ),
-          )}
+          <ArtistsSpan
+            artists={artists.map((item) => ({
+              alias: item.alias,
+              name: item.name,
+            }))}
+            className="cursor-pointer text-[1.2rem] text-[#696969] hover:text-[#844d4d] hover:underline"
+          />
         </div>
         <span className="text-[1.2rem] text-[#696969]">
           {numDays > 1 ? `${numDays} ngày trước` : "Hôm qua"}

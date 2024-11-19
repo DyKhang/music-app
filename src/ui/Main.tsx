@@ -21,7 +21,7 @@ export const Main = () => {
   return (
     <main
       ref={mainRef}
-      className={`flex-1 overflow-x-hidden overflow-y-scroll px-[60px] ${songName ? "pb-[130px]" : "pb-[40px]"}`}
+      className={`flex-1 overflow-x-hidden overflow-y-scroll px-[60px] ${songName ? "pb-[130px]" : "pb-[40px]"} h-screen`}
     >
       <Outlet />
     </main>

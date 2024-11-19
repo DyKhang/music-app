@@ -6,7 +6,7 @@ import { Hero } from "./components/Hero";
 
 import { HotSongs } from "./components/HotSongs";
 import { NewRelease } from "./components/NewRelease";
-import { PlayList } from "./components/PlayList";
+import { PlayListArtist } from "./components/PlayListArtist";
 import { ReArtists } from "./components/ReArtists";
 import { ArtistBiography } from "./components/ArtistBiography";
 
@@ -60,25 +60,25 @@ export const Artist = () => {
 
       {singlePlaylist && (
         <section className="mt-[48px]">
-          <PlayList data={singlePlaylist} hasLink />
+          <PlayListArtist data={singlePlaylist} hasLink />
         </section>
       )}
 
       {albumPlaylist && (
         <section className="mt-[48px]">
-          <PlayList data={albumPlaylist} hasLink />
+          <PlayListArtist data={albumPlaylist} hasLink />
         </section>
       )}
 
       {topPlaylist && (
         <section className="mt-[48px]">
-          <PlayList data={topPlaylist} />
+          <PlayListArtist data={topPlaylist} />
         </section>
       )}
 
       {includesPlaylist && (
         <section className="mt-[48px]">
-          <PlayList data={includesPlaylist} />
+          <PlayListArtist data={includesPlaylist} />
         </section>
       )}
       {reArtists && (

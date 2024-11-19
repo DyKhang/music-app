@@ -9,17 +9,8 @@ import { Button } from "../components/Button";
 import { PopOvers } from "../components/PopOvers";
 import { POContentHeader } from "../components/POContentHeader";
 import avatar from "../../public/image.png";
-// import { useLocation } from "react-router";
 
 export const Header = () => {
-  // const location = useLocation();
-  // const hasBrowserHistory = location.key !== "default";
-  // if (hasBrowserHistory) {
-  //   console.log("Đã có lịch sử web");
-  // } else {
-  //   console.log("Chưa có lịch sử web");
-  // }
-
   return (
     <header className="header-inset fixed z-[40] flex h-[70px] items-center px-[60px]">
       <div className="flex items-center gap-9">
@@ -30,9 +21,7 @@ export const Header = () => {
           <ArrowRightIcon className="size-[20px] cursor-default opacity-25" />
         </button>
       </div>
-      <div className="ml-9 w-[36%]">
-        <Search />
-      </div>
+      <Search />
       <div className="ml-auto flex items-center gap-3">
         <Button title="Nâng cấp tài khoản" solid href="#!" width="250px" />
         <Button

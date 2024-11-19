@@ -10,8 +10,6 @@ interface Props {
 
 export const Carousel: React.FC<Props> = ({ data }) => {
   const slideItemRef = useRef<(HTMLDivElement | null)[]>([]);
-  // const [isModal, setIsModal] = useState(false);
-  // const navigate = useNavigate();
 
   useEffect(() => {
     const sliderEls = slideItemRef.current;

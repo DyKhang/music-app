@@ -8,6 +8,7 @@ import {
   nextSong,
   previousSong,
   replayPlaylist,
+  setCurrentTime,
   setIsPlayed,
   togglePlaying,
 } from "./playerSlice";
@@ -15,13 +16,17 @@ import { LoaderSmall } from "../../components/LoaderSmall";
 import { currentSongSelector, replayStatusSelector } from "./selectors";
 import { formatTime } from "../../utils/helper";
 
-export const MusicPlayer = () => {
+interface Props {
+  showKaraoke: boolean;
+}
+
+export const MusicPlayer: React.FC<Props> = ({ showKaraoke }) => {
   const [isShuffle, setIsShuffle] = useState(false);
   const replayStatus = useSelector(replayStatusSelector);
   const [range, setRange] = useState(0);
   const dispatch = useAppDispatch();
-  const songRef = useRef(new Audio());
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const songRef = useRef<HTMLAudioElement>(new Audio());
 
   const currentSong = useSelector(currentSongSelector);
   const volume = useSelector((state: RootState) => state.volume);
@@ -39,7 +44,7 @@ export const MusicPlayer = () => {
     } else {
       songRef.current.pause();
     }
-  }, [isPlay]);
+  }, [isPlay, songRef]);
 
   // Handle event when the song ended
   useEffect(() => {
@@ -61,27 +66,28 @@ export const MusicPlayer = () => {
     return () => {
       songElement.removeEventListener("ended", handleEndedSong);
     };
-  }, [dispatch, replayStatus, currentIndex, songLength]);
+  }, [dispatch, replayStatus, currentIndex, songLength, songRef]);
 
   // When has the new song, the url of the songRef will be changed
   useEffect(() => {
+    dispatch(getSongUrl());
     songRef.current.src = songUrl;
     dispatch(togglePlaying(true));
     dispatch(setIsPlayed(true));
-    dispatch(getSongUrl());
     songRef.current.play();
-  }, [songUrl, dispatch]);
+  }, [songUrl, dispatch, songRef]);
 
   // Handle change volume range
   useEffect(() => {
     songRef.current.volume = volume / 100;
-  }, [volume]);
+  }, [volume, songRef]);
 
   // Auto change song progress bar when currentTime changed
   useEffect(() => {
     const songElement = songRef.current;
     function handleSetRange() {
       setRange((songRef.current.currentTime / songRef.current.duration) * 100);
+      dispatch(setCurrentTime(songElement.currentTime));
 
       inputRef.current!.style.background = `linear-gradient(to right, #614646 ${inputRef.current?.value}%, #c6c4bc ${inputRef.current?.value}%)`;
     }
@@ -91,7 +97,7 @@ export const MusicPlayer = () => {
     return () => {
       songElement.removeEventListener("timeupdate", handleSetRange);
     };
-  }, [range]);
+  }, [range, songRef, dispatch]);
 
   function handleToggleShuffle() {
     setIsShuffle(!isShuffle);
@@ -118,7 +124,9 @@ export const MusicPlayer = () => {
   }
 
   return (
-    <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+    <div
+      className={`absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 ${showKaraoke ? "flex-col-reverse text-white" : "flex-col"} gap-3`}
+    >
       <div className="flex items-center justify-center gap-16 text-[1.8rem]">
         <i
           className={`fa-solid fa-shuffle cursor-pointer ${
@@ -131,11 +139,11 @@ export const MusicPlayer = () => {
           onClick={handlePreviousSong}
         ></i>
         <div
-          className="flex size-[40px] cursor-pointer items-center justify-center rounded-full border-[2px] border-[#42424b]"
+          className={`flex size-[40px] cursor-pointer items-center justify-center rounded-full border-[2px] ${showKaraoke ? "border-white" : "border-[#42424b]"}`}
           onClick={handlePlaySong}
         >
           {status === "loading" ? (
-            <LoaderSmall />
+            <LoaderSmall color={showKaraoke ? "white" : undefined} />
           ) : isPlay ? (
             <PauseIcon className="translate-[-0.5px] size-[22px]" />
           ) : (
@@ -157,8 +165,8 @@ export const MusicPlayer = () => {
           )}
         </div>
       </div>
-      <div className="relative mt-3 flex w-[500px] items-center gap-2">
-        <span className="absolute left-[-38px] top-1/2 -translate-y-1/2 text-[1.2rem] text-[#050505]">
+      <div className="relative flex w-[500px] items-center gap-2">
+        <span className="absolute left-[-38px] top-1/2 -translate-y-1/2 text-[1.2rem]">
           {status === "loading"
             ? "00:00"
             : formatTime(songRef.current.currentTime)}
@@ -176,8 +184,8 @@ export const MusicPlayer = () => {
               (newValue / 100) * songRef.current.duration;
           }}
         />
-        <span className="text-[1.2rem] text-[#32323d]">
-          {status === "loading"
+        <span className="text-[1.2rem]">
+          {status === "loading" || !songRef.current.duration
             ? "00:00"
             : formatTime(songRef.current.duration)}
         </span>

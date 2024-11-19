@@ -3,6 +3,7 @@ import { musicApi } from "../../api/musicApi";
 import premiumSound from "../../../public/musics/premium.mp3";
 import toast from "react-hot-toast";
 import { playlistApi } from "../../api/playlistApi";
+import { RootState } from "../../store";
 
 export interface SongReducer {
   singer: string;
@@ -11,6 +12,7 @@ export interface SongReducer {
   songUrl: string;
   encodeId: string;
   isPlayed: boolean;
+  hasLyric: boolean;
 }
 
 export interface initialState {
@@ -27,6 +29,7 @@ export interface initialState {
     name: string;
     id: string;
   };
+  currentTime: number;
 }
 
 const initialState: initialState = {
@@ -38,6 +41,7 @@ const initialState: initialState = {
       singer: "",
       songUrl: "",
       isPlayed: false,
+      hasLyric: false,
     },
   ],
   status: "idle",
@@ -52,14 +56,26 @@ const initialState: initialState = {
     id: "",
     name: "",
   },
+  currentTime: 0,
 };
 
-export const getSongUrl = createAsyncThunk(
+// Hàm createAsyncThunk nếu sử dụng generic sẽ có ba tham số:
+// Tham số thứ nhất là kiểu dữ liệu trả về của hàm async
+// Tham số thứ hai là kiểu dữ liệu cho tham số đầu vào của thunk
+// Tham số thứ ba là kiểu cho thunkApi cho phép bạn lấy dispatch, getState và các thông tin khác
+
+export const getSongUrl = createAsyncThunk<string, void, { state: RootState }>(
   "player/getSongUrl",
   async (_, { getState }) => {
     const state = getState();
+    const res = await musicApi.getSong(
+      state.songs[state.currentIndex].encodeId,
+    );
+    const currentSongUrl = res.data.data?.["128"]
+      ? res.data.data?.["128"]
+      : premiumSound;
 
-    return state;
+    return currentSongUrl;
   },
 );
 
@@ -86,19 +102,12 @@ export const getPlayList = createAsyncThunk(
   async ({ id, songIndex = 0 }: { id: string; songIndex?: number }) => {
     const playList = await playlistApi.getDetailPlaylist(id);
 
-    const songIds = playList.song.items.map((item) => item.encodeId);
-
-    const songPromises = songIds.map((id) => musicApi.getSong(id));
-
-    const songUrlsRes = await Promise.all(songPromises);
-
-    const songUrls = songUrlsRes.map((res) => res.data);
     const songInfos = playList.song.items;
 
     const playListName = playList.title;
     const playListId = playList.encodeId;
 
-    return { songUrls, songInfos, playListName, playListId, songIndex };
+    return { songInfos, playListName, playListId, songIndex };
   },
 );
 
@@ -216,6 +225,9 @@ const playerSlice = createSlice({
         state.songs = songs;
       }
     },
+    setCurrentTime: (state, { payload }: { payload: number }) => {
+      state.currentTime = payload;
+    },
   },
   extraReducers(builder) {
     builder
@@ -223,11 +235,12 @@ const playerSlice = createSlice({
         const songUrl = action.payload.songUrl.data?.["128"];
         const newSong: SongReducer = {
           encodeId: action.payload.songInfo.data.encodeId,
-          image: action.payload.songInfo.data.thumbnailM,
+          image: action.payload.songInfo.data.thumbnailM.replace("240", "780"),
           name: action.payload.songInfo.data.title,
           singer: action.payload.songInfo.data.artistsNames,
           songUrl: songUrl ? songUrl : premiumSound,
           isPlayed: false,
+          hasLyric: Boolean(action.payload.songInfo.data.hasLyric),
         };
 
         if (action.payload.type === "play") {
@@ -278,26 +291,17 @@ const playerSlice = createSlice({
         getPlayList.fulfilled,
         (
           state,
-          {
-            payload: {
-              songInfos,
-              playListId,
-              playListName,
-              songUrls,
-              songIndex,
-            },
-          },
+          { payload: { songInfos, playListId, playListName, songIndex } },
         ) => {
-          const songs = songInfos.map((item, index): SongReducer => {
+          const songs = songInfos.map((item): SongReducer => {
             return {
               encodeId: item.encodeId,
-              image: item.thumbnailM,
+              image: item.thumbnailM.replace("240", "780"),
               isPlayed: false,
               name: item.title,
               singer: item.artistsNames,
-              songUrl: songUrls[index].data?.["128"]
-                ? songUrls[index].data?.["128"]
-                : premiumSound,
+              songUrl: "",
+              hasLyric: Boolean(item.hasLyric),
             };
           });
           state.songs = songs;
@@ -315,11 +319,20 @@ const playerSlice = createSlice({
       .addCase(getSongUrl.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(getSongUrl.fulfilled, (state, test) => {
-        console.log(test.payload.isPlaying);
+      .addCase(
+        getSongUrl.fulfilled,
+        (state, { payload }: { payload: string }) => {
+          const currentSongHasSongUrl = Boolean(
+            state.songs[state.currentIndex].songUrl,
+          );
 
-        state.status = "idle";
-      });
+          if (!currentSongHasSongUrl) {
+            state.songs[state.currentIndex].songUrl = payload;
+          }
+
+          state.status = "idle";
+        },
+      );
   },
 });
 export const {
@@ -333,6 +346,7 @@ export const {
   changeReplayStatus,
   setSongsWhenDrag,
   replayPlaylist,
+  setCurrentTime,
 } = playerSlice.actions;
 
 export default playerSlice.reducer;

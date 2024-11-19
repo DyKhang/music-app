@@ -14,6 +14,7 @@ export const CarouselItemModal: React.FC<Props> = ({
   encodeId,
 }) => {
   const { data } = useInfoSong(encodeId);
+
   const dispatch = useAppDispatch();
 
   function handleClickPlay() {

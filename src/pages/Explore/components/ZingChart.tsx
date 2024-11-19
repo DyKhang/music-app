@@ -2,25 +2,41 @@ import { PlayIcon } from "@heroicons/react/24/solid";
 import { ZingChartItem } from "./ZingChartItem";
 import { ChartType } from "../../../api/homeApi";
 import { Chart } from "./Chart";
+import { useMemo } from "react";
 
 interface Props {
   data: ChartType | undefined;
 }
 
 export const ZingChart: React.FC<Props> = ({ data }) => {
+  const scoreOfFirstThree = useMemo(() => {
+    return data?.items.slice(0, 3).map((item) => item.score);
+  }, [data?.items]);
+
+  const totalScore = useMemo(() => {
+    return scoreOfFirstThree?.reduce((acc, value) => {
+      return (acc += value);
+    }, 0);
+  }, [scoreOfFirstThree]);
+
+  const percentOfFirstThree = useMemo(() => {
+    return scoreOfFirstThree?.map((score) =>
+      Math.round((score / totalScore!) * 100),
+    );
+  }, [scoreOfFirstThree, totalScore]);
+
+  // [{img, songName, artistName, percent}]
+
+  const tooltipData = useMemo(() => {
+    return data?.items.slice(0, 3).map((item, index) => ({
+      img: item.thumbnailM,
+      songName: item.title,
+      artistName: item.artistsNames,
+      percent: percentOfFirstThree![index],
+    }));
+  }, [data?.items, percentOfFirstThree]);
+
   if (!data) return null;
-
-  const scoreOfFirstThree = data.items
-    .filter((item, index) => index < 3 && item)
-    .map((item) => item.score);
-
-  const totalScore = scoreOfFirstThree?.reduce((acc, value) => {
-    return (acc += value);
-  }, 0);
-
-  const percentOfFirstThree = scoreOfFirstThree.map((score) =>
-    Math.round((score / totalScore) * 100),
-  );
 
   return (
     <div className="relative overflow-hidden rounded-[8px] bg-[rgba(51,16,76,.95)] p-[20px] pb-[35px]">
@@ -49,7 +65,7 @@ export const ZingChart: React.FC<Props> = ({ data }) => {
                   key={item.encodeId}
                   data={item}
                   index={index}
-                  score={percentOfFirstThree[index]}
+                  score={percentOfFirstThree![index]}
                 />
               ),
           )}
@@ -57,7 +73,7 @@ export const ZingChart: React.FC<Props> = ({ data }) => {
             Xem thêm
           </div>
         </div>
-        <Chart data={data} />
+        <Chart data={data} tooltipData={tooltipData} />
       </div>
     </div>
   );

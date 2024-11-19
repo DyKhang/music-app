@@ -1,7 +1,6 @@
 import { EllipsisHorizontalIcon, HeartIcon } from "@heroicons/react/24/outline";
 import { PlayIcon } from "@heroicons/react/24/solid";
 import { useNavigate } from "react-router";
-import { SectionItem } from "../../../api/artistApi";
 import { RootState, useAppDispatch } from "../../../store";
 import { useSelector } from "react-redux";
 import { getPlayList } from "../../../features/player/playerSlice";
@@ -11,7 +10,13 @@ import { useTogglePlay } from "../../../hooks/useTogglePlay";
 import { useIsCurrentPlayList } from "../../../hooks/useIsCurrentPlayList";
 
 interface Props {
-  item: SectionItem;
+  item: {
+    encodeId: string;
+    thumbnailM: string;
+    title: string;
+    artistsNames: string;
+    releaseDate: number;
+  };
   hasArtistName: boolean;
 }
 
