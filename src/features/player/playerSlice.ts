@@ -57,6 +57,50 @@ const initialState: initialState = {
       songUrl:
         "https://vnso-zn-24-tf-a128-z3.zmdcdn.me/666e05ed534db73af216c0e6f929d555?authen=exp=1732180085~acl=/666e05ed534db73af216c0e6f929d555*~hmac=9d8b71ced7d768b7aeb1568c20f65365",
     },
+    {
+      encodeId: "Z6IAWZO0",
+      hasLyric: true,
+      image:
+        "https://photo-resize-zmp3.zmdcdn.me/w780_r1x1_jpeg/cover/0/c/f/f/0cffa61c57704ac4818286eb8d41c961.jpg",
+      isPlayed: false,
+      name: "tâm trạng rất là tệ",
+      singer: "Willistic",
+      songUrl:
+        "https://a128-z3.zmdcdn.me/4ea6f1bacbc6bc36dcad16df1ea5ba40?authen=exp=1732180387~acl=/4ea6f1bacbc6bc36dcad16df1ea5ba40*~hmac=8831d8b945805bce4dd6940fb05a3221",
+    },
+    {
+      encodeId: "Z7WFEZ9F",
+      image:
+        "https://photo-resize-zmp3.zmdcdn.me/w780_r1x1_jpeg/cover/5/a/f/a/5afa09b4cf6aa4320aec2c5536d8f93d.jpg",
+      isPlayed: true,
+      name: "chuyện hôm qua",
+      singer: "Willistic",
+      songUrl:
+        "https://a128-z3.zmdcdn.me/94cf93e375f53dc1a67985444521e333?authen=exp=1732180506~acl=/94cf93e375f53dc1a67985444521e333*~hmac=3d653c34000d1a8c5784589642ffedc9",
+      hasLyric: false,
+    },
+    {
+      encodeId: "Z6UFFAOZ",
+      image:
+        "https://photo-resize-zmp3.zmdcdn.me/w780_r1x1_jpeg/cover/2/5/5/4/255417f3f7ff9cdc740b9ea97555c6ec.jpg",
+      isPlayed: true,
+      name: "Giá như anh ở đây",
+      singer: "Willistic, Cầm",
+      songUrl:
+        "https://a128-z3.zmdcdn.me/480fbba62c76220253cea6abc8becda5?authen=exp=1732180564~acl=/480fbba62c76220253cea6abc8becda5*~hmac=59d123f3356b9c1bc102dcb00b9b61cd",
+      hasLyric: true,
+    },
+    {
+      encodeId: "Z6AFC76C",
+      image:
+        "https://photo-resize-zmp3.zmdcdn.me/w780_r1x1_jpeg/cover/0/d/5/0/0d50b4bf7d3a2072f4c46b2f09d0f8ce.jpg",
+      isPlayed: true,
+      name: "Đại Loại",
+      singer: "Willistic, xolitxo",
+      songUrl:
+        "https://a128-z3.zmdcdn.me/2e21822f1f83f4719fb63e220cbefb2c?authen=exp=1732180601~acl=/2e21822f1f83f4719fb63e220cbefb2c*~hmac=41f8cb4424ab43c6fa3e069a7d5a8520",
+      hasLyric: true,
+    },
   ],
   isShuffle: false,
   status: "idle",
