@@ -37,7 +37,7 @@ export const KaraokeScreen: React.FC<Props> = ({ isShow, setIsShow }) => {
   ];
 
   const bgImg = useMemo(() => {
-    return data?.data.data.defaultIBGUrls[
+    return data?.data.data?.defaultIBGUrls[
       Math.floor(Math.random() * data.data.data?.defaultIBGUrls.length)
     ];
   }, [data?.data.data.defaultIBGUrls]);
@@ -49,7 +49,7 @@ export const KaraokeScreen: React.FC<Props> = ({ isShow, setIsShow }) => {
       <div className="absolute inset-0 bg-black"></div>
       <div
         style={{
-          backgroundImage: `url(${onBg ? bgImg : currentSong.image})`,
+          backgroundImage: `url(${onBg ? bgImg || currentSong.image : currentSong.image})`,
         }}
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
       ></div>
