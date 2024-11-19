@@ -38,7 +38,7 @@ export const KaraokeScreen: React.FC<Props> = ({ isShow, setIsShow }) => {
 
   const bgImg = useMemo(() => {
     return data?.data.data.defaultIBGUrls[
-      Math.floor(Math.random() * data.data.data.defaultIBGUrls?.length)
+      Math.floor(Math.random() * data.data.data?.defaultIBGUrls.length)
     ];
   }, [data?.data.data.defaultIBGUrls]);
 
