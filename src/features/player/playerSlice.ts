@@ -72,7 +72,7 @@ const initialState: initialState = {
       encodeId: "Z7WFEZ9F",
       image:
         "https://photo-resize-zmp3.zmdcdn.me/w780_r1x1_jpeg/cover/5/a/f/a/5afa09b4cf6aa4320aec2c5536d8f93d.jpg",
-      isPlayed: true,
+      isPlayed: false,
       name: "chuyện hôm qua",
       singer: "Willistic",
       songUrl:
@@ -83,7 +83,7 @@ const initialState: initialState = {
       encodeId: "Z6UFFAOZ",
       image:
         "https://photo-resize-zmp3.zmdcdn.me/w780_r1x1_jpeg/cover/2/5/5/4/255417f3f7ff9cdc740b9ea97555c6ec.jpg",
-      isPlayed: true,
+      isPlayed: false,
       name: "Giá như anh ở đây",
       singer: "Willistic, Cầm",
       songUrl:
@@ -94,7 +94,7 @@ const initialState: initialState = {
       encodeId: "Z6AFC76C",
       image:
         "https://photo-resize-zmp3.zmdcdn.me/w780_r1x1_jpeg/cover/0/d/5/0/0d50b4bf7d3a2072f4c46b2f09d0f8ce.jpg",
-      isPlayed: true,
+      isPlayed: false,
       name: "Đại Loại",
       singer: "Willistic, xolitxo",
       songUrl:
