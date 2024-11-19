@@ -25,6 +25,7 @@ export interface initialState {
     replay: ["none", "replayList", "replaySong"];
     currentIndex: number;
   };
+  isShuffle: boolean;
   playList: {
     name: string;
     id: string;
@@ -44,6 +45,7 @@ const initialState: initialState = {
       hasLyric: false,
     },
   ],
+  isShuffle: false,
   status: "idle",
   volume: 50,
   isPlaying: false,
@@ -120,6 +122,16 @@ const playerSlice = createSlice({
     },
     togglePlaying: (state, { payload }: { payload: boolean }) => {
       state.isPlaying = payload;
+    },
+    toggleShuffle: (state) => {
+      state.isShuffle = !state.isShuffle;
+    },
+    playRandom: (state) => {
+      let newIndex: number;
+      do {
+        newIndex = Math.floor(Math.random() * state.songs.length);
+      } while (newIndex === state.currentIndex);
+      state.currentIndex = newIndex;
     },
     changeReplayStatus: (state) => {
       state.replayStatus.currentIndex =
@@ -345,8 +357,10 @@ export const {
   deleteSongInPlayList,
   changeReplayStatus,
   setSongsWhenDrag,
+  toggleShuffle,
   replayPlaylist,
   setCurrentTime,
+  playRandom,
 } = playerSlice.actions;
 
 export default playerSlice.reducer;

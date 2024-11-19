@@ -34,6 +34,8 @@ export const SongItem: React.FC<Props> = ({ item }) => {
   const dispatch = useAppDispatch();
   const togglePlay = useTogglePlay();
 
+  if (!item) return null;
+
   let title = item.title;
   if (title.length > 20) {
     title = item.title.slice(0, 20) + "...";

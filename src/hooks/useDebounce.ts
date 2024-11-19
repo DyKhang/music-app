@@ -3,8 +3,6 @@ import { useEffect, useState } from "react";
 export const useDebounce = (value: string, delay: number) => {
   const [debounce, setDebounce] = useState(value);
 
-  console.log(value);
-
   useEffect(() => {
     const timerId = setTimeout(() => {
       if (!value.trim()) return;

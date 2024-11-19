@@ -72,6 +72,8 @@ export const Carousel: React.FC<Props> = ({ data }) => {
     };
   }, []);
 
+  if (!data?.items) return null;
+
   return (
     <section className="relative mt-[32px] flex overflow-hidden">
       {data?.items?.map((item, index) => (

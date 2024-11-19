@@ -1,3 +1,7 @@
 export const NotFound = () => {
-  return <div>Page Not Found</div>;
+  return (
+    <h2 className="mt-[70px] text-[2rem] font-bold">
+      Trang này hiện tại chưa phát triển 🤕
+    </h2>
+  );
 };

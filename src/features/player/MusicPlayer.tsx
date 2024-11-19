@@ -6,22 +6,26 @@ import {
   changeReplayStatus,
   getSongUrl,
   nextSong,
+  playRandom,
   previousSong,
   replayPlaylist,
   setCurrentTime,
   setIsPlayed,
   togglePlaying,
+  toggleShuffle,
 } from "./playerSlice";
 import { LoaderSmall } from "../../components/LoaderSmall";
 import { currentSongSelector, replayStatusSelector } from "./selectors";
 import { formatTime } from "../../utils/helper";
+import { ReplayIcon } from "../../components/ReplayIcon";
+import { ReplayOneIcon } from "../../components/ReplayOneIcon";
 
 interface Props {
   showKaraoke: boolean;
 }
 
 export const MusicPlayer: React.FC<Props> = ({ showKaraoke }) => {
-  const [isShuffle, setIsShuffle] = useState(false);
+  const isShuffle = useSelector((state: RootState) => state.isShuffle);
   const replayStatus = useSelector(replayStatusSelector);
   const [range, setRange] = useState(0);
   const dispatch = useAppDispatch();
@@ -57,7 +61,11 @@ export const MusicPlayer: React.FC<Props> = ({ showKaraoke }) => {
       } else if (replayStatus === "replayList" && isLastSong) {
         dispatch(replayPlaylist());
       } else {
-        dispatch(nextSong());
+        if (isShuffle) {
+          dispatch(playRandom());
+        } else {
+          dispatch(nextSong());
+        }
       }
     }
 
@@ -66,7 +74,7 @@ export const MusicPlayer: React.FC<Props> = ({ showKaraoke }) => {
     return () => {
       songElement.removeEventListener("ended", handleEndedSong);
     };
-  }, [dispatch, replayStatus, currentIndex, songLength, songRef]);
+  }, [dispatch, replayStatus, currentIndex, songLength, songRef, isShuffle]);
 
   // When has the new song, the url of the songRef will be changed
   useEffect(() => {
@@ -100,7 +108,7 @@ export const MusicPlayer: React.FC<Props> = ({ showKaraoke }) => {
   }, [range, songRef, dispatch]);
 
   function handleToggleShuffle() {
-    setIsShuffle(!isShuffle);
+    dispatch(toggleShuffle());
   }
 
   function handleToggleReplay() {
@@ -154,14 +162,11 @@ export const MusicPlayer: React.FC<Props> = ({ showKaraoke }) => {
           className={`fa-solid fa-forward-step ${currentIndex === songLength - 1 ? "cursor-not-allowed opacity-20" : "cursor-pointer"}`}
           onClick={handleNextSong}
         ></i>
-        <div className="relative" onClick={handleToggleReplay}>
-          <i
-            className={`fa-solid fa-arrow-rotate-left cursor-pointer ${replayStatus !== "none" && "text-[#614646]"}`}
-          ></i>
-          {replayStatus === "replaySong" && (
-            <div className="absolute right-[-1px] top-[1px] flex h-[12px] items-center justify-center overflow-hidden bg-[#dddad1] p-[0.3px] text-[1.3rem] font-semibold text-[#614646]">
-              <span>1</span>
-            </div>
+        <div className="cursor-pointer" onClick={handleToggleReplay}>
+          {replayStatus !== "replaySong" ? (
+            <ReplayIcon isReplayPlayList={replayStatus === "replayList"} />
+          ) : (
+            <ReplayOneIcon />
           )}
         </div>
       </div>
