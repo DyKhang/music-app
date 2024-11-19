@@ -18,8 +18,6 @@ export const KaraokeScreen: React.FC<Props> = ({ isShow, setIsShow }) => {
   const { data } = useLyric(currentSong.encodeId);
   const [tag, setTag] = useState<tagType>("lyrics");
 
-  if (!data) return null;
-
   const tagContents: { label: string; tag: tagType }[] = [
     {
       label: "Danh sách phát",
