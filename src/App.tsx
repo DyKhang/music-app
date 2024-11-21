@@ -8,7 +8,6 @@ import { Artist } from "./pages/Artist/Artist";
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorPage } from "./pages/ErrorPage";
 import { SearchResults } from "./pages/SearchResults/SearchResults";
-// import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const queryClient = new QueryClient();
 
@@ -50,7 +49,6 @@ const router = createBrowserRouter([
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      {/* <ReactQueryDevtools initialIsOpen={false} position="top" /> */}
       <RouterProvider router={router} />
     </QueryClientProvider>
   );

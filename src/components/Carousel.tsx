@@ -11,6 +11,8 @@ interface Props {
 export const Carousel: React.FC<Props> = ({ data }) => {
   const slideItemRef = useRef<(HTMLDivElement | null)[]>([]);
 
+  console.log(data);
+
   useEffect(() => {
     const sliderEls = slideItemRef.current;
     let min = 0;

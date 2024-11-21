@@ -17,6 +17,8 @@ export const CarouselItemModal: React.FC<Props> = ({
 
   const dispatch = useAppDispatch();
 
+  if (!data?.data.data) return null;
+
   function handleClickPlay() {
     dispatch(getSongReducer({ id: encodeId, type: "play" }));
     closeModal!();

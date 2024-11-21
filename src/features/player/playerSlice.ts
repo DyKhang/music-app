@@ -105,7 +105,7 @@ const initialState: initialState = {
   isShuffle: false,
   status: "idle",
   volume: 50,
-  isPlaying: false,
+  isPlaying: true,
   currentIndex: 0,
   replayStatus: {
     replay: ["none", "replayList", "replaySong"],
