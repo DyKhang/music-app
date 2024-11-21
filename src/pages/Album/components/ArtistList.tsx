@@ -6,6 +6,8 @@ export const ArtistList = () => {
   const { id } = useParams();
   const { data } = useDetailPlayList(id);
 
+  if (!data) return null;
+
   const artistAliases: string[] = [];
   data?.song.items.forEach((song) =>
     song.artists.forEach((artist) => {
