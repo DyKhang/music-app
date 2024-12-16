@@ -36,28 +36,6 @@ export interface initialState {
 const initialState: initialState = {
   songs: [
     {
-      encodeId: "Z6WDAAZA",
-      image:
-        "https://photo-resize-zmp3.zmdcdn.me/w780_r1x1_jpeg/cover/b/d/4/b/bd4b8122a514f70e9bfe2bae802f4c04.jpg",
-      name: "Vẽ Đường Cong",
-      singer: "Trúc Nhân",
-      songUrl:
-        "https://a128-z3.zmdcdn.me/6d941f24c32b8adb6ab1f09491a4a12e?authen=exp=1732179537~acl=/6d941f24c32b8adb6ab1f09491a4a12e*~hmac=62506bf4be7a83c9d7e745e55598105e",
-      isPlayed: true,
-      hasLyric: true,
-    },
-    {
-      encodeId: "Z7OOF9F9",
-      hasLyric: true,
-      image:
-        "https://photo-resize-zmp3.zmdcdn.me/w240_r1x1_jpeg/cover/9/4/2/c/942c265290248155a5ed85e929ba683d.jpg",
-      isPlayed: false,
-      name: "Thương Nhầm Người",
-      singer: "Vũ Duy Khánh, ACV",
-      songUrl:
-        "https://vnso-zn-24-tf-a128-z3.zmdcdn.me/666e05ed534db73af216c0e6f929d555?authen=exp=1732180085~acl=/666e05ed534db73af216c0e6f929d555*~hmac=9d8b71ced7d768b7aeb1568c20f65365",
-    },
-    {
       encodeId: "Z6IAWZO0",
       hasLyric: true,
       image:
@@ -105,7 +83,7 @@ const initialState: initialState = {
   isShuffle: false,
   status: "idle",
   volume: 50,
-  isPlaying: true,
+  isPlaying: false,
   currentIndex: 0,
   replayStatus: {
     replay: ["none", "replayList", "replaySong"],

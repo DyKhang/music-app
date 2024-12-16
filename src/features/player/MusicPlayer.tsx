@@ -38,6 +38,8 @@ export const MusicPlayer: React.FC<Props> = ({ showKaraoke }) => {
   const status = useSelector((state: RootState) => state.status);
   const songUrl = currentSong.songUrl;
 
+  console.log(currentSong);
+
   const currentIndex = useSelector((state: RootState) => state.currentIndex);
   const songLength = useSelector((state: RootState) => state.songs).length;
 
