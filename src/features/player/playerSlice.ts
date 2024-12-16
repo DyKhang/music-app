@@ -44,7 +44,7 @@ const initialState: initialState = {
       name: "tâm trạng rất là tệ",
       singer: "Willistic",
       songUrl:
-        "https://a128-z3.zmdcdn.me/4ea6f1bacbc6bc36dcad16df1ea5ba40?authen=exp=1732180387~acl=/4ea6f1bacbc6bc36dcad16df1ea5ba40*~hmac=8831d8b945805bce4dd6940fb05a3221",
+        "https://vnso-pt-8-tf-a128-z3.zmdcdn.me/4ea6f1bacbc6bc36dcad16df1ea5ba40?authen=exp=1734532536~acl=/4ea6f1bacbc6bc36dcad16df1ea5ba40*~hmac=b58b0fafcdc30132c3903d2d11944e9f",
     },
     {
       encodeId: "Z7WFEZ9F",
@@ -54,7 +54,7 @@ const initialState: initialState = {
       name: "chuyện hôm qua",
       singer: "Willistic",
       songUrl:
-        "https://a128-z3.zmdcdn.me/94cf93e375f53dc1a67985444521e333?authen=exp=1732180506~acl=/94cf93e375f53dc1a67985444521e333*~hmac=3d653c34000d1a8c5784589642ffedc9",
+        "https://vnso-pt-51-tf-a128-z3.zmdcdn.me/94cf93e375f53dc1a67985444521e333?authen=exp=1734533048~acl=/94cf93e375f53dc1a67985444521e333*~hmac=cf3c6e62bc862e84a5f22301abe32168",
       hasLyric: false,
     },
     {
@@ -65,7 +65,7 @@ const initialState: initialState = {
       name: "Giá như anh ở đây",
       singer: "Willistic, Cầm",
       songUrl:
-        "https://a128-z3.zmdcdn.me/480fbba62c76220253cea6abc8becda5?authen=exp=1732180564~acl=/480fbba62c76220253cea6abc8becda5*~hmac=59d123f3356b9c1bc102dcb00b9b61cd",
+        "https://vnso-pt-14-tf-a128-z3.zmdcdn.me/480fbba62c76220253cea6abc8becda5?authen=exp=1734533110~acl=/480fbba62c76220253cea6abc8becda5*~hmac=c75c8e4cc2a75561da5e7f8de914ee65",
       hasLyric: true,
     },
     {
@@ -76,7 +76,7 @@ const initialState: initialState = {
       name: "Đại Loại",
       singer: "Willistic, xolitxo",
       songUrl:
-        "https://a128-z3.zmdcdn.me/2e21822f1f83f4719fb63e220cbefb2c?authen=exp=1732180601~acl=/2e21822f1f83f4719fb63e220cbefb2c*~hmac=41f8cb4424ab43c6fa3e069a7d5a8520",
+        "https://vnso-pt-51-tf-a128-z3.zmdcdn.me/2e21822f1f83f4719fb63e220cbefb2c?authen=exp=1734533141~acl=/2e21822f1f83f4719fb63e220cbefb2c*~hmac=4f79133f9417f7e0583fc3488a0631be",
       hasLyric: true,
     },
   ],
