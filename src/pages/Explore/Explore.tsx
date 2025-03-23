@@ -1,7 +1,5 @@
-// import { Carousel } from "../../components/Carousel";
 import { Loader } from "../../components/Loader";
 import { useAlbumHot } from "../../features/home/useAlbumHot";
-// import { useBanner } from "../../features/home/useBanner";
 import { useChart } from "../../features/home/useChart";
 import { useChills } from "../../features/home/useChills";
 import { useNewRelease } from "../../features/home/useNewReleases";
@@ -44,23 +42,18 @@ export const Explore = () => {
       <div className="mt-[48px]">
         <PlayList data={trendingData} />
       </div>
-
       <div className="mt-[48px]">
         <PlayList data={chills} hasLink />
       </div>
-
       <div className="mt-[48px]">
         <TopNewSongs data={topSongs} />
       </div>
-
       <div className="mt-[38px]">
         <ZingChart data={chart} />
       </div>
-
       <div className="mt-[38px]">
         <PlayList data={top100} hasLink type="artist" />
       </div>
-
       <div className="mt-[48px]">
         <PlayList data={albumHot} type="artist" />
       </div>

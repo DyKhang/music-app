@@ -14,12 +14,17 @@ import { PremiumIcon } from "../components/PremiumIcon";
 import { PremiumUpdateTag } from "../components/PremiumUpdateTag";
 import { currentSongSelector } from "../features/player/selectors";
 import { KaraokeScreen } from "../components/KaraokeScreen";
+import { RootState, useAppDispatch } from "../store";
+import { setShowPlaylist } from "../features/player/playerSlice";
 
 export const Player = () => {
-  const [showPlayList, setShowPlayList] = useState(false);
+  // const [showPlayList, setShowPlayList] = useState(false);
   const [isLove, setLove] = useState(false);
   const [showKaraoke, setShowKaraoke] = useState(false);
   const currentSong = useSelector(currentSongSelector);
+  const showPlayList = useSelector((state: RootState) => state.showPlayList);
+  const dispatch = useAppDispatch();
+  const setShowPlayList = () => dispatch(setShowPlaylist());
 
   const { image, name, singer, songUrl } = currentSong;
   const isPremium = songUrl.includes("musics/premium.mp3");
