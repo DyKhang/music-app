@@ -12,7 +12,6 @@ import { TopNewSongs } from "./components/TopNewSongs";
 import { ZingChart } from "./components/ZingChart";
 
 export const Explore = () => {
-  // const { data: bannerData, isLoading: bannerLoading } = useBanner();
   const { data: trendingData, isLoading: trendingLoading } = useTrending();
   const { data: chills, isLoading: chillsLoading } = useChills();
   const { data: top100, isLoading: top100Loading } = useTop100();
@@ -34,29 +33,41 @@ export const Explore = () => {
 
   return (
     <section className="pt-[70px]">
-      {/* <Carousel data={bannerData} /> */}
       <div>
         <NewReleaseList data={newRelease} />
       </div>
+      {trendingData && (
+        <div className="mt-[48px]">
+          <PlayList data={trendingData} />
+        </div>
+      )}
+      {chills && (
+        <div className="mt-[48px]">
+          <PlayList data={chills} hasLink />
+        </div>
+      )}
+      {topSongs && (
+        <div className="mt-[48px]">
+          <TopNewSongs data={topSongs} />
+        </div>
+      )}
+      {chart && (
+        <div className="mt-[38px]">
+          <ZingChart data={chart} />
+        </div>
+      )}
 
-      <div className="mt-[48px]">
-        <PlayList data={trendingData} />
-      </div>
-      <div className="mt-[48px]">
-        <PlayList data={chills} hasLink />
-      </div>
-      <div className="mt-[48px]">
-        <TopNewSongs data={topSongs} />
-      </div>
-      <div className="mt-[38px]">
-        <ZingChart data={chart} />
-      </div>
-      <div className="mt-[38px]">
-        <PlayList data={top100} hasLink type="artist" />
-      </div>
-      <div className="mt-[48px]">
-        <PlayList data={albumHot} type="artist" />
-      </div>
+      {top100 && (
+        <div className="mt-[38px]">
+          <PlayList data={top100} hasLink type="artist" />
+        </div>
+      )}
+
+      {albumHot && (
+        <div className="mt-[48px]">
+          <PlayList data={albumHot} type="artist" />
+        </div>
+      )}
     </section>
   );
 };
