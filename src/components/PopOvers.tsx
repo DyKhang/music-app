@@ -5,10 +5,11 @@ import {
   ReactNode,
   useContext,
   useEffect,
-  // useRef,
+  useRef,
   useState,
 } from "react";
 import { createPortal } from "react-dom";
+import { useOnClickOutside } from "usehooks-ts";
 
 interface value {
   show: string;
@@ -91,33 +92,24 @@ const Content = ({
   position?: "left" | "right";
   name: string;
 }) => {
-  const { show, coords } = useContext(PopOverContext)!;
-  // const nodeRef = useRef<HTMLDivElement>(null);
+  const { show, coords, setShow } = useContext(PopOverContext)!;
+  const ref = useRef(null);
 
-  // useEffect(() => {
-  //   function handleClickOutSidePopOver(e: MouseEvent) {
-  //     if (nodeRef.current && !nodeRef.current.contains(e.target as Node)) {
-  //       console.log(show);
-  //       // setShow("");
-  //     }
-  //   }
+  const handleClickOutside = () => {
+    setShow("");
+  };
 
-  //   document.addEventListener("click", handleClickOutSidePopOver);
-
-  //   return () => {
-  //     document.removeEventListener("click", handleClickOutSidePopOver);
-  //   };
-  // }, [show, name, setShow]);
+  useOnClickOutside(ref, handleClickOutside);
 
   if (show !== name) return null;
 
   return createPortal(
     <div
+      ref={ref}
       style={{
         top: coords.y,
         [position]: coords.x,
       }}
-      // ref={nodeRef}
       className="fixed z-[60] rounded-[8px] bg-white shadow-shadow-popover"
     >
       {children}

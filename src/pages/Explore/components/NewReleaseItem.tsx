@@ -4,13 +4,17 @@ import { getSongReducer } from "../../../features/player/playerSlice";
 import { RootState, useAppDispatch } from "../../../store";
 import { useSelector } from "react-redux";
 import { AudioAnimation } from "../../../components/AudioAnimation";
-import { PopOvers } from "../../../components/PopOvers";
 import { NewReleasePop } from "./NewReleasePop";
 import { NewReleasesItemChild, StreamingStatus } from "../../../api/homeApi";
 import { PremiumIcon } from "../../../components/PremiumIcon";
 import { currentSongSelector } from "../../../features/player/selectors";
 import { useTogglePlay } from "../../../hooks/useTogglePlay";
 import { ArtistsSpan } from "../../../components/ArtistsSpan";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "../../../components/DropDown";
 
 interface Props {
   data: NewReleasesItemChild;
@@ -90,18 +94,16 @@ export const NewReleaseItem: React.FC<Props> = ({ data }) => {
           {numDays > 1 ? `${numDays} ngày trước` : "Hôm qua"}
         </span>
       </div>
-      <PopOvers.PopOver>
-        <>
-          <PopOvers.Button open={`new-release-${encodeId}`}>
-            <div className="invisible absolute right-8 top-1/2 flex size-[40px] -translate-y-1/2 cursor-pointer items-center justify-center rounded-full hover:bg-[rgba(0,0,0,0.05)] group-hover/tag:visible">
-              <FontAwesomeIcon icon={faEllipsis} />
-            </div>
-          </PopOvers.Button>
-          <PopOvers.Content name={`new-release-${encodeId}`}>
-            <NewReleasePop encodeId={data.encodeId} />
-          </PopOvers.Content>
-        </>
-      </PopOvers.PopOver>
+      <DropdownMenu>
+        <DropdownMenuTrigger>
+          <div className="invisible absolute right-8 top-1/2 flex size-[40px] -translate-y-1/2 cursor-pointer items-center justify-center rounded-full hover:bg-[rgba(0,0,0,0.05)] group-hover/tag:visible">
+            <FontAwesomeIcon icon={faEllipsis} />
+          </div>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <NewReleasePop encodeId={data.encodeId} />
+        </DropdownMenuContent>
+      </DropdownMenu>
     </div>
   );
 };

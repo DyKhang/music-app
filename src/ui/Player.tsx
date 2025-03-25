@@ -16,6 +16,7 @@ import { currentSongSelector } from "../features/player/selectors";
 import { KaraokeScreen } from "../components/KaraokeScreen";
 import { RootState, useAppDispatch } from "../store";
 import { setShowPlaylist } from "../features/player/playerSlice";
+import { ToolTip } from "../components/ToolTip";
 
 export const Player = () => {
   // const [showPlayList, setShowPlayList] = useState(false);
@@ -61,18 +62,23 @@ export const Player = () => {
               </span>
               <span className="text-[1.2rem] text-[#696969]">{singer}</span>
             </div>
-            {isLove ? (
-              <HeartIconSolid
-                className="ml-8 size-[18px] cursor-pointer text-[#4d4c54]"
-                onClick={handleToggleLove}
-              />
-            ) : (
-              <HeartIcon
-                className="ml-8 size-[18px] cursor-pointer text-[#4d4c54]"
-                onClick={handleToggleLove}
-              />
-            )}
-            <EllipsisHorizontalIcon className="ml-[12px] size-[24px] cursor-pointer rounded-full" />
+            <ToolTip title="Thêm vào thư viện">
+              {isLove ? (
+                <HeartIconSolid
+                  className="ml-8 size-[18px] cursor-pointer text-[#4d4c54]"
+                  onClick={handleToggleLove}
+                />
+              ) : (
+                <HeartIcon
+                  className="ml-8 size-[18px] cursor-pointer text-[#4d4c54]"
+                  onClick={handleToggleLove}
+                />
+              )}
+            </ToolTip>
+
+            <ToolTip title="Xem thêm">
+              <EllipsisHorizontalIcon className="ml-[12px] size-[24px] cursor-pointer rounded-full" />
+            </ToolTip>
           </div>
           <MusicPlayer showKaraoke={showKaraoke} />
           <PlayerActions

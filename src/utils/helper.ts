@@ -1,3 +1,6 @@
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
+
 export function getArrSlider(
   start: number,
   end: number,
@@ -47,4 +50,8 @@ export function timestampToFormat(timestamp: number) {
   const month = date.getMonth() + 1;
   const year = date.getFullYear();
   return `${day < 10 ? `0${day}` : day}.${month}.${year}`;
+}
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
 }

@@ -19,6 +19,7 @@ import { currentSongSelector, replayStatusSelector } from "./selectors";
 import { formatTime } from "../../utils/helper";
 import { ReplayIcon } from "../../components/ReplayIcon";
 import { ReplayOneIcon } from "../../components/ReplayOneIcon";
+import { ToolTip } from "../../components/ToolTip";
 
 interface Props {
   showKaraoke: boolean;
@@ -136,12 +137,15 @@ export const MusicPlayer: React.FC<Props> = ({ showKaraoke }) => {
       className={`absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 ${showKaraoke ? "flex-col-reverse text-white" : "flex-col"} gap-3`}
     >
       <div className="flex items-center justify-center gap-16 text-[1.8rem]">
-        <i
-          className={`fa-solid fa-shuffle cursor-pointer ${
-            isShuffle && "text-[#7f4d4d]"
-          }`}
-          onClick={handleToggleShuffle}
-        ></i>
+        <ToolTip title="Bật phát ngẫu nhiên">
+          <i
+            className={`fa-solid fa-shuffle cursor-pointer ${
+              isShuffle && "text-[#7f4d4d]"
+            }`}
+            onClick={handleToggleShuffle}
+          ></i>
+        </ToolTip>
+
         <i
           className={`fa-solid fa-backward-step ${currentIndex === 0 ? "cursor-not-allowed opacity-20" : "cursor-pointer"}`}
           onClick={handlePreviousSong}
@@ -162,13 +166,23 @@ export const MusicPlayer: React.FC<Props> = ({ showKaraoke }) => {
           className={`fa-solid fa-forward-step ${currentIndex === songLength - 1 ? "cursor-not-allowed opacity-20" : "cursor-pointer"}`}
           onClick={handleNextSong}
         ></i>
-        <div className="cursor-pointer" onClick={handleToggleReplay}>
-          {replayStatus !== "replaySong" ? (
-            <ReplayIcon isReplayPlayList={replayStatus === "replayList"} />
-          ) : (
-            <ReplayOneIcon />
-          )}
-        </div>
+        <ToolTip
+          title={
+            replayStatus === "none"
+              ? "Bật phát lại tất cả"
+              : replayStatus === "replayList"
+                ? "Bật phát lại một bài"
+                : "Tắt phát lại"
+          }
+        >
+          <div className="cursor-pointer" onClick={handleToggleReplay}>
+            {replayStatus !== "replaySong" ? (
+              <ReplayIcon isReplayPlayList={replayStatus === "replayList"} />
+            ) : (
+              <ReplayOneIcon />
+            )}
+          </div>
+        </ToolTip>
       </div>
       <div className="relative flex w-[500px] items-center gap-2">
         <span className="absolute left-[-38px] top-1/2 -translate-y-1/2 text-[1.2rem]">

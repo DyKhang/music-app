@@ -34,7 +34,6 @@ export const Album = () => {
   const isCurrentPlaylist = id === currentPlaylistId;
   const togglePlay = useTogglePlay();
   const { isCurrentPlayList } = useIsCurrentPlayList(id!);
-  if (isLoading) return <Loader />;
 
   const filterState = searchParams.get("filter") || "all";
   let songsFiltered = data?.song.items;
@@ -54,6 +53,8 @@ export const Album = () => {
       a.album?.title.localeCompare(b.album?.title),
     );
   }
+
+  if (isLoading) return <Loader />;
 
   function handleTogglePlay() {
     if (!hasSongs) {

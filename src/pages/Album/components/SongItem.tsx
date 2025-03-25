@@ -109,6 +109,7 @@ export const SongItem: React.FC<Props> = ({ song, index }) => {
           <div className="flex size-[36px] cursor-pointer items-center justify-center rounded-full hover:bg-[rgba(0,0,0,0.05)]">
             <HeartIcon className="size-[16px]" />
           </div>
+
           <PopOvers.PopOver>
             <>
               <PopOvers.Button open={`album-${song.encodeId}`}>
