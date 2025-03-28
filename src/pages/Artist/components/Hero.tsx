@@ -24,8 +24,8 @@ export const Hero: React.FC<Props> = ({ data }) => {
   }
 
   return (
-    <section className="relative pb-[24px]">
-      <div className="width-hero-detail-artist absolute left-[-60px] h-full overflow-hidden">
+    <section className="relative hidden pb-[24px] md:block">
+      <div className="width-hero-detail-artist absolute left-[-60px] hidden h-full overflow-hidden xl:block">
         <div
           style={{
             backgroundImage: `url(${data?.data.data.thumbnailM})`,

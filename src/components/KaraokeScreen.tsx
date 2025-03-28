@@ -44,7 +44,7 @@ export const KaraokeScreen: React.FC<Props> = ({ isShow, setIsShow }) => {
       ></div>
       <div className="absolute inset-0 bg-black/50 backdrop-blur-[50px]"></div>
       <div className="relative flex items-center justify-center p-[20px]">
-        <div className="flex rounded-full bg-[hsla(0,0%,100%,.1)] p-[3px] font-[700] text-[hsla(0,0%,100%,.5)]">
+        <div className="hidden rounded-full bg-[hsla(0,0%,100%,.1)] p-[3px] font-[700] text-[hsla(0,0%,100%,.5)] lg:flex">
           {tagContents.map((item) => (
             <div
               key={item.tag}
@@ -56,7 +56,7 @@ export const KaraokeScreen: React.FC<Props> = ({ isShow, setIsShow }) => {
           ))}
         </div>
         <div className="absolute right-[20px] top-[20px] ml-auto flex gap-[15px] text-white">
-          <div className="flex size-[44px] cursor-pointer items-center justify-center rounded-full bg-[hsla(0,0%,100%,0.1)] hover:brightness-[0.9]">
+          <div className="hidden size-[44px] cursor-pointer items-center justify-center rounded-full bg-[hsla(0,0%,100%,0.1)] hover:brightness-[0.9] lg:flex">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="28px"
@@ -71,7 +71,7 @@ export const KaraokeScreen: React.FC<Props> = ({ isShow, setIsShow }) => {
               ></path>
             </svg>
           </div>
-          <div className="flex size-[44px] cursor-pointer items-center justify-center rounded-full bg-[hsla(0,0%,100%,0.1)] hover:brightness-[0.9]">
+          <div className="hidden size-[44px] cursor-pointer items-center justify-center rounded-full bg-[hsla(0,0%,100%,0.1)] hover:brightness-[0.9] lg:flex">
             <Cog8ToothIcon className="size-[24px]" />
           </div>
 

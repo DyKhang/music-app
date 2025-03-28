@@ -28,7 +28,7 @@ export const PlayListArtist: React.FC<Props> = ({ data, hasLink }) => {
           </div>
         )}
       </div>
-      <div className="mt-[20px] grid grid-cols-5 gap-[28px]">
+      <div className="mt-[20px] grid grid-cols-2 gap-[28px] md:grid-cols-4 lg:grid-cols-5">
         {data?.items.map(
           (item, index) =>
             index <= 4 && (

@@ -19,7 +19,7 @@ export const ArtistList = () => {
   const artistAliasesResult = artistAliases.slice(0, 5);
 
   return (
-    <div className="grid grid-cols-5 gap-[28px]">
+    <div className="hidden gap-[28px] sm:grid sm:grid-cols-4 lg:grid-cols-5">
       {artistAliasesResult.map((alias) => (
         <ArtistItem key={alias} alias={alias} />
       ))}

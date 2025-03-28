@@ -28,7 +28,7 @@ export const SearchResults = () => {
 
   return (
     <section className="mt-[70px]">
-      <div className="relative flex items-center">
+      <div className="relative hidden items-center lg:flex">
         <h2 className="border-r border-black/5 pr-[20px] text-[2.4rem] font-[700]">
           Kết Quả Tìm Kiếm
         </h2>

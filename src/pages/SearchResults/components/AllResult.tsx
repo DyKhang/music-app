@@ -31,7 +31,7 @@ export const AllResult: React.FC<Props> = ({ data }) => {
           <h2 className="mb-[20px] mt-[28px] text-[2rem] font-[700]">
             Nổi Bật
           </h2>
-          <div className="grid grid-cols-3 gap-[28px]">
+          <div className="grid grid-cols-1 gap-[28px] lg:grid-cols-3">
             <Artist item={data?.data.data.artists[0]} />
             <Song item={data?.data.data.songs[0]} />
             <Song item={data?.data.data.songs[1]} />
@@ -48,7 +48,7 @@ export const AllResult: React.FC<Props> = ({ data }) => {
             </div>
           </div>
 
-          <div className="mt-[20px] grid grid-cols-2 gap-x-[28px]">
+          <div className="mt-[20px] grid grid-cols-1 gap-x-[28px] lg:grid-cols-2">
             {data?.data.data.songs.map((item) => (
               <SongItem item={item} key={item.encodeId} />
             ))}
@@ -65,7 +65,7 @@ export const AllResult: React.FC<Props> = ({ data }) => {
             </div>
           </div>
 
-          <div className="mt-[20px] grid grid-cols-5 gap-[28px]">
+          <div className="mt-[20px] grid grid-cols-2 gap-[28px] md:grid-cols-4 lg:grid-cols-5">
             {data?.data.data.playlists.map(
               (item, index) =>
                 index < 5 && (
@@ -92,7 +92,7 @@ export const AllResult: React.FC<Props> = ({ data }) => {
             </div>
           </div>
 
-          <div className="mt-[20px] grid grid-cols-5 gap-[28px]">
+          <div className="mt-[20px] grid grid-cols-2 gap-[28px] sm:grid-cols-3 lg:grid-cols-5">
             {data?.data.data.artists.map(
               (item, index) =>
                 index < 5 && <ArtistItem key={item.id} alias={item.alias} />,

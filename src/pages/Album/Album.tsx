@@ -81,7 +81,7 @@ export const Album = () => {
       <section
         className={`${hasSongs && data!.song.items.length < 10 ? "h-screen" : ""}`}
       >
-        <div className="sticky top-[110px] float-left w-[300px]">
+        <div className="sticky top-[110px] float-left hidden w-[300px] lg:block">
           <div
             className="album-img-shadow group/list relative cursor-pointer overflow-hidden rounded-[8px]"
             onClick={handleTogglePlay}
@@ -158,7 +158,7 @@ export const Album = () => {
           </div>
         </div>
 
-        <div className="ml-[330px]">
+        <div className="lg:ml-[330px]">
           {data?.sortDescription && (
             <p>
               <span className="text-[1.4rem] text-[#696969]">Lời tựa</span>
@@ -178,9 +178,9 @@ export const Album = () => {
                   </div>
                 </div>
 
-                <span className="flex-1">album</span>
+                <span className="hidden flex-1 lg:block">album</span>
 
-                <span>thời gian</span>
+                <span className="hidden lg:block">thời gian</span>
               </div>
               {songsFiltered?.map((song, index) => (
                 <SongItem key={song.encodeId} song={song} index={index} />
@@ -200,7 +200,7 @@ export const Album = () => {
 
       {hasSongs && (
         <>
-          <h2 className="mb-[20px] mt-[48px] text-[2rem] font-[700]">
+          <h2 className="mb-[20px] mt-[48px] hidden text-[2rem] font-[700] sm:block">
             Nghệ Sĩ Tham Gia
           </h2>
 

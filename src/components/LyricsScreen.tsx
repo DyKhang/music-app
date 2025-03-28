@@ -69,7 +69,7 @@ export const LyricsScreen: React.FC<Props> = ({ data }) => {
       }}
       className="relative flex gap-[78px] px-[60px]"
     >
-      <div className="relative w-[36%] overflow-hidden rounded-[4px]">
+      <div className="relative hidden w-[36%] overflow-hidden rounded-[4px] lg:block">
         <img src={currentSong.image} alt="" className="w-full object-cover" />
         {isPlaying && (
           <Audio
@@ -84,7 +84,7 @@ export const LyricsScreen: React.FC<Props> = ({ data }) => {
       </div>
       <div className="relative flex-1 overflow-y-scroll">
         {lyricFormat[0].lyric.includes("doctype html") ? (
-          <p className="absolute top-1/2 -translate-y-1/2 py-[20px] text-[4.2rem] font-[700] text-white">
+          <p className="absolute top-1/2 -translate-y-1/2 py-[20px] text-[2.2rem] font-[700] text-white sm:text-[3.2rem] md:text-[4.2rem]">
             Lời bài hát đang được cập nhật
           </p>
         ) : (
@@ -106,14 +106,14 @@ export const LyricsScreen: React.FC<Props> = ({ data }) => {
             return isCurrentTimeBetweenTwoTimestamps ? (
               <p
                 ref={activeLyricRef}
-                className="py-[20px] text-[4.2rem] font-[700] text-yellow-400"
+                className="py-[20px] text-[2.2rem] font-[700] text-yellow-400 sm:text-[3.2rem] md:text-[4.2rem]"
                 key={index}
               >
                 {item.lyric}
               </p>
             ) : (
               <p
-                className={`py-[20px] text-[4.2rem] font-[700] text-white ${item.timeStamp! < currentTime && "opacity-40"}`}
+                className={`py-[20px] text-[2.2rem] font-[700] text-white sm:text-[3.2rem] md:text-[4.2rem] ${item.timeStamp! < currentTime && "opacity-40"}`}
                 key={index}
               >
                 {item.lyric}

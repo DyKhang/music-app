@@ -61,7 +61,7 @@ export const SongItem: React.FC<Props> = ({ song, index }) => {
   if (isCurrentSong)
     return (
       <div className="group/item flex items-center rounded-[4px] border-b-[1px] border-[rgba(0,0,0,0.05)] bg-[rgba(0,0,0,0.05)] p-[10px]">
-        <div className="mr-[10px] flex w-1/2 items-center">
+        <div className="mr-[10px] flex w-full items-center lg:w-1/2">
           <MusicalNoteIcon className="size-[14px] text-[#696969] group-hover/item:hidden" />
           <div
             className={`hidden size-[14px] flex-shrink-0 cursor-pointer rounded-[3px] border-[1px] ${isChecked ? "border-white bg-[rgba(0,0,0,0.15)]" : "border-[rgba(0,0,0,0.2)]"} group-hover/item:block`}
@@ -99,7 +99,7 @@ export const SongItem: React.FC<Props> = ({ song, index }) => {
             </div>
           </div>
         </div>
-        <span className="flex-1 cursor-pointer text-[1.2rem] text-[rgba(50,50,61,0.5)] hover:text-[#844d4d] hover:underline">
+        <span className="hidden flex-1 cursor-pointer text-[1.2rem] text-[rgba(50,50,61,0.5)] hover:text-[#844d4d] hover:underline lg:block">
           {hasAlbum && song.album.title}
         </span>
         <div className="hidden items-center gap-[8px] group-hover/item:flex">
@@ -123,7 +123,7 @@ export const SongItem: React.FC<Props> = ({ song, index }) => {
             </>
           </PopOvers.PopOver>
         </div>
-        <span className="text-[1.2rem] text-[rgba(50,50,61,0.5)] group-hover/item:hidden">
+        <span className="hidden text-[1.2rem] text-[rgba(50,50,61,0.5)] group-hover/item:hidden lg:block">
           {formatTime(song.duration)}
         </span>
       </div>
@@ -131,7 +131,7 @@ export const SongItem: React.FC<Props> = ({ song, index }) => {
 
   return (
     <div className="group/item flex items-center rounded-[4px] border-b-[1px] border-[rgba(0,0,0,0.05)] p-[10px] hover:bg-[rgba(0,0,0,0.05)]">
-      <div className="mr-[10px] flex w-1/2 items-center">
+      <div className="mr-[10px] flex w-full items-center lg:w-1/2">
         <MusicalNoteIcon className="size-[14px] flex-shrink-0 text-[#696969] group-hover/item:hidden" />
         <div
           className={`hidden size-[14px] flex-shrink-0 cursor-pointer rounded-[3px] border-[1px] ${isChecked ? "border-white bg-[rgba(0,0,0,0.15)]" : "border-[rgba(0,0,0,0.2)]"} group-hover/item:block`}
@@ -169,7 +169,7 @@ export const SongItem: React.FC<Props> = ({ song, index }) => {
         onClick={() => {
           song?.album && navigate(`/album/${song.album.encodeId}`);
         }}
-        className="flex-1 cursor-pointer text-[1.2rem] text-[rgba(50,50,61,0.5)] hover:text-[#844d4d] hover:underline"
+        className="hidden flex-1 cursor-pointer text-[1.2rem] text-[rgba(50,50,61,0.5)] hover:text-[#844d4d] hover:underline lg:block"
       >
         {hasAlbum && song.album.title}
       </span>
@@ -194,7 +194,7 @@ export const SongItem: React.FC<Props> = ({ song, index }) => {
           </>
         </PopOvers.PopOver>
       </div>
-      <span className="text-[1.2rem] text-[rgba(50,50,61,0.5)] group-hover/item:hidden">
+      <span className="hidden text-[1.2rem] text-[rgba(50,50,61,0.5)] group-hover/item:hidden lg:block">
         {formatTime(song.duration)}
       </span>
     </div>

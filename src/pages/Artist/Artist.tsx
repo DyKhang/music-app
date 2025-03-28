@@ -51,7 +51,7 @@ export const Artist = () => {
           style={{
             gridTemplateColumns: hasNewRelease ? "393px 1fr 1fr" : "",
           }}
-          className={`mt-[30px] grid ${!hasNewRelease && "grid-cols-2"} gap-[28px]`}
+          className={`mt-[30px] ${!hasNewRelease && "grid-cols-2"} hidden gap-[28px] lg:grid`}
         >
           {hasNewRelease && <NewRelease data={data} />}
           <HotSongs data={data} />
