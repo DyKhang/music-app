@@ -72,7 +72,7 @@ export const Search = () => {
       ref={searchRef}
     >
       <div
-        className={`relative flex h-[40px] items-center ${isFocus && "w-[220px]"} ${isFocus && "lg:w-auto"} justify-center gap-3 rounded-[20px] bg-transparent p-6 sm:bg-[rgba(0,0,0,0.05)] lg:justify-start lg:pr-12 ${isFocus && "rounded-b-[0px] border-b border-black/5 bg-white"}`}
+        className={`relative flex h-[40px] items-center bg-white ${isFocus && "w-[220px]"} ${isFocus && "lg:w-auto"} justify-center gap-3 rounded-[20px] bg-transparent p-6 sm:bg-[rgba(0,0,0,0.05)] lg:justify-start lg:pr-12 ${isFocus && "rounded-b-[0px] border-b border-black/5 sm:bg-white"}`}
         onSubmit={handleSubmit}
       >
         <MagnifyingGlassIcon
@@ -83,7 +83,7 @@ export const Search = () => {
           type="text"
           ref={inputRef}
           placeholder="Tìm kiếm bài hát, nghệ sĩ, lời bài hát..."
-          className="absolute left-0 w-full bg-transparent pl-[20px] pr-[20px] text-[#282828] outline-none placeholder:text-[1.4rem] placeholder:text-[#727272] lg:pl-[44px]"
+          className="absolute left-0 w-full bg-transparent pl-[20px] pr-[32px] text-[#282828] outline-none placeholder:text-[1.4rem] placeholder:text-[#727272] lg:pl-[44px]"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />

@@ -134,7 +134,7 @@ export const MusicPlayer: React.FC<Props> = ({ showKaraoke }) => {
 
   return (
     <div
-      className={`absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 ${showKaraoke ? "flex-col-reverse text-white" : "flex-col"} gap-3`}
+      className={`absolute left-1/2 top-[34%] flex -translate-x-1/2 -translate-y-1/2 sm:top-1/2 ${showKaraoke ? "flex-col-reverse text-white" : "flex-col"} gap-3`}
     >
       <div className="flex items-center justify-center gap-16 text-[1.8rem]">
         <ToolTip title="Bật phát ngẫu nhiên">
@@ -184,7 +184,7 @@ export const MusicPlayer: React.FC<Props> = ({ showKaraoke }) => {
           </div>
         </ToolTip>
       </div>
-      <div className="relative flex w-[500px] items-center gap-2">
+      <div className="relative flex translate-x-[13px] items-center gap-2 sm:w-[500px] sm:translate-x-0">
         <span className="absolute left-[-38px] top-1/2 -translate-y-1/2 text-[1.2rem]">
           {status === "loading"
             ? "00:00"
@@ -193,7 +193,7 @@ export const MusicPlayer: React.FC<Props> = ({ showKaraoke }) => {
         <input
           ref={inputRef}
           type="range"
-          className="range flex-1"
+          className="range w-[80%] flex-1"
           value={range}
           onInput={(e) => {
             const newValue = Number(e.currentTarget.value);

@@ -49,36 +49,38 @@ export const Player = () => {
       <div
         className={`fixed ${name && "translate-y-[-90px]"} bottom-[-90px] z-[56] w-full bg-[#dddad1] transition duration-300 ${showKaraoke && "bg-transparent"}`}
       >
-        <div className="flex h-[90px] select-none items-center justify-between px-[20px]">
+        <div className="relative flex h-[135px] select-none items-center justify-between px-[20px] sm:h-[90px]">
           <div className={`flex items-center ${showKaraoke && "invisible"}`}>
-            <img
-              src={image}
-              alt={name}
-              className="size-[64px] rounded-[5px] object-cover"
-            />
-            <div className="ml-4 flex flex-col">
-              <span className="flex items-center gap-[8px] text-[1.4rem] font-[500]">
-                {name} {isPremium && <PremiumIcon />}
-              </span>
-              <span className="text-[1.2rem] text-[#696969]">{singer}</span>
-            </div>
-            <ToolTip title="Thêm vào thư viện">
-              {isLove ? (
-                <HeartIconSolid
-                  className="ml-8 size-[18px] cursor-pointer text-[#4d4c54]"
-                  onClick={handleToggleLove}
-                />
-              ) : (
-                <HeartIcon
-                  className="ml-8 size-[18px] cursor-pointer text-[#4d4c54]"
-                  onClick={handleToggleLove}
-                />
-              )}
-            </ToolTip>
+            <div className="hidden items-center lg:flex">
+              <img
+                src={image}
+                alt={name}
+                className="size-[64px] rounded-[5px] object-cover"
+              />
+              <div className="ml-4 flex flex-col">
+                <span className="flex items-center gap-[8px] text-[1.4rem] font-[500]">
+                  {name} {isPremium && <PremiumIcon />}
+                </span>
+                <span className="text-[1.2rem] text-[#696969]">{singer}</span>
+              </div>
+              <ToolTip title="Thêm vào thư viện">
+                {isLove ? (
+                  <HeartIconSolid
+                    className="ml-8 size-[18px] cursor-pointer text-[#4d4c54]"
+                    onClick={handleToggleLove}
+                  />
+                ) : (
+                  <HeartIcon
+                    className="ml-8 size-[18px] cursor-pointer text-[#4d4c54]"
+                    onClick={handleToggleLove}
+                  />
+                )}
+              </ToolTip>
 
-            <ToolTip title="Xem thêm">
-              <EllipsisHorizontalIcon className="ml-[12px] size-[24px] cursor-pointer rounded-full" />
-            </ToolTip>
+              <ToolTip title="Xem thêm">
+                <EllipsisHorizontalIcon className="ml-[12px] size-[24px] cursor-pointer rounded-full" />
+              </ToolTip>
+            </div>
           </div>
           <MusicPlayer showKaraoke={showKaraoke} />
           <PlayerActions
