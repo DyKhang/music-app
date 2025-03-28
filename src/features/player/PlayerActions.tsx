@@ -45,7 +45,7 @@ export const PlayerActions: React.FC<Props> = ({
 
   return (
     <div
-      className={`absolute bottom-[10px] left-0 flex w-full items-center justify-center gap-[12px] text-[#47474f] sm:static sm:w-auto sm:gap-[20px] ${showKaraoke && "invisible"} flex bg-[#dddad1]`}
+      className={`absolute bottom-[10px] left-0 flex w-full items-center justify-center gap-[10px] text-[#47474f] sm:static sm:w-auto sm:gap-[20px] ${showKaraoke && "invisible"} flex bg-[#dddad1]`}
     >
       <button className="hidden cursor-not-allowed rounded-lg border border-[#a5a3a1] p-[2px] text-[0.8rem] font-semibold text-[#a5a3a1] lg:block">
         MV
@@ -79,7 +79,7 @@ export const PlayerActions: React.FC<Props> = ({
         </div>
       </ToolTip>
 
-      <div className="flex cursor-pointer items-center gap-3">
+      <div className="flex translate-x-[-4px] cursor-pointer items-center gap-3">
         <div
           onClick={() => {
             if (isMute) {
@@ -98,11 +98,11 @@ export const PlayerActions: React.FC<Props> = ({
             <SpeakerXMarkIcon className="size-[16px]" />
           )}
         </div>
-        <div className="w-[70px]">
+        <div className="sm:w-[70px]">
           <input
             ref={inputRef}
             type="range"
-            className="range"
+            className="range w-[206px] sm:w-full"
             value={volume}
             onInput={(e) => {
               const newValue = Number(e.currentTarget.value);

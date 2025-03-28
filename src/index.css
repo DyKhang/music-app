@@ -63,7 +63,6 @@
 .range {
   --thumb-display: none;
   --slider-height: 4px;
-  width: 100%;
   display: block;
   border-radius: 4px;
   -webkit-appearance: none;
