@@ -63,7 +63,7 @@ export const Chart: React.FC<Props> = ({ data, tooltipData }) => {
   }
 
   return (
-    <div className="flex-1 text-white">
+    <div className="hidden flex-1 text-white sm:block">
       <NewLine data={data} setTooltip={setTooltip} />
       <Tooltip tooltip={tooltip} data={tooltipDataProp} />
     </div>

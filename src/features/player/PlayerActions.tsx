@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMicrophone } from "@fortawesome/free-solid-svg-icons";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { currentSongSelector } from "./selectors";
 import { ToolTip } from "../../components/ToolTip";
 
@@ -32,6 +32,8 @@ export const PlayerActions: React.FC<Props> = ({
   const inputRef = useRef<HTMLInputElement | null>(null);
   const currentSong = useSelector(currentSongSelector);
   const hasLyric = currentSong.hasLyric;
+  const [isMute, setIsMute] = useState(false);
+  const prevVolume = useRef(0);
 
   useEffect(() => {
     inputRef.current!.style.background = `linear-gradient(to right, #614646 ${volume}%, #c6c4bc ${volume}%)`;
@@ -79,11 +81,24 @@ export const PlayerActions: React.FC<Props> = ({
         </ToolTip>
 
         <div className="flex cursor-pointer items-center gap-3">
-          {volume > 0 ? (
-            <SpeakerWaveIcon className="size-[16px]" />
-          ) : (
-            <SpeakerXMarkIcon className="size-[16px]" />
-          )}
+          <div
+            onClick={() => {
+              if (isMute) {
+                prevVolume.current = volume;
+                dispatch(changeVolume(0));
+                setIsMute(false);
+              } else {
+                dispatch(changeVolume(prevVolume.current * 100));
+                setIsMute(true);
+              }
+            }}
+          >
+            {volume > 0 ? (
+              <SpeakerWaveIcon className="size-[16px]" />
+            ) : (
+              <SpeakerXMarkIcon className="size-[16px]" />
+            )}
+          </div>
           <div className="w-[70px]">
             <input
               ref={inputRef}

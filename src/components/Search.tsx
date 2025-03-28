@@ -68,28 +68,28 @@ export const Search = () => {
 
   return (
     <div
-      className={`group/search absolute rounded-[20px] ${isFocus && "shadow-lg"} left-[12%] top-[13px] w-[28%]`}
+      className={`group/search absolute lg:rounded-[20px] ${isFocus && "shadow-lg"} top-[13px] w-[40px] rounded-full md:ml-[90px] lg:w-[28%]`}
       ref={searchRef}
     >
       <div
-        className={`relative flex h-[40px] items-center gap-3 rounded-[20px] bg-[rgba(0,0,0,0.05)] p-6 pr-12 ${isFocus && "rounded-b-[0px] border-b border-black/5 bg-white"}`}
+        className={`relative flex h-[40px] items-center ${isFocus && "w-[220px]"} ${isFocus && "lg:w-auto"} justify-center gap-3 rounded-[20px] bg-transparent p-6 sm:bg-[rgba(0,0,0,0.05)] lg:justify-start lg:pr-12 ${isFocus && "rounded-b-[0px] border-b border-black/5 bg-white"}`}
         onSubmit={handleSubmit}
       >
         <MagnifyingGlassIcon
-          className={`size-[24px] text-[#989796] ${isFocus && "text-[#614646]"}`}
+          className={`size-[22px] ${isFocus && "hidden"} ${isFocus && "lg:block"} text-[#989796] lg:size-[24px] ${isFocus && "text-[#614646]"} flex-shrink-0 lg:flex-initial`}
         />
         <input
           onFocus={() => setIsFocus(true)}
           type="text"
           ref={inputRef}
           placeholder="Tìm kiếm bài hát, nghệ sĩ, lời bài hát..."
-          className="w-full bg-transparent text-[#282828] outline-none placeholder:text-[1.4rem] placeholder:text-[#727272]"
+          className="absolute left-0 w-full bg-transparent pl-[20px] pr-[20px] text-[#282828] outline-none placeholder:text-[1.4rem] placeholder:text-[#727272] lg:pl-[44px]"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
         {query && (
           <XMarkIcon
-            className="absolute right-4 top-1/2 size-[20px] -translate-y-1/2 cursor-pointer"
+            className="absolute right-4 top-1/2 hidden size-[20px] -translate-y-1/2 cursor-pointer lg:block"
             onClick={() => {
               setQuery("");
               inputRef.current?.focus();
@@ -99,7 +99,7 @@ export const Search = () => {
       </div>
       {isFocus && (
         <div
-          className={`rounded-b-[20px] bg-white px-[10px] py-[13px] ${isFocus && "shadow-lg"}`}
+          className={`rounded-b-[20px] bg-white px-[10px] py-[13px] ${isFocus && "shadow-lg"} w-[220px] lg:w-auto`}
         >
           <h3 className="px-[10px] pb-[8px] text-[1.4rem] font-[700]">
             {query.trim() ? "Từ khóa liên quan" : "Đề xuất cho bạn"}
@@ -137,16 +137,18 @@ export const Search = () => {
                 data={data?.data.data.artists?.[1]}
                 setIsFocus={setIsFocus}
               />
-              <SearchRecommendSong data={data?.data.data.songs?.[0]} />
-              <SearchRecommendSong data={data?.data.data.songs?.[1]} />
-              <SearchRecommendPlaylist
-                data={data?.data.data.playlists?.[0]}
-                setIsFocus={setIsFocus}
-              />
-              <SearchRecommendPlaylist
-                data={data?.data.data.playlists?.[1]}
-                setIsFocus={setIsFocus}
-              />
+              <div className="hidden lg:block">
+                <SearchRecommendSong data={data?.data.data.songs?.[0]} />
+                <SearchRecommendSong data={data?.data.data.songs?.[1]} />
+                <SearchRecommendPlaylist
+                  data={data?.data.data.playlists?.[0]}
+                  setIsFocus={setIsFocus}
+                />
+                <SearchRecommendPlaylist
+                  data={data?.data.data.playlists?.[1]}
+                  setIsFocus={setIsFocus}
+                />
+              </div>
             </>
           ) : (
             suggest?.data.data?.map((item) => (

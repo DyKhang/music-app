@@ -5,6 +5,7 @@ export const LibraryIcon = () => {
       width="24px"
       height="24px"
       viewBox="0 0 24 24"
+      className="flex-shrink-0"
     >
       <path
         fill="currentColor"

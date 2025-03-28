@@ -5,6 +5,7 @@ export const ChartIcon = () => {
       width="24px"
       height="24px"
       viewBox="0 0 24 24"
+      className="flex-shrink-0"
     >
       <g fill="none" stroke="currentColor" strokeWidth={1.5}>
         <path

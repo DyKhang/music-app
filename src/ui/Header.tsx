@@ -17,8 +17,8 @@ import { ToolTip } from "../components/ToolTip";
 
 export const Header = () => {
   return (
-    <header className="header-inset fixed z-[40] flex h-[70px] items-center px-[60px]">
-      <div className="flex items-center gap-9">
+    <header className="header-inset fixed z-[40] flex h-[70px] items-center px-[10px] sm:px-[60px]">
+      <div className="hidden items-center gap-9 md:flex">
         <button>
           <ArrowLeftIcon className="size-[20px] cursor-default opacity-25" />
         </button>
@@ -40,7 +40,7 @@ export const Header = () => {
         <DropdownMenu>
           <DropdownMenuTrigger>
             <ToolTip title="Cài đặt">
-              <div className="relative flex size-[40px] cursor-pointer items-center justify-center rounded-full bg-[#d9d7d4]">
+              <div className="relative hidden size-[40px] cursor-pointer items-center justify-center rounded-full bg-[#d9d7d4] sm:flex">
                 <Cog8ToothIcon className="size-[22px] text-[#4c5259]" />
               </div>
             </ToolTip>

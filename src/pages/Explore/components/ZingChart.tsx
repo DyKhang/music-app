@@ -39,7 +39,7 @@ export const ZingChart: React.FC<Props> = ({ data }) => {
   if (!data) return null;
 
   return (
-    <div className="relative overflow-hidden rounded-[8px] bg-[rgba(51,16,76,.95)] p-[20px] pb-[35px]">
+    <div className="relative mx-auto w-[90%] overflow-hidden rounded-[8px] bg-[rgba(51,16,76,.95)] p-[20px] pb-[35px] xl:mx-0 xl:w-auto">
       <div className="mb-[20px] flex items-center gap-[10px]">
         <span
           style={{
@@ -56,8 +56,8 @@ export const ZingChart: React.FC<Props> = ({ data }) => {
           <PlayIcon className="translate-[-0.5px] size-[16px] translate-x-[1px]" />
         </div>
       </div>
-      <div className="flex gap-[28px]">
-        <div className="flex w-[42%] flex-col items-center gap-[10px]">
+      <div className="flex flex-col gap-[28px] xl:flex-row">
+        <div className="flex w-full flex-col items-center gap-[10px] xl:w-[42%]">
           {data?.items.map(
             (item, index) =>
               index < 3 && (
@@ -69,7 +69,7 @@ export const ZingChart: React.FC<Props> = ({ data }) => {
                 />
               ),
           )}
-          <div className="mt-[5px] cursor-pointer rounded-full border-[1px] border-white px-[25px] py-[5px] text-[1.4rem] text-white hover:brightness-[0.9]">
+          <div className="mt-[5px] hidden cursor-pointer rounded-full border-[1px] border-white px-[25px] py-[5px] text-[1.4rem] text-white hover:brightness-[0.9] xl:block">
             Xem thêm
           </div>
         </div>

@@ -26,7 +26,7 @@ export const SearchRecommendArtist: React.FC<Props> = ({
       <img
         src={data.thumbnailM}
         alt=""
-        className="size-[52px] rounded-full object-cover"
+        className="hidden size-[52px] rounded-full object-cover lg:block"
       />
       <div className="flex flex-col">
         <span className="text-[1.4rem] font-[500]">{data.name}</span>

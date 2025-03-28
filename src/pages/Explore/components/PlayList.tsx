@@ -18,13 +18,13 @@ export const PlayList: React.FC<Props> = ({ data, hasLink, type }) => {
           {upperCaseFirstLetter(data?.title)}
         </h2>
         {hasLink && (
-          <div className="flex cursor-pointer items-center gap-[6px] text-[#696969] hover:text-[#844d4d]">
+          <div className="hidden cursor-pointer items-center gap-[6px] text-[#696969] hover:text-[#844d4d] sm:flex">
             <span className="text-[1.2rem]">TẤT CẢ</span>
             <FontAwesomeIcon icon={faChevronRight} />
           </div>
         )}
       </div>
-      <div className="mt-[20px] grid grid-cols-5 gap-[28px]">
+      <div className="mt-[20px] grid grid-cols-2 gap-[20px] md:grid-cols-4 md:gap-[28px] lg:grid-cols-5">
         {data?.items.map(
           (item, index) =>
             index <= 4 && (

@@ -5,6 +5,7 @@ export const DvdIcon = () => {
       width="24px"
       height="24px"
       viewBox="0 0 36 36"
+      className="flex-shrink-0"
     >
       <path
         fill="currentColor"

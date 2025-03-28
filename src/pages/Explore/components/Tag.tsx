@@ -14,7 +14,7 @@ export const Tag: React.FC<Props> = ({
   return (
     <div
       onClick={() => setStatus(status)}
-      className={`cursor-pointer rounded-full border-[1px] px-[24px] py-[4px] text-[1.2rem] uppercase ${status === currentStatus ? "border-[#644646] bg-[#644646] text-white" : "border-[rgba(0,0,0,0.1)]"}`}
+      className={`flex cursor-pointer items-center justify-center rounded-full border-[1px] px-[24px] py-[4px] text-[1rem] uppercase sm:text-[1.2rem] ${status === currentStatus ? "border-[#644646] bg-[#644646] text-white" : "border-[rgba(0,0,0,0.1)]"}`}
     >
       {children}
     </div>

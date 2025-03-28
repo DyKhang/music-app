@@ -14,18 +14,25 @@ import { StarIcon } from "@heroicons/react/24/outline";
 import { UpdateAccount } from "../components/UpdateAccount";
 import { ClockIcon } from "@heroicons/react/24/outline";
 import logo from "../../public/logo-light.svg";
+import logoSmall from "../../public/logo-small.svg";
 import { LibraryIcon } from "../components/LibraryIcon";
 import { DvdIcon } from "../components/DvdIcon";
 import { ChartIcon } from "../components/ChartIcon";
 
 export const SideBar = () => {
   return (
-    <aside className="w-[240px] bg-[#d9d7d4]">
+    <aside className="w-[50px] bg-[#f2f2f2] xl:w-[240px] xl:bg-[#d9d7d4]">
       <Link
         to="/"
-        className="flex items-center justify-center p-5 opacity-80 transition-opacity duration-[0.5s] hover:opacity-100"
+        className="hidden items-center justify-center p-5 opacity-80 transition-opacity duration-[0.5s] hover:opacity-100 xl:flex"
       >
         <img src={logo} alt="" className="w-[150px] object-cover" />
+      </Link>
+      <Link
+        to="/"
+        className="flex items-center justify-center p-5 opacity-80 transition-opacity duration-[0.5s] hover:opacity-100 xl:hidden"
+      >
+        <img src={logoSmall} alt="" className="object-cover" />
       </Link>
       <div>
         <NavLinkEle
@@ -40,7 +47,7 @@ export const SideBar = () => {
           title="#zingchart"
         />
         <NavLinkEle
-          Icon={() => <RadioIcon className="size-[24px]" />}
+          Icon={() => <RadioIcon className="size-[24px] flex-shrink-0" />}
           to="radio"
           title="Radio"
         />
@@ -48,21 +55,21 @@ export const SideBar = () => {
       <div className="mx-auto my-[15px] h-[1px] w-[80%] bg-[#c3c1be]"></div>
       <div className="sub-sidebar">
         <NavLinkEle
-          Icon={() => <MusicalNoteIcon className="size-[24px]" />}
+          Icon={() => <MusicalNoteIcon className="size-[24px] flex-shrink-0" />}
           to="moi-phat-hanh"
           title="BXH Nhạc Mới"
         />
         <NavLinkEle
-          Icon={() => <SwatchIcon className="size-[24px]" />}
+          Icon={() => <SwatchIcon className="size-[24px] flex-shrink-0" />}
           to="hub"
           title="Chủ Đề & Thể Loại"
         />
         <NavLinkEle
-          Icon={() => <StarIcon className="size-[24px]" />}
+          Icon={() => <StarIcon className="size-[24px] flex-shrink-0" />}
           to="top100"
           title="Top 100"
         />
-        <div className="m-[20px]">
+        <div className="m-[20px] hidden xl:block">
           <UpdateAccount />
         </div>
         <div>
@@ -111,8 +118,8 @@ export const SideBar = () => {
             to="e"
             title="Đã tải lên"
           />
-          <div className="mx-auto my-[15px] h-[1px] w-[80%] bg-[#c3c1be]"></div>
-          <div className="flex cursor-pointer items-center justify-between px-[21px] pb-14 hover:text-[#5f4646]">
+          <div className="mx-auto my-[15px] hidden h-[1px] w-[80%] bg-[#c3c1be] xl:block"></div>
+          <div className="hidden cursor-pointer items-center justify-between px-[21px] pb-14 hover:text-[#5f4646] xl:flex">
             <span className="text-[1.4rem]">Indie</span>
             <EllipsisHorizontalIcon className="size-[24px] rounded-full hover:bg-[#cecdcd]" />
           </div>

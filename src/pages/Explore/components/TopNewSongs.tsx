@@ -15,7 +15,7 @@ export const TopNewSongs: React.FC<Props> = ({ data }) => {
         <h2 className="text-[2rem] font-bold">
           {upperCaseFirstLetter(data?.title)}
         </h2>
-        <div className="flex cursor-pointer items-center gap-[6px] text-[#696969] hover:text-[#844d4d]">
+        <div className="hidden cursor-pointer items-center gap-[6px] text-[#696969] hover:text-[#844d4d] sm:flex">
           <span className="text-[1.2rem]">TẤT CẢ</span>
           <FontAwesomeIcon icon={faChevronRight} />
         </div>

@@ -20,7 +20,7 @@ export const ZingChartItem: React.FC<Props> = ({ data, index, score }) => {
       >
         {index + 1}
       </span>
-      <div className="relative ml-[15px] flex size-[60px] cursor-pointer items-center justify-center overflow-hidden rounded-[4px]">
+      <div className="relative ml-[15px] flex size-[60px] flex-shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-[4px]">
         <img src={data.thumbnailM} alt="" className="w-full object-cover" />
         <div className="absolute inset-0 hidden bg-black/40 group-hover/item:block"></div>
         <PlayIcon className="translate-[-0.5px] ] absolute hidden size-[22px] text-white group-hover/item:block" />

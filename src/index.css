@@ -128,7 +128,13 @@
 }
 
 .header-inset {
-  inset: 0 0 0 240px;
+  inset: 0 0 0 50px;
+}
+
+@media (width >= 80rem) {
+  .header-inset {
+    inset: 0 0 0 240px;
+  }
 }
 
 .bg-new-single-of-artist {
