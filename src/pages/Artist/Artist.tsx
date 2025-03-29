@@ -88,7 +88,7 @@ export const Artist = () => {
       )}
 
       {artistDesc && (
-        <section className="mt-[48px]">
+        <section className="mt-[48px] flex flex-col items-center sm:block">
           <ArtistBiography data={data} />
         </section>
       )}

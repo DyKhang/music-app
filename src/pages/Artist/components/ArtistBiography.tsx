@@ -14,7 +14,7 @@ export const ArtistBiography: React.FC<Props> = ({ data }) => {
       <h2 className="mb-[20px] text-[2rem] font-[700]">
         Về {data?.data.data.name}
       </h2>
-      <div className="flex w-[81%] gap-[30px]">
+      <div className="flex w-[81%] flex-col gap-[30px] lg:flex-row">
         <img
           src={data?.data.data.thumbnailM}
           alt=""
@@ -43,7 +43,7 @@ export const ArtistBiography: React.FC<Props> = ({ data }) => {
             </Modal>
           </div>
           <div className="mt-[48px] flex gap-[30px]">
-            <div className="flex flex-col">
+            <div className="hidden flex-col lg:flex">
               <span className="text-[2rem] font-[700]">
                 {data?.data.data.totalFollow.toLocaleString("vi-VN")}
               </span>

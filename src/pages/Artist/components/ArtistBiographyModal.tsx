@@ -14,7 +14,7 @@ export const ArtistBiographyModal: React.FC<Props> = ({
   desc,
 }) => {
   return (
-    <div className="relative flex h-[448px] w-[480px] flex-col bg-[#f7f5f3]">
+    <div className="relative flex h-[448px] w-[360px] flex-col bg-[#f7f5f3] sm:w-[480px]">
       <div className="relative flex-shrink-0 overflow-hidden">
         <div
           style={{
