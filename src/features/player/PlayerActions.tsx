@@ -45,7 +45,7 @@ export const PlayerActions: React.FC<Props> = ({
 
   return (
     <div
-      className={`absolute bottom-[10px] left-0 flex w-full items-center justify-center gap-[10px] text-[#47474f] sm:static sm:w-auto sm:gap-[20px] ${showKaraoke && "invisible"} flex bg-[#dddad1]`}
+      className={`absolute bottom-[10px] left-0 flex w-full items-center justify-center gap-[10px] text-[#47474f] sm:static sm:w-auto sm:gap-[20px] ${showKaraoke && "invisible"} flex`}
     >
       <button className="hidden cursor-not-allowed rounded-lg border border-[#a5a3a1] p-[2px] text-[0.8rem] font-semibold text-[#a5a3a1] lg:block">
         MV
