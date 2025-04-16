@@ -12,10 +12,13 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "../components/DropDown";
-import avatar from "../../public/image.png";
 import { ToolTip } from "../components/ToolTip";
+import { POAvatar } from "../components/POAvatar";
+import { useAuth } from "../hooks/useAuth";
 
 export const Header = () => {
+  const { session } = useAuth();
+
   return (
     <header className="header-inset fixed z-[40] flex h-[70px] items-center px-[10px] sm:px-[60px]">
       <div className="hidden items-center gap-9 md:flex">
@@ -29,7 +32,7 @@ export const Header = () => {
       </div>
       <Search />
       <div className="ml-auto flex items-center gap-3">
-        <Button title="Nâng cấp tài khoản" solid href="#!" width="250px" />
+        <Button title="Nâng cấp tài khoản" solid href="#!" />
         <Button
           title="Tải bản window"
           href="#!"
@@ -50,9 +53,23 @@ export const Header = () => {
           </DropdownMenuContent>
         </DropdownMenu>
 
-        <div className="size-[40px] flex-shrink-0 cursor-pointer overflow-hidden rounded-full">
-          <img src={avatar} alt="" className="h-full w-full object-cover" />
-        </div>
+        <DropdownMenu>
+          <DropdownMenuTrigger>
+            <div className="size-[40px] flex-shrink-0 cursor-pointer overflow-hidden rounded-full hover:brightness-90">
+              <img
+                src={
+                  session?.avatar ??
+                  "https://zjs.zmdcdn.me/zmp3-desktop/releases/v1.13.11/static/media/user-default.3ff115bb.png"
+                }
+                alt=""
+                className="h-full w-full object-cover"
+              />
+            </div>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <POAvatar session={session} />
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
     </header>
   );

@@ -20,10 +20,5 @@ export interface LyricApi {
 }
 
 export const lyricApi = {
-  getLyric: (id: string) =>
-    axiosClient.get<LyricApi>("/lyric", {
-      params: {
-        id,
-      },
-    }),
+  getLyric: (id: string) => axiosClient.get<LyricApi>(`/mp3/lyric/${id}`),
 };

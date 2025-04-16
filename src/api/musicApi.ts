@@ -99,16 +99,7 @@ export interface InfoSong {
 }
 
 export const musicApi = {
-  getSong: (id: string) =>
-    axiosClient.get<Song>("/song", {
-      params: {
-        id,
-      },
-    }),
+  getSong: (id: string) => axiosClient.get<Song>(`/mp3/song/${id}`),
   getInfoSong: (id: string) =>
-    axiosClient.get<InfoSong>("/infosong", {
-      params: {
-        id,
-      },
-    }),
+    axiosClient.get<InfoSong>(`/mp3/info-song/${id}`),
 };

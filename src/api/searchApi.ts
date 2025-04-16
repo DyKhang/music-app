@@ -75,9 +75,9 @@ export interface SearchResult {
 }
 
 export const searchApi = {
-  getSuggest: () => axiosClient.get<Success>("/suggest"),
+  getSuggest: () => axiosClient.get<Success>("/mp3/suggest"),
   getSearchResult: (keyword: string) =>
-    axiosClient.get<SearchResult>("/search", {
+    axiosClient.get<SearchResult>("/mp3/search", {
       params: {
         keyword,
       },

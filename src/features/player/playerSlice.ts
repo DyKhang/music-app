@@ -129,6 +129,7 @@ const playerSlice = createSlice({
       state.isShuffle = !state.isShuffle;
     },
     playRandom: (state) => {
+      if (state.songs.length <= 1) return;
       let newIndex: number;
       do {
         newIndex = Math.floor(Math.random() * state.songs.length);

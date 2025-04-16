@@ -13,4 +13,5 @@ export const queryKeys = {
   lyric: "lyric",
   suggest: "suggest",
   search: "search",
+  me: "me",
 };

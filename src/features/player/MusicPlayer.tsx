@@ -45,11 +45,19 @@ export const MusicPlayer: React.FC<Props> = ({ showKaraoke }) => {
   // Checks when has isPlay the song will be play and vice versa, used when isPlay state is changed elsewhere
   useEffect(() => {
     if (isPlay) {
-      songRef.current.play();
+      songRef.current?.play();
     } else {
-      songRef.current.pause();
+      songRef.current?.pause();
     }
   }, [isPlay, songRef]);
+
+  useEffect(() => {
+    const song = songRef.current;
+
+    return () => {
+      song.pause();
+    };
+  }, []);
 
   // Handle event when the song ended
   useEffect(() => {

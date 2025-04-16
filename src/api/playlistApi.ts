@@ -107,11 +107,9 @@ interface DetailPlaylist {
 
 export const playlistApi = {
   getDetailPlaylist: async (id: string | undefined) => {
-    const response = await axiosClient.get<DetailPlaylist>(`detailplaylist`, {
-      params: {
-        id: id,
-      },
-    });
+    const response = await axiosClient.get<DetailPlaylist>(
+      `/mp3/playlist/${id}`,
+    );
 
     return response.data.data;
   },

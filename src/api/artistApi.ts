@@ -112,9 +112,5 @@ export interface ArtistApi {
 
 export const artistApi = {
   getDetailArtist: (alias: string) =>
-    axiosClient.get<ArtistApi>("/artist", {
-      params: {
-        name: alias,
-      },
-    }),
+    axiosClient.get<ArtistApi>(`/mp3/artist/${alias}`),
 };

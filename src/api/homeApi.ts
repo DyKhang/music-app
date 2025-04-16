@@ -348,21 +348,21 @@ interface HomeChart {
 
 export const homeApi = {
   getBanner: async () => {
-    const homeData = await axiosClient.get<HomeBanner>("/home");
+    const homeData = await axiosClient.get<HomeBanner>("/mp3/home");
 
     return homeData.data.data.items.find(
       (item) => item.sectionType === "banner",
     );
   },
   getNewReleases: async () => {
-    const data = await axiosClient.get<HomeNewRelease>("/home");
+    const data = await axiosClient.get<HomeNewRelease>("/mp3/home");
 
     return data.data.data.items.find(
       (item) => item.sectionType === "new-release",
     );
   },
   getTrending: async () => {
-    const data = await axiosClient.get<HomePlayList>("/home");
+    const data = await axiosClient.get<HomePlayList>("/mp3/home");
 
     return data.data.data.items.find(
       (item) =>
@@ -370,33 +370,33 @@ export const homeApi = {
     );
   },
   getChill: async () => {
-    const data = await axiosClient.get<HomePlayList>("/home");
+    const data = await axiosClient.get<HomePlayList>("/mp3/home");
 
     return data.data.data.items.find(
       (item) => item.sectionType === "playlist" && item.title === "Chill",
     );
   },
   getTop100: async () => {
-    const data = await axiosClient.get<HomePlayList>("/home");
+    const data = await axiosClient.get<HomePlayList>("/mp3/home");
 
     return data.data.data.items.find(
       (item) => item.sectionType === "playlist" && item.title === "Top 100",
     );
   },
   getAlbumHot: async () => {
-    const data = await axiosClient.get<HomePlayList>("/home");
+    const data = await axiosClient.get<HomePlayList>("/mp3/home");
 
     return data.data.data.items.find(
       (item) => item.sectionType === "playlist" && item.title === "Album Hot",
     );
   },
   getTopSongs: async () => {
-    const data = await axiosClient.get<HomeTopSongs>("/home");
+    const data = await axiosClient.get<HomeTopSongs>("/mp3/home");
 
     return data.data.data.items.find((item) => item.title === "BXH Nhạc Mới");
   },
   getChart: async () => {
-    const data = await axiosClient.get<HomeChart>("/home");
+    const data = await axiosClient.get<HomeChart>("/mp3/home");
 
     return data.data.data.items.find((item) => item.sectionType === "RTChart");
   },

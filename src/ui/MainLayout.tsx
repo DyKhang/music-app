@@ -1,16 +1,27 @@
-import { PopOvers } from "../components/PopOvers";
+import { useEffect } from "react";
 import { Header } from "./Header";
 import { Main } from "./Main";
-import { Player } from "./Player";
 import { SideBar } from "./SideBar";
+import { userApi } from "../api/userApi";
+import { useAuth } from "../hooks/useAuth";
 
 export const MainLayout = () => {
+  const { setSession } = useAuth();
+
+  useEffect(() => {
+    userApi.me().then(({ data }) => {
+      if ("email" in data) {
+        setSession(data);
+        localStorage.setItem("session", JSON.stringify(data));
+      } else setSession(null);
+    });
+  }, [setSession]);
+
   return (
-    <PopOvers>
+    <>
       <Header />
       <SideBar />
       <Main />
-      <Player />
-    </PopOvers>
+    </>
   );
 };

@@ -8,6 +8,9 @@ import { Artist } from "./pages/Artist/Artist";
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorPage } from "./pages/ErrorPage";
 import { SearchResults } from "./pages/SearchResults/SearchResults";
+import { SignIn } from "./pages/SignIn/SignIn";
+import { SignUp } from "./pages/SignUp/SignUp";
+import { AuthProvider } from "./components/AuthProvider";
 
 const queryClient = new QueryClient();
 
@@ -18,29 +21,42 @@ const router = createBrowserRouter([
         FallbackComponent={ErrorPage}
         onReset={() => window.location.replace("/")}
       >
-        <MainLayout />
+        <AuthProvider />
       </ErrorBoundary>
     ),
     children: [
       {
-        path: "/",
-        element: <Explore />,
+        element: <SignIn />,
+        path: "/sign-in",
       },
       {
-        path: "/album/:id",
-        element: <Album />,
+        element: <SignUp />,
+        path: "/sign-up",
       },
       {
-        path: "/nghe-si/:alias",
-        element: <Artist />,
-      },
-      {
-        path: "/tim-kiem",
-        element: <SearchResults />,
-      },
-      {
-        path: "/*",
-        element: <NotFound />,
+        element: <MainLayout />,
+        children: [
+          {
+            path: "/",
+            element: <Explore />,
+          },
+          {
+            path: "/album/:id",
+            element: <Album />,
+          },
+          {
+            path: "/nghe-si/:alias",
+            element: <Artist />,
+          },
+          {
+            path: "/tim-kiem",
+            element: <SearchResults />,
+          },
+          {
+            path: "/*",
+            element: <NotFound />,
+          },
+        ],
       },
     ],
   },
