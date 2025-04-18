@@ -10,7 +10,7 @@ import { ErrorPage } from "./pages/ErrorPage";
 import { SearchResults } from "./pages/SearchResults/SearchResults";
 import { SignIn } from "./pages/SignIn/SignIn";
 import { SignUp } from "./pages/SignUp/SignUp";
-import { AuthProvider } from "./components/AuthProvider";
+import { LayoutAllPage } from "./components/LayoutAllPage";
 
 const queryClient = new QueryClient();
 
@@ -21,7 +21,7 @@ const router = createBrowserRouter([
         FallbackComponent={ErrorPage}
         onReset={() => window.location.replace("/")}
       >
-        <AuthProvider />
+        <LayoutAllPage />
       </ErrorBoundary>
     ),
     children: [

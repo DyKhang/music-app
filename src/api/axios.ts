@@ -31,7 +31,7 @@ axiosClient.interceptors.response.use(
 
     const message =
       error.response?.data?.message || "Đã có lỗi xảy ra. Vui lòng thử lại!";
-    toast.error(message);
+    if (error.status !== 401) toast.error(message);
 
     return Promise.reject(error);
   },

@@ -1,9 +1,14 @@
-import { useNavigate } from "react-router";
+import { useNavigate, Navigate } from "react-router";
 import facebook from "../../../public/facebook.svg";
 import { SignUpForm } from "./components/SignUpForm";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 
 export const SignUp = () => {
   const navigate = useNavigate();
+  const session = useSelector((state: RootState) => state.auth.session);
+
+  if (session) return <Navigate to="/" replace />;
 
   return (
     <section className="flex h-screen w-full items-center justify-center">
@@ -20,7 +25,7 @@ export const SignUp = () => {
             <span>Bạn đã có tài khoản?</span>
             <span
               className="cursor-pointer text-[#644646]"
-              onClick={() => navigate("/sign-in")}
+              onClick={() => navigate("/sign-in", { replace: true })}
             >
               Đăng nhập
             </span>

@@ -19,7 +19,7 @@ export const SignIn = () => {
     }
   }, [emailToken]);
 
-  if (session?.email) return <Navigate to="/" replace />;
+  if (session) return <Navigate to="/" replace />;
 
   return (
     <section className="flex h-screen w-full items-center justify-center">
@@ -36,7 +36,7 @@ export const SignIn = () => {
             <span>Bạn chưa có tài khoản?</span>
             <span
               className="cursor-pointer text-[#644646]"
-              onClick={() => navigate("/sign-up")}
+              onClick={() => navigate("/sign-up", { replace: true })}
             >
               Đăng ký
             </span>
