@@ -25,7 +25,7 @@ interface Props {
 export const PlayListSideBar: React.FC<Props> = ({ isShow, showKaraoke }) => {
   const [state, setState] = useState<"playlist" | "recent">("playlist");
 
-  const songs = useSelector((state: RootState) => state.songs);
+  const songs = useSelector((state: RootState) => state.player.songs);
   const playedSongs = songs.filter((song) => song.isPlayed);
   const unPlayedSongs = songs.filter((song) => !song.isPlayed);
   const dispatch = useAppDispatch();

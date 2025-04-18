@@ -18,14 +18,14 @@ export const NewRelease: React.FC<Props> = ({ data }) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const currentPlaylistId = useSelector(
-    (state: RootState) => state.playList.id,
+    (state: RootState) => state.player.playList.id,
   );
-  const isPlaying = useSelector((state: RootState) => state.isPlaying);
+  const isPlaying = useSelector((state: RootState) => state.player.isPlaying);
   const isCurrentPlayList =
     data?.data.data.topAlbum.encodeId === currentPlaylistId;
 
   const isLoading =
-    useSelector((state: RootState) => state.status) === "loading";
+    useSelector((state: RootState) => state.player.status) === "loading";
 
   const togglePlay = useTogglePlay();
 

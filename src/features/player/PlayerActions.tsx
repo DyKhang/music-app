@@ -28,7 +28,7 @@ export const PlayerActions: React.FC<Props> = ({
   showKaraoke,
 }) => {
   const dispatch: AppDispatch = useDispatch();
-  const volume = useSelector((state: RootState) => state.volume);
+  const volume = useSelector((state: RootState) => state.player.volume);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const currentSong = useSelector(currentSongSelector);
   const hasLyric = currentSong.hasLyric;

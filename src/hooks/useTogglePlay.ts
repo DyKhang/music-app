@@ -3,7 +3,7 @@ import { RootState, useAppDispatch } from "../store";
 import { togglePlaying } from "../features/player/playerSlice";
 
 export const useTogglePlay = () => {
-  const isPlaying = useSelector((state: RootState) => state.isPlaying);
+  const isPlaying = useSelector((state: RootState) => state.player.isPlaying);
   const dispatch = useAppDispatch();
 
   return function () {

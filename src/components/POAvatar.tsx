@@ -7,7 +7,9 @@ import {
 } from "@heroicons/react/24/outline";
 import { HoverTag } from "./HoverTag";
 import { useNavigate } from "react-router";
-import { UserSession } from "../api/userApi";
+import { userApi, UserSession } from "../api/userApi";
+import { useAppDispatch } from "../store";
+import { logout } from "../features/auth/authSlice";
 
 type Props = {
   session: UserSession | null;
@@ -15,6 +17,7 @@ type Props = {
 
 export const POAvatar: React.FC<Props> = ({ session }) => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   return (
     <div className="w-[250px] p-[8px]">
@@ -22,14 +25,18 @@ export const POAvatar: React.FC<Props> = ({ session }) => {
         <>
           <div className="flex items-center gap-[12px]">
             <img
-              src={session.avatar}
+              src={
+                session.avatar
+                  ? session.avatar
+                  : "https://zjs.zmdcdn.me/zmp3-desktop/releases/v1.13.11/static/media/user-default.3ff115bb.png"
+              }
               alt="avatar"
-              className="size-[60px] rounded-full object-cover"
+              className="aspect-square w-[23%] rounded-full object-cover"
             />
 
-            <div className="flex flex-col">
-              <span className="font-[700]">{session.username}</span>
-              <span className="text-[1.4rem] text-[#a1a1a1]">
+            <div className="flex w-[70%] flex-col">
+              <span className="truncate font-[700]">{session.username}</span>
+              <span className="truncate text-[1.4rem] text-[#a1a1a1]">
                 {session.email}
               </span>
             </div>
@@ -51,7 +58,10 @@ export const POAvatar: React.FC<Props> = ({ session }) => {
           <div className="my-[4px] h-[1px] bg-[#0000001a]"></div>
           <HoverTag
             title="Đăng xuất"
-            onClick={() => navigate("/sign-in")}
+            onClick={async () => {
+              await userApi.logout();
+              dispatch(logout());
+            }}
             LeftIcon={() => <ArrowLeftStartOnRectangleIcon />}
           />
         </>

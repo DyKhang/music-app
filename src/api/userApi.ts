@@ -27,4 +27,8 @@ export const userApi = {
     axiosClient.get<UserSession | ApiError>("/user/me", {
       withCredentials: true,
     }),
+  logout: () =>
+    axiosClient.post("/user/logout", null, { withCredentials: true }),
+  refreshToken: () =>
+    axiosClient.get("/user/refresh-token", { withCredentials: true }),
 };

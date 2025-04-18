@@ -29,7 +29,7 @@ interface Props {
 }
 
 export const SongItem: React.FC<Props> = ({ item }) => {
-  const isPlaying = useSelector((state: RootState) => state.isPlaying);
+  const isPlaying = useSelector((state: RootState) => state.player.isPlaying);
   const { isCurrentSong } = useIsCurrentSong(item.encodeId);
   const dispatch = useAppDispatch();
   const togglePlay = useTogglePlay();

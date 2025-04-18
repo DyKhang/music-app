@@ -18,7 +18,7 @@ interface Props {
 
 export const SearchRecommendSong: React.FC<Props> = ({ data }) => {
   const { isCurrentSong } = useIsCurrentSong(data?.encodeId ?? "");
-  const isPlaying = useSelector((state: RootState) => state.isPlaying);
+  const isPlaying = useSelector((state: RootState) => state.player.isPlaying);
   const dispatch = useAppDispatch();
   const togglePlay = useTogglePlay();
 

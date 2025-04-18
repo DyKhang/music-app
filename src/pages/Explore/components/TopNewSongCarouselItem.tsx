@@ -17,7 +17,7 @@ interface Props {
 
 export const TopNewSongCarouselItem: React.FC<Props> = ({ item, index }) => {
   const dispatch = useAppDispatch();
-  const isPlaying = useSelector((state: RootState) => state.isPlaying);
+  const isPlaying = useSelector((state: RootState) => state.player.isPlaying);
   const togglePlay = useTogglePlay();
   const { isCurrentSong } = useIsCurrentSong(item.encodeId);
 

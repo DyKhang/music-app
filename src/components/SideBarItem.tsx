@@ -24,9 +24,9 @@ interface Props {
 }
 
 export const SideBarItem: React.FC<Props> = ({ song }) => {
-  const isPlaying = useSelector((state: RootState) => state.isPlaying);
+  const isPlaying = useSelector((state: RootState) => state.player.isPlaying);
   const songs = useSelector(songsSelector);
-  const playListInfo = useSelector((state: RootState) => state.playList);
+  const playListInfo = useSelector((state: RootState) => state.player.playList);
   const navigate = useNavigate();
   const unPlayedSongs = songs.filter((song) => !song.isPlayed);
   const dispatch = useAppDispatch();

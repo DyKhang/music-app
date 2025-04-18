@@ -14,10 +14,11 @@ import {
 } from "../components/DropDown";
 import { ToolTip } from "../components/ToolTip";
 import { POAvatar } from "../components/POAvatar";
-import { useAuth } from "../hooks/useAuth";
+import { useSelector } from "react-redux";
+import { RootState } from "../store";
 
 export const Header = () => {
-  const { session } = useAuth();
+  const session = useSelector((state: RootState) => state.auth.session);
 
   return (
     <header className="header-inset fixed z-[40] flex h-[70px] items-center px-[10px] sm:px-[60px]">

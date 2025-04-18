@@ -4,13 +4,14 @@ import { useSearchParams, Navigate } from "react-router-dom";
 import { useEffect } from "react";
 import { userApi } from "../../api/userApi";
 import { SignInForm } from "./components/SignInForm";
-import { useAuth } from "../../hooks/useAuth";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 
 export const SignIn = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const emailToken = searchParams.get("emailToken");
-  const { session } = useAuth();
+  const session = useSelector((state: RootState) => state.auth.session);
 
   useEffect(() => {
     if (emailToken) {
@@ -18,7 +19,7 @@ export const SignIn = () => {
     }
   }, [emailToken]);
 
-  if (session) return <Navigate to="/" replace />;
+  if (session?.email) return <Navigate to="/" replace />;
 
   return (
     <section className="flex h-screen w-full items-center justify-center">

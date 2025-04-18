@@ -16,7 +16,7 @@ interface Props {
 
 export const Hero: React.FC<Props> = ({ data }) => {
   const [isFollowed, setIsFollowed] = useState(false);
-  const isPlaying = useSelector((state: RootState) => state.isPlaying);
+  const isPlaying = useSelector((state: RootState) => state.player.isPlaying);
   const dispatch = useAppDispatch();
 
   function handleFollow() {

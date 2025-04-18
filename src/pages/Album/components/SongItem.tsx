@@ -32,10 +32,10 @@ interface Props {
 
 export const SongItem: React.FC<Props> = ({ song, index }) => {
   const { id } = useParams();
-  const isPlaying = useSelector((state: RootState) => state.isPlaying);
+  const isPlaying = useSelector((state: RootState) => state.player.isPlaying);
   const [isChecked, setIsChecked] = useState(false);
   const dispatch = useAppDispatch();
-  const songs = useSelector((state: RootState) => state.songs);
+  const songs = useSelector((state: RootState) => state.player.songs);
   const hasAlbum = Boolean(song.album);
   const isPremium = song.streamingStatus === 2;
   const navigate = useNavigate();

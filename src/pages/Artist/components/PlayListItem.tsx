@@ -23,9 +23,9 @@ interface Props {
 export const PlayListItem: React.FC<Props> = ({ item, hasArtistName }) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const isPlaying = useSelector((state: RootState) => state.isPlaying);
+  const isPlaying = useSelector((state: RootState) => state.player.isPlaying);
   const isLoading =
-    useSelector((state: RootState) => state.status) === "loading";
+    useSelector((state: RootState) => state.player.status) === "loading";
   const togglePlay = useTogglePlay();
   const { isCurrentPlayList } = useIsCurrentPlayList(item.encodeId);
 

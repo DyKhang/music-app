@@ -25,9 +25,9 @@ import { ResultNotFound } from "../../components/ResultNotFound";
 export const Album = () => {
   const { id } = useParams();
   const currentPlaylistId = useSelector(
-    (state: RootState) => state.playList.id,
+    (state: RootState) => state.player.playList.id,
   );
-  const isPlaying = useSelector((state: RootState) => state.isPlaying);
+  const isPlaying = useSelector((state: RootState) => state.player.isPlaying);
   const dispatch = useAppDispatch();
   const { data, isLoading } = useDetailPlayList(id);
   const [searchParams] = useSearchParams();

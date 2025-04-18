@@ -26,7 +26,7 @@ interface Props {
 }
 
 export const MusicPlayer: React.FC<Props> = ({ showKaraoke }) => {
-  const isShuffle = useSelector((state: RootState) => state.isShuffle);
+  const isShuffle = useSelector((state: RootState) => state.player.isShuffle);
   const replayStatus = useSelector(replayStatusSelector);
   const [range, setRange] = useState(0);
   const dispatch = useAppDispatch();
@@ -34,13 +34,17 @@ export const MusicPlayer: React.FC<Props> = ({ showKaraoke }) => {
   const songRef = useRef<HTMLAudioElement>(new Audio());
 
   const currentSong = useSelector(currentSongSelector);
-  const volume = useSelector((state: RootState) => state.volume);
-  const isPlay = useSelector((state: RootState) => state.isPlaying);
-  const status = useSelector((state: RootState) => state.status);
+  const volume = useSelector((state: RootState) => state.player.volume);
+  const isPlay = useSelector((state: RootState) => state.player.isPlaying);
+  const status = useSelector((state: RootState) => state.player.status);
   const songUrl = currentSong.songUrl;
 
-  const currentIndex = useSelector((state: RootState) => state.currentIndex);
-  const songLength = useSelector((state: RootState) => state.songs).length;
+  const currentIndex = useSelector(
+    (state: RootState) => state.player.currentIndex,
+  );
+  const songLength = useSelector(
+    (state: RootState) => state.player.songs,
+  ).length;
 
   // Checks when has isPlay the song will be play and vice versa, used when isPlay state is changed elsewhere
   useEffect(() => {

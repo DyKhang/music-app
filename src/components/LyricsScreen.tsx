@@ -13,8 +13,10 @@ interface Props {
 export const LyricsScreen: React.FC<Props> = ({ data }) => {
   const [lyric, setLyric] = useState("");
   const currentSong = useSelector(currentSongSelector);
-  const currentTime = useSelector((state: RootState) => state.currentTime);
-  const isPlaying = useSelector((state: RootState) => state.isPlaying);
+  const currentTime = useSelector(
+    (state: RootState) => state.player.currentTime,
+  );
+  const isPlaying = useSelector((state: RootState) => state.player.isPlaying);
 
   const activeLyricRef = useRef<HTMLParagraphElement | null>(null);
 

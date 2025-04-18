@@ -1,5 +1,6 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import playerReducer from "./features/player/playerSlice";
+import authReducer from "./features/auth/authSlice";
 import { useDispatch } from "react-redux";
 
 // persist
@@ -19,7 +20,10 @@ export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 export const useAppDispatch = () => useDispatch<AppDispatch>();
 
-const rootReducer = combineReducers({ player: playerReducer });
+const rootReducer = combineReducers({
+  player: playerReducer,
+  auth: authReducer,
+});
 
 const persistConfig = {
   key: "root",

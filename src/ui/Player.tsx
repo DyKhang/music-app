@@ -26,7 +26,9 @@ export const Player: React.FC<Props> = ({ disable }) => {
   const [isLove, setLove] = useState(false);
   const [showKaraoke, setShowKaraoke] = useState(false);
   const currentSong = useSelector(currentSongSelector);
-  const showPlayList = useSelector((state: RootState) => state.showPlayList);
+  const showPlayList = useSelector(
+    (state: RootState) => state.player.showPlayList,
+  );
   const dispatch = useAppDispatch();
   const setShowPlayList = () => dispatch(setShowPlaylist());
 

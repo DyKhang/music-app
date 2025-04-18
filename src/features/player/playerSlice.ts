@@ -73,7 +73,7 @@ export const getSongUrl = createAsyncThunk<string, void, { state: RootState }>(
   async (_, { getState }) => {
     const state = getState();
     const res = await musicApi.getSong(
-      state.songs[state.currentIndex].encodeId,
+      state.player.songs[state.player.currentIndex].encodeId,
     );
     const currentSongUrl = res.data.data?.["128"]
       ? res.data.data?.["128"]

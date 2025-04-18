@@ -26,7 +26,7 @@ export const NewReleaseItem: React.FC<Props> = ({ data }) => {
   const currentSong = useSelector(currentSongSelector);
   const currentEncodeId = currentSong.encodeId;
   const currentPlay = currentEncodeId === encodeId;
-  const isPlaying = useSelector((state: RootState) => state.isPlaying);
+  const isPlaying = useSelector((state: RootState) => state.player.isPlaying);
   const dispatch = useAppDispatch();
   const togglePlay = useTogglePlay();
   let newTile = title;

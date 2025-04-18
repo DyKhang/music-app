@@ -2,20 +2,14 @@ import { useEffect } from "react";
 import { Header } from "./Header";
 import { Main } from "./Main";
 import { SideBar } from "./SideBar";
-import { userApi } from "../api/userApi";
-import { useAuth } from "../hooks/useAuth";
+import { setSession } from "../features/auth/authSlice";
+import { useAppDispatch } from "../store";
 
 export const MainLayout = () => {
-  const { setSession } = useAuth();
-
+  const dispatch = useAppDispatch();
   useEffect(() => {
-    userApi.me().then(({ data }) => {
-      if ("email" in data) {
-        setSession(data);
-        localStorage.setItem("session", JSON.stringify(data));
-      } else setSession(null);
-    });
-  }, [setSession]);
+    dispatch(setSession());
+  }, [dispatch]);
 
   return (
     <>
