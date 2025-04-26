@@ -48,7 +48,11 @@ export const POAvatar: React.FC<Props> = ({ session }) => {
 
       {session && (
         <>
-          <HoverTag title="Trang cá nhân" LeftIcon={() => <UserCircleIcon />} />
+          <HoverTag
+            title="Trang cá nhân"
+            LeftIcon={() => <UserCircleIcon />}
+            onClick={() => navigate("/profile/manage")}
+          />
           <HoverTag
             title="Danh sách yêu thích"
             LeftIcon={() => <HeartIcon />}

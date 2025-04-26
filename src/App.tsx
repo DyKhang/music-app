@@ -10,7 +10,10 @@ import { ErrorPage } from "./pages/ErrorPage";
 import { SearchResults } from "./pages/SearchResults/SearchResults";
 import { SignIn } from "./pages/SignIn/SignIn";
 import { SignUp } from "./pages/SignUp/SignUp";
-import { LayoutAllPage } from "./components/LayoutAllPage";
+import { LayoutAllPage } from "./ui/LayoutAllPage";
+import { ProfileLayout } from "./ui/ProfileLayout";
+import { ProfileManage } from "./pages/ProfileManage/ProfileManage";
+import { ProfileConversation } from "./pages/ProfileConversation/ProfileConversation";
 
 const queryClient = new QueryClient();
 
@@ -56,6 +59,14 @@ const router = createBrowserRouter([
             path: "/*",
             element: <NotFound />,
           },
+        ],
+      },
+      {
+        element: <ProfileLayout />,
+        path: "/profile",
+        children: [
+          { element: <ProfileManage />, path: "manage" },
+          { element: <ProfileConversation />, path: "conversation" },
         ],
       },
     ],

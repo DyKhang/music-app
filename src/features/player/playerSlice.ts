@@ -134,6 +134,15 @@ const playerSlice = createSlice({
       do {
         newIndex = Math.floor(Math.random() * state.songs.length);
       } while (newIndex === state.currentIndex);
+
+      const newSongs = state.songs.map((song, index) => {
+        if (index <= newIndex) {
+          return { ...song, isPlayed: true };
+        } else return { ...song, isPlayed: false };
+      });
+
+      state.songs = newSongs;
+
       state.currentIndex = newIndex;
     },
     changeReplayStatus: (state) => {

@@ -8,7 +8,7 @@ import {
   FormItem,
   FormMessage,
 } from "../../../components/FormShadCN";
-import { Input } from "../../../components/InputShadCN";
+import { Input } from "../../../components/Input";
 import { userApi } from "../../../api/userApi";
 import { useState } from "react";
 import { ArrowPathIcon } from "@heroicons/react/24/outline";
@@ -81,7 +81,7 @@ export const SignUpForm = () => {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <Input {...field} label="Username" />
+                  <Input {...field} label="Tên người dùng" />
                 </FormControl>
                 <FormMessage />
               </FormItem>

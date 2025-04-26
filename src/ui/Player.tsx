@@ -17,12 +17,13 @@ import { KaraokeScreen } from "../components/KaraokeScreen";
 import { RootState, useAppDispatch } from "../store";
 import { setShowPlaylist } from "../features/player/playerSlice";
 import { ToolTip } from "../components/ToolTip";
+import { useLocation } from "react-router";
 
-type Props = {
-  disable: boolean;
-};
+const disablePlayerPaths = ["/sign-in", "/sign-up"];
 
-export const Player: React.FC<Props> = ({ disable }) => {
+const disableAddPlaylistPaths = ["/profile/manage", "/profile/conversation"];
+
+export const Player = () => {
   const [isLove, setLove] = useState(false);
   const [showKaraoke, setShowKaraoke] = useState(false);
   const currentSong = useSelector(currentSongSelector);
@@ -31,6 +32,13 @@ export const Player: React.FC<Props> = ({ disable }) => {
   );
   const dispatch = useAppDispatch();
   const setShowPlayList = () => dispatch(setShowPlaylist());
+  const location = useLocation();
+
+  const disableAll = disablePlayerPaths.includes(location.pathname);
+
+  const disableAddPlaylist = disableAddPlaylistPaths.includes(
+    location.pathname,
+  );
 
   const { image, name, singer, songUrl } = currentSong;
   const isPremium = songUrl.includes("musics/premium.mp3");
@@ -42,7 +50,7 @@ export const Player: React.FC<Props> = ({ disable }) => {
   return (
     <>
       <div
-        className={`group/new-playlist fixed ${disable && "invisible"} hidden xl:flex ${name && "translate-y-[-90px]"} bottom-[0px] left-0 z-50 w-[240px] cursor-pointer items-center gap-3 border-t-[1px] border-[#c3c1be] bg-[#d9d7d4] px-[24px] py-[16px] transition duration-300`}
+        className={`group/new-playlist fixed ${(disableAll || disableAddPlaylist) && "invisible"} hidden xl:flex ${name && "translate-y-[-90px]"} bottom-[0px] left-0 z-50 w-[240px] cursor-pointer items-center gap-3 border-t-[1px] border-[#c3c1be] bg-[#d9d7d4] px-[24px] py-[16px] transition duration-300`}
       >
         <div className="flex flex-shrink-0 items-center justify-center rounded-xl bg-[#b2b0ae] p-[2px]">
           <PlusIcon className="size-[20px] text-white transition-transform duration-[300ms] group-hover/new-playlist:scale-[80%]" />
@@ -52,7 +60,7 @@ export const Player: React.FC<Props> = ({ disable }) => {
         </span>
       </div>
       <div
-        className={`fixed ${disable && "invisible"} ${name && "translate-y-[-90px]"} bottom-[-90px] z-[56] w-full bg-[#dddad1] transition duration-300 ${showKaraoke && "bg-transparent"}`}
+        className={`fixed ${disableAll && "invisible"} ${name && "translate-y-[-90px]"} bottom-[-90px] z-[56] w-full bg-[#dddad1] transition duration-300 ${showKaraoke && "bg-transparent"}`}
       >
         <div className="relative flex h-[135px] select-none items-center justify-between px-[20px] sm:h-[90px]">
           <div className={`flex items-center ${showKaraoke && "invisible"}`}>
