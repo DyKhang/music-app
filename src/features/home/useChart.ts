@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { homeApi } from "../../api/homeApi";
-import { queryKeys } from "../../constants/queryKeys";
+import { QUERY_KEY } from "../../constants/queryKey";
 
 export const useChart = () => {
   return useQuery({
-    queryKey: [queryKeys.chart],
+    queryKey: [QUERY_KEY.CHART],
     queryFn: homeApi.getChart,
   });
 };

@@ -3,8 +3,10 @@ import { Artist } from "./musicApi";
 
 export interface SectionItem {
   encodeId: string;
+  id: string;
   title: string;
   alias: string;
+  isLiked: boolean;
   isOffical: boolean;
   username: string;
   artistsNames: string;
@@ -112,5 +114,7 @@ export interface ArtistApi {
 
 export const artistApi = {
   getDetailArtist: (alias: string) =>
-    axiosClient.get<ArtistApi>(`/mp3/artist/${alias}`),
+    axiosClient.get<ArtistApi>(`/mp3/artist/${alias}`, {
+      withCredentials: true,
+    }),
 };

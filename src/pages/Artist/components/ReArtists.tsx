@@ -12,7 +12,7 @@ export const ReArtists: React.FC<Props> = ({ reArtists }) => {
       <div className="grid grid-cols-2 gap-[28px] md:grid-cols-4 lg:grid-cols-5">
         {reArtists?.items.map(
           (item, index) =>
-            index < 5 && <ArtistItem alias={item.alias} key={item.encodeId} />,
+            index < 5 && <ArtistItem alias={item.alias} key={item.id} />,
         )}
       </div>
     </>

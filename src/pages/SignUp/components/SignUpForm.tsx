@@ -12,19 +12,14 @@ import { Input } from "../../../components/Input";
 import { userApi } from "../../../api/userApi";
 import { useState } from "react";
 import { ArrowPathIcon } from "@heroicons/react/24/outline";
+import { zodValidation } from "../../../utils/validations";
+import { InputPassword } from "../../../components/InputPassword";
 
 const formSchema = z
   .object({
-    username: z
-      .string({ required_error: "Vui lòng nhập trường này" })
-      .min(3, { message: "Username phải hơn 3 ký tự" })
-      .max(50),
-    email: z
-      .string({ required_error: "Vui lòng nhập trường này" })
-      .email({ message: "Email không hợp lệ" }),
-    password: z
-      .string({ required_error: "Vui lòng nhập trường này" })
-      .min(6, { message: "Mật khẩu phải hơn 6 ký tự" }),
+    username: zodValidation.username,
+    email: zodValidation.email,
+    password: zodValidation.password,
     confirmPassword: z.string({ required_error: "Vui lòng nhập trường này" }),
   })
   .refine((data) => data.password === data.confirmPassword, {
@@ -94,7 +89,7 @@ export const SignUpForm = () => {
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Input {...field} label="Mật khẩu" type="password" />
+                <InputPassword {...field} label="Mật khẩu" />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -106,7 +101,7 @@ export const SignUpForm = () => {
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Input {...field} label="Nhập lại mật khẩu" type="password" />
+                <InputPassword {...field} label="Nhập lại mật khẩu" />
               </FormControl>
               <FormMessage />
             </FormItem>

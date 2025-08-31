@@ -78,6 +78,7 @@ export const searchApi = {
   getSuggest: () => axiosClient.get<Success>("/mp3/suggest"),
   getSearchResult: (keyword: string) =>
     axiosClient.get<SearchResult>("/mp3/search", {
+      withCredentials: true,
       params: {
         keyword,
       },

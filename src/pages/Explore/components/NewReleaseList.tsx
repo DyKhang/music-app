@@ -6,6 +6,12 @@ import { upperCaseFirstLetter } from "../../../utils/helper";
 import { useState } from "react";
 import { NewReleasesType } from "../../../api/homeApi";
 
+const tabs = [
+  { label: "tất cả", status: "all" },
+  { label: "việt nam", status: "vPop" },
+  { label: "quốc tế", status: "others" },
+];
+
 interface Props {
   data: NewReleasesType | undefined;
 }
@@ -21,15 +27,16 @@ export const NewReleaseList: React.FC<Props> = ({ data }) => {
 
       <div className="mt-[20px] flex items-center justify-center sm:justify-between">
         <div className="grid grid-cols-3 gap-[8px] sm:gap-[15px]">
-          <Tag currentStatus={status} setStatus={setStatus} status="all">
-            tất cả
-          </Tag>
-          <Tag currentStatus={status} setStatus={setStatus} status="vPop">
-            việt nam
-          </Tag>
-          <Tag currentStatus={status} setStatus={setStatus} status="others">
-            quốc tế
-          </Tag>
+          {tabs.map((tab) => (
+            <Tag
+              key={tab.status}
+              currentStatus={status}
+              setStatus={setStatus}
+              status={tab.status as "all" | "vPop" | "others"}
+            >
+              {tab.label}
+            </Tag>
+          ))}
         </div>
 
         <div className="hidden cursor-pointer items-center gap-[6px] text-[#696969] hover:text-[#844d4d] sm:flex">

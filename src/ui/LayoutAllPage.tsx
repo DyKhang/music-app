@@ -1,12 +1,15 @@
 import { Outlet } from "react-router";
 import { Player } from "../ui/Player";
 import { PopOvers } from "../components/PopOvers";
+import { Modal } from "../components/Modal";
 
 export const LayoutAllPage = () => {
   return (
-    <PopOvers>
-      <Outlet />
-      <Player />
-    </PopOvers>
+    <Modal>
+      <PopOvers>
+        <Outlet />
+        <Player />
+      </PopOvers>
+    </Modal>
   );
 };

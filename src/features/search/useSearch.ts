@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { queryKeys } from "../../constants/queryKeys";
 import { searchApi } from "../../api/searchApi";
+import { QUERY_KEY } from "../../constants/queryKey";
 
 export const useSearch = (keyword: string) => {
   return useQuery({
-    queryKey: [queryKeys.search, keyword],
+    queryKey: [QUERY_KEY.SEARCH, keyword],
     queryFn: () => searchApi.getSearchResult(keyword),
   });
 };

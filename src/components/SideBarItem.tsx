@@ -1,6 +1,7 @@
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { EllipsisHorizontalIcon, HeartIcon } from "@heroicons/react/24/outline";
+import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid";
 import {
   selectSongInPlayList,
   SongReducer,
@@ -16,8 +17,9 @@ import { useEffect } from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { useTogglePlay } from "../hooks/useTogglePlay";
-import { useIsCurrentSong } from "../hooks/useIsCurrentSong";
+import { useIsCurrentSong } from "../hooks/useCurrentSong";
 import { useNavigate } from "react-router";
+import { useToggleFavoriteSong } from "../features/user/useToggleFavoriteSong";
 
 interface Props {
   song: SongReducer;
@@ -32,6 +34,11 @@ export const SideBarItem: React.FC<Props> = ({ song }) => {
   const dispatch = useAppDispatch();
   const togglePlay = useTogglePlay();
   const { isCurrentSong } = useIsCurrentSong(song.encodeId);
+  const session = useSelector((state: RootState) => state.auth.session);
+  const { mutate: toggleFavoriteSong } = useToggleFavoriteSong(
+    song.encodeId,
+    song.isLiked,
+  );
 
   // scroll when change currentPlay
   useEffect(() => {
@@ -100,8 +107,15 @@ export const SideBarItem: React.FC<Props> = ({ song }) => {
             </span>
           </div>
           <div className="relative ml-auto hidden items-center gap-[8px] group-hover/tag:flex">
-            <div className="flex size-[26px] cursor-pointer items-center justify-center rounded-full hover:bg-[rgba(0,0,0,0.05)]">
-              <HeartIcon className="size-[18px]" />
+            <div
+              onClick={() => toggleFavoriteSong()}
+              className="flex size-[26px] cursor-pointer items-center justify-center rounded-full hover:bg-[rgba(0,0,0,0.05)]"
+            >
+              {song.isLiked && session ? (
+                <HeartIconSolid className="size-[18px] text-white" />
+              ) : (
+                <HeartIcon className="size-[18px]" />
+              )}
             </div>
             <div className="flex size-[26px] cursor-pointer items-center justify-center rounded-full hover:bg-[rgba(0,0,0,0.05)]">
               <EllipsisHorizontalIcon className="size-[18px]" />
@@ -160,8 +174,15 @@ export const SideBarItem: React.FC<Props> = ({ song }) => {
         </span>
       </div>
       <div className="relative ml-auto hidden items-center gap-[8px] group-hover/tag:flex">
-        <div className="flex size-[26px] cursor-pointer items-center justify-center rounded-full hover:bg-[rgba(0,0,0,0.05)]">
-          <HeartIcon className="size-[18px]" />
+        <div
+          onClick={() => toggleFavoriteSong()}
+          className="flex size-[26px] cursor-pointer items-center justify-center rounded-full hover:bg-[rgba(0,0,0,0.05)]"
+        >
+          {song.isLiked && session ? (
+            <HeartIconSolid className="size-[18px] text-[#844d4d]" />
+          ) : (
+            <HeartIcon className="size-[18px]" />
+          )}
         </div>
 
         <PopOvers.PopOver>

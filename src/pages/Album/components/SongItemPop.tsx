@@ -15,6 +15,8 @@ import {
 } from "@heroicons/react/24/outline";
 import { PopHoverTag } from "../../../components/PopHoverTag";
 import { useInfoSong } from "../../../features/home/useInfoSong";
+import { useAppDispatch } from "../../../store";
+import { getSongReducer } from "../../../features/player/playerSlice";
 
 interface Props {
   encodeId: string;
@@ -32,6 +34,7 @@ export const SongItemPop: React.FC<Props> = ({ encodeId }) => {
       return newNumber;
     }
   }
+  const dispatch = useAppDispatch();
 
   if (isLoading) return null;
 
@@ -82,13 +85,17 @@ export const SongItemPop: React.FC<Props> = ({ encodeId }) => {
       <div>
         <PopHoverTag
           title="Thêm vào danh sách phát"
-          encodeId={encodeId}
           LeftIcon={() => <QueueListIcon />}
+          onClick={() =>
+            dispatch(getSongReducer({ id: encodeId, type: "addBottom" }))
+          }
         />
         <PopHoverTag
           title="Phát tiếp theo"
           LeftIcon={() => <ForwardIcon />}
-          encodeId={encodeId}
+          onClick={() =>
+            dispatch(getSongReducer({ id: encodeId, type: "addNext" }))
+          }
         />
         <PopHoverTag
           title="Phát nội dung tương tự"

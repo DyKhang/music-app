@@ -3,9 +3,9 @@ import { userApi, UserSession } from "../../api/userApi";
 
 const initialState: {
   session: {
-    email: string;
-    username: string;
-    avatar: string;
+    email?: string;
+    username?: string;
+    avatar?: string;
   } | null;
 } = {
   session: null,
@@ -27,6 +27,14 @@ const authSlice = createSlice({
     logout: (state) => {
       state.session = null;
     },
+    update: (
+      state,
+      {
+        payload,
+      }: { payload: { email?: string; username?: string; avatar?: string } },
+    ) => {
+      state.session = { ...state.session, ...payload };
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(setSession.fulfilled, (state, action) => {
@@ -35,6 +43,6 @@ const authSlice = createSlice({
   },
 });
 
-export const { logout } = authSlice.actions;
+export const { logout, update } = authSlice.actions;
 
 export default authSlice.reducer;

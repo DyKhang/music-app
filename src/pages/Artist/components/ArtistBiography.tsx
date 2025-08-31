@@ -27,20 +27,18 @@ export const ArtistBiography: React.FC<Props> = ({ data }) => {
           <div className="text-[1.4rem] text-[#696969]">
             {data?.data.data.sortBiography}
 
-            <Modal>
-              <Modal.Open open={data!.data.data.alias}>
-                <span className="ml-[4px] cursor-pointer text-[1.2rem] font-[700] uppercase text-[#844d4d]">
-                  Xem thêm
-                </span>
-              </Modal.Open>
-              <Modal.Window name={data!.data.data.alias}>
-                <ArtistBiographyModal
-                  desc={data!.data.data.biography}
-                  image={data!.data.data.thumbnail}
-                  name={data!.data.data.name}
-                />
-              </Modal.Window>
-            </Modal>
+            <Modal.Open open={data!.data.data.alias}>
+              <span className="ml-[4px] cursor-pointer text-[1.2rem] font-[700] uppercase text-[#844d4d]">
+                Xem thêm
+              </span>
+            </Modal.Open>
+            <Modal.Window name={data!.data.data.alias}>
+              <ArtistBiographyModal
+                desc={data!.data.data.biography}
+                image={data!.data.data.thumbnail}
+                name={data!.data.data.name}
+              />
+            </Modal.Window>
           </div>
           <div className="mt-[48px] flex gap-[30px]">
             <div className="hidden flex-col lg:flex">

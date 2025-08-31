@@ -7,7 +7,7 @@ import { getPlayList } from "../../../features/player/playerSlice";
 import { AudioAnimation } from "../../../components/AudioAnimation";
 import { LoaderSmall } from "../../../components/LoaderSmall";
 import { useTogglePlay } from "../../../hooks/useTogglePlay";
-import { useIsCurrentPlayList } from "../../../hooks/useIsCurrentPlayList";
+import { useIsCurrentPlayList } from "../../../hooks/useCurrentPlayList";
 
 interface Props {
   item: {

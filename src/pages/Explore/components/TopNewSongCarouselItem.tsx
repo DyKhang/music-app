@@ -7,7 +7,7 @@ import { getSongReducer } from "../../../features/player/playerSlice";
 import { useSelector } from "react-redux";
 import { AudioAnimation } from "../../../components/AudioAnimation";
 import { useTogglePlay } from "../../../hooks/useTogglePlay";
-import { useIsCurrentSong } from "../../../hooks/useIsCurrentSong";
+import { useIsCurrentSong } from "../../../hooks/useCurrentSong";
 import { ArtistsSpan } from "../../../components/ArtistsSpan";
 
 interface Props {

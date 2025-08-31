@@ -1,40 +1,19 @@
-import {
-  deleteSongInPlayList,
-  getSongReducer,
-} from "../features/player/playerSlice";
-import { useAppDispatch } from "../store";
-
 interface Props {
   RightIcon?: React.FC<{ className?: string }>;
   LeftIcon?: React.FC<{ className?: string }>;
   title: string;
-  encodeId?: string;
+  onClick?: () => void;
 }
 
 export const PopHoverTag: React.FC<Props> = ({
   title,
   LeftIcon,
   RightIcon,
-  encodeId,
+  onClick,
 }) => {
-  const dispatch = useAppDispatch();
-  function handleClick() {
-    if (encodeId) {
-      if (title.toLowerCase().includes("thêm vào danh sách phát")) {
-        dispatch(getSongReducer({ id: encodeId, type: "addBottom" }));
-      } else if (title.toLowerCase().includes("phát tiếp theo")) {
-        dispatch(getSongReducer({ id: encodeId, type: "addNext" }));
-      } else if (title.toLowerCase().includes("xóa")) {
-        dispatch(deleteSongInPlayList(encodeId));
-      }
-    } else {
-      return null;
-    }
-  }
-
   return (
     <div
-      onClick={handleClick}
+      onClick={onClick}
       className="flex cursor-pointer items-center gap-[14px] rounded-[6px] px-[15px] py-[10px] text-[1.4rem] hover:bg-[rgba(0,0,0,0.05)] hover:text-[#844d4d]"
     >
       {LeftIcon && (

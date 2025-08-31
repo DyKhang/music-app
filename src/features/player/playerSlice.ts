@@ -4,6 +4,7 @@ import premiumSound from "../../../public/musics/premium.mp3";
 import toast from "react-hot-toast";
 import { playlistApi } from "../../api/playlistApi";
 import { RootState } from "../../store";
+import { FavoriteSongIds, userApi } from "../../api/userApi";
 
 export interface SongReducer {
   singer: string;
@@ -13,6 +14,7 @@ export interface SongReducer {
   encodeId: string;
   isPlayed: boolean;
   hasLyric: boolean;
+  isLiked: boolean;
 }
 
 export interface initialState {
@@ -44,6 +46,7 @@ const initialState: initialState = {
       name: "",
       singer: "",
       songUrl: "placeholder",
+      isLiked: false,
     },
   ],
   isShuffle: false,
@@ -83,6 +86,15 @@ export const getSongUrl = createAsyncThunk<string, void, { state: RootState }>(
   },
 );
 
+export const getFavoriteSongs = createAsyncThunk(
+  "player/getFavoriteSongs",
+  async () => {
+    const favoriteSongIds = await userApi.getFavoriteSongIds();
+
+    return favoriteSongIds.data;
+  },
+);
+
 export const getSongReducer = createAsyncThunk(
   "player/getSongReducer",
   async ({
@@ -92,8 +104,10 @@ export const getSongReducer = createAsyncThunk(
     id: string;
     type: "play" | "addBottom" | "addNext";
   }) => {
-    const songRes = await musicApi.getSong(id);
-    const songInfoRes = await musicApi.getInfoSong(id);
+    const [songRes, songInfoRes] = await Promise.all([
+      musicApi.getSong(id),
+      musicApi.getInfoSong(id),
+    ]);
     const songUrl = songRes.data;
     const songInfo = songInfoRes.data;
 
@@ -255,6 +269,24 @@ const playerSlice = createSlice({
     setShowPlaylist: (state) => {
       state.showPlayList = !state.showPlayList;
     },
+    deleteFavoriteSong: (state, { payload }: { payload: string }) => {
+      const songIds = state.songs.map((song) => song.encodeId);
+
+      if (songIds.includes(payload)) {
+        state.songs = state.songs.map((song) => {
+          return song.encodeId === payload ? { ...song, isLiked: false } : song;
+        });
+      }
+    },
+    addFavoriteSong: (state, { payload }: { payload: string }) => {
+      const songIds = state.songs.map((song) => song.encodeId);
+
+      if (songIds.includes(payload)) {
+        state.songs = state.songs.map((song) => {
+          return song.encodeId === payload ? { ...song, isLiked: true } : song;
+        });
+      }
+    },
   },
   extraReducers(builder) {
     builder
@@ -268,6 +300,7 @@ const playerSlice = createSlice({
           songUrl: songUrl ? songUrl : premiumSound,
           isPlayed: false,
           hasLyric: Boolean(action.payload.songInfo.data.hasLyric),
+          isLiked: action.payload.songInfo.data.isLiked,
         };
 
         if (action.payload.type === "play") {
@@ -330,8 +363,10 @@ const playerSlice = createSlice({
               singer: item.artistsNames,
               songUrl: "",
               hasLyric: Boolean(item.hasLyric),
+              isLiked: item.isLiked,
             };
           });
+
           state.songs = songs;
           state.currentIndex = songIndex;
           state.songs = state.songs.map((song, index) =>
@@ -361,6 +396,20 @@ const playerSlice = createSlice({
 
           state.status = "idle";
         },
+      )
+      .addCase(
+        getFavoriteSongs.fulfilled,
+        (state, { payload }: { payload: FavoriteSongIds }) => {
+          const favoriteSongIds = payload.songIds;
+
+          state.songs = state.songs.map((song) => {
+            if (favoriteSongIds.includes(song.encodeId)) {
+              return { ...song, isLiked: true };
+            }
+
+            return { ...song, isLiked: false };
+          });
+        },
       );
   },
 });
@@ -379,6 +428,8 @@ export const {
   setCurrentTime,
   playRandom,
   setShowPlaylist,
+  addFavoriteSong,
+  deleteFavoriteSong,
 } = playerSlice.actions;
 
 export default playerSlice.reducer;

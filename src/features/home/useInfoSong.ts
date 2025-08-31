@@ -1,11 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { queryKeys } from "../../constants/queryKeys";
 import { musicApi } from "../../api/musicApi";
+import { QUERY_KEY } from "../../constants/queryKey";
 
 export const useInfoSong = (encodeId: string) => {
   return useQuery({
-    queryKey: [queryKeys.infoSong, encodeId],
+    queryKey: [QUERY_KEY.INFO_SONG, encodeId],
     queryFn: () => musicApi.getInfoSong(encodeId),
-    staleTime: 1000 * 60 * 5,
   });
 };

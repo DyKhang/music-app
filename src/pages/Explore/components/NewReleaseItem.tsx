@@ -81,9 +81,9 @@ export const NewReleaseItem: React.FC<Props> = ({ data }) => {
           {newTile}
           {streamingStatus === StreamingStatus.premium && <PremiumIcon />}
         </span>
-        <div className="flex items-center gap-[4px]">
+        <div className="flex flex-wrap items-center gap-[4px]">
           <ArtistsSpan
-            artists={artists.map((item) => ({
+            artists={artists.slice(0, 3).map((item) => ({
               alias: item.alias,
               name: item.name,
             }))}

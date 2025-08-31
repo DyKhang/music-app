@@ -13,8 +13,13 @@ import {
   QueueListIcon,
   ShareIcon,
 } from "@heroicons/react/24/outline";
+
+import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid";
 import { PopHoverTag } from "../../../components/PopHoverTag";
 import { useInfoSong } from "../../../features/home/useInfoSong";
+import { useAppDispatch } from "../../../store";
+import { getSongReducer } from "../../../features/player/playerSlice";
+import { useToggleFavoriteSong } from "../../../features/user/useToggleFavoriteSong";
 
 interface Props {
   encodeId: string;
@@ -22,6 +27,12 @@ interface Props {
 
 export const NewReleasePop: React.FC<Props> = ({ encodeId }) => {
   const { data, isLoading } = useInfoSong(encodeId);
+  const dispatch = useAppDispatch();
+  const { mutate: toggleFavoriteSong } = useToggleFavoriteSong(
+    encodeId,
+    data?.data.data.isLiked,
+  );
+
   function calNumber(number: number) {
     let newNumber: string | number = number;
 
@@ -80,16 +91,35 @@ export const NewReleasePop: React.FC<Props> = ({ encodeId }) => {
       </div>
 
       <div>
-        <PopHoverTag title="Thêm vào thư viện" LeftIcon={() => <HeartIcon />} />
+        <PopHoverTag
+          title={
+            data?.data?.data?.isLiked
+              ? "Xóa khỏi thư viện"
+              : "Thêm vào thư viện"
+          }
+          LeftIcon={() =>
+            data?.data.data.isLiked ? (
+              <HeartIconSolid className="text-[#844d4d]" />
+            ) : (
+              <HeartIcon />
+            )
+          }
+          onClick={() => toggleFavoriteSong()}
+        />
+
         <PopHoverTag
           title="Thêm vào danh sách phát"
-          encodeId={encodeId}
+          onClick={() =>
+            dispatch(getSongReducer({ id: encodeId, type: "addBottom" }))
+          }
           LeftIcon={() => <QueueListIcon />}
         />
         <PopHoverTag
           title="Phát tiếp theo"
           LeftIcon={() => <ForwardIcon />}
-          encodeId={encodeId}
+          onClick={() =>
+            dispatch(getSongReducer({ id: encodeId, type: "addNext" }))
+          }
         />
         <PopHoverTag
           title="Phát nội dung tương tự"

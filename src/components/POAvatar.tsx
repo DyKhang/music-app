@@ -7,12 +7,16 @@ import {
 } from "@heroicons/react/24/outline";
 import { HoverTag } from "./HoverTag";
 import { useNavigate } from "react-router";
-import { userApi, UserSession } from "../api/userApi";
+import { userApi } from "../api/userApi";
 import { useAppDispatch } from "../store";
 import { logout } from "../features/auth/authSlice";
 
 type Props = {
-  session: UserSession | null;
+  session: {
+    email?: string;
+    username?: string;
+    avatar?: string;
+  } | null;
 };
 
 export const POAvatar: React.FC<Props> = ({ session }) => {
@@ -25,11 +29,7 @@ export const POAvatar: React.FC<Props> = ({ session }) => {
         <>
           <div className="flex items-center gap-[12px]">
             <img
-              src={
-                session.avatar
-                  ? session.avatar
-                  : "https://zjs.zmdcdn.me/zmp3-desktop/releases/v1.13.11/static/media/user-default.3ff115bb.png"
-              }
+              src={session.avatar}
               alt="avatar"
               className="aspect-square w-[23%] rounded-full object-cover"
             />

@@ -6,6 +6,7 @@ import {
   HeartIcon,
   MusicalNoteIcon,
 } from "@heroicons/react/24/outline";
+import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid";
 import { useState } from "react";
 import { Song } from "../../../api/playlistApi";
 import { RootState, useAppDispatch } from "../../../store";
@@ -21,9 +22,11 @@ import { useNavigate, useParams } from "react-router";
 import { PopOvers } from "../../../components/PopOvers";
 import { SongItemPop } from "./SongItemPop";
 import { useTogglePlay } from "../../../hooks/useTogglePlay";
-import { useIsCurrentPlayList } from "../../../hooks/useIsCurrentPlayList";
-import { useIsCurrentSong } from "../../../hooks/useIsCurrentSong";
+import { useIsCurrentPlayList } from "../../../hooks/useCurrentPlayList";
+import { useIsCurrentSong } from "../../../hooks/useCurrentSong";
 import { ArtistsSpan } from "../../../components/ArtistsSpan";
+import { useToggleFavoriteSong } from "../../../features/user/useToggleFavoriteSong";
+import clsx from "clsx";
 
 interface Props {
   song: Song;
@@ -42,6 +45,12 @@ export const SongItem: React.FC<Props> = ({ song, index }) => {
   const togglePlay = useTogglePlay();
   const { isCurrentPlayList } = useIsCurrentPlayList(id!);
   const { isCurrentSong } = useIsCurrentSong(song.encodeId);
+  const { mutate: toggleFavoriteSong, isPending } = useToggleFavoriteSong(
+    song.encodeId,
+    song.isLiked,
+  );
+
+  const session = useSelector((state: RootState) => state.auth.session);
 
   function handleCheckSong() {
     setIsChecked(!isChecked);
@@ -106,8 +115,21 @@ export const SongItem: React.FC<Props> = ({ song, index }) => {
           <div className="flex size-[36px] cursor-pointer items-center justify-center rounded-full hover:bg-[rgba(0,0,0,0.05)]">
             <FontAwesomeIcon icon={faMicrophone} className="text-[1.4rem]" />
           </div>
-          <div className="flex size-[36px] cursor-pointer items-center justify-center rounded-full hover:bg-[rgba(0,0,0,0.05)]">
-            <HeartIcon className="size-[16px]" />
+          <div
+            onClick={() => {
+              if (isPending) return;
+              toggleFavoriteSong();
+            }}
+            className={clsx(
+              "flex size-[36px] cursor-pointer items-center justify-center rounded-full hover:bg-[rgba(0,0,0,0.05)]",
+              { "pointer-events-none": isPending },
+            )}
+          >
+            {song.isLiked && session ? (
+              <HeartIconSolid className="size-[16px] text-[#844d4d]" />
+            ) : (
+              <HeartIcon className="size-[16px]" />
+            )}
           </div>
 
           <PopOvers.PopOver>
@@ -177,8 +199,21 @@ export const SongItem: React.FC<Props> = ({ song, index }) => {
         <div className="flex size-[36px] cursor-pointer items-center justify-center rounded-full hover:bg-[rgba(0,0,0,0.05)]">
           <FontAwesomeIcon icon={faMicrophone} className="text-[1.4rem]" />
         </div>
-        <div className="flex size-[36px] cursor-pointer items-center justify-center rounded-full hover:bg-[rgba(0,0,0,0.05)]">
-          <HeartIcon className="size-[16px]" />
+        <div
+          onClick={() => {
+            if (isPending) return;
+            toggleFavoriteSong();
+          }}
+          className={clsx(
+            "flex size-[36px] cursor-pointer items-center justify-center rounded-full hover:bg-[rgba(0,0,0,0.05)]",
+            { "pointer-events-none": isPending },
+          )}
+        >
+          {song.isLiked && session ? (
+            <HeartIconSolid className="size-[16px] text-[#844d4d]" />
+          ) : (
+            <HeartIcon className="size-[16px]" />
+          )}
         </div>
 
         <PopOvers.PopOver>

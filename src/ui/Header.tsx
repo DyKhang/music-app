@@ -59,8 +59,9 @@ export const Header = () => {
             <div className="size-[40px] flex-shrink-0 cursor-pointer overflow-hidden rounded-full hover:brightness-90">
               <img
                 src={
-                  session?.avatar ??
-                  "https://zjs.zmdcdn.me/zmp3-desktop/releases/v1.13.11/static/media/user-default.3ff115bb.png"
+                  session
+                    ? session.avatar
+                    : "https://zjs.zmdcdn.me/zmp3-desktop/releases/v1.13.11/static/media/user-default.3ff115bb.png"
                 }
                 alt=""
                 className="h-full w-full object-cover"

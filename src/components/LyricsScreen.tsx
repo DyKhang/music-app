@@ -71,18 +71,24 @@ export const LyricsScreen: React.FC<Props> = ({ data }) => {
       }}
       className="relative flex gap-[78px] px-[60px]"
     >
-      <div className="relative hidden w-[36%] overflow-hidden rounded-[4px] lg:block">
-        <img src={currentSong.image} alt="" className="w-full object-cover" />
-        {isPlaying && (
-          <Audio
-            height="32"
-            width="32"
-            color="#fff"
-            ariaLabel="audio-loading"
-            wrapperClass="absolute left-[10px] bottom-[30px] text-white group-hover/tag:block"
-            visible={true}
+      <div className="relative hidden w-[36%] lg:block">
+        <div className="relative">
+          <img
+            src={currentSong.image}
+            alt=""
+            className="aspect-square rounded-[4px] object-cover"
           />
-        )}
+          {isPlaying && (
+            <Audio
+              height="32"
+              width="32"
+              color="#fff"
+              ariaLabel="audio-loading"
+              wrapperClass="absolute left-[10px] bottom-[10px] text-white group-hover/tag:block"
+              visible={true}
+            />
+          )}
+        </div>
       </div>
       <div className="relative flex-1 overflow-y-scroll">
         {lyricFormat[0].lyric.includes("doctype html") ? (

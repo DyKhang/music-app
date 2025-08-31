@@ -7,7 +7,7 @@ import { LoaderSmall } from "./LoaderSmall";
 import { useSelector } from "react-redux";
 import { AudioAnimation } from "./AudioAnimation";
 import { useTogglePlay } from "../hooks/useTogglePlay";
-import { useIsCurrentPlayList } from "../hooks/useIsCurrentPlayList";
+import { useIsCurrentPlayList } from "../hooks/useCurrentPlayList";
 
 interface Props {
   item: {

@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { homeApi } from "../../api/homeApi";
-import { queryKeys } from "../../constants/queryKeys";
+import { QUERY_KEY } from "../../constants/queryKey";
 
 export const useTop100 = () => {
   return useQuery({
-    queryKey: [queryKeys.top100],
+    queryKey: [QUERY_KEY.TOP100],
     queryFn: homeApi.getTop100,
   });
 };

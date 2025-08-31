@@ -7,6 +7,7 @@ interface Props {
 }
 
 export const SongResult: React.FC<Props> = ({ songs }) => {
+  console.log(songs);
   if (!songs) return <ResultNotFound title="Không có bài hát được tìm thấy" />;
 
   return (

@@ -15,6 +15,8 @@ import {
 } from "@heroicons/react/24/outline";
 import { useInfoSong } from "../features/home/useInfoSong";
 import { PopHoverTag } from "./PopHoverTag";
+import { deleteSongInPlayList } from "../features/player/playerSlice";
+import { useAppDispatch } from "../store";
 
 interface Props {
   encodeId: string;
@@ -22,6 +24,7 @@ interface Props {
 
 export const SideBarItemPop: React.FC<Props> = ({ encodeId }) => {
   const { data, isLoading } = useInfoSong(encodeId);
+  const dispatch = useAppDispatch();
 
   function calNumber(number: number) {
     let newNumber: string | number = number;
@@ -114,7 +117,7 @@ export const SideBarItemPop: React.FC<Props> = ({ encodeId }) => {
         <PopHoverTag
           title="Xóa"
           LeftIcon={() => <TrashIcon />}
-          encodeId={encodeId}
+          onClick={() => dispatch(deleteSongInPlayList(encodeId))}
         />
       </div>
       <p className="mt-[6px] text-center text-[1.3rem] font-[500] text-[#696969]">

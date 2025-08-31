@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { queryKeys } from "../../constants/queryKeys";
 import { artistApi } from "../../api/artistApi";
+import { QUERY_KEY } from "../../constants/queryKey";
 
 export const useDetailArtist = (alias: string) => {
   return useQuery({
-    queryKey: [queryKeys.detailArtist, alias],
+    queryKey: [QUERY_KEY.DETAIL_ARTIST, alias],
     queryFn: () => artistApi.getDetailArtist(alias),
   });
 };

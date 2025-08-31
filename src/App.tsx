@@ -14,6 +14,9 @@ import { LayoutAllPage } from "./ui/LayoutAllPage";
 import { ProfileLayout } from "./ui/ProfileLayout";
 import { ProfileManage } from "./pages/ProfileManage/ProfileManage";
 import { ProfileConversation } from "./pages/ProfileConversation/ProfileConversation";
+import { ProfileSecure } from "./pages/ProfileSecure/ProfileSecure";
+import { Favorite } from "./pages/Favorite/Favorite";
+import { ProtectedRoute } from "./ui/ProtectedRoute";
 
 const queryClient = new QueryClient();
 
@@ -43,6 +46,7 @@ const router = createBrowserRouter([
             path: "/",
             element: <Explore />,
           },
+
           {
             path: "/album/:id",
             element: <Album />,
@@ -59,6 +63,15 @@ const router = createBrowserRouter([
             path: "/*",
             element: <NotFound />,
           },
+          {
+            element: <ProtectedRoute />,
+            children: [
+              {
+                path: "/favorite",
+                element: <Favorite />,
+              },
+            ],
+          },
         ],
       },
       {
@@ -67,6 +80,7 @@ const router = createBrowserRouter([
         children: [
           { element: <ProfileManage />, path: "manage" },
           { element: <ProfileConversation />, path: "conversation" },
+          { element: <ProfileSecure />, path: "secure" },
         ],
       },
     ],

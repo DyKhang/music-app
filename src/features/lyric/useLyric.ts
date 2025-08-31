@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { queryKeys } from "../../constants/queryKeys";
 import { lyricApi } from "../../api/lyricApi";
+import { QUERY_KEY } from "../../constants/queryKey";
 
 export const useLyric = (id: string) => {
   return useQuery({
-    queryKey: [queryKeys.lyric, id],
+    queryKey: [QUERY_KEY.LYRIC, id],
     queryFn: () => lyricApi.getLyric(id),
   });
 };

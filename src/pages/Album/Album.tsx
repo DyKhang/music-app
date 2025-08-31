@@ -13,13 +13,12 @@ import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../store";
 import { AudioAnimation } from "../../components/AudioAnimation";
 import { getPlayList } from "../../features/player/playerSlice";
-import { Filter } from "./components/Filter";
 import { useSearchParams } from "react-router-dom";
 import { Loader } from "../../components/Loader";
 import toast from "react-hot-toast";
 import { convertTotalFollow } from "../../utils/helper";
 import { useTogglePlay } from "../../hooks/useTogglePlay";
-import { useIsCurrentPlayList } from "../../hooks/useIsCurrentPlayList";
+import { useIsCurrentPlayList } from "../../hooks/useCurrentPlayList";
 import { ResultNotFound } from "../../components/ResultNotFound";
 
 export const Album = () => {
@@ -173,7 +172,7 @@ export const Album = () => {
               <div className="z-10 flex items-center border-b-[1px] border-[rgba(0,0,0,0.05)] bg-[#e5e3df] p-[10px] text-[1.2rem] font-[500] uppercase text-[#696969]">
                 <div className="mr-[10px] w-1/2">
                   <div className="flex items-center gap-[10px]">
-                    <Filter />
+                    <div className="size-[16px]"></div>
                     <span>bài hát</span>
                   </div>
                 </div>

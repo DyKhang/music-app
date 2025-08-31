@@ -95,11 +95,14 @@ export interface InfoSong {
     liked: boolean;
     comment: number;
     hasLyric: boolean;
+    isLiked: boolean;
   };
 }
 
 export const musicApi = {
   getSong: (id: string) => axiosClient.get<Song>(`/mp3/song/${id}`),
   getInfoSong: (id: string) =>
-    axiosClient.get<InfoSong>(`/mp3/info-song/${id}`),
+    axiosClient.get<InfoSong>(`/mp3/info-song/${id}`, {
+      withCredentials: true,
+    }),
 };

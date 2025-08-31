@@ -1,14 +1,16 @@
 import { EllipsisHorizontalIcon, PlayIcon } from "@heroicons/react/24/solid";
 import { HeartIcon } from "@heroicons/react/24/outline";
+import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid";
 import { PopOvers } from "../../../components/PopOvers";
-import { NewReleasePop } from "../../Explore/components/NewReleasePop";
 import { ArtistsSpan } from "../../../components/ArtistsSpan";
-import { useIsCurrentSong } from "../../../hooks/useIsCurrentSong";
+import { useIsCurrentSong } from "../../../hooks/useCurrentSong";
 import { RootState, useAppDispatch } from "../../../store";
 import { getSongReducer } from "../../../features/player/playerSlice";
 import { useSelector } from "react-redux";
 import { AudioAnimation } from "../../../components/AudioAnimation";
 import { useTogglePlay } from "../../../hooks/useTogglePlay";
+import { useToggleFavoriteSong } from "../../../features/user/useToggleFavoriteSong";
+import { SongItemPop } from "../../Album/components/SongItemPop";
 
 interface Props {
   item:
@@ -20,6 +22,7 @@ interface Props {
         }[];
         thumbnailM: string;
         encodeId: string;
+        isLiked: boolean;
       }
     | undefined;
 }
@@ -29,6 +32,11 @@ export const Song: React.FC<Props> = ({ item }) => {
   const isPlaying = useSelector((state: RootState) => state.player.isPlaying);
   const togglePlay = useTogglePlay();
   const dispatch = useAppDispatch();
+  const session = useSelector((state: RootState) => state.auth.session);
+  const { mutate: toggleFavoriteSong } = useToggleFavoriteSong(
+    item!.encodeId,
+    item?.isLiked,
+  );
 
   if (!item) return null;
 
@@ -59,8 +67,15 @@ export const Song: React.FC<Props> = ({ item }) => {
           </div>
         </div>
         <div className="ml-auto hidden group-hover/artist:flex">
-          <div className="flex size-[36px] cursor-pointer items-center justify-center rounded-full hover:bg-[rgba(0,0,0,0.05)]">
-            <HeartIcon className="size-[16px]" />
+          <div
+            onClick={() => toggleFavoriteSong()}
+            className="flex size-[36px] cursor-pointer items-center justify-center rounded-full hover:bg-[rgba(0,0,0,0.05)]"
+          >
+            {item.isLiked && session ? (
+              <HeartIconSolid className="size-[16px] text-[#844d4d]" />
+            ) : (
+              <HeartIcon className="size-[16px]" />
+            )}
           </div>
           <PopOvers.PopOver>
             <>
@@ -70,7 +85,7 @@ export const Song: React.FC<Props> = ({ item }) => {
                 </div>
               </PopOvers.Button>
               <PopOvers.Content name={`new-release-${item.encodeId}`}>
-                <NewReleasePop encodeId={`${item.encodeId}`} />
+                <SongItemPop encodeId={`${item.encodeId}`} />
               </PopOvers.Content>
             </>
           </PopOvers.PopOver>
@@ -102,8 +117,15 @@ export const Song: React.FC<Props> = ({ item }) => {
         </div>
       </div>
       <div className="ml-auto hidden group-hover/artist:flex">
-        <div className="flex size-[36px] cursor-pointer items-center justify-center rounded-full hover:bg-[rgba(0,0,0,0.05)]">
-          <HeartIcon className="size-[16px]" />
+        <div
+          onClick={() => toggleFavoriteSong()}
+          className="flex size-[36px] cursor-pointer items-center justify-center rounded-full hover:bg-[rgba(0,0,0,0.05)]"
+        >
+          {item.isLiked && session ? (
+            <HeartIconSolid className="size-[16px] text-[#844d4d]" />
+          ) : (
+            <HeartIcon className="size-[16px]" />
+          )}
         </div>
         <PopOvers.PopOver>
           <>
@@ -113,7 +135,7 @@ export const Song: React.FC<Props> = ({ item }) => {
               </div>
             </PopOvers.Button>
             <PopOvers.Content name={`new-release-${item.encodeId}`}>
-              <NewReleasePop encodeId={`${item.encodeId}`} />
+              <SongItemPop encodeId={`${item.encodeId}`} />
             </PopOvers.Content>
           </>
         </PopOvers.PopOver>

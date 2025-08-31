@@ -1,10 +1,10 @@
-import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid";
 import {
   EllipsisHorizontalIcon,
   HeartIcon,
   PlusIcon,
 } from "@heroicons/react/24/outline";
-import { useState } from "react";
+import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid";
+import { useEffect, useState } from "react";
 import { MusicPlayer } from "../features/player/MusicPlayer";
 import { PlayerActions } from "../features/player/PlayerActions";
 import { useSelector } from "react-redux";
@@ -15,16 +15,23 @@ import { PremiumUpdateTag } from "../components/PremiumUpdateTag";
 import { currentSongSelector } from "../features/player/selectors";
 import { KaraokeScreen } from "../components/KaraokeScreen";
 import { RootState, useAppDispatch } from "../store";
-import { setShowPlaylist } from "../features/player/playerSlice";
+import {
+  getFavoriteSongs,
+  setShowPlaylist,
+} from "../features/player/playerSlice";
 import { ToolTip } from "../components/ToolTip";
 import { useLocation } from "react-router";
+import { useToggleFavoriteSong } from "../features/user/useToggleFavoriteSong";
 
 const disablePlayerPaths = ["/sign-in", "/sign-up"];
 
-const disableAddPlaylistPaths = ["/profile/manage", "/profile/conversation"];
+const disableAddPlaylistPaths = [
+  "/profile/manage",
+  "/profile/conversation",
+  "/profile/secure",
+];
 
 export const Player = () => {
-  const [isLove, setLove] = useState(false);
   const [showKaraoke, setShowKaraoke] = useState(false);
   const currentSong = useSelector(currentSongSelector);
   const showPlayList = useSelector(
@@ -32,6 +39,13 @@ export const Player = () => {
   );
   const dispatch = useAppDispatch();
   const setShowPlayList = () => dispatch(setShowPlaylist());
+  const session = useSelector((state: RootState) => state.auth.session);
+
+  useEffect(() => {
+    if (session) {
+      dispatch(getFavoriteSongs());
+    }
+  }, [session, dispatch]);
   const location = useLocation();
 
   const disableAll = disablePlayerPaths.includes(location.pathname);
@@ -40,25 +54,27 @@ export const Player = () => {
     location.pathname,
   );
 
-  const { image, name, singer, songUrl } = currentSong;
+  const { image, name, singer, songUrl, encodeId, isLiked } = currentSong;
+  const { mutate: toggleFavoriteSong } = useToggleFavoriteSong(
+    encodeId,
+    isLiked,
+  );
   const isPremium = songUrl.includes("musics/premium.mp3");
-
-  function handleToggleLove() {
-    setLove(!isLove);
-  }
 
   return (
     <>
-      <div
-        className={`group/new-playlist fixed ${(disableAll || disableAddPlaylist) && "invisible"} hidden xl:flex ${name && "translate-y-[-90px]"} bottom-[0px] left-0 z-50 w-[240px] cursor-pointer items-center gap-3 border-t-[1px] border-[#c3c1be] bg-[#d9d7d4] px-[24px] py-[16px] transition duration-300`}
-      >
-        <div className="flex flex-shrink-0 items-center justify-center rounded-xl bg-[#b2b0ae] p-[2px]">
-          <PlusIcon className="size-[20px] text-white transition-transform duration-[300ms] group-hover/new-playlist:scale-[80%]" />
+      {session && (
+        <div
+          className={`group/new-playlist fixed ${(disableAll || disableAddPlaylist) && "invisible"} hidden xl:flex ${name && "translate-y-[-90px]"} bottom-[0px] left-0 z-50 w-[240px] cursor-pointer items-center gap-3 border-t-[1px] border-[#c3c1be] bg-[#d9d7d4] px-[24px] py-[16px] transition duration-300`}
+        >
+          <div className="flex flex-shrink-0 items-center justify-center rounded-xl bg-[#b2b0ae] p-[2px]">
+            <PlusIcon className="size-[20px] text-white transition-transform duration-[300ms] group-hover/new-playlist:scale-[80%]" />
+          </div>
+          <span className="text-[1.4rem] font-medium text-black group-hover/new-playlist:text-[#5f4646]">
+            Tạo playlist mới
+          </span>
         </div>
-        <span className="text-[1.4rem] font-medium text-black group-hover/new-playlist:text-[#5f4646]">
-          Tạo playlist mới
-        </span>
-      </div>
+      )}
       <div
         className={`fixed ${disableAll && "invisible"} ${name && "translate-y-[-90px]"} bottom-[-90px] z-[56] w-full bg-[#dddad1] transition duration-300 ${showKaraoke && "bg-transparent"}`}
       >
@@ -77,15 +93,15 @@ export const Player = () => {
                 <span className="text-[1.2rem] text-[#696969]">{singer}</span>
               </div>
               <ToolTip title="Thêm vào thư viện">
-                {isLove ? (
+                {isLiked && session ? (
                   <HeartIconSolid
-                    className="ml-8 size-[18px] cursor-pointer text-[#4d4c54]"
-                    onClick={handleToggleLove}
+                    className="ml-8 size-[18px] cursor-pointer text-[#844d4d]"
+                    onClick={() => toggleFavoriteSong()}
                   />
                 ) : (
                   <HeartIcon
                     className="ml-8 size-[18px] cursor-pointer text-[#4d4c54]"
-                    onClick={handleToggleLove}
+                    onClick={() => toggleFavoriteSong()}
                   />
                 )}
               </ToolTip>

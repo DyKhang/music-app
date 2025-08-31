@@ -13,14 +13,12 @@ import { userApi } from "../../../api/userApi";
 import { useState } from "react";
 import { ArrowPathIcon } from "@heroicons/react/24/outline";
 import { useNavigate } from "react-router";
+import { zodValidation } from "../../../utils/validations";
+import { InputPassword } from "../../../components/InputPassword";
 
 const formSchema = z.object({
-  email: z
-    .string({ required_error: "Vui lòng nhập trường này" })
-    .email({ message: "Email không hợp lệ" }),
-  password: z
-    .string({ required_error: "Vui lòng nhập trường này" })
-    .min(6, { message: "Mật khẩu phải hơn 6 ký tự" }),
+  email: zodValidation.email,
+  password: zodValidation.password,
 });
 
 export type UserLoginForm = z.infer<typeof formSchema>;
@@ -70,7 +68,7 @@ export const SignInForm = () => {
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Input {...field} label="Mật khẩu" type="password" />
+                <InputPassword {...field} label="Mật khẩu" />
               </FormControl>
               <FormMessage />
             </FormItem>

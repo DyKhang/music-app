@@ -5,7 +5,7 @@ import { PopOvers } from "./PopOvers";
 import { SongItemPop } from "../pages/Album/components/SongItemPop";
 import { Song } from "../api/playlistApi";
 import { ArtistsSpan } from "./ArtistsSpan";
-import { useIsCurrentSong } from "../hooks/useIsCurrentSong";
+import { useIsCurrentSong } from "../hooks/useCurrentSong";
 import { RootState, useAppDispatch } from "../store";
 import { getSongReducer } from "../features/player/playerSlice";
 import { useSelector } from "react-redux";

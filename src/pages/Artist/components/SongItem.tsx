@@ -1,4 +1,5 @@
 import { EllipsisHorizontalIcon, HeartIcon } from "@heroicons/react/24/outline";
+import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMicrophone, faPlay } from "@fortawesome/free-solid-svg-icons";
 import { formatTime } from "../../../utils/helper";
@@ -11,13 +12,13 @@ import { SongItemPop } from "../../Album/components/SongItemPop";
 import { PremiumIcon } from "../../../components/PremiumIcon";
 import { useTogglePlay } from "../../../hooks/useTogglePlay";
 import { ArtistsSpan } from "../../../components/ArtistsSpan";
-import { useIsCurrentSong } from "../../../hooks/useIsCurrentSong";
+import { useIsCurrentSong } from "../../../hooks/useCurrentSong";
+import { useToggleFavoriteSong } from "../../../features/user/useToggleFavoriteSong";
 
 interface Props {
   item: {
     encodeId: string;
     title: string;
-    artistsNames: string;
     thumbnailM: string;
     streamingStatus: number;
     artists: {
@@ -25,6 +26,7 @@ interface Props {
       name: string;
     }[];
     duration: number;
+    isLiked: boolean;
   };
 }
 
@@ -33,6 +35,11 @@ export const SongItem: React.FC<Props> = ({ item }) => {
   const { isCurrentSong } = useIsCurrentSong(item.encodeId);
   const dispatch = useAppDispatch();
   const togglePlay = useTogglePlay();
+  const session = useSelector((state: RootState) => state.auth.session);
+  const { mutate: toggleFavoriteSong } = useToggleFavoriteSong(
+    item.encodeId,
+    item.isLiked,
+  );
 
   if (!item) return null;
 
@@ -63,9 +70,9 @@ export const SongItem: React.FC<Props> = ({ item }) => {
           <span className="flex cursor-pointer items-center gap-[6px] text-[1.4rem] font-[500] hover:text-[#844d4d]">
             {title} {item.streamingStatus === 2 && <PremiumIcon />}
           </span>
-          <div className="mt-[4px]">
+          <div className="mt-[4px] flex flex-wrap items-center gap-[4px]">
             <ArtistsSpan
-              artists={item.artists.map((item) => ({
+              artists={item.artists.slice(0, 1).map((item) => ({
                 alias: item.alias,
                 name: item.name,
               }))}
@@ -76,8 +83,15 @@ export const SongItem: React.FC<Props> = ({ item }) => {
           <div className="flex size-[36px] cursor-pointer items-center justify-center rounded-full hover:bg-[rgba(0,0,0,0.05)]">
             <FontAwesomeIcon icon={faMicrophone} className="text-[1.4rem]" />
           </div>
-          <div className="flex size-[36px] cursor-pointer items-center justify-center rounded-full hover:bg-[rgba(0,0,0,0.05)]">
-            <HeartIcon className="size-[16px]" />
+          <div
+            onClick={() => toggleFavoriteSong()}
+            className="flex size-[36px] cursor-pointer items-center justify-center rounded-full hover:bg-[rgba(0,0,0,0.05)]"
+          >
+            {item.isLiked && session ? (
+              <HeartIconSolid className="size-[16px] text-[#844d4d]" />
+            ) : (
+              <HeartIcon className="size-[16px]" />
+            )}
           </div>
           <PopOvers.PopOver>
             <>
@@ -117,9 +131,9 @@ export const SongItem: React.FC<Props> = ({ item }) => {
         <span className="flex cursor-pointer items-center gap-[6px] text-[1.4rem] font-[500] hover:text-[#844d4d]">
           {title} {item.streamingStatus === 2 && <PremiumIcon />}
         </span>
-        <div className="mt-[4px]">
+        <div className="mt-[4px] flex flex-wrap items-center gap-[4px]">
           <ArtistsSpan
-            artists={item.artists.map((item) => ({
+            artists={item.artists.slice(0, 1).map((item) => ({
               alias: item.alias,
               name: item.name,
             }))}
@@ -130,8 +144,15 @@ export const SongItem: React.FC<Props> = ({ item }) => {
         <div className="flex size-[36px] cursor-pointer items-center justify-center rounded-full hover:bg-[rgba(0,0,0,0.05)]">
           <FontAwesomeIcon icon={faMicrophone} className="text-[1.4rem]" />
         </div>
-        <div className="flex size-[36px] cursor-pointer items-center justify-center rounded-full hover:bg-[rgba(0,0,0,0.05)]">
-          <HeartIcon className="size-[16px]" />
+        <div
+          onClick={() => toggleFavoriteSong()}
+          className="flex size-[36px] cursor-pointer items-center justify-center rounded-full hover:bg-[rgba(0,0,0,0.05)]"
+        >
+          {item.isLiked && session ? (
+            <HeartIconSolid className="size-[16px] text-[#844d4d]" />
+          ) : (
+            <HeartIcon className="size-[16px]" />
+          )}
         </div>
         <PopOvers.PopOver>
           <>

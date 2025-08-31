@@ -1,14 +1,13 @@
-import * as React from "react";
-
+import { forwardRef } from "react";
 import { cn } from "../utils/helper";
 
 type Props = {
-  label: string;
+  label?: string;
   className?: string;
   type?: string;
 };
 
-const Input = React.forwardRef<HTMLInputElement, Props>(
+const Input = forwardRef<HTMLInputElement, Props>(
   ({ className, label, type, ...props }, ref) => {
     return (
       <label className="relative">
@@ -21,9 +20,11 @@ const Input = React.forwardRef<HTMLInputElement, Props>(
           ref={ref}
           {...props}
         />
-        <span className="absolute left-[12px] top-[-10px] select-none bg-white text-[1.4rem]">
-          {label}
-        </span>
+        {label && (
+          <span className="absolute left-[12px] top-[-10px] select-none bg-white text-[1.4rem]">
+            {label}
+          </span>
+        )}
       </label>
     );
   },
