@@ -1,17 +1,39 @@
-import { PlayIcon } from "@heroicons/react/24/solid";
 import { ChartItemChild } from "../../../api/homeApi";
+import { RootState, useAppDispatch } from "../../../store";
+import { getSongReducer } from "../../../features/player/playerSlice";
+import { useTogglePlay } from "../../../hooks/useTogglePlay";
+import { useSelector } from "react-redux";
+import { currentSongSelector } from "../../../features/player/selectors";
+import { AudioAnimation } from "../../../components/AudioAnimation";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlay } from "@fortawesome/free-solid-svg-icons";
 
 interface Props {
   data: ChartItemChild;
   index: number;
   score: number;
 }
+const numberColors = ["#4a90e2", "#50e3c2", "#e35050"];
 
 export const ZingChartItem: React.FC<Props> = ({ data, index, score }) => {
-  const numberColors = ["#4a90e2", "#50e3c2", "#e35050"];
+  const dispatch = useAppDispatch();
+  const togglePlay = useTogglePlay();
+  const currentSong = useSelector(currentSongSelector);
+  const currentEncodeId = currentSong.encodeId;
+  const currentPlay = currentEncodeId === data.encodeId;
+  const isPlaying = useSelector((state: RootState) => state.player.isPlaying);
+  function handleClickImg() {
+    if (!currentPlay) {
+      dispatch(getSongReducer({ id: data.encodeId, type: "play" }));
+    } else {
+      togglePlay();
+    }
+  }
 
   return (
-    <div className="group/item flex w-full items-center rounded-[4px] bg-[hsla(0,0%,100%,.07)] px-[15px] py-[10px] hover:bg-[hsla(0,0%,100%,.2)]">
+    <div
+      className={`group flex w-full items-center rounded-[4px] bg-[hsla(0,0%,100%,.07)] px-[15px] py-[10px] hover:bg-[hsla(0,0%,100%,.2)] ${currentPlay && "bg-[hsla(0,0%,100%,.2)]"}`}
+    >
       <span
         style={{
           WebkitTextStroke: `1px ${numberColors[index]}`,
@@ -20,10 +42,27 @@ export const ZingChartItem: React.FC<Props> = ({ data, index, score }) => {
       >
         {index + 1}
       </span>
-      <div className="relative ml-[15px] flex size-[60px] flex-shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-[4px]">
+      <div
+        onClick={handleClickImg}
+        className="relative ml-[15px] flex size-[60px] flex-shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-[4px]"
+      >
         <img src={data.thumbnailM} alt="" className="w-full object-cover" />
-        <div className="absolute inset-0 hidden bg-black/40 group-hover/item:block"></div>
-        <PlayIcon className="translate-[-0.5px] ] absolute hidden size-[22px] text-white group-hover/item:block" />
+        <div
+          className={`absolute inset-0 bg-black/40 group-hover:block ${currentPlay ? "block" : "hidden"}`}
+        ></div>
+        {currentPlay && isPlaying ? (
+          <AudioAnimation />
+        ) : currentPlay ? (
+          <FontAwesomeIcon
+            icon={faPlay}
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-white"
+          />
+        ) : (
+          <FontAwesomeIcon
+            icon={faPlay}
+            className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 text-white group-hover:block"
+          />
+        )}
       </div>
       <div className="ml-[10px] flex flex-col">
         <span className="text-[1.4rem] font-[500] text-[hsla(0,0%,100%,.5)]">

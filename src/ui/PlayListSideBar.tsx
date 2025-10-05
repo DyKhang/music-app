@@ -4,6 +4,7 @@ import { EllipsisHorizontalIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import { SideBarItem } from "../components/SideBarItem";
 import { useSelector } from "react-redux";
+import { Virtuoso } from "react-virtuoso";
 import { RootState, useAppDispatch } from "../store";
 import {
   closestCenter,
@@ -24,12 +25,8 @@ interface Props {
 
 export const PlayListSideBar: React.FC<Props> = ({ isShow, showKaraoke }) => {
   const [state, setState] = useState<"playlist" | "recent">("playlist");
-
   const songs = useSelector((state: RootState) => state.player.songs);
-  const playedSongs = songs.filter((song) => song.isPlayed);
-  const unPlayedSongs = songs.filter((song) => !song.isPlayed);
   const dispatch = useAppDispatch();
-
   // cursor move 0px then fire event drag, avoid case cursor click element then fire drag
   const pointerSensor = useSensor(PointerSensor, {
     activationConstraint: {
@@ -95,14 +92,13 @@ export const PlayListSideBar: React.FC<Props> = ({ isShow, showKaraoke }) => {
             };
           })}
         >
-          <div className="mt-[14px] h-full overflow-y-scroll">
-            {playedSongs.map((song) => (
+          <Virtuoso
+            style={{ height: "100%", overflowY: "scroll", marginTop: "14px" }}
+            data={songs}
+            itemContent={(_, song) => (
               <SideBarItem key={song.encodeId} song={song} />
-            ))}
-            {unPlayedSongs.map((song) => (
-              <SideBarItem key={song.encodeId} song={song} />
-            ))}
-          </div>
+            )}
+          />
         </SortableContext>
       </DndContext>
     </section>

@@ -89,5 +89,5 @@ export const userApi = {
   logout: () =>
     axiosClient.post("/user/logout", null, { withCredentials: true }),
   refreshToken: () =>
-    axiosClient.get("/user/refresh-token", { withCredentials: true }),
+    axiosClient.post("/user/refresh-token", { withCredentials: true }),
 };

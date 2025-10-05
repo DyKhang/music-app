@@ -33,8 +33,12 @@ export const AllResult: React.FC<Props> = ({ data }) => {
           </h2>
           <div className="grid grid-cols-1 gap-[28px] lg:grid-cols-3">
             <Artist item={data?.data.data.artists[0]} />
-            <Song item={data?.data.data.songs[0]} />
-            <Song item={data?.data.data.songs[1]} />
+            {data?.data.data.songs[0] && (
+              <Song item={data?.data.data.songs[0]} />
+            )}
+            {data?.data.data.songs[1] && (
+              <Song item={data?.data.data.songs[1]} />
+            )}
           </div>
         </>
       )}

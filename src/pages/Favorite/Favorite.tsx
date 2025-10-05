@@ -1,9 +1,8 @@
 import { useEffect } from "react";
-import { Song } from "../../api/playlistApi";
 import { useFavoriteSongs } from "../../features/user/useFavoriteSongs";
-import { SongItem } from "../Album/components/SongItem";
 import { useInView } from "react-intersection-observer";
 import { SongItemSkeleton } from "../Album/components/SongItemSkeleton";
+import { SongItem } from "../Artist/components/SongItem";
 
 export const Favorite = () => {
   const { data, isLoading, fetchNextPage, isFetchingNextPage } =
@@ -35,8 +34,8 @@ export const Favorite = () => {
       </div>
 
       {data?.pages.map((page) =>
-        page.data.songs.map((song, index) => (
-          <SongItem key={song.encodeId} song={song as Song} index={index} />
+        page.data.songs.map((song) => (
+          <SongItem key={song.encodeId} item={song} />
         )),
       )}
       <div ref={ref}>{isFetchingNextPage && <SongItemSkeleton />}</div>

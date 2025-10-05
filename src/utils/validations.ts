@@ -3,6 +3,7 @@ import { z } from "zod";
 export const zodValidation = {
   username: z
     .string({ required_error: "Vui lòng nhập trường này" })
+    .trim()
     .min(3, { message: "Username phải hơn 3 ký tự" })
     .max(50, { message: "Username không vượt quá 50 ký tự" }),
   email: z

@@ -26,7 +26,7 @@ interface Props {
       name: string;
     }[];
     duration: number;
-    isLiked: boolean;
+    isLiked?: boolean;
   };
 }
 
@@ -45,7 +45,7 @@ export const SongItem: React.FC<Props> = ({ item }) => {
 
   let title = item.title;
   if (title.length > 20) {
-    title = item.title.slice(0, 20) + "...";
+    title = item.title?.slice(0, 20) + "...";
   }
 
   if (isCurrentSong)
@@ -72,7 +72,7 @@ export const SongItem: React.FC<Props> = ({ item }) => {
           </span>
           <div className="mt-[4px] flex flex-wrap items-center gap-[4px]">
             <ArtistsSpan
-              artists={item.artists.slice(0, 1).map((item) => ({
+              artists={item.artists?.slice(0, 1).map((item) => ({
                 alias: item.alias,
                 name: item.name,
               }))}
@@ -133,7 +133,7 @@ export const SongItem: React.FC<Props> = ({ item }) => {
         </span>
         <div className="mt-[4px] flex flex-wrap items-center gap-[4px]">
           <ArtistsSpan
-            artists={item.artists.slice(0, 1).map((item) => ({
+            artists={item.artists?.slice(0, 1).map((item) => ({
               alias: item.alias,
               name: item.name,
             }))}

@@ -13,18 +13,16 @@ import { useToggleFavoriteSong } from "../../../features/user/useToggleFavoriteS
 import { SongItemPop } from "../../Album/components/SongItemPop";
 
 interface Props {
-  item:
-    | {
-        title: string;
-        artists: {
-          alias: string;
-          name: string;
-        }[];
-        thumbnailM: string;
-        encodeId: string;
-        isLiked: boolean;
-      }
-    | undefined;
+  item: {
+    title: string;
+    artists: {
+      alias: string;
+      name: string;
+    }[];
+    thumbnailM: string;
+    encodeId: string;
+    isLiked: boolean;
+  };
 }
 
 export const Song: React.FC<Props> = ({ item }) => {
@@ -34,11 +32,9 @@ export const Song: React.FC<Props> = ({ item }) => {
   const dispatch = useAppDispatch();
   const session = useSelector((state: RootState) => state.auth.session);
   const { mutate: toggleFavoriteSong } = useToggleFavoriteSong(
-    item!.encodeId,
+    item.encodeId,
     item?.isLiked,
   );
-
-  if (!item) return null;
 
   if (isCurrentSong)
     return (

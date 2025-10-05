@@ -25,8 +25,6 @@ export const ZingChart: React.FC<Props> = ({ data }) => {
     );
   }, [scoreOfFirstThree, totalScore]);
 
-  // [{img, songName, artistName, percent}]
-
   const tooltipData = useMemo(() => {
     return data?.items.slice(0, 3).map((item, index) => ({
       img: item.thumbnailM,
@@ -37,7 +35,6 @@ export const ZingChart: React.FC<Props> = ({ data }) => {
   }, [data?.items, percentOfFirstThree]);
 
   if (!data) return null;
-
   return (
     <div className="relative mx-auto w-[90%] overflow-hidden rounded-[8px] bg-[rgba(51,16,76,.95)] p-[20px] pb-[35px] xl:mx-0 xl:w-auto">
       <div className="mb-[20px] flex items-center gap-[10px]">

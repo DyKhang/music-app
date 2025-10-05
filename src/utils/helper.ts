@@ -55,3 +55,7 @@ export function timestampToFormat(timestamp: number) {
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
+
+export function checkWhiteSpaceOfString(str: string) {
+  return str[0] === " " || str.at(-1) === " ";
+}

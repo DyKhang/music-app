@@ -16,7 +16,7 @@ export const ArtistsSpan: React.FC<Props> = ({
 
   return (
     <>
-      {artists.map((item, index) => (
+      {artists?.map((item, index) => (
         <span
           onClick={() => navigate(`/nghe-si/${item.alias}`)}
           key={item.alias}

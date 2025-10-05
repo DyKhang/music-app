@@ -18,7 +18,9 @@ import { ProfileSecure } from "./pages/ProfileSecure/ProfileSecure";
 import { Favorite } from "./pages/Favorite/Favorite";
 import { ProtectedRoute } from "./ui/ProtectedRoute";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: { queries: { refetchOnWindowFocus: false } },
+});
 
 const router = createBrowserRouter([
   {
@@ -46,7 +48,6 @@ const router = createBrowserRouter([
             path: "/",
             element: <Explore />,
           },
-
           {
             path: "/album/:id",
             element: <Album />,

@@ -29,11 +29,6 @@ export const NewReleaseItem: React.FC<Props> = ({ data }) => {
   const isPlaying = useSelector((state: RootState) => state.player.isPlaying);
   const dispatch = useAppDispatch();
   const togglePlay = useTogglePlay();
-  let newTile = title;
-
-  if (title.length >= 20) {
-    newTile = newTile.slice(0, 20) + "...";
-  }
 
   const oldDay = new Date(releaseDate * 1000);
   const nowDay = new Date();
@@ -49,6 +44,7 @@ export const NewReleaseItem: React.FC<Props> = ({ data }) => {
       togglePlay();
     }
   }
+  isPlaying;
 
   return (
     <div
@@ -77,8 +73,8 @@ export const NewReleaseItem: React.FC<Props> = ({ data }) => {
         )}
       </div>
       <div className="flex flex-col gap-[3px]">
-        <span className="flex cursor-pointer items-center gap-[8px] text-[1.4rem] font-[500] hover:text-[#844d4d]">
-          {newTile}
+        <span className="line-clamp-1 flex cursor-pointer items-center gap-[8px] text-[1.4rem] font-[500] hover:text-[#844d4d]">
+          {title}
           {streamingStatus === StreamingStatus.premium && <PremiumIcon />}
         </span>
         <div className="flex flex-wrap items-center gap-[4px]">

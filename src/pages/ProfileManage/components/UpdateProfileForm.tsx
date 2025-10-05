@@ -40,7 +40,6 @@ export const UpdateProfileForm = () => {
 
   async function onSubmit(values: UserUpdateForm) {
     try {
-      if (!isDirty) return;
       setIsPending(true);
       await userApi.update(values);
       dispatch(update(values));
@@ -66,39 +65,45 @@ export const UpdateProfileForm = () => {
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col gap-[24px]"
         >
-          <label className="flex flex-col space-y-3">
-            <div className="text-[1.4rem] font-medium">Tên người dùng</div>
-            <FormField
-              control={form.control}
-              name="username"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </label>
-
-          <div className="flex justify-end">
-            <button
-              disabled={isPending}
-              className={clsx(
-                "flex h-[36px] w-[113px] items-center justify-center rounded-md bg-[#644646] px-6 py-3 text-[1.4rem] font-medium text-white",
-                {
-                  "cursor-not-allowed opacity-80": isPending || !isDirty,
-                },
-              )}
-            >
-              {isPending ? (
-                <ArrowPathIcon className="size-[20px] animate-spin" />
-              ) : (
-                "Lưu thay đổi"
-              )}
-            </button>
-          </div>
+          <FormField
+            control={form.control}
+            name="username"
+            render={({ field }) => {
+              return (
+                <>
+                  <label className="flex flex-col space-y-3">
+                    <div className="text-[1.4rem] font-medium">
+                      Tên người dùng
+                    </div>
+                    <FormItem>
+                      <FormControl>
+                        <Input {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  </label>
+                  <div className="flex justify-end">
+                    <button
+                      disabled={isPending || !isDirty}
+                      className={clsx(
+                        "flex h-[36px] w-[113px] items-center justify-center rounded-md bg-[#644646] px-6 py-3 text-[1.4rem] font-medium text-white",
+                        {
+                          "cursor-not-allowed opacity-80":
+                            isPending || !isDirty,
+                        },
+                      )}
+                    >
+                      {isPending ? (
+                        <ArrowPathIcon className="size-[20px] animate-spin" />
+                      ) : (
+                        "Lưu thay đổi"
+                      )}
+                    </button>
+                  </div>
+                </>
+              );
+            }}
+          />
         </form>
       </Form>
     </>
