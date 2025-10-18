@@ -53,7 +53,7 @@ export const Hero: React.FC<Props> = ({ data }) => {
                   dispatch(togglePlaying(true));
                 }
               }}
-              className="flex size-[52px] cursor-pointer items-center justify-center rounded-full bg-[#644646] hover:brightness-[.9]"
+              className="bg-purple-primary flex size-[52px] cursor-pointer items-center justify-center rounded-full hover:brightness-[.9]"
             >
               {isPlaying ? (
                 <PauseIcon className="size-[30px] text-white" />

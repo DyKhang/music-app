@@ -14,7 +14,7 @@ export const PopHoverTag: React.FC<Props> = ({
   return (
     <div
       onClick={onClick}
-      className="flex cursor-pointer items-center gap-[14px] rounded-[6px] px-[15px] py-[10px] text-[1.4rem] hover:bg-[rgba(0,0,0,0.05)] hover:text-[#844d4d]"
+      className="hover:text-text-item-hover flex cursor-pointer items-center gap-[14px] rounded-[6px] px-[15px] py-[10px] text-[1.4rem] hover:bg-[rgba(0,0,0,0.05)]"
     >
       {LeftIcon && (
         <div className="size-[16px]">

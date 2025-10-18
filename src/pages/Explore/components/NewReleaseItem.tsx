@@ -73,7 +73,7 @@ export const NewReleaseItem: React.FC<Props> = ({ data }) => {
         )}
       </div>
       <div className="flex flex-col gap-[3px]">
-        <span className="line-clamp-1 flex cursor-pointer items-center gap-[8px] text-[1.4rem] font-[500] hover:text-[#844d4d]">
+        <span className="hover:text-text-item-hover line-clamp-1 flex cursor-pointer items-center gap-[8px] text-[1.4rem] font-[500]">
           {title}
           {streamingStatus === StreamingStatus.premium && <PremiumIcon />}
         </span>
@@ -83,10 +83,10 @@ export const NewReleaseItem: React.FC<Props> = ({ data }) => {
               alias: item.alias,
               name: item.name,
             }))}
-            className="cursor-pointer text-[1.2rem] text-[#696969] hover:text-[#844d4d] hover:underline"
+            className="hover:text-text-item-hover text-text-secondary cursor-pointer text-[1.2rem] hover:underline"
           />
         </div>
-        <span className="text-[1.2rem] text-[#696969]">
+        <span className="text-text-secondary text-[1.2rem]">
           {numDays > 1 ? `${numDays} ngày trước` : "Hôm qua"}
         </span>
       </div>

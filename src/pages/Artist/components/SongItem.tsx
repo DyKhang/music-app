@@ -67,7 +67,7 @@ export const SongItem: React.FC<Props> = ({ item }) => {
           )}
         </div>
         <div className="ml-[10px] flex flex-col">
-          <span className="flex cursor-pointer items-center gap-[6px] text-[1.4rem] font-[500] hover:text-[#844d4d]">
+          <span className="hover:text-text-item-hover flex cursor-pointer items-center gap-[6px] text-[1.4rem] font-[500]">
             {title} {item.streamingStatus === 2 && <PremiumIcon />}
           </span>
           <div className="mt-[4px] flex flex-wrap items-center gap-[4px]">
@@ -88,7 +88,7 @@ export const SongItem: React.FC<Props> = ({ item }) => {
             className="flex size-[36px] cursor-pointer items-center justify-center rounded-full hover:bg-[rgba(0,0,0,0.05)]"
           >
             {item.isLiked && session ? (
-              <HeartIconSolid className="size-[16px] text-[#844d4d]" />
+              <HeartIconSolid className="text-text-item-hover size-[16px]" />
             ) : (
               <HeartIcon className="size-[16px]" />
             )}
@@ -128,7 +128,7 @@ export const SongItem: React.FC<Props> = ({ item }) => {
         />
       </div>
       <div className="ml-[10px] flex flex-col">
-        <span className="flex cursor-pointer items-center gap-[6px] text-[1.4rem] font-[500] hover:text-[#844d4d]">
+        <span className="hover:text-text-item-hover flex cursor-pointer items-center gap-[6px] text-[1.4rem] font-[500]">
           {title} {item.streamingStatus === 2 && <PremiumIcon />}
         </span>
         <div className="mt-[4px] flex flex-wrap items-center gap-[4px]">
@@ -149,7 +149,7 @@ export const SongItem: React.FC<Props> = ({ item }) => {
           className="flex size-[36px] cursor-pointer items-center justify-center rounded-full hover:bg-[rgba(0,0,0,0.05)]"
         >
           {item.isLiked && session ? (
-            <HeartIconSolid className="size-[16px] text-[#844d4d]" />
+            <HeartIconSolid className="text-text-item-hover size-[16px]" />
           ) : (
             <HeartIcon className="size-[16px]" />
           )}

@@ -46,7 +46,7 @@ export const AllResult: React.FC<Props> = ({ data }) => {
         <>
           <div className="mt-[48px] flex justify-between">
             <h2 className="text-[2rem] font-[700]">Bài Hát</h2>
-            <div className="flex cursor-pointer items-center gap-[6px] text-[#696969] hover:text-[#844d4d]">
+            <div className="hover:text-text-item-hover text-text-secondary flex cursor-pointer items-center gap-[6px]">
               <span className="text-[1.2rem]">TẤT CẢ</span>
               <FontAwesomeIcon icon={faChevronRight} />
             </div>
@@ -63,7 +63,7 @@ export const AllResult: React.FC<Props> = ({ data }) => {
         <>
           <div className="mt-[48px] flex justify-between">
             <h2 className="text-[2rem] font-[700]">Playlist/Album</h2>
-            <div className="flex cursor-pointer items-center gap-[6px] text-[#696969] hover:text-[#844d4d]">
+            <div className="hover:text-text-item-hover text-text-secondary flex cursor-pointer items-center gap-[6px]">
               <span className="text-[1.2rem]">TẤT CẢ</span>
               <FontAwesomeIcon icon={faChevronRight} />
             </div>
@@ -90,7 +90,7 @@ export const AllResult: React.FC<Props> = ({ data }) => {
         <>
           <div className="mt-[48px] flex justify-between">
             <h2 className="text-[2rem] font-[700]">Nghệ sĩ/OA</h2>
-            <div className="flex cursor-pointer items-center gap-[6px] text-[#696969] hover:text-[#844d4d]">
+            <div className="hover:text-text-item-hover text-text-secondary flex cursor-pointer items-center gap-[6px]">
               <span className="text-[1.2rem]">TẤT CẢ</span>
               <FontAwesomeIcon icon={faChevronRight} />
             </div>

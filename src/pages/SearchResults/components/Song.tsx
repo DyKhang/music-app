@@ -56,7 +56,9 @@ export const Song: React.FC<Props> = ({ item }) => {
           )}
         </div>
         <div className="flex flex-col">
-          <span className="mb-[6px] text-[1.2rem] text-[#696969]">Bài hát</span>
+          <span className="text-text-secondary mb-[6px] text-[1.2rem]">
+            Bài hát
+          </span>
           <span className="text-[1.4rem] font-[600]">{item.title}</span>
           <div className="flex items-center gap-[2px]">
             <ArtistsSpan artists={item.artists} />
@@ -68,7 +70,7 @@ export const Song: React.FC<Props> = ({ item }) => {
             className="flex size-[36px] cursor-pointer items-center justify-center rounded-full hover:bg-[rgba(0,0,0,0.05)]"
           >
             {item.isLiked && session ? (
-              <HeartIconSolid className="size-[16px] text-[#844d4d]" />
+              <HeartIconSolid className="text-text-item-hover size-[16px]" />
             ) : (
               <HeartIcon className="size-[16px]" />
             )}
@@ -106,7 +108,9 @@ export const Song: React.FC<Props> = ({ item }) => {
         <PlayIcon className="absolute hidden size-[24px] text-white group-hover/artist:block" />
       </div>
       <div className="flex flex-col">
-        <span className="mb-[6px] text-[1.2rem] text-[#696969]">Bài hát</span>
+        <span className="text-text-secondary mb-[6px] text-[1.2rem]">
+          Bài hát
+        </span>
         <span className="text-[1.4rem] font-[600]">{item.title}</span>
         <div className="flex items-center gap-[2px]">
           <ArtistsSpan artists={item.artists} />
@@ -118,7 +122,7 @@ export const Song: React.FC<Props> = ({ item }) => {
           className="flex size-[36px] cursor-pointer items-center justify-center rounded-full hover:bg-[rgba(0,0,0,0.05)]"
         >
           {item.isLiked && session ? (
-            <HeartIconSolid className="size-[16px] text-[#844d4d]" />
+            <HeartIconSolid className="text-text-item-hover size-[16px]" />
           ) : (
             <HeartIcon className="size-[16px]" />
           )}

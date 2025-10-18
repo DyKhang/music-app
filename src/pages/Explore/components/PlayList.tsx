@@ -18,7 +18,7 @@ export const PlayList: React.FC<Props> = ({ data, hasLink, type }) => {
           {upperCaseFirstLetter(data?.title)}
         </h2>
         {hasLink && (
-          <div className="hidden cursor-pointer items-center gap-[6px] text-[#696969] hover:text-[#844d4d] sm:flex">
+          <div className="hover:text-text-item-hover text-text-secondary hidden cursor-pointer items-center gap-[6px] sm:flex">
             <span className="text-[1.2rem]">TẤT CẢ</span>
             <FontAwesomeIcon icon={faChevronRight} />
           </div>

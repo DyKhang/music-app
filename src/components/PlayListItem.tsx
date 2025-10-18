@@ -73,26 +73,26 @@ export const PlayListItem: React.FC<Props> = ({ item, type = "desc" }) => {
           </div>
         </div>
         {type === "desc" && (
-          <p className="playlist-item__desc mt-[12px] text-[1.4rem] font-[400] text-[#696969]">
+          <p className="playlist-item__desc text-text-secondary mt-[12px] text-[1.4rem] font-[400]">
             {item.sortDescription}
           </p>
         )}
         {type === "date" && (
           <>
-            <p className="oneline-letters mb-[4px] mt-[12px] text-[1.4rem] font-[700] text-[#32323d]">
+            <p className="oneline-letters text-text-primary mb-[4px] mt-[12px] text-[1.4rem] font-[700]">
               {item.title}
             </p>
-            <p className="text-[1.4rem] font-[400] text-[#696969]">
+            <p className="text-text-secondary text-[1.4rem] font-[400]">
               {item.releaseDate}
             </p>
           </>
         )}
         {type === "artist" && (
           <>
-            <p className="oneline-letters mb-[4px] mt-[12px] text-[1.4rem] font-[700] text-[#32323d]">
+            <p className="oneline-letters text-text-primary mb-[4px] mt-[12px] text-[1.4rem] font-[700]">
               {item.title}
             </p>
-            <p className="text-[1.4rem] font-[400] text-[#696969]">
+            <p className="text-text-secondary text-[1.4rem] font-[400]">
               {item.artistsNames}
             </p>
           </>
@@ -134,26 +134,26 @@ export const PlayListItem: React.FC<Props> = ({ item, type = "desc" }) => {
         </div>
       </div>
       {type === "desc" && (
-        <p className="playlist-item__desc mt-[12px] text-[1.4rem] font-[400] text-[#696969]">
+        <p className="playlist-item__desc text-text-secondary mt-[12px] text-[1.4rem] font-[400]">
           {item.sortDescription}
         </p>
       )}
       {type === "date" && (
         <>
-          <p className="oneline-letters mb-[4px] mt-[12px] text-[1.4rem] font-[700] text-[#32323d]">
+          <p className="oneline-letters text-text-primary mb-[4px] mt-[12px] text-[1.4rem] font-[700]">
             {item.title}
           </p>
-          <p className="text-[1.4rem] font-[400] text-[#696969]">
+          <p className="text-text-secondary text-[1.4rem] font-[400]">
             {item.releaseDate}
           </p>
         </>
       )}
       {type === "artist" && (
         <>
-          <p className="oneline-letters mb-[4px] mt-[12px] text-[1.4rem] font-[700] text-[#32323d]">
+          <p className="oneline-letters text-text-primary mb-[4px] mt-[12px] text-[1.4rem] font-[700]">
             {item.title}
           </p>
-          <p className="text-[1.4rem] font-[400] text-[#696969]">
+          <p className="text-text-secondary text-[1.4rem] font-[400]">
             {item.artistsNames}
           </p>
         </>

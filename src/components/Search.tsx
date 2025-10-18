@@ -68,7 +68,7 @@ export const Search = () => {
 
   return (
     <div
-      className={`group/search absolute lg:rounded-[20px] ${isFocus && "shadow-lg"} top-[13px] w-[40px] rounded-full md:ml-[90px] lg:w-[28%]`}
+      className={`group/search absolute lg:rounded-[20px] ${isFocus && "shadow-lg"} top-[13px] w-[40px] rounded-full md:ml-[90px] lg:w-[35%]`}
       ref={searchRef}
     >
       <div
@@ -113,7 +113,7 @@ export const Search = () => {
                 <MagnifyingGlassIcon className="size-[16px] flex-shrink-0" />
                 <span className="flex items-center gap-[2px]">
                   <span className="flex-shrink-0">Tìm kiếm</span>
-                  <b className="font-[700] text-[#844d4d]">"{query}"</b>
+                  <b className="text-text-item-hover font-[700]">"{query}"</b>
                 </span>
               </p>
 

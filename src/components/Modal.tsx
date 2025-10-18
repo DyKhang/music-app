@@ -64,7 +64,7 @@ const Window: React.FC<WindowProps> = ({
         className={`fixed inset-0 z-[1000] bg-slate-950/40 backdrop-blur-[1px]`}
       >
         <div
-          className={`shadow-md> fixed left-1/2 top-1/2 z-[50] -translate-x-1/2 -translate-y-1/2 rounded-xl bg-white p-7 transition-all duration-300`}
+          className={`fixed left-1/2 top-1/2 z-[50] -translate-x-1/2 -translate-y-1/2 rounded-xl bg-white p-7 shadow-md transition-all duration-300`}
         >
           <header className="flex justify-end">
             <button

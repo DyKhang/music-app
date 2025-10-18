@@ -35,7 +35,7 @@ export const SignIn = () => {
           <div className="mt-[16px] flex items-center justify-center gap-[4px]">
             <span>Bạn chưa có tài khoản?</span>
             <span
-              className="cursor-pointer text-[#644646]"
+              className="text-purple-primary cursor-pointer"
               onClick={() => navigate("/sign-up", { replace: true })}
             >
               Đăng ký

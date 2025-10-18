@@ -115,7 +115,7 @@ export const SecureForm = () => {
           <button
             disabled={isPending}
             className={clsx(
-              "flex h-[36px] w-[120px] items-center justify-center rounded-md bg-[#644646] px-6 py-3 text-[1.4rem] font-medium text-white",
+              "bg-purple-primary flex h-[36px] w-[120px] items-center justify-center rounded-md px-6 py-3 text-[1.4rem] font-medium text-white",
               {
                 "cursor-not-allowed opacity-80": isPending,
               },

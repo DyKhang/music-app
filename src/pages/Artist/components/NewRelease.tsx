@@ -96,7 +96,7 @@ export const NewRelease: React.FC<Props> = ({ data }) => {
             <span className="mt-[12px] pr-[16px] text-[1.4rem] font-[600] text-[#141414]">
               {data?.data.data.topAlbum.title}
             </span>
-            <span className="text-[rgba(20, 20, 20, 0.6)] mt-[2px] text-[1.2rem] hover:text-[#844d4d] hover:underline">
+            <span className="text-[rgba(20, 20, 20, 0.6)] hover:text-text-item-hover mt-[2px] text-[1.2rem] hover:underline">
               {data?.data.data.topAlbum.artistsNames}
             </span>
             <span className="text-[rgba(20, 20, 20, 0.6)] mt-[12px] text-[1.2rem]">
@@ -175,7 +175,7 @@ export const NewRelease: React.FC<Props> = ({ data }) => {
           <span className="mt-[12px] pr-[16px] text-[1.4rem] font-[600] text-[#141414]">
             {data?.data.data.topAlbum.title}
           </span>
-          <span className="text-[rgba(20, 20, 20, 0.6)] mt-[2px] text-[1.2rem] hover:text-[#844d4d] hover:underline">
+          <span className="text-[rgba(20, 20, 20, 0.6)] hover:text-text-item-hover mt-[2px] text-[1.2rem] hover:underline">
             {data?.data.data.topAlbum.artistsNames}
           </span>
           <span className="text-[rgba(20, 20, 20, 0.6)] mt-[12px] text-[1.2rem]">

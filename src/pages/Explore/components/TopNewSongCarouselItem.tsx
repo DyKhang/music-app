@@ -63,7 +63,7 @@ export const TopNewSongCarouselItem: React.FC<Props> = ({ item, index }) => {
               <span className="text-number font-robo text-[4rem] font-[900] leading-none text-transparent opacity-40">
                 #{index + 1}
               </span>
-              <span className="text-[1.4rem] text-[#696969]">
+              <span className="text-text-secondary text-[1.4rem]">
                 {timestampToFormat(item.releasedAt)}
               </span>
             </div>
@@ -110,7 +110,7 @@ export const TopNewSongCarouselItem: React.FC<Props> = ({ item, index }) => {
             <span className="text-number font-robo text-[4rem] font-[900] leading-none text-transparent opacity-40">
               #{index + 1}
             </span>
-            <span className="text-[1.4rem] text-[#696969]">
+            <span className="text-text-secondary text-[1.4rem]">
               {timestampToFormat(item.releasedAt)}
             </span>
           </div>

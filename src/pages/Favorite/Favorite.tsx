@@ -20,7 +20,7 @@ export const Favorite = () => {
 
   return (
     <section className="pt-[70px]">
-      <div className="z-10 flex items-center border-b-[1px] border-[rgba(0,0,0,0.05)] bg-[#e5e3df] p-[10px] text-[1.2rem] font-[500] uppercase text-[#696969]">
+      <div className="bg-layout-bg text-text-secondary z-10 flex items-center border-b-[1px] border-[rgba(0,0,0,0.05)] p-[10px] text-[1.2rem] font-[500] uppercase">
         <div className="mr-[10px] w-1/2">
           <div className="flex items-center gap-[10px]">
             <div className="size-[16px]"></div>

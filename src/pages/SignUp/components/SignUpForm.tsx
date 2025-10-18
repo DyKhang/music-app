@@ -109,7 +109,7 @@ export const SignUpForm = () => {
         />
         <button
           disabled={isPending}
-          className="flex h-[50px] w-full cursor-pointer items-center justify-center rounded-[4px] bg-[#644646] text-center text-[1.4rem] font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60"
+          className="bg-purple-primary flex h-[50px] w-full cursor-pointer items-center justify-center rounded-[4px] text-center text-[1.4rem] font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60"
         >
           {isPending ? (
             <ArrowPathIcon className="size-[24px] animate-spin" />

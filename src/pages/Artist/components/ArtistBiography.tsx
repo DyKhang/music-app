@@ -24,11 +24,10 @@ export const ArtistBiography: React.FC<Props> = ({ data }) => {
           className="h-[300px] w-[450px] flex-shrink-0 rounded-[8px] object-cover"
         />
         <div>
-          <div className="text-[1.4rem] text-[#696969]">
+          <div className="text-text-secondary text-[1.4rem]">
             {data?.data.data.sortBiography}
-
             <Modal.Open open={data!.data.data.alias}>
-              <span className="ml-[4px] cursor-pointer text-[1.2rem] font-[700] uppercase text-[#844d4d]">
+              <span className="text-text-item-hover ml-[4px] cursor-pointer text-[1.2rem] font-[700] uppercase">
                 Xem thêm
               </span>
             </Modal.Open>
@@ -45,7 +44,7 @@ export const ArtistBiography: React.FC<Props> = ({ data }) => {
               <span className="text-[2rem] font-[700]">
                 {data?.data.data.totalFollow.toLocaleString("vi-VN")}
               </span>
-              <span className="text-[1.4rem] text-[#696969]">
+              <span className="text-text-secondary text-[1.4rem]">
                 Người quan tâm
               </span>
             </div>
@@ -55,7 +54,7 @@ export const ArtistBiography: React.FC<Props> = ({ data }) => {
                   <span className="text-[2rem] font-[700]">
                     {data.data.data.awards.length}
                   </span>
-                  <span className="text-[1.4rem] text-[#696969]">
+                  <span className="text-text-secondary text-[1.4rem]">
                     Giải thưởng
                   </span>
                 </div>

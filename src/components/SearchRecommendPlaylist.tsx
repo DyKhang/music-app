@@ -30,7 +30,7 @@ export const SearchRecommendPlaylist: React.FC<Props> = ({
       </div>
       <div className="flex flex-col">
         <span className="text-[1.4rem] font-[500]">{data.title}</span>
-        <span className="text-[1.2rem] text-[#696969]">
+        <span className="text-text-secondary text-[1.2rem]">
           Playlist • {data.artistsNames}
         </span>
       </div>

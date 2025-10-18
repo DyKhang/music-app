@@ -30,7 +30,7 @@ export const SearchRecommendArtist: React.FC<Props> = ({
       />
       <div className="flex flex-col">
         <span className="text-[1.4rem] font-[500]">{data.name}</span>
-        <span className="text-[1.2rem] text-[#696969]">
+        <span className="text-text-secondary text-[1.2rem]">
           Nghệ sĩ • {convertTotalFollow(data.totalFollow)} quan tâm
         </span>
       </div>

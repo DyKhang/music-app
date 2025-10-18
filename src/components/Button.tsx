@@ -29,7 +29,7 @@ export const Button: React.FC<Partial<Props>> = ({
         {...props}
         className={`${
           width && `w-[${width}]`
-        } hidden items-center justify-center gap-2 rounded-full bg-[#644646] px-[20px] py-[10px] text-[1.4rem] font-bold text-white hover:opacity-90 md:flex`}
+        } bg-purple-primary hidden items-center justify-center gap-2 rounded-full px-[20px] py-[10px] text-[1.4rem] font-bold text-white hover:opacity-90 md:flex`}
       >
         {Icon && <Icon />} {title}
       </Component>
@@ -40,7 +40,7 @@ export const Button: React.FC<Partial<Props>> = ({
       {...props}
       className={`${
         width && `w-[${width}]`
-      } hidden items-center justify-center gap-2 rounded-full bg-[#d9d7d4] px-[20px] py-[10px] text-[1.4rem] font-bold text-[#644646] hover:opacity-90 md:flex`}
+      } text-purple-primary hidden items-center justify-center gap-2 rounded-full bg-[#d9d7d4] px-[20px] py-[10px] text-[1.4rem] font-bold hover:opacity-90 md:flex`}
     >
       {Icon && <Icon />} {title}
     </Component>

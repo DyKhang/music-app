@@ -71,7 +71,7 @@ export const SongItem: React.FC<Props> = ({ song, index }) => {
     return (
       <div className="group/item flex items-center rounded-[4px] border-b-[1px] border-[rgba(0,0,0,0.05)] bg-[rgba(0,0,0,0.05)] p-[10px]">
         <div className="mr-[10px] flex w-full items-center lg:w-1/2">
-          <MusicalNoteIcon className="size-[14px] text-[#696969] group-hover/item:hidden" />
+          <MusicalNoteIcon className="text-text-secondary size-[14px] group-hover/item:hidden" />
           <div
             className={`hidden size-[14px] flex-shrink-0 cursor-pointer rounded-[3px] border-[1px] ${isChecked ? "border-white bg-[rgba(0,0,0,0.15)]" : "border-[rgba(0,0,0,0.2)]"} group-hover/item:block`}
             onClick={handleCheckSong}
@@ -108,7 +108,7 @@ export const SongItem: React.FC<Props> = ({ song, index }) => {
             </div>
           </div>
         </div>
-        <span className="hidden flex-1 cursor-pointer text-[1.2rem] text-[rgba(50,50,61,0.5)] hover:text-[#844d4d] hover:underline lg:block">
+        <span className="hover:text-text-item-hover hidden flex-1 cursor-pointer text-[1.2rem] text-[rgba(50,50,61,0.5)] hover:underline lg:block">
           {hasAlbum && song.album.title}
         </span>
         <div className="hidden items-center gap-[8px] group-hover/item:flex">
@@ -126,7 +126,7 @@ export const SongItem: React.FC<Props> = ({ song, index }) => {
             )}
           >
             {song.isLiked && session ? (
-              <HeartIconSolid className="size-[16px] text-[#844d4d]" />
+              <HeartIconSolid className="text-text-item-hover size-[16px]" />
             ) : (
               <HeartIcon className="size-[16px]" />
             )}
@@ -154,7 +154,7 @@ export const SongItem: React.FC<Props> = ({ song, index }) => {
   return (
     <div className="group/item flex items-center rounded-[4px] border-b-[1px] border-[rgba(0,0,0,0.05)] p-[10px] hover:bg-[rgba(0,0,0,0.05)]">
       <div className="mr-[10px] flex w-full items-center lg:w-1/2">
-        <MusicalNoteIcon className="size-[14px] flex-shrink-0 text-[#696969] group-hover/item:hidden" />
+        <MusicalNoteIcon className="text-text-secondary size-[14px] flex-shrink-0 group-hover/item:hidden" />
         <div
           className={`hidden size-[14px] flex-shrink-0 cursor-pointer rounded-[3px] border-[1px] ${isChecked ? "border-white bg-[rgba(0,0,0,0.15)]" : "border-[rgba(0,0,0,0.2)]"} group-hover/item:block`}
           onClick={handleCheckSong}
@@ -191,7 +191,7 @@ export const SongItem: React.FC<Props> = ({ song, index }) => {
         onClick={() => {
           song?.album && navigate(`/album/${song.album.encodeId}`);
         }}
-        className="hidden flex-1 cursor-pointer text-[1.2rem] text-[rgba(50,50,61,0.5)] hover:text-[#844d4d] hover:underline lg:block"
+        className="hover:text-text-item-hover hidden flex-1 cursor-pointer text-[1.2rem] text-[rgba(50,50,61,0.5)] hover:underline lg:block"
       >
         {hasAlbum && song.album.title}
       </span>
@@ -210,7 +210,7 @@ export const SongItem: React.FC<Props> = ({ song, index }) => {
           )}
         >
           {song.isLiked && session ? (
-            <HeartIconSolid className="size-[16px] text-[#844d4d]" />
+            <HeartIconSolid className="text-text-item-hover size-[16px]" />
           ) : (
             <HeartIcon className="size-[16px]" />
           )}

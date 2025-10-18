@@ -10,7 +10,7 @@ interface Props {
 
 export const ArtistsSpan: React.FC<Props> = ({
   artists,
-  className = "cursor-pointer text-[1.2rem] text-[#696969] hover:text-[#844d4d] hover:underline",
+  className = "cursor-pointer text-[1.2rem] text-text-secondary hover:text-text-item-hover hover:underline",
 }) => {
   const navigate = useNavigate();
 

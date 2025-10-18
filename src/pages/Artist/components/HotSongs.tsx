@@ -24,7 +24,7 @@ export const HotSongs: React.FC<Props> = ({ data }) => {
       </section>
       <section>
         <div className="mb-[20px] flex h-[30px] justify-end">
-          <div className="flex cursor-pointer items-center gap-[6px] text-[#696969] hover:text-[#844d4d]">
+          <div className="hover:text-text-item-hover text-text-secondary flex cursor-pointer items-center gap-[6px]">
             <span className="text-[1.2rem]">TẤT CẢ</span>
             <FontAwesomeIcon icon={faChevronRight} />
           </div>

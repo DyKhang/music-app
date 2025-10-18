@@ -114,12 +114,12 @@ export const PlayerActions: React.FC<Props> = ({
       </div>
       <div className="h-[33px] w-[1px] flex-shrink-0 bg-[#d2cfc6]"></div>
       <ToolTip title="Danh sách phát">
-        <button
-          className={`flex size-[28px] items-center justify-center rounded-[4px] ${showPlayList && "bg-[#644646] text-white"}`}
+        <div
+          className={`flex size-[28px] items-center justify-center rounded-[4px] ${showPlayList && "bg-purple-primary text-white"}`}
           onClick={() => setShowPlayList(!showPlayList)}
         >
           <ListBulletIcon className="size-[18px]" />
-        </button>
+        </div>
       </ToolTip>
     </div>
   );

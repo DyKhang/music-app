@@ -50,7 +50,7 @@ export const SideBarItemPop: React.FC<Props> = ({ encodeId }) => {
           />
         </div>
         <div>
-          <h3 className="new-release-pop-title cursor-pointer text-[1.4rem] font-[500] hover:text-[#844d4d]">
+          <h3 className="new-release-pop-title hover:text-text-item-hover cursor-pointer text-[1.4rem] font-[500]">
             {data?.data.data.title}
           </h3>
           <div className="flex gap-[10px] text-[#a0a0a0]">
@@ -73,11 +73,11 @@ export const SideBarItemPop: React.FC<Props> = ({ encodeId }) => {
         </div>
       </div>
       <div className="mb-[10px] mt-[15px] flex h-[50px] rounded-[8px] bg-[rgba(0,0,0,0.05)]">
-        <div className="flex flex-1 cursor-pointer flex-col items-center justify-center gap-2 rounded-[8px] py-[8px] hover:bg-[rgba(0,0,0,0.05)] hover:text-[#844d4d]">
+        <div className="hover:text-text-item-hover flex flex-1 cursor-pointer flex-col items-center justify-center gap-2 rounded-[8px] py-[8px] hover:bg-[rgba(0,0,0,0.05)]">
           <FontAwesomeIcon icon={faMicrophone} />
           <span className="text-[1rem]">Lời bài hát</span>
         </div>
-        <div className="flex flex-1 cursor-pointer flex-col items-center justify-center gap-2 rounded-[8px] py-[8px] hover:bg-[rgba(0,0,0,0.05)] hover:text-[#844d4d]">
+        <div className="hover:text-text-item-hover flex flex-1 cursor-pointer flex-col items-center justify-center gap-2 rounded-[8px] py-[8px] hover:bg-[rgba(0,0,0,0.05)]">
           <FontAwesomeIcon icon={faBan} />
           <span className="text-[1rem]">Chặn</span>
         </div>
@@ -120,7 +120,7 @@ export const SideBarItemPop: React.FC<Props> = ({ encodeId }) => {
           onClick={() => dispatch(deleteSongInPlayList(encodeId))}
         />
       </div>
-      <p className="mt-[6px] text-center text-[1.3rem] font-[500] text-[#696969]">
+      <p className="text-text-secondary mt-[6px] text-center text-[1.3rem] font-[500]">
         Cung cấp bởi {data?.data.data.distributor}
       </p>
     </div>

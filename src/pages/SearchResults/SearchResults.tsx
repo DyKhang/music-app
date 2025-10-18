@@ -36,7 +36,7 @@ export const SearchResults = () => {
           {tags.map((item) => (
             <div
               onClick={() => setFilter(item.tag)}
-              className={`mx-[20px] cursor-pointer border-b-[2px] py-[15px] text-[1.4rem] font-[500] uppercase ${filter === item.tag && "border-[#844d4d] text-[#844d4d]"}`}
+              className={`mx-[20px] cursor-pointer border-b-[2px] py-[15px] text-[1.4rem] font-[500] uppercase ${filter === item.tag && "border-text-item-hover text-text-item-hover"}`}
               key={item.tag}
             >
               {item.title}

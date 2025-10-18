@@ -9,7 +9,7 @@ export const KaraokePopContent: React.FC<Props> = ({ onBg, setOnBg }) => {
       <div className="flex items-center justify-between px-[14px] py-[10px] text-[1.4rem] text-white">
         <span>Hình nền</span>
         <div
-          className={`relative h-[15px] w-[24px] cursor-pointer rounded-full bg-[#644646] transition-all duration-150 ${!onBg && "bg-[#a0a0a0]"}`}
+          className={`bg-purple-primary relative h-[15px] w-[24px] cursor-pointer rounded-full transition-all duration-150 ${!onBg && "bg-[#a0a0a0]"}`}
           onClick={() => setOnBg(!onBg)}
         >
           <div

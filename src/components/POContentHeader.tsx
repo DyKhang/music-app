@@ -11,6 +11,7 @@ import {
   ShieldCheckIcon,
 } from "@heroicons/react/24/outline";
 import { HoverTag } from "./HoverTag";
+import { ThemePicker } from "./ThemePicker";
 
 export const POContentHeader = () => {
   return (
@@ -20,11 +21,14 @@ export const POContentHeader = () => {
         LeftIcon={() => <PlayCircleIcon />}
         RightIcon={() => <ChevronRightIcon />}
       />
-      <HoverTag
-        title="Giao diện"
-        LeftIcon={() => <PaintBrushIcon />}
-        RightIcon={() => <ChevronRightIcon />}
-      />
+      <div className="group relative">
+        <HoverTag
+          title="Giao diện"
+          LeftIcon={() => <PaintBrushIcon />}
+          RightIcon={() => <ChevronRightIcon />}
+        />
+        <ThemePicker />
+      </div>
       <div className="m-[10px] h-[1px] bg-[#dedcda]"></div>
       <HoverTag title="Giới thiệu" LeftIcon={() => <InformationCircleIcon />} />
       <HoverTag

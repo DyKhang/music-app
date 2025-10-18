@@ -55,11 +55,13 @@ export const Artist: React.FC<Props> = ({ item }) => {
         </svg>
       </div>
       <div className="flex flex-col">
-        <span className="mb-[6px] text-[1.2rem] text-[#696969]">Nghệ sĩ</span>
-        <span className="text-[1.4rem] font-[600] uppercase hover:text-[#844d4d] hover:underline">
+        <span className="text-text-secondary mb-[6px] text-[1.2rem]">
+          Nghệ sĩ
+        </span>
+        <span className="hover:text-text-item-hover text-[1.4rem] font-[600] uppercase hover:underline">
           {item.name}
         </span>
-        <span className="mt-[2px] text-[1.2rem] text-[#696969]">
+        <span className="text-text-secondary mt-[2px] text-[1.2rem]">
           {convertTotalFollow(item.totalFollow)} quan tâm
         </span>
       </div>

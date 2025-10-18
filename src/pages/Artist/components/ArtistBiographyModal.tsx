@@ -42,7 +42,7 @@ export const ArtistBiographyModal: React.FC<Props> = ({
       <div className="flex-1 p-[24px]">
         <div className="h-[218px] overflow-y-scroll">
           {desc.split("<br>").map((p) => (
-            <p key={p} className="text-[1.4rem] text-[#696969]">
+            <p key={p} className="text-text-secondary text-[1.4rem]">
               {p} <br />
             </p>
           ))}

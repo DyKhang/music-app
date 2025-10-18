@@ -90,12 +90,14 @@ export const Player = () => {
                 <span className="flex items-center gap-[8px] text-[1.4rem] font-[500]">
                   {name} {isPremium && <PremiumIcon />}
                 </span>
-                <span className="text-[1.2rem] text-[#696969]">{singer}</span>
+                <span className="text-text-secondary text-[1.2rem]">
+                  {singer}
+                </span>
               </div>
               <ToolTip title="Thêm vào thư viện">
                 {isLiked && session ? (
                   <HeartIconSolid
-                    className="ml-8 size-[18px] cursor-pointer text-[#844d4d]"
+                    className="text-text-item-hover ml-8 size-[18px] cursor-pointer"
                     onClick={() => toggleFavoriteSong()}
                   />
                 ) : (

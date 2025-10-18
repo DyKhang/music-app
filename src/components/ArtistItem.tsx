@@ -53,18 +53,18 @@ export const ArtistItem: React.FC<Props> = ({ alias }) => {
         </div>
       </div>
       <h3
-        className="mb-[4px] mt-[15px] cursor-pointer text-[1.4rem] font-[500] hover:text-[#844d4d] hover:underline"
+        className="hover:text-text-item-hover mb-[4px] mt-[15px] cursor-pointer text-[1.4rem] font-[500] hover:underline"
         onClick={handleNavigate}
       >
         {data?.data.data.name}
       </h3>
-      <span className="text-[1.2rem] text-[#696969]">
+      <span className="text-text-secondary text-[1.2rem]">
         {`${
           data?.data.data.totalFollow &&
           convertTotalFollow(data!.data.data.totalFollow)
         }  quan tâm`}
       </span>
-      <div className="mt-[15px] flex cursor-pointer items-center gap-[5px] rounded-full bg-[#644646] px-[19px] py-[6px] text-white hover:brightness-[0.9]">
+      <div className="bg-purple-primary mt-[15px] flex cursor-pointer items-center gap-[5px] rounded-full px-[19px] py-[6px] text-white hover:brightness-[0.9]">
         <UserPlusIcon className="size-[18px]" />
         <span className="text-[12px] uppercase">quan tâm</span>
       </div>

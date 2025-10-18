@@ -26,7 +26,7 @@ export const ConfirmDeleteAvatar: React.FC<Props> = ({ closeModal }) => {
       <div className="mt-5 flex items-center justify-end gap-4">
         <button
           onClick={closeModal}
-          className="rounded-md bg-[#d9d7d4] px-4 py-2 text-[1.4rem] font-medium text-[#644646]"
+          className="text-purple-primary rounded-md bg-[#d9d7d4] px-4 py-2 text-[1.4rem] font-medium"
         >
           Hủy bỏ
         </button>
