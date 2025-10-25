@@ -11,7 +11,7 @@ export const NavLinkEle: React.FC<Props> = ({ to, Icon, title }) => {
   return (
     <NavLink
       to={to}
-      className="group/nav-link navlink flex items-center justify-center gap-[12px] px-[18px] py-[12px] text-[1.4rem] font-medium hover:text-[#614646] xl:justify-start"
+      className="group/nav-link navlink text-navigation-text flex items-center justify-center gap-[12px] px-[18px] py-[12px] text-[1.4rem] font-medium hover:text-text-item-hover xl:justify-start"
     >
       <Icon /> <span className="hidden xl:inline">{title}</span>
       {title === "Radio" && (

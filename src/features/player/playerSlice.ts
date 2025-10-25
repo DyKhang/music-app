@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { musicApi } from "../../api/musicApi";
-import premiumSound from "../../../public/musics/premium.mp3";
+import premiumSound from "../../../public/sounds/premium.mp3";
 import toast from "react-hot-toast";
 import { playlistApi } from "../../api/playlistApi";
 import { RootState } from "../../store";

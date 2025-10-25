@@ -8,7 +8,7 @@ export const UpdateAccount = () => {
 
   if (!session)
     return (
-      <div className="bg-purple-primary hover:text-text-primary flex flex-col items-center justify-center rounded-[8px] p-3">
+      <div className="flex flex-col items-center justify-center rounded-[8px] bg-purple-primary p-3 hover:text-text-primary">
         <span className="mt-4 text-center text-[1.2rem] font-semibold text-white">
           Đăng nhập để khám phá playlist dành riêng cho bạn
         </span>
@@ -22,11 +22,11 @@ export const UpdateAccount = () => {
     );
 
   return (
-    <div className="hover:text-text-primary flex flex-col items-center justify-center rounded-[8px] bg-custom-gradient p-3">
+    <div className="flex flex-col items-center justify-center rounded-[8px] bg-custom-gradient p-3 hover:text-text-primary">
       <span className="mt-4 text-center text-[1.2rem] font-semibold text-white">
         Nghe nhạc không quảng cáo cùng kho nhạc PREMIUM
       </span>
-      <button className="my-4 rounded-full bg-[#fadb00] px-[16px] py-[6px] text-[1.2rem] font-semibold">
+      <button className="my-4 rounded-full bg-[#fadb00] px-[16px] py-[6px] text-[1.2rem] font-semibold text-black">
         NÂNG CẤP TÀI KHOẢN
       </button>
     </div>

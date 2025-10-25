@@ -13,8 +13,9 @@ import { SwatchIcon } from "@heroicons/react/24/outline";
 import { StarIcon } from "@heroicons/react/24/outline";
 import { UpdateAccount } from "../components/UpdateAccount";
 import { ClockIcon } from "@heroicons/react/24/outline";
-import logo from "../../public/logo-light.svg";
-import logoSmall from "../../public/logo-small.svg";
+import logoLight from "/logo-light.svg";
+import logoDark from "/logo-dark.svg";
+import dvd from "../../public/dvd.svg";
 import { LibraryIcon } from "../components/LibraryIcon";
 import { DvdIcon } from "../components/DvdIcon";
 import { ChartIcon } from "../components/ChartIcon";
@@ -22,27 +23,41 @@ import { useSelector } from "react-redux";
 import { RootState } from "../store";
 import clsx from "clsx";
 import { currentSongSelector } from "../features/player/selectors";
+import { useEffect, useRef } from "react";
 
 export const SideBar = () => {
+  const isDark = useSelector((state: RootState) => state.theme.type) === "dark";
   const session = useSelector((state: RootState) => state.auth.session);
   const { name } = useSelector(currentSongSelector);
+  const scrollableRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    scrollableRef.current?.addEventListener("scroll", () => {
+      if (scrollableRef.current && scrollableRef.current.scrollTop > 0) {
+        scrollableRef.current?.classList.add("is-mark");
+      } else {
+        scrollableRef.current?.classList.remove("is-mark");
+      }
+    });
+  }, []);
 
   return (
-    <aside
-      className="bg-sidebar-bg/[5%] w-[50px] xl:w-[240px]"
-      // className="w-[50px] bg-[#f2f2f2] xl:w-[240px] xl:bg-[#d9d7d4]"
-    >
+    <aside className="w-[50px] bg-sidebar-bg xl:w-[240px]">
       <Link
         to="/"
-        className="hidden items-center justify-center p-5 opacity-80 transition-opacity duration-[0.5s] hover:opacity-100 xl:flex"
+        className="hidden items-center justify-center p-5 opacity-90 transition-opacity duration-[0.5s] hover:opacity-100 xl:flex"
       >
-        <img src={logo} alt="" className="w-[150px] object-cover" />
+        <img
+          src={isDark ? logoDark : logoLight}
+          alt=""
+          className="w-[150px] object-cover"
+        />
       </Link>
       <Link
         to="/"
         className="flex items-center justify-center p-5 opacity-80 transition-opacity duration-[0.5s] hover:opacity-100 xl:hidden"
       >
-        <img src={logoSmall} alt="" className="object-cover" />
+        <img src={dvd} alt="" className="object-cover" />
       </Link>
       <div>
         <NavLinkEle
@@ -62,8 +77,9 @@ export const SideBar = () => {
           title="Radio"
         />
       </div>
-      <div className="mx-auto my-[15px] h-[1px] w-[80%] bg-[#c3c1be]"></div>
+      <div className="mx-auto my-[15px] h-[0.5px] w-[80%] bg-[#c3c1be]"></div>
       <div
+        ref={scrollableRef}
         style={{
           overflowY: "scroll",
           height: `calc(100vh - ${!name ? "35" : "42"}rem)`,
@@ -141,7 +157,7 @@ export const SideBar = () => {
             <div className="mx-auto my-[15px] hidden h-[1px] w-[80%] bg-[#c3c1be] xl:block"></div>
             <div
               className={clsx(
-                "hidden cursor-pointer items-center justify-between px-[21px] hover:text-[#5f4646] xl:flex",
+                "hidden cursor-pointer items-center justify-between px-[21px] hover:text-text-item-hover xl:flex",
                 name ? "pb-14" : "pb-8",
               )}
             >

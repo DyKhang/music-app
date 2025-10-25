@@ -59,7 +59,7 @@ export const Player = () => {
     encodeId,
     isLiked,
   );
-  const isPremium = songUrl.includes("musics/premium.mp3");
+  const isPremium = songUrl.includes("sounds/premium.mp3");
 
   return (
     <>
@@ -90,14 +90,14 @@ export const Player = () => {
                 <span className="flex items-center gap-[8px] text-[1.4rem] font-[500]">
                   {name} {isPremium && <PremiumIcon />}
                 </span>
-                <span className="text-text-secondary text-[1.2rem]">
+                <span className="text-[1.2rem] text-text-secondary">
                   {singer}
                 </span>
               </div>
               <ToolTip title="Thêm vào thư viện">
                 {isLiked && session ? (
                   <HeartIconSolid
-                    className="text-text-item-hover ml-8 size-[18px] cursor-pointer"
+                    className="ml-8 size-[18px] cursor-pointer text-text-item-hover"
                     onClick={() => toggleFavoriteSong()}
                   />
                 ) : (

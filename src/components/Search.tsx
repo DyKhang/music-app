@@ -3,7 +3,6 @@ import { ArrowTrendingUpIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useSuggest } from "../features/search/useSuggest";
 import { useNavigate } from "react-router";
-import { useSearchParams } from "react-router-dom";
 import { useDebounce } from "../hooks/useDebounce";
 import { useSearch } from "../features/search/useSearch";
 import { SearchRecommendArtist } from "./SearchRecommendArtist";
@@ -17,7 +16,6 @@ export const Search = () => {
   const searchRef = useRef<HTMLDivElement | null>(null);
   const { data: suggest } = useSuggest();
   const navigate = useNavigate();
-  const [searchParam, setSearchParam] = useSearchParams();
 
   const debounce = useDebounce(query, 500);
   const { data, isLoading } = useSearch(debounce);
@@ -28,12 +26,10 @@ export const Search = () => {
 
   const handleNavigate = useCallback(
     function (query: string) {
-      navigate("/tim-kiem");
-      searchParam.set("q", query);
-      setSearchParam(searchParam);
+      navigate(`/tim-kiem?${query}`);
       setIsFocus(false);
     },
-    [navigate, searchParam, setSearchParam],
+    [navigate],
   );
 
   const handlePressEnter = useCallback(
@@ -113,7 +109,7 @@ export const Search = () => {
                 <MagnifyingGlassIcon className="size-[16px] flex-shrink-0" />
                 <span className="flex items-center gap-[2px]">
                   <span className="flex-shrink-0">Tìm kiếm</span>
-                  <b className="text-text-item-hover font-[700]">"{query}"</b>
+                  <b className="font-[700] text-text-item-hover">"{query}"</b>
                 </span>
               </p>
 

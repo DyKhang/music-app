@@ -1,7 +1,10 @@
 import React from "react";
 import { capitalizeFirstLetter } from "../utils/helper";
-import { useAppDispatch } from "../store";
+import { RootState, useAppDispatch } from "../store";
 import { setTheme } from "../features/theme/themeSlice";
+import { useSelector } from "react-redux";
+import clsx from "clsx";
+import { Check } from "lucide-react";
 
 type Props = {
   item: {
@@ -9,22 +12,34 @@ type Props = {
     value: string;
     backgroundImage: string;
   };
+  type: "dark" | "light";
 };
 
-export const Theme: React.FC<Props> = ({ item }) => {
+export const Theme: React.FC<Props> = ({ item, type }) => {
+  const currentTheme = useSelector((state: RootState) => state.theme.value);
   const dispatch = useAppDispatch();
   const handleChangeTheme = () => {
-    dispatch(setTheme(item.value));
+    dispatch(setTheme({ type, value: item.value }));
   };
+  const isActive = currentTheme === item.value;
 
   return (
     <div>
-      <div className="group relative overflow-hidden rounded-[5px]">
+      <div
+        className={clsx("group relative overflow-hidden rounded-[5px] border", {
+          "border-purple-primary": isActive,
+        })}
+      >
+        {isActive && (
+          <div className="absolute bottom-[8px] right-[8px] flex size-[20px] items-center justify-center rounded-full bg-purple-primary">
+            <Check size={12} className="translate-x-[0.5px] text-white" />
+          </div>
+        )}
         <div
           style={{
             backgroundImage: `url(${item.backgroundImage})`,
           }}
-          className="h-[100px]"
+          className="h-[100px] rounded-[5px]"
         ></div>
         <div className="absolute inset-0 hidden flex-col items-center justify-center gap-[10px] bg-[#00000080] text-[0.8rem] uppercase text-white group-hover:flex">
           <div
