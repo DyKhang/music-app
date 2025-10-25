@@ -7,9 +7,10 @@ export const Switch = () => {
     <div
       onClick={() => setIsChecked(!isChecked)}
       className={clsx(
-        "bg-purple-primary flex h-[15px] w-[24px] cursor-pointer items-center rounded-full",
+        "flex h-[15px] w-[24px] cursor-pointer items-center rounded-full",
         {
           "bg-[#a0a0a0]": !isChecked,
+          "bg-purple-primary": isChecked,
         },
       )}
     >

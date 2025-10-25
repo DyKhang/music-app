@@ -22,6 +22,7 @@ export default {
         "layout-bg": "rgb(var(--layout-bg) / <alpha-value>)",
         "text-primary": "rgb(var(--text-primary) / <alpha-value>)",
         "text-secondary": "rgb(var(--text-secondary) / <alpha-value>)",
+        "sidebar-bg": "rgb(var(--sidebar-bg) / <alpha-value>)",
       },
     },
   },

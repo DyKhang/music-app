@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { upperCaseFirstLetter } from "../../../utils/helper";
+import { capitalizeFirstLetter } from "../../../utils/helper";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { Section } from "../../../api/artistApi";
 import { PlayListItem } from "../../../components/PlayListItem";
@@ -19,10 +19,10 @@ export const PlayListArtist: React.FC<Props> = ({ data, hasLink }) => {
     <section>
       <div className="flex items-center justify-between">
         <h2 className="text-[2rem] font-bold">
-          {upperCaseFirstLetter(data?.title)}
+          {capitalizeFirstLetter(data?.title)}
         </h2>
         {hasLink && (
-          <div className="hover:text-text-item-hover text-text-secondary flex cursor-pointer items-center gap-[6px]">
+          <div className="flex cursor-pointer items-center gap-[6px] text-text-secondary hover:text-text-item-hover">
             <span className="text-[1.2rem]">TẤT CẢ</span>
             <FontAwesomeIcon icon={faChevronRight} />
           </div>

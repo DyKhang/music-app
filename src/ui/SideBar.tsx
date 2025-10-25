@@ -28,7 +28,10 @@ export const SideBar = () => {
   const { name } = useSelector(currentSongSelector);
 
   return (
-    <aside className="w-[50px] bg-[#f2f2f2] xl:w-[240px] xl:bg-[#d9d7d4]">
+    <aside
+      className="bg-sidebar-bg/[5%] w-[50px] xl:w-[240px]"
+      // className="w-[50px] bg-[#f2f2f2] xl:w-[240px] xl:bg-[#d9d7d4]"
+    >
       <Link
         to="/"
         className="hidden items-center justify-center p-5 opacity-80 transition-opacity duration-[0.5s] hover:opacity-100 xl:flex"

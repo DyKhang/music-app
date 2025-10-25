@@ -19,7 +19,7 @@ export function getArrSlider(
   return output;
 }
 
-export function upperCaseFirstLetter(title: string | undefined) {
+export function capitalizeFirstLetter(title: string | undefined) {
   const newTitle = title
     ?.split(" ")
     .map((item) => item[0].toLocaleUpperCase() + item.slice(1))

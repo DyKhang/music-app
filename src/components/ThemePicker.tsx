@@ -2,20 +2,41 @@ import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import { Switch } from "./Switch";
 import { Dialog, DialogContent, DialogTrigger } from "./Dialog";
 import { ThemePickerModal } from "./ThemePickerModal";
+import { useSelector } from "react-redux";
+import { RootState } from "../store";
+import { themes } from "../constants/data";
+import { capitalizeFirstLetter } from "../utils/helper";
 
 export const ThemePicker = () => {
+  const currentTheme = useSelector((state: RootState) => state.theme.value);
+  const flatThemes = themes.reduce<
+    {
+      label: string;
+      value: string;
+      backgroundImage: string;
+    }[]
+  >((prev, curr) => [...prev, ...curr.colors], []);
+  const targetTheme = flatThemes.find((item) => item.value === currentTheme);
+
   return (
     <div className="absolute right-full top-0 hidden w-[300px] rounded-xl bg-white p-[9px] shadow-md group-hover:block">
       <Dialog>
         <DialogTrigger className="w-full">
           <div className="group/theme cursor-pointer">
-            <div className="group-hover/theme:text-purple-primary flex items-center justify-between">
+            <div className="flex items-center justify-between group-hover/theme:text-purple-primary">
               <p className="text-[1.4rem]">Chủ đề</p>
               <ChevronRightIcon className="size-[20px]" />
             </div>
             <div className="my-2 flex items-center gap-4">
-              <div className="h-[60px] w-[100px] rounded-[3px] bg-red-500"></div>
-              <p className="font-bold">Xám</p>
+              <div
+                style={{
+                  backgroundImage: `url(${targetTheme?.backgroundImage})`,
+                }}
+                className="h-[60px] w-[100px] rounded-[3px]"
+              ></div>
+              <p className="font-bold">
+                {capitalizeFirstLetter(targetTheme?.label)}
+              </p>
             </div>
           </div>
         </DialogTrigger>

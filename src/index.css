@@ -31,12 +31,22 @@
     background: #555;
   }
 
-  :root {
+  :root[data-theme="gray"] {
     --purple-primary: 100 70 70;
     --text-item-hover: 132 77 77;
     --text-primary: 50 50 61;
     --text-secondary: 105 105 105;
     --layout-bg: 229 227 223;
+    --sidebar-bg: 0 0 0;
+  }
+
+  :root[data-theme="dark"] {
+    --purple-primary: 155 77 224;
+    --text-item-hover: 255 255 255;
+    --text-primary: 255 255 255;
+    --text-secondary: 255 255 255;
+    --layout-bg: 30 30 30;
+    --sidebar-bg: 255 255 255;
   }
 }
 

@@ -1,6 +1,7 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import playerReducer from "./features/player/playerSlice";
 import authReducer from "./features/auth/authSlice";
+import themeReducer from "./features/theme/themeSlice";
 import { useDispatch } from "react-redux";
 
 // persist
@@ -22,6 +23,7 @@ export const useAppDispatch = () => useDispatch<AppDispatch>();
 
 const rootReducer = combineReducers({
   player: playerReducer,
+  theme: themeReducer,
   auth: authReducer,
 });
 

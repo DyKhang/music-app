@@ -2,7 +2,7 @@ import { Tag } from "./Tag";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { NewReleaseItem } from "./NewReleaseItem";
-import { upperCaseFirstLetter } from "../../../utils/helper";
+import { capitalizeFirstLetter } from "../../../utils/helper";
 import { useState } from "react";
 import { NewReleasesType } from "../../../api/homeApi";
 
@@ -22,7 +22,7 @@ export const NewReleaseList: React.FC<Props> = ({ data }) => {
   return (
     <section>
       <h2 className="text-[2rem] font-bold">
-        {upperCaseFirstLetter(data?.title)}
+        {capitalizeFirstLetter(data?.title)}
       </h2>
 
       <div className="mt-[20px] flex items-center justify-center sm:justify-between">
@@ -39,7 +39,7 @@ export const NewReleaseList: React.FC<Props> = ({ data }) => {
           ))}
         </div>
 
-        <div className="hover:text-text-item-hover text-text-secondary hidden cursor-pointer items-center gap-[6px] sm:flex">
+        <div className="hidden cursor-pointer items-center gap-[6px] text-text-secondary hover:text-text-item-hover sm:flex">
           <span className="text-[1.2rem]">TẤT CẢ</span>
           <FontAwesomeIcon icon={faChevronRight} />
         </div>

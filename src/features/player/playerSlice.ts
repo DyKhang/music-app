@@ -17,7 +17,7 @@ export interface SongReducer {
   isLiked: boolean;
 }
 
-export interface initialState {
+const initialState: {
   songs: SongReducer[];
   status: "idle" | "loading";
   volume: number;
@@ -34,9 +34,7 @@ export interface initialState {
   };
   currentTime: number;
   showPlayList: boolean;
-}
-
-const initialState: initialState = {
+} = {
   songs: [
     {
       encodeId: "Z6IAWZO0",

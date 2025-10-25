@@ -1,18 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-type Theme = "default" | "purple" | "ocean" | "forest";
-
-interface initialState {
-  value: Theme;
-}
-
-const initialState: initialState = {
-  value: "default",
+const initialState: {
+  value: string;
+} = {
+  value: "gray",
 };
 
 const themeSlice = createSlice({
   name: "theme",
-  initialState,
+  initialState: initialState,
   reducers: {
     setTheme: (state, { payload }) => {
       state.value = payload;
