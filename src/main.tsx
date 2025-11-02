@@ -23,7 +23,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
               },
               position: "bottom-left",
               iconTheme: {
-                primary: "#644646",
+                primary: "var(--purple-primary)",
                 secondary: "white",
               },
             },
@@ -34,8 +34,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
               position: "bottom-left",
             },
             style: {
-              boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
               fontSize: "1.4rem",
+              backgroundColor: "var(--primary-bg)",
+              color: "var(--text-primary)",
             },
           }}
         />

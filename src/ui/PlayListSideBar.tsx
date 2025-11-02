@@ -53,27 +53,27 @@ export const PlayListSideBar: React.FC<Props> = ({ isShow, showKaraoke }) => {
 
   return (
     <section
-      className={`fixed right-[-330px] ${isShow && !showKaraoke && "translate-x-[-330px]"} bg-layout-bg top-0 z-[55] h-screen w-[330px] px-[8px] pb-[150px] pt-[14px] shadow-2xl transition duration-700`}
+      className={`fixed right-[-330px] ${isShow && !showKaraoke && "translate-x-[-330px]"} top-0 z-[55] h-screen w-[330px] bg-queue-player-popup-bg px-[8px] pb-[150px] pt-[14px] shadow-2xl transition duration-700`}
     >
       <div className="flex items-center justify-between">
-        <div className="flex rounded-full bg-[rgba(0,0,0,0.05)] p-[3px]">
+        <div className="flex rounded-full bg-alpha-bg p-[3px]">
           <div
-            className={`cursor-pointer rounded-full ${state === "playlist" && "shadow-playListSideBarActiveTag text-text-item-hover bg-[hsla(0,0%,100%,0.3)]"} px-[16px] py-[5px] text-[1.2rem]`}
+            className={`cursor-pointer rounded-full ${state === "playlist" && "shadow-playListSideBarActiveTag bg-[hsla(0,0%,100%,0.3)] text-text-item-hover"} px-[16px] py-[5px] text-[1.2rem]`}
             onClick={() => setState("playlist")}
           >
             Danh sách phát
           </div>
           <div
-            className={`cursor-pointer rounded-full px-[16px] py-[5px] text-[1.2rem] ${state === "recent" && "shadow-playListSideBarActiveTag text-text-item-hover bg-[hsla(0,0%,100%,0.3)]"}`}
+            className={`cursor-pointer rounded-full px-[16px] py-[5px] text-[1.2rem] ${state === "recent" && "shadow-playListSideBarActiveTag bg-[hsla(0,0%,100%,0.3)] text-text-item-hover"}`}
             onClick={() => setState("recent")}
           >
             Nghe gần đây
           </div>
         </div>
-        <div className="flex size-[32px] flex-shrink-0 cursor-pointer items-center justify-center rounded-full bg-[rgba(0,0,0,0.05)]">
+        <div className="flex size-[32px] flex-shrink-0 cursor-pointer items-center justify-center rounded-full bg-alpha-bg">
           <FontAwesomeIcon icon={faClock} className="text-[1.4rem]" />
         </div>
-        <div className="flex size-[32px] flex-shrink-0 cursor-pointer items-center justify-center rounded-full bg-[rgba(0,0,0,0.05)]">
+        <div className="flex size-[32px] flex-shrink-0 cursor-pointer items-center justify-center rounded-full bg-alpha-bg">
           <EllipsisHorizontalIcon className="size-[20px]" />
         </div>
       </div>

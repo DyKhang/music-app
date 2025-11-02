@@ -1,4 +1,5 @@
 import { Loader } from "../../components/Loader";
+import { NewReleaseListSkeleton } from "../../components/skeletons/NewReleaseListSkeleton";
 import { useAlbumHot } from "../../features/home/useAlbumHot";
 import { useChart } from "../../features/home/useChart";
 import { useChills } from "../../features/home/useChills";
@@ -36,6 +37,9 @@ export const Explore = () => {
       <div>
         <NewReleaseList data={newRelease} />
       </div>
+
+      <NewReleaseListSkeleton />
+
       {trendingData && (
         <div className="mt-[48px]">
           <PlayList data={trendingData} />
@@ -56,13 +60,11 @@ export const Explore = () => {
           <ZingChart data={chart} />
         </div>
       )}
-
       {top100 && (
         <div className="mt-[38px]">
           <PlayList data={top100} hasLink type="artist" />
         </div>
       )}
-
       {albumHot && (
         <div className="mt-[48px]">
           <PlayList data={albumHot} type="artist" />

@@ -68,7 +68,7 @@ export const Search = () => {
       ref={searchRef}
     >
       <div
-        className={`relative flex h-[40px] items-center bg-white ${isFocus && "w-[220px]"} ${isFocus && "lg:w-auto"} justify-center gap-3 rounded-[20px] bg-transparent p-6 sm:bg-[rgba(0,0,0,0.05)] lg:justify-start lg:pr-12 ${isFocus && "rounded-b-[0px] border-b border-black/5 sm:bg-white"}`}
+        className={`relative flex h-[40px] items-center bg-white ${isFocus && "w-[220px]"} ${isFocus && "lg:w-auto"} justify-center gap-3 rounded-[20px] bg-transparent p-6 sm:bg-alpha-bg lg:justify-start lg:pr-12 ${isFocus && "sm:bg-primary-bg rounded-b-[0px] border-b border-black/5"}`}
         onSubmit={handleSubmit}
       >
         <MagnifyingGlassIcon
@@ -79,7 +79,7 @@ export const Search = () => {
           type="text"
           ref={inputRef}
           placeholder="Tìm kiếm bài hát, nghệ sĩ, lời bài hát..."
-          className="absolute left-0 w-full bg-transparent pl-[20px] pr-[32px] text-[#282828] outline-none placeholder:text-[1.4rem] placeholder:text-[#727272] lg:pl-[44px]"
+          className="text-search-text absolute left-0 w-full bg-transparent pl-[20px] pr-[32px] text-[1.4rem] outline-none placeholder:text-[1.4rem] placeholder:text-[#727272] lg:pl-[44px]"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
@@ -95,7 +95,7 @@ export const Search = () => {
       </div>
       {isFocus && (
         <div
-          className={`rounded-b-[20px] bg-white px-[10px] py-[13px] ${isFocus && "shadow-lg"} w-[220px] lg:w-auto`}
+          className={`bg-primary-bg rounded-b-[20px] px-[10px] py-[13px] ${isFocus && "shadow-lg"} w-[220px] lg:w-auto`}
         >
           <h3 className="px-[10px] pb-[8px] text-[1.4rem] font-[700]">
             {query.trim() ? "Từ khóa liên quan" : "Đề xuất cho bạn"}
@@ -104,12 +104,14 @@ export const Search = () => {
             <>
               <p
                 onMouseDown={() => handleNavigate(query.trim())}
-                className="flex cursor-pointer items-center gap-[10px] overflow-x-hidden rounded-[4px] px-[10px] py-[8px] text-[1.4rem] hover:bg-black/5"
+                className="flex cursor-pointer items-center gap-[10px] rounded-[4px] px-[10px] py-[8px] text-[1.4rem] hover:bg-alpha-bg"
               >
                 <MagnifyingGlassIcon className="size-[16px] flex-shrink-0" />
-                <span className="flex items-center gap-[2px]">
+                <span className="flex min-w-0 items-center gap-[2px]">
                   <span className="flex-shrink-0">Tìm kiếm</span>
-                  <b className="font-[700] text-text-item-hover">"{query}"</b>
+                  <span className="flex-1 truncate font-[700] text-text-item-hover">
+                    "{query}"
+                  </span>
                 </span>
               </p>
 
@@ -119,7 +121,7 @@ export const Search = () => {
                 data?.data.data.counter.video !== 0 &&
                 !isLoading && (
                   <>
-                    <div className="mt-[10px] h-[1px] bg-black/5"></div>
+                    <div className="mt-[10px] h-[1px] bg-alpha-bg"></div>
                     <h3 className="mt-[10px] px-[10px] pb-[8px] text-[1.4rem] font-[700]">
                       Gợi ý kết quả
                     </h3>
@@ -151,7 +153,7 @@ export const Search = () => {
               <p
                 onClick={() => handleNavigate(item.keyword)}
                 key={item.keyword}
-                className="flex cursor-pointer items-center gap-[10px] rounded-[4px] px-[10px] py-[8px] text-[1.4rem] hover:bg-black/5"
+                className="flex cursor-pointer items-center gap-[10px] rounded-[4px] px-[10px] py-[8px] text-[1.4rem] hover:bg-alpha-bg"
               >
                 <ArrowTrendingUpIcon className="size-[16px]" />
                 <span>{item.keyword}</span>

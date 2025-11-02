@@ -77,12 +77,12 @@ export const SideBar = () => {
           title="Radio"
         />
       </div>
-      <div className="mx-auto my-[15px] h-[0.5px] w-[80%] bg-[#c3c1be]"></div>
+      <div className="mx-auto my-[15px] h-[0.5px] w-[80%] bg-border-primary"></div>
       <div
         ref={scrollableRef}
         style={{
           overflowY: "scroll",
-          height: `calc(100vh - ${!name ? "35" : "42"}rem)`,
+          height: `calc(100vh - ${!name ? "35" : "43.8"}rem)`,
         }}
       >
         <NavLinkEle
@@ -154,15 +154,15 @@ export const SideBar = () => {
               to="e"
               title="Đã tải lên"
             />
-            <div className="mx-auto my-[15px] hidden h-[1px] w-[80%] bg-[#c3c1be] xl:block"></div>
+            <div className="mx-auto my-[15px] hidden h-[1px] w-[80%] bg-border-primary xl:block"></div>
             <div
               className={clsx(
-                "hidden cursor-pointer items-center justify-between px-[21px] hover:text-text-item-hover xl:flex",
-                name ? "pb-14" : "pb-8",
+                "group hidden cursor-pointer items-center justify-between px-[21px] text-navigation-text hover:text-text-item-hover xl:flex",
+                name ? "pb-6" : "pb-8",
               )}
             >
-              <span className="text-[1.4rem]">Indie</span>
-              <EllipsisHorizontalIcon className="size-[24px] rounded-full hover:bg-[#cecdcd]" />
+              <span className="h-[24px] text-[1.4rem]">Indie</span>
+              <EllipsisHorizontalIcon className="hidden size-[24px] rounded-full hover:bg-alpha-bg group-hover:block" />
             </div>
           </div>
         )}

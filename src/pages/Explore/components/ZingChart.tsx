@@ -50,7 +50,7 @@ export const ZingChart: React.FC<Props> = ({ data }) => {
           #zingchart
         </span>
         <div className="flex size-[23px] cursor-pointer items-center justify-center rounded-full bg-white hover:brightness-[0.9]">
-          <PlayIcon className="translate-[-0.5px] size-[16px] translate-x-[1px]" />
+          <PlayIcon className="translate-[-0.5px] size-[14px] translate-x-[1px] text-black-variable" />
         </div>
       </div>
       <div className="flex flex-col gap-[28px] xl:flex-row">

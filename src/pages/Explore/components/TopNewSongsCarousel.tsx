@@ -25,7 +25,7 @@ const NextArrow = ({
       className={`absolute right-[9px] top-1/2 z-[1] flex size-[38px] -translate-y-1/2 items-center justify-center rounded-full bg-white hover:brightness-[0.9] sm:right-[-9px] ${atEnded ? "cursor-default select-none opacity-[0.1]" : "cursor-pointer"}`}
       onClick={onClick}
     >
-      <ChevronRightIcon className="size-[22px]" />
+      <ChevronRightIcon className="size-[22px] text-black-variable" />
     </div>
   );
 };
@@ -45,7 +45,7 @@ const PreviousArrow = ({
       className={`absolute left-[9px] top-1/2 z-[1] flex size-[38px] -translate-y-1/2 items-center justify-center rounded-full bg-white hover:brightness-[0.9] sm:left-[-9px] ${atInitial ? "cursor-default select-none opacity-[0.1]" : "cursor-pointer"}`}
       onClick={onClick}
     >
-      <ChevronLeftIcon className="size-[22px]" />
+      <ChevronLeftIcon className="size-[22px] text-black-variable" />
     </div>
   );
 };

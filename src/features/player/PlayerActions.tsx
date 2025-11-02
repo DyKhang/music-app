@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMicrophone } from "@fortawesome/free-solid-svg-icons";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { currentSongSelector } from "./selectors";
 import { ToolTip } from "../../components/ToolTip";
 
@@ -32,11 +32,10 @@ export const PlayerActions: React.FC<Props> = ({
   const inputRef = useRef<HTMLInputElement | null>(null);
   const currentSong = useSelector(currentSongSelector);
   const hasLyric = currentSong.hasLyric;
-  const [isMute, setIsMute] = useState(false);
-  const prevVolume = useRef(0);
+  const prevVolume = useRef(volume);
 
   useEffect(() => {
-    inputRef.current!.style.background = `linear-gradient(to right, #614646 ${volume}%, #c6c4bc ${volume}%)`;
+    inputRef.current!.style.background = `linear-gradient(to right, var(--progressbar-active-bg) 0%, var(--progressbar-active-bg) ${volume}%, var(--progressbar-player-bg) ${volume}%, var(--progressbar-player-bg) 100%)`;
   });
 
   function handleSetShowKaraoke() {
@@ -45,7 +44,7 @@ export const PlayerActions: React.FC<Props> = ({
 
   return (
     <div
-      className={`absolute bottom-[10px] left-0 flex w-full items-center justify-center gap-[10px] text-[#47474f] sm:static sm:w-auto sm:gap-[20px] ${showKaraoke && "invisible"} flex`}
+      className={`absolute bottom-[10px] left-0 flex w-full items-center justify-center gap-[10px] sm:static sm:w-auto sm:gap-[20px] ${showKaraoke && "invisible"} flex`}
     >
       <button className="hidden cursor-not-allowed rounded-lg border border-[#a5a3a1] p-[2px] text-[0.8rem] font-semibold text-[#a5a3a1] lg:block">
         MV
@@ -82,13 +81,12 @@ export const PlayerActions: React.FC<Props> = ({
       <div className="flex translate-x-[-4px] cursor-pointer items-center gap-3">
         <div
           onClick={() => {
-            if (isMute) {
+            if (volume) {
               prevVolume.current = volume;
               dispatch(changeVolume(0));
-              setIsMute(false);
             } else {
               dispatch(changeVolume(prevVolume.current * 100));
-              setIsMute(true);
+              prevVolume.current = 0;
             }
           }}
         >
@@ -107,7 +105,7 @@ export const PlayerActions: React.FC<Props> = ({
             onInput={(e) => {
               const newValue = Number(e.currentTarget.value);
               dispatch(changeVolume(newValue * 100));
-              e.currentTarget.style.background = `linear-gradient(to right, #614646 ${newValue}%, #c6c4bc ${newValue}%)`;
+              e.currentTarget.style.background = `linear-gradient(to right, var(--progressbar-active-bg) 0%, var(--progressbar-active-bg) ${newValue}%, var(--progressbar-player-bg) ${newValue}%, var(--progressbar-player-bg) 100%)`;
             }}
           />
         </div>

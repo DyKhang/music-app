@@ -21,7 +21,7 @@ export const SearchRecommendArtist: React.FC<Props> = ({
         navigate(`nghe-si/${data.alias}`);
         setIsFocus(false);
       }}
-      className="flex cursor-pointer items-center gap-[10px] rounded-[4px] px-[10px] py-[8px] text-[1.4rem] hover:bg-black/5"
+      className="flex cursor-pointer items-center gap-[10px] rounded-[4px] px-[10px] py-[8px] text-[1.4rem] hover:bg-alpha-bg"
     >
       <img
         src={data.thumbnailM}
@@ -30,7 +30,7 @@ export const SearchRecommendArtist: React.FC<Props> = ({
       />
       <div className="flex flex-col">
         <span className="text-[1.4rem] font-[500]">{data.name}</span>
-        <span className="text-text-secondary text-[1.2rem]">
+        <span className="text-[1.2rem] text-text-secondary">
           Nghệ sĩ • {convertTotalFollow(data.totalFollow)} quan tâm
         </span>
       </div>

@@ -32,7 +32,7 @@
   }
 
   :root {
-    --black: #32323d;
+    --black-variable: #32323d;
   }
 
   :root[data-theme="gray"] {
@@ -45,6 +45,18 @@
     --navigation-text: #32323d;
     --alpha-bg: rgba(0, 0, 0, 0.05);
     --border-primary: rgba(0, 0, 0, 0.1);
+    --progressbar-active-bg: var(--purple-primary);
+    --progressbar-player-bg: rgba(0, 0, 0, 0.1);
+    --queue-player-popup-bg: #e5e3df;
+    --box-shadow-queue: 0 1px 0 rgba(0, 0, 0, 0.3), 0 1px 6px rgba(0, 0, 0, 0.3),
+      inset 0 1px 1px hsla(0, 0%, 100%, 0.3);
+    --text-muted: rgba(20, 20, 20, 0.4);
+    --link-text-hover: #844d4d;
+    --primary-bg: #f7f5f3;
+    --search-text: #282828;
+    --box-item-bg: hsla(0, 0%, 100%, 0.3);
+    --new-release-box-shadow: hsla(0, 0%, 81.2%, 0.4);
+    --main-text-stroke: #6b3483;
   }
 
   :root[data-theme="dark"] {
@@ -57,6 +69,18 @@
     --navigation-text: #a0a0a0;
     --alpha-bg: hsla(0, 0%, 100%, 0.1);
     --border-primary: hsla(0, 0%, 100%, 0.1);
+    --progressbar-active-bg: #fff;
+    --progressbar-player-bg: hsla(0, 0%, 100%, 0.3);
+    --queue-player-popup-bg: #2d2f32;
+    --box-shadow-queue: 0 1px 0 rgba(0, 0, 0, 0.3), 0 1px 6px rgba(0, 0, 0, 0.3),
+      inset 0 1px 1px rgba(25, 255, 255, 0.05);
+    --text-muted: rgba(254, 255, 255, 0.6);
+    --link-text-hover: #c273ed;
+    --primary-bg: #333;
+    --search-text: #eee;
+    --box-item-bg: hsla(0, 0%, 100%, 0.1);
+    --new-release-box-shadow: none;
+    --main-text-stroke: #fff;
   }
 }
 
@@ -98,11 +122,10 @@
   }
   .range::-webkit-slider-thumb {
     appearance: none;
-    background-color: #614646;
+    background-color: var(--progressbar-active-bg);
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    box-shadow: 0 0 5px rgba(255, 194, 39, 0.2);
     cursor: pointer;
     translate: 0 -3px;
     display: var(--thumb-display);
@@ -152,7 +175,7 @@
   }
 
   .text-number {
-    -webkit-text-stroke: 1px #6b3483;
+    -webkit-text-stroke: 1px var(--main-text-stroke);
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
   }

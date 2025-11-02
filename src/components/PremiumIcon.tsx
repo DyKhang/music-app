@@ -1,6 +1,12 @@
 export const PremiumIcon = () => {
   return (
-    <svg width="56" height="14" viewBox="0 0 56 14" fill="none">
+    <svg
+      width="56"
+      height="14"
+      viewBox="0 0 56 14"
+      fill="none"
+      className="flex-shrink-0"
+    >
       <rect width="56" height="14" rx="4" fill="#E5AC1A"></rect>
       <g clipPath="url(#clip0_3541_3928)">
         <path

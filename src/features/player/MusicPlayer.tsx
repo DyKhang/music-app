@@ -20,6 +20,7 @@ import { formatTime } from "../../utils/helper";
 import { ReplayIcon } from "../../components/ReplayIcon";
 import { ReplayOneIcon } from "../../components/ReplayOneIcon";
 import { ToolTip } from "../../components/ToolTip";
+import { useTogglePlay } from "../../hooks/useTogglePlay";
 
 interface Props {
   showKaraoke: boolean;
@@ -34,6 +35,7 @@ export const MusicPlayer: React.FC<Props> = ({ showKaraoke }) => {
   const songRef = useRef<HTMLAudioElement>(new Audio());
 
   const currentSong = useSelector(currentSongSelector);
+  const togglePlay = useTogglePlay();
   const volume = useSelector((state: RootState) => state.player.volume);
   const isPlay = useSelector((state: RootState) => state.player.isPlaying);
   const status = useSelector((state: RootState) => state.player.status);
@@ -57,7 +59,6 @@ export const MusicPlayer: React.FC<Props> = ({ showKaraoke }) => {
 
   useEffect(() => {
     const song = songRef.current;
-
     return () => {
       song.pause();
     };
@@ -87,7 +88,15 @@ export const MusicPlayer: React.FC<Props> = ({ showKaraoke }) => {
     return () => {
       songElement.removeEventListener("ended", handleEndedSong);
     };
-  }, [dispatch, replayStatus, currentIndex, songLength, songRef, isShuffle]);
+  }, [
+    dispatch,
+    replayStatus,
+    currentIndex,
+    songLength,
+    songRef,
+    isShuffle,
+    togglePlay,
+  ]);
 
   // When has the new song, the url of the songRef will be changed
   useEffect(() => {
@@ -109,8 +118,8 @@ export const MusicPlayer: React.FC<Props> = ({ showKaraoke }) => {
     function handleSetRange() {
       setRange((songRef.current.currentTime / songRef.current.duration) * 100);
       dispatch(setCurrentTime(songElement.currentTime));
-
-      inputRef.current!.style.background = `linear-gradient(to right, #614646 ${inputRef.current?.value}%, #c6c4bc ${inputRef.current?.value}%)`;
+      if (inputRef.current)
+        inputRef.current.style.background = `linear-gradient(to right, var(--progressbar-active-bg) 0%, var(--progressbar-active-bg) ${inputRef.current?.value}%, var(--progressbar-player-bg) ${inputRef.current?.value}%, var(--progressbar-player-bg) 100%)`;
     }
 
     songElement.addEventListener("timeupdate", handleSetRange);
@@ -126,14 +135,6 @@ export const MusicPlayer: React.FC<Props> = ({ showKaraoke }) => {
 
   function handleToggleReplay() {
     dispatch(changeReplayStatus());
-  }
-
-  function handlePlaySong() {
-    if (isPlay) {
-      dispatch(togglePlaying(false));
-    } else {
-      dispatch(togglePlaying(true));
-    }
   }
 
   function handlePreviousSong() {
@@ -152,7 +153,7 @@ export const MusicPlayer: React.FC<Props> = ({ showKaraoke }) => {
         <ToolTip title="Bật phát ngẫu nhiên">
           <i
             className={`fa-solid fa-shuffle cursor-pointer ${
-              isShuffle && "text-[#7f4d4d]"
+              isShuffle && "text-purple-primary"
             }`}
             onClick={handleToggleShuffle}
           ></i>
@@ -163,8 +164,8 @@ export const MusicPlayer: React.FC<Props> = ({ showKaraoke }) => {
           onClick={handlePreviousSong}
         ></i>
         <div
-          className={`flex size-[40px] cursor-pointer items-center justify-center rounded-full border-[2px] ${showKaraoke ? "border-white" : "border-[#42424b]"}`}
-          onClick={handlePlaySong}
+          className={`flex size-[40px] cursor-pointer items-center justify-center rounded-full border-[2px] ${showKaraoke ? "border-white" : "border-text-primary"}`}
+          onClick={togglePlay}
         >
           {status === "loading" ? (
             <LoaderSmall color={showKaraoke ? "white" : undefined} />
@@ -209,7 +210,7 @@ export const MusicPlayer: React.FC<Props> = ({ showKaraoke }) => {
           value={range}
           onInput={(e) => {
             const newValue = Number(e.currentTarget.value);
-            e.currentTarget.style.background = `linear-gradient(to right, #614646 ${newValue}%, #c6c4bc ${newValue}%)`;
+            e.currentTarget.style.background = `linear-gradient(to right, var(--progressbar-active-bg) 0%, var(--progressbar-active-bg) ${newValue}%, var(--progressbar-player-bg) ${newValue}%, var(--progressbar-player-bg) 100%)`;
             setRange(Number(newValue));
             songRef.current.currentTime =
               (newValue / 100) * songRef.current.duration;

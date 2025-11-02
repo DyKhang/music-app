@@ -26,9 +26,10 @@ export const Theme: React.FC<Props> = ({ item, type }) => {
   return (
     <div>
       <div
-        className={clsx("group relative overflow-hidden rounded-[5px] border", {
-          "border-purple-primary": isActive,
-        })}
+        className={clsx(
+          "group relative overflow-hidden rounded-[5px] border",
+          isActive ? "border-purple-primary" : "border-transparent",
+        )}
       >
         {isActive && (
           <div className="absolute bottom-[8px] right-[8px] flex size-[20px] items-center justify-center rounded-full bg-purple-primary">

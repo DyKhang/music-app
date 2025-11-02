@@ -9,7 +9,7 @@ export const ArtistList = () => {
   if (!data) return null;
 
   const artistAliases: string[] = [];
-  data?.song.items.forEach((song) =>
+  data?.song.items?.forEach((song) =>
     song.artists.forEach((artist) => {
       if (!artistAliases.includes(artist.alias)) {
         artistAliases.push(artist.alias);

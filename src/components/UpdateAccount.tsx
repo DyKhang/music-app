@@ -26,7 +26,7 @@ export const UpdateAccount = () => {
       <span className="mt-4 text-center text-[1.2rem] font-semibold text-white">
         Nghe nhạc không quảng cáo cùng kho nhạc PREMIUM
       </span>
-      <button className="my-4 rounded-full bg-[#fadb00] px-[16px] py-[6px] text-[1.2rem] font-semibold text-black">
+      <button className="text-black-variable my-4 rounded-full bg-[#fadb00] px-[16px] py-[6px] text-[1.2rem] font-semibold">
         NÂNG CẤP TÀI KHOẢN
       </button>
     </div>

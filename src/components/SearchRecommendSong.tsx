@@ -26,7 +26,7 @@ export const SearchRecommendSong: React.FC<Props> = ({ data }) => {
 
   if (isCurrentSong)
     return (
-      <div className="group/recommend flex cursor-pointer items-center gap-[10px] rounded-[4px] px-[10px] py-[8px] text-[1.4rem] hover:bg-black/5">
+      <div className="group/recommend flex cursor-pointer items-center gap-[10px] rounded-[4px] px-[10px] py-[8px] text-[1.4rem] hover:bg-alpha-bg">
         <div
           className="relative flex flex-shrink-0 items-center justify-center overflow-hidden rounded-[4px]"
           onClick={togglePlay}

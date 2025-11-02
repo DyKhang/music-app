@@ -29,7 +29,7 @@ export const POContentHeader = () => {
         />
         <ThemePicker />
       </div>
-      <div className="m-[10px] h-[1px] bg-[#dedcda]"></div>
+      <div className="m-[10px] h-[1px] bg-border-primary"></div>
       <HoverTag title="Giới thiệu" LeftIcon={() => <InformationCircleIcon />} />
       <HoverTag
         title="Thỏa thuận sử dụng"

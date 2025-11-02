@@ -56,7 +56,7 @@ export const SideBarItem: React.FC<Props> = ({ song }) => {
   const style = {
     transform: CSS.Translate.toString(transform),
     transition,
-    backgroundColor: isDragging ? "#f3f1ed" : "",
+    backgroundColor: isDragging ? "var(--layout-bg)" : "",
     zIndex: isDragging ? "2" : "",
     boxShadow: isDragging ? "rgba(0, 0, 0, 0.35) 0px 5px 15px" : "",
   };
@@ -68,7 +68,7 @@ export const SideBarItem: React.FC<Props> = ({ song }) => {
         style={style}
         className="playlist-item-active sticky top-0 z-[1] overflow-hidden rounded-[5px]"
       >
-        <div className="group/tag bg-purple-primary relative flex items-center gap-[10px] rounded-[5px] p-[8px] text-white">
+        <div className="group/tag relative flex items-center gap-[10px] rounded-[5px] bg-purple-primary p-[8px] text-white">
           <div
             {...attributes}
             {...listeners}
@@ -100,7 +100,7 @@ export const SideBarItem: React.FC<Props> = ({ song }) => {
           <div className="relative ml-auto hidden items-center gap-[8px] group-hover/tag:flex">
             <div
               onClick={() => toggleFavoriteSong()}
-              className="flex size-[26px] cursor-pointer items-center justify-center rounded-full hover:bg-[rgba(0,0,0,0.05)]"
+              className="flex size-[26px] cursor-pointer items-center justify-center rounded-full hover:bg-alpha-bg"
             >
               {song.isLiked && session ? (
                 <HeartIconSolid className="size-[18px] text-white" />
@@ -108,21 +108,21 @@ export const SideBarItem: React.FC<Props> = ({ song }) => {
                 <HeartIcon className="size-[18px]" />
               )}
             </div>
-            <div className="flex size-[26px] cursor-pointer items-center justify-center rounded-full hover:bg-[rgba(0,0,0,0.05)]">
+            <div className="flex size-[26px] cursor-pointer items-center justify-center rounded-full hover:bg-alpha-bg">
               <EllipsisHorizontalIcon className="size-[18px]" />
             </div>
           </div>
         </div>
         {unPlayedSongs[0] && !isDragging && (
-          <div className="bg-layout-bg px-[8px] pb-[5px] pt-[15px] text-[1.4rem] font-[700]">
+          <div className="bg-queue-player-popup-bg px-[8px] pb-[5px] pt-[15px] text-[1.4rem] font-[700]">
             Tiếp theo
             {playListInfo.name && (
               <div className="flex items-center gap-[5px]">
-                <span className="flex-shrink-0 font-[400] text-[rgba(20,20,20,0.4)]">
+                <span className="text-text-muted flex-shrink-0 font-[400]">
                   Từ playlist
                 </span>
                 <span
-                  className="text-text-item-hover line-clamp-1 cursor-pointer font-[500]"
+                  className="text-link-text-hover line-clamp-1 cursor-pointer font-[500]"
                   onClick={() => navigate(`/album/${playListInfo.id}`)}
                 >
                   {playListInfo.name}
@@ -138,7 +138,7 @@ export const SideBarItem: React.FC<Props> = ({ song }) => {
     <div
       ref={setNodeRef}
       style={style}
-      className={`group/tag bg-layout-bg relative flex items-center gap-[10px] rounded-[5px] p-[8px] hover:bg-[rgba(0,0,0,0.05)] ${song.isPlayed && "opacity-40 hover:opacity-100"}`}
+      className={`group/tag relative flex items-center gap-[10px] rounded-[5px] p-[8px] hover:bg-alpha-bg ${song.isPlayed && "opacity-40 hover:opacity-100"}`}
     >
       <div
         className="absolute inset-0 cursor-move"
@@ -157,20 +157,20 @@ export const SideBarItem: React.FC<Props> = ({ song }) => {
         />
       </div>
       <div className="relative flex w-[51%] flex-col gap-[3px]">
-        <span className="hover:text-text-item-hover line-clamp-1 cursor-pointer text-[1.4rem] font-[500]">
+        <span className="hover:text-link-text-hover line-clamp-1 cursor-pointer text-[1.4rem] font-[500]">
           {song.name}
         </span>
-        <span className="hover:text-text-item-hover text-text-secondary line-clamp-1 cursor-pointer text-[1.2rem] hover:underline">
+        <span className="hover:text-link-text-hover line-clamp-1 cursor-pointer text-[1.2rem] text-text-secondary hover:underline">
           {song.singer}
         </span>
       </div>
       <div className="relative ml-auto hidden items-center gap-[8px] group-hover/tag:flex">
         <div
           onClick={() => toggleFavoriteSong()}
-          className="flex size-[26px] cursor-pointer items-center justify-center rounded-full hover:bg-[rgba(0,0,0,0.05)]"
+          className="flex size-[26px] cursor-pointer items-center justify-center rounded-full hover:bg-alpha-bg"
         >
           {song.isLiked && session ? (
-            <HeartIconSolid className="text-text-item-hover size-[18px]" />
+            <HeartIconSolid className="size-[18px] text-purple-primary" />
           ) : (
             <HeartIcon className="size-[18px]" />
           )}
@@ -179,7 +179,7 @@ export const SideBarItem: React.FC<Props> = ({ song }) => {
         <PopOvers.PopOver>
           <>
             <PopOvers.Button open={`side-bar-${song.encodeId}`}>
-              <div className="flex size-[26px] cursor-pointer items-center justify-center rounded-full hover:bg-[rgba(0,0,0,0.05)]">
+              <div className="flex size-[26px] cursor-pointer items-center justify-center rounded-full hover:bg-alpha-bg">
                 <EllipsisHorizontalIcon className="size-[18px]" />
               </div>
             </PopOvers.Button>

@@ -3,7 +3,7 @@ interface Props {
 }
 
 export const ReplayIcon: React.FC<Props> = ({ isReplayPlayList }) => {
-  const color = isReplayPlayList ? "#7f4d4d" : "currentColor";
+  const color = isReplayPlayList ? "var(--purple-primary)" : "currentColor";
 
   return (
     <svg

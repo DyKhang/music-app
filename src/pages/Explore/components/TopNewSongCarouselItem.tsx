@@ -23,12 +23,7 @@ export const TopNewSongCarouselItem: React.FC<Props> = ({ item, index }) => {
 
   if (isCurrentSong)
     return (
-      <div
-        style={{
-          boxShadow: "0 2px 10px 0 hsla(0,0%,81.2%,0.4)",
-        }}
-        className="group/item m-[10px] h-[150px] cursor-pointer rounded-[4px] bg-[hsla(0,0%,100%,0.3)] p-[5px]"
-      >
+      <div className="group/item m-[10px] h-[150px] cursor-pointer rounded-[4px] bg-box-item-bg p-[5px] shadow-new-release-box-shadow">
         <div className="flex gap-[10px] p-[10px]">
           <div className="group/img relative flex size-[120px] items-center justify-center overflow-hidden rounded-[4px]">
             <img
@@ -56,6 +51,7 @@ export const TopNewSongCarouselItem: React.FC<Props> = ({ item, index }) => {
                   alias: item.alias,
                   name: item.name,
                 }))}
+                className="hover:text-link-text-hover"
               />
             </div>
 
@@ -63,7 +59,7 @@ export const TopNewSongCarouselItem: React.FC<Props> = ({ item, index }) => {
               <span className="text-number font-robo text-[4rem] font-[900] leading-none text-transparent opacity-40">
                 #{index + 1}
               </span>
-              <span className="text-text-secondary text-[1.4rem]">
+              <span className="text-[1.4rem] text-text-secondary">
                 {timestampToFormat(item.releasedAt)}
               </span>
             </div>
@@ -73,12 +69,7 @@ export const TopNewSongCarouselItem: React.FC<Props> = ({ item, index }) => {
     );
 
   return (
-    <div
-      style={{
-        boxShadow: "0 2px 10px 0 hsla(0,0%,81.2%,0.4)",
-      }}
-      className="group/item m-[10px] h-[150px] cursor-pointer rounded-[4px] bg-[hsla(0,0%,100%,0.3)] p-[5px]"
-    >
+    <div className="group/item m-[10px] h-[150px] cursor-pointer rounded-[4px] bg-box-item-bg p-[5px] shadow-new-release-box-shadow">
       <div className="flex gap-[10px] p-[10px]">
         <div className="group/img relative flex size-[120px] items-center justify-center overflow-hidden rounded-[4px]">
           <img
@@ -104,13 +95,14 @@ export const TopNewSongCarouselItem: React.FC<Props> = ({ item, index }) => {
                 alias: item.alias,
                 name: item.name,
               }))}
+              className="hover:text-link-text-hover"
             />
           </div>
           <div className="mt-auto flex items-baseline justify-between">
             <span className="text-number font-robo text-[4rem] font-[900] leading-none text-transparent opacity-40">
               #{index + 1}
             </span>
-            <span className="text-text-secondary text-[1.4rem]">
+            <span className="text-[1.4rem] text-text-secondary">
               {timestampToFormat(item.releasedAt)}
             </span>
           </div>

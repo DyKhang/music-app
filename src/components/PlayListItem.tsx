@@ -8,16 +8,24 @@ import { useSelector } from "react-redux";
 import { AudioAnimation } from "./AudioAnimation";
 import { useTogglePlay } from "../hooks/useTogglePlay";
 import { useIsCurrentPlayList } from "../hooks/useCurrentPlayList";
+import { ArtistsSpan } from "./ArtistsSpan";
+
+type Artist = { alias: string; name: string };
+
+type BaseItem = {
+  encodeId: string;
+  thumbnailM: string;
+  title: string;
+};
+
+type Item = BaseItem & {
+  sortDescription?: string;
+  releaseDate?: number;
+  artists: Artist[];
+};
 
 interface Props {
-  item: {
-    encodeId: string;
-    thumbnailM: string;
-    sortDescription: string;
-    title: string;
-    artistsNames: string;
-    releaseDate: number;
-  };
+  item: Item;
   type?: "desc" | "date" | "artist";
 }
 
@@ -73,28 +81,42 @@ export const PlayListItem: React.FC<Props> = ({ item, type = "desc" }) => {
           </div>
         </div>
         {type === "desc" && (
-          <p className="playlist-item__desc text-text-secondary mt-[12px] text-[1.4rem] font-[400]">
+          <p className="playlist-item__desc mt-[12px] text-[1.4rem] font-[400] text-text-secondary">
             {item.sortDescription}
           </p>
         )}
         {type === "date" && (
           <>
-            <p className="oneline-letters text-text-primary mb-[4px] mt-[12px] text-[1.4rem] font-[700]">
+            <p
+              onClick={() => navigate(`/album/${item.encodeId}`)}
+              title={item.title}
+              className="mb-[4px] mt-[12px] line-clamp-1 cursor-pointer text-[1.4rem] font-[700] text-text-primary hover:text-link-text-hover"
+            >
               {item.title}
             </p>
-            <p className="text-text-secondary text-[1.4rem] font-[400]">
+            <p className="text-[1.4rem] font-[400] text-text-secondary">
               {item.releaseDate}
             </p>
           </>
         )}
         {type === "artist" && (
           <>
-            <p className="oneline-letters text-text-primary mb-[4px] mt-[12px] text-[1.4rem] font-[700]">
+            <p
+              title={item.title}
+              onClick={() => navigate(`/album/${item.encodeId}`)}
+              className="mb-[4px] mt-[12px] line-clamp-1 cursor-pointer text-[1.4rem] font-[700] text-text-primary hover:text-link-text-hover"
+            >
               {item.title}
             </p>
-            <p className="text-text-secondary text-[1.4rem] font-[400]">
-              {item.artistsNames}
-            </p>
+            <div className="flex flex-wrap items-center gap-[4px]">
+              <ArtistsSpan
+                artists={item.artists.slice(0, 4).map((item) => ({
+                  alias: item.alias,
+                  name: item.name,
+                }))}
+                className="cursor-pointer text-[1.2rem] text-text-secondary hover:text-link-text-hover hover:underline"
+              />
+            </div>
           </>
         )}
       </div>
@@ -134,28 +156,42 @@ export const PlayListItem: React.FC<Props> = ({ item, type = "desc" }) => {
         </div>
       </div>
       {type === "desc" && (
-        <p className="playlist-item__desc text-text-secondary mt-[12px] text-[1.4rem] font-[400]">
+        <p className="playlist-item__desc mt-[12px] text-[1.4rem] font-[400] text-text-secondary">
           {item.sortDescription}
         </p>
       )}
       {type === "date" && (
         <>
-          <p className="oneline-letters text-text-primary mb-[4px] mt-[12px] text-[1.4rem] font-[700]">
+          <p
+            title={item.title}
+            onClick={() => navigate(`/album/${item.encodeId}`)}
+            className="mb-[4px] mt-[12px] line-clamp-1 cursor-pointer text-[1.4rem] font-[700] text-text-primary hover:text-link-text-hover"
+          >
             {item.title}
           </p>
-          <p className="text-text-secondary text-[1.4rem] font-[400]">
+          <p className="text-[1.4rem] font-[400] text-text-secondary">
             {item.releaseDate}
           </p>
         </>
       )}
       {type === "artist" && (
         <>
-          <p className="oneline-letters text-text-primary mb-[4px] mt-[12px] text-[1.4rem] font-[700]">
+          <p
+            title={item.title}
+            onClick={() => navigate(`/album/${item.encodeId}`)}
+            className="mb-[4px] mt-[12px] line-clamp-1 cursor-pointer text-[1.4rem] font-[700] text-text-primary hover:text-link-text-hover"
+          >
             {item.title}
           </p>
-          <p className="text-text-secondary text-[1.4rem] font-[400]">
-            {item.artistsNames}
-          </p>
+          <div className="flex flex-wrap items-center gap-[4px]">
+            <ArtistsSpan
+              artists={item.artists.slice(0, 4).map((item) => ({
+                alias: item.alias,
+                name: item.name,
+              }))}
+              className="cursor-pointer text-[1.2rem] text-text-secondary hover:text-link-text-hover hover:underline"
+            />
+          </div>
         </>
       )}
     </div>

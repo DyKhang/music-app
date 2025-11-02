@@ -4,7 +4,9 @@ interface Props {
   color?: string;
 }
 
-export const LoaderSmall: React.FC<Props> = ({ color = "#32323d" }) => {
+export const LoaderSmall: React.FC<Props> = ({
+  color = "var(--text-primary)",
+}) => {
   return (
     <RotatingLines
       visible={true}

@@ -1,8 +1,4 @@
-import {
-  EllipsisHorizontalIcon,
-  HeartIcon,
-  PlusIcon,
-} from "@heroicons/react/24/outline";
+import { EllipsisHorizontalIcon, HeartIcon } from "@heroicons/react/24/outline";
 import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid";
 import { useEffect, useState } from "react";
 import { MusicPlayer } from "../features/player/MusicPlayer";
@@ -22,6 +18,7 @@ import {
 import { ToolTip } from "../components/ToolTip";
 import { useLocation } from "react-router";
 import { useToggleFavoriteSong } from "../features/user/useToggleFavoriteSong";
+import { Plus } from "./icons/Plus";
 
 const disablePlayerPaths = ["/sign-in", "/sign-up"];
 
@@ -65,18 +62,14 @@ export const Player = () => {
     <>
       {session && (
         <div
-          className={`group/new-playlist fixed ${(disableAll || disableAddPlaylist) && "invisible"} hidden xl:flex ${name && "translate-y-[-90px]"} bottom-[0px] left-0 z-50 w-[240px] cursor-pointer items-center gap-3 border-t-[1px] border-[#c3c1be] bg-[#d9d7d4] px-[24px] py-[16px] transition duration-300`}
+          className={`fixed ${(disableAll || disableAddPlaylist) && "invisible"} hidden text-navigation-text xl:flex ${name && "translate-y-[-90px]"} bottom-[0px] left-0 z-50 w-[240px] cursor-pointer items-center gap-3 border-t-[0.5px] border-border-primary px-[24px] py-[16px] transition duration-300 hover:text-text-item-hover`}
         >
-          <div className="flex flex-shrink-0 items-center justify-center rounded-xl bg-[#b2b0ae] p-[2px]">
-            <PlusIcon className="size-[20px] text-white transition-transform duration-[300ms] group-hover/new-playlist:scale-[80%]" />
-          </div>
-          <span className="text-[1.4rem] font-medium text-black group-hover/new-playlist:text-[#5f4646]">
-            Tạo playlist mới
-          </span>
+          <Plus />
+          <span className="text-[1.4rem] font-medium">Tạo playlist mới</span>
         </div>
       )}
       <div
-        className={`fixed ${disableAll && "invisible"} ${name && "translate-y-[-90px]"} bottom-[-90px] z-[56] w-full bg-[#dddad1] transition duration-300 ${showKaraoke && "bg-transparent"}`}
+        className={`fixed ${disableAll && "invisible"} ${name && "translate-y-[-90px]"} bottom-[-90px] z-[56] w-full bg-layout-bg transition duration-300 ${showKaraoke && "bg-transparent"}`}
       >
         <div className="relative flex h-[135px] select-none items-center justify-between px-[20px] sm:h-[90px]">
           <div className={`flex items-center ${showKaraoke && "invisible"}`}>
@@ -97,12 +90,12 @@ export const Player = () => {
               <ToolTip title="Thêm vào thư viện">
                 {isLiked && session ? (
                   <HeartIconSolid
-                    className="ml-8 size-[18px] cursor-pointer text-text-item-hover"
+                    className="ml-8 size-[18px] cursor-pointer text-purple-primary"
                     onClick={() => toggleFavoriteSong()}
                   />
                 ) : (
                   <HeartIcon
-                    className="ml-8 size-[18px] cursor-pointer text-[#4d4c54]"
+                    className="ml-8 size-[18px] cursor-pointer"
                     onClick={() => toggleFavoriteSong()}
                   />
                 )}

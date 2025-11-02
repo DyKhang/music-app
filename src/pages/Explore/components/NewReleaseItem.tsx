@@ -15,6 +15,7 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "../../../components/DropDown";
+import clsx from "clsx";
 
 interface Props {
   data: NewReleasesItemChild;
@@ -44,11 +45,15 @@ export const NewReleaseItem: React.FC<Props> = ({ data }) => {
       togglePlay();
     }
   }
-  isPlaying;
 
   return (
     <div
-      className={`group/tag relative flex gap-[10px] rounded-[5px] p-[10px] hover:bg-[rgba(0,0,0,0.05)] ${currentPlay && "bg-[rgba(0,0,0,0.05)]"}`}
+      className={clsx(
+        "group relative flex items-center gap-[10px] rounded-[5px] p-[10px] hover:bg-[rgba(0,0,0,0.05)]",
+        {
+          "bg-[rgba(0,0,0,0.05)]": currentPlay,
+        },
+      )}
     >
       <div
         className="relative flex size-[60px] flex-shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-lg"
@@ -56,8 +61,11 @@ export const NewReleaseItem: React.FC<Props> = ({ data }) => {
       >
         <img src={thumbnailM} alt="" className="w-full object-cover" />
         <div
-          className={`absolute inset-0 bg-[rgba(0,0,0,0.5)] group-hover/tag:block ${currentPlay ? "block" : "hidden"}`}
-        ></div>
+          className={clsx(
+            "absolute inset-0 bg-[rgba(0,0,0,0.5)] group-hover:block",
+            currentPlay ? "block" : "hidden",
+          )}
+        />
         {currentPlay && isPlaying ? (
           <AudioAnimation />
         ) : currentPlay ? (
@@ -68,31 +76,41 @@ export const NewReleaseItem: React.FC<Props> = ({ data }) => {
         ) : (
           <FontAwesomeIcon
             icon={faPlay}
-            className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 text-white group-hover/tag:block"
+            className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 text-white group-hover:block"
           />
         )}
       </div>
-      <div className="flex flex-col gap-[3px]">
-        <span className="hover:text-text-item-hover line-clamp-1 flex cursor-pointer items-center gap-[8px] text-[1.4rem] font-[500]">
-          {title}
+
+      <div className="flex min-w-0 flex-col gap-[3px]">
+        <div className="flex w-full items-center gap-[4px] hover:text-text-item-hover">
+          <span
+            className="cursor-pointer truncate text-[1.4rem] font-[500] hover:text-link-text-hover"
+            title={title}
+          >
+            {title}
+          </span>
+
           {streamingStatus === StreamingStatus.premium && <PremiumIcon />}
-        </span>
+        </div>
+
         <div className="flex flex-wrap items-center gap-[4px]">
           <ArtistsSpan
-            artists={artists.slice(0, 3).map((item) => ({
-              alias: item.alias,
-              name: item.name,
+            artists={artists.slice(0, 3).map((a) => ({
+              alias: a.alias,
+              name: a.name,
             }))}
-            className="hover:text-text-item-hover text-text-secondary cursor-pointer text-[1.2rem] hover:underline"
+            className="cursor-pointer text-[1.2rem] text-text-secondary hover:text-link-text-hover hover:underline"
           />
         </div>
-        <span className="text-text-secondary text-[1.2rem]">
+
+        <span className="text-[1.2rem] text-text-secondary">
           {numDays > 1 ? `${numDays} ngày trước` : "Hôm qua"}
         </span>
       </div>
+
       <DropdownMenu>
-        <DropdownMenuTrigger>
-          <div className="invisible absolute right-8 top-1/2 flex size-[40px] -translate-y-1/2 cursor-pointer items-center justify-center rounded-full hover:bg-[rgba(0,0,0,0.05)] group-hover/tag:visible">
+        <DropdownMenuTrigger className="ml-auto">
+          <div className="hidden size-[40px] cursor-pointer items-center justify-center rounded-full hover:bg-alpha-bg group-hover:flex">
             <FontAwesomeIcon icon={faEllipsis} />
           </div>
         </DropdownMenuTrigger>

@@ -44,8 +44,8 @@ export const Header = () => {
         <DropdownMenu>
           <DropdownMenuTrigger>
             <ToolTip title="Cài đặt">
-              <div className="relative hidden size-[40px] cursor-pointer items-center justify-center rounded-full bg-[#d9d7d4] sm:flex">
-                <Cog8ToothIcon className="size-[22px] text-[#4c5259]" />
+              <div className="relative hidden size-[40px] cursor-pointer items-center justify-center rounded-full bg-alpha-bg sm:flex">
+                <Cog8ToothIcon className="size-[22px]" />
               </div>
             </ToolTip>
           </DropdownMenuTrigger>

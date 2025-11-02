@@ -2,7 +2,7 @@ import { themes } from "../constants/data";
 import { DialogHeader } from "./Dialog";
 import { ThemeGroup } from "./ThemeGroup";
 
-export const ThemePickerModal = () => {
+export const ThemePickerDialog = () => {
   return (
     <>
       <DialogHeader className="flex px-[30px] py-[20px] text-[2.4rem] font-bold">

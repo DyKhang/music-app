@@ -28,18 +28,7 @@ export const PlayList: React.FC<Props> = ({ data, hasLink, type }) => {
         {data?.items.map(
           (item, index) =>
             index <= 4 && (
-              <PlayListItem
-                item={{
-                  artistsNames: item.artistsNames,
-                  encodeId: item.encodeId,
-                  sortDescription: item.sortDescription,
-                  thumbnailM: item.thumbnailM,
-                  title: item.title,
-                  releaseDate: 0,
-                }}
-                key={item.encodeId}
-                type={type}
-              />
+              <PlayListItem item={item} key={item.encodeId} type={type} />
             ),
         )}
       </div>

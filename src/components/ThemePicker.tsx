@@ -1,7 +1,7 @@
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import { Switch } from "./Switch";
 import { Dialog, DialogContent, DialogTrigger } from "./Dialog";
-import { ThemePickerModal } from "./ThemePickerModal";
+import { ThemePickerDialog } from "./ThemePickerDialog";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
 import { themes } from "../constants/data";
@@ -19,11 +19,11 @@ export const ThemePicker = () => {
   const targetTheme = flatThemes.find((item) => item.value === currentTheme);
 
   return (
-    <div className="absolute right-full top-0 hidden w-[300px] rounded-xl bg-white p-[9px] shadow-md group-hover:block">
+    <div className="absolute right-full top-0 hidden w-[300px] rounded-xl bg-primary-bg p-[9px] shadow-md group-hover:block">
       <Dialog>
         <DialogTrigger className="w-full">
           <div className="group/theme cursor-pointer">
-            <div className="flex items-center justify-between group-hover/theme:text-purple-primary">
+            <div className="flex items-center justify-between text-text-secondary group-hover/theme:text-text-item-hover">
               <p className="text-[1.4rem]">Chủ đề</p>
               <ChevronRightIcon className="size-[20px]" />
             </div>
@@ -32,7 +32,7 @@ export const ThemePicker = () => {
                 style={{
                   backgroundImage: `url(${targetTheme?.backgroundImage})`,
                 }}
-                className="h-[60px] w-[100px] rounded-[3px]"
+                className="h-[60px] w-[100px] rounded-[3px] border border-border-primary"
               ></div>
               <p className="font-bold">
                 {capitalizeFirstLetter(targetTheme?.label)}
@@ -44,11 +44,11 @@ export const ThemePicker = () => {
           closeButtonSize={30}
           className="w-full max-w-[900px] gap-0 p-0 pb-[20px] sm:max-w-[900px]"
         >
-          <ThemePickerModal />
+          <ThemePickerDialog />
         </DialogContent>
       </Dialog>
-      <div className="mt-4 h-[1px] bg-[rgba(0,0,0,0.05)]"></div>
-      <div className="mt-4 flex items-center justify-between">
+      <div className="mt-4 h-[1px] bg-border-primary"></div>
+      <div className="mt-4 flex items-center justify-between text-text-secondary hover:text-text-item-hover">
         <p className="text-[1.4rem]">Hiệu ứng chuyển động</p>
         <Switch />
       </div>

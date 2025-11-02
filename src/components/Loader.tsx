@@ -5,7 +5,7 @@ export const Loader = () => {
     <Bars
       height="60"
       width="60"
-      color="#614646"
+      color="var(--purple-primary)"
       ariaLabel="bars-loading"
       wrapperClass="flex justify-center items-center h-full"
       visible={true}
