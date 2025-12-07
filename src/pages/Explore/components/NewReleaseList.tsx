@@ -18,7 +18,6 @@ interface Props {
 
 export const NewReleaseList: React.FC<Props> = ({ data }) => {
   const [status, setStatus] = useState<"all" | "vPop" | "others">("all");
-
   return (
     <section>
       <h2 className="text-[2rem] font-bold">

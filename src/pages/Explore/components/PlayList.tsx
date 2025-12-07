@@ -11,6 +11,7 @@ interface Props {
 }
 
 export const PlayList: React.FC<Props> = ({ data, hasLink, type }) => {
+  if (!data) return null;
   return (
     <section>
       <div className="flex items-center justify-between">

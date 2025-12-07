@@ -4,7 +4,7 @@ import { QUERY_KEY } from "../../constants/queryKey";
 
 export const useSuggest = () => {
   return useQuery({
-    queryKey: [QUERY_KEY.suggest],
+    queryKey: [QUERY_KEY.SUGGEST],
     queryFn: searchApi.getSuggest,
   });
 };

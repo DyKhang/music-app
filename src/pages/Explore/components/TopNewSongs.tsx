@@ -10,7 +10,7 @@ interface Props {
 
 export const TopNewSongs: React.FC<Props> = ({ data }) => {
   return (
-    <>
+    <div>
       <div className="mb-[10px] flex items-center justify-between">
         <h2 className="text-[2rem] font-bold">
           {capitalizeFirstLetter(data?.title)}
@@ -21,6 +21,6 @@ export const TopNewSongs: React.FC<Props> = ({ data }) => {
         </div>
       </div>
       <TopNewSongsCarousel items={data?.items} />
-    </>
+    </div>
   );
 };

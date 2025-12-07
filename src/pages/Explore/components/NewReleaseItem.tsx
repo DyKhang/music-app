@@ -93,15 +93,12 @@ export const NewReleaseItem: React.FC<Props> = ({ data }) => {
           {streamingStatus === StreamingStatus.premium && <PremiumIcon />}
         </div>
 
-        <div className="flex flex-wrap items-center gap-[4px]">
+        <p className="truncate">
           <ArtistsSpan
-            artists={artists.slice(0, 3).map((a) => ({
-              alias: a.alias,
-              name: a.name,
-            }))}
-            className="cursor-pointer text-[1.2rem] text-text-secondary hover:text-link-text-hover hover:underline"
+            artists={artists}
+            className="cursor-pointer truncate text-[1.2rem] text-text-secondary hover:text-link-text-hover hover:underline"
           />
-        </div>
+        </p>
 
         <span className="text-[1.2rem] text-text-secondary">
           {numDays > 1 ? `${numDays} ngày trước` : "Hôm qua"}

@@ -1,5 +1,6 @@
-import { Loader } from "../../components/Loader";
 import { NewReleaseListSkeleton } from "../../components/skeletons/NewReleaseListSkeleton";
+import { PlayListSkeleton } from "../../components/skeletons/PlayListSkeleton";
+import { WithSkeleton } from "../../components/WithSkeleton";
 import { useAlbumHot } from "../../features/home/useAlbumHot";
 import { useChart } from "../../features/home/useChart";
 import { useChills } from "../../features/home/useChills";
@@ -17,59 +18,43 @@ export const Explore = () => {
   const { data: chills, isLoading: chillsLoading } = useChills();
   const { data: top100, isLoading: top100Loading } = useTop100();
   const { data: albumHot, isLoading: albumHotLoading } = useAlbumHot();
-  const { data: topSongs, isLoading: topSongLoading } = useTopSongs();
-  const { data: chart, isLoading: chartLoading } = useChart();
+  const { data: topSongs } = useTopSongs();
+  const { data: chart } = useChart();
   const { data: newRelease, isLoading: newReleaseLoading } = useNewRelease();
 
-  if (
-    trendingLoading ||
-    chillsLoading ||
-    albumHotLoading ||
-    top100Loading ||
-    topSongLoading ||
-    newReleaseLoading ||
-    chartLoading
-  )
-    return <Loader />;
-
   return (
-    <section className="pt-[70px]">
-      <div>
+    <section className="space-y-[48px] pt-[70px]">
+      <WithSkeleton
+        isLoading={newReleaseLoading}
+        skeleton={<NewReleaseListSkeleton />}
+      >
         <NewReleaseList data={newRelease} />
+      </WithSkeleton>
+
+      <WithSkeleton isLoading={trendingLoading} skeleton={<PlayListSkeleton />}>
+        <PlayList data={trendingData} />
+      </WithSkeleton>
+
+      <WithSkeleton isLoading={chillsLoading} skeleton={<PlayListSkeleton />}>
+        <PlayList data={chills} />
+      </WithSkeleton>
+
+      <WithSkeleton isLoading={top100Loading} skeleton={<PlayListSkeleton />}>
+        <PlayList data={top100} />
+      </WithSkeleton>
+
+      <WithSkeleton isLoading={albumHotLoading} skeleton={<PlayListSkeleton />}>
+        <PlayList data={albumHot} />
+      </WithSkeleton>
+
+      {topSongs && <TopNewSongs data={topSongs} />}
+
+      <div className="space-y-[38px]">
+        {chart && <ZingChart data={chart} />}
+        {top100 && <PlayList data={top100} type="artist" />}
       </div>
 
-      <NewReleaseListSkeleton />
-
-      {trendingData && (
-        <div className="mt-[48px]">
-          <PlayList data={trendingData} />
-        </div>
-      )}
-      {chills && (
-        <div className="mt-[48px]">
-          <PlayList data={chills} hasLink />
-        </div>
-      )}
-      {topSongs && (
-        <div className="mt-[48px]">
-          <TopNewSongs data={topSongs} />
-        </div>
-      )}
-      {chart && (
-        <div className="mt-[38px]">
-          <ZingChart data={chart} />
-        </div>
-      )}
-      {top100 && (
-        <div className="mt-[38px]">
-          <PlayList data={top100} hasLink type="artist" />
-        </div>
-      )}
-      {albumHot && (
-        <div className="mt-[48px]">
-          <PlayList data={albumHot} type="artist" />
-        </div>
-      )}
+      {albumHot && <PlayList data={albumHot} type="artist" />}
     </section>
   );
 };
