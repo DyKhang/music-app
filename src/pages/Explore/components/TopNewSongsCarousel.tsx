@@ -58,9 +58,9 @@ export const TopNewSongsCarousel: React.FC<Props> = ({ items }) => {
   const settings: Settings = {
     dots: false,
     infinite: false,
-    speed: 300,
+    speed: 500,
     slidesToShow: 3,
-    slidesToScroll: 3,
+    slidesToScroll: 1,
     afterChange(currentSlide) {
       setCurrentSlide(currentSlide);
     },

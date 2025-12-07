@@ -13,7 +13,7 @@ export const Skeleton: React.FC<Props> = ({ className, children }) => {
   return (
     <div
       className={cn(
-        "animate-pulse text-transparent",
+        "animate-pulse rounded text-transparent",
         isDark ? "bg-gray-700" : "bg-gray-300",
         className,
       )}

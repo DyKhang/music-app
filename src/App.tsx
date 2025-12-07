@@ -19,7 +19,9 @@ import { Favorite } from "./pages/Favorite/Favorite";
 import { ProtectedRoute } from "./ui/ProtectedRoute";
 
 const queryClient = new QueryClient({
-  defaultOptions: { queries: { refetchOnWindowFocus: false } },
+  defaultOptions: {
+    queries: { refetchOnWindowFocus: false },
+  },
 });
 
 const router = createBrowserRouter([

@@ -1,5 +1,6 @@
 import { NewReleaseListSkeleton } from "../../components/skeletons/NewReleaseListSkeleton";
 import { PlayListSkeleton } from "../../components/skeletons/PlayListSkeleton";
+import { TopNewSongsSkeleton } from "../../components/skeletons/TopNewSongsSkeleton";
 import { WithSkeleton } from "../../components/WithSkeleton";
 import { useAlbumHot } from "../../features/home/useAlbumHot";
 import { useChart } from "../../features/home/useChart";
@@ -18,7 +19,7 @@ export const Explore = () => {
   const { data: chills, isLoading: chillsLoading } = useChills();
   const { data: top100, isLoading: top100Loading } = useTop100();
   const { data: albumHot, isLoading: albumHotLoading } = useAlbumHot();
-  const { data: topSongs } = useTopSongs();
+  const { data: topSongs, isLoading: topSongsLoading } = useTopSongs();
   const { data: chart } = useChart();
   const { data: newRelease, isLoading: newReleaseLoading } = useNewRelease();
 
@@ -47,7 +48,12 @@ export const Explore = () => {
         <PlayList data={albumHot} />
       </WithSkeleton>
 
-      {topSongs && <TopNewSongs data={topSongs} />}
+      <WithSkeleton
+        isLoading={topSongsLoading}
+        skeleton={<TopNewSongsSkeleton />}
+      >
+        <TopNewSongs data={topSongs} />
+      </WithSkeleton>
 
       <div className="space-y-[38px]">
         {chart && <ZingChart data={chart} />}

@@ -11,9 +11,13 @@ type Props = {
       backgroundImage: string;
     }[];
   };
+  handleSetPrevTheme: (theme: {
+    type: "dark" | "light";
+    value: string;
+  }) => void;
 };
 
-export const ThemeGroup: React.FC<Props> = ({ item }) => {
+export const ThemeGroup: React.FC<Props> = ({ item, handleSetPrevTheme }) => {
   return (
     <div>
       <p className="mb-[10px] text-[1.8rem] font-bold">
@@ -27,6 +31,7 @@ export const ThemeGroup: React.FC<Props> = ({ item }) => {
             type={
               item.type.toLowerCase().includes("màu tối") ? "dark" : "light"
             }
+            handleSetPrevTheme={handleSetPrevTheme}
           />
         ))}
       </div>

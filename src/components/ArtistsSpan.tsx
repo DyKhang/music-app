@@ -16,10 +16,9 @@ export const ArtistsSpan: React.FC<Props> = ({
   const navigate = useNavigate();
 
   return artists?.map((item, index) => (
-    <>
+    <span key={index}>
       <span
         onClick={() => navigate(`/nghe-si/${item.alias}`)}
-        key={item.alias}
         className={cn(
           "cursor-pointer text-[1.2rem] text-text-secondary hover:text-text-item-hover hover:underline",
           className,
@@ -30,6 +29,6 @@ export const ArtistsSpan: React.FC<Props> = ({
       {index !== artists.length - 1 && (
         <span className="text-[1.2rem] text-text-secondary">, </span>
       )}
-    </>
+    </span>
   ));
 };

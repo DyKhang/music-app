@@ -13,15 +13,19 @@ type Props = {
     backgroundImage: string;
   };
   type: "dark" | "light";
+  handleSetPrevTheme: (theme: {
+    type: "dark" | "light";
+    value: string;
+  }) => void;
 };
 
-export const Theme: React.FC<Props> = ({ item, type }) => {
-  const currentTheme = useSelector((state: RootState) => state.theme.value);
+export const Theme: React.FC<Props> = ({ item, type, handleSetPrevTheme }) => {
+  const currentTheme = useSelector((state: RootState) => state.theme);
   const dispatch = useAppDispatch();
   const handleChangeTheme = () => {
     dispatch(setTheme({ type, value: item.value }));
   };
-  const isActive = currentTheme === item.value;
+  const isActive = currentTheme.value === item.value;
 
   return (
     <div>
@@ -49,7 +53,13 @@ export const Theme: React.FC<Props> = ({ item, type }) => {
           >
             Áp dụng
           </div>
-          <div className="w-[100px] cursor-pointer rounded-full border border-white py-[5px] text-center hover:brightness-90">
+          <div
+            onClick={() => {
+              handleSetPrevTheme(currentTheme);
+              handleChangeTheme();
+            }}
+            className="w-[100px] cursor-pointer rounded-full border border-white py-[5px] text-center hover:brightness-90"
+          >
             Xem trước
           </div>
         </div>

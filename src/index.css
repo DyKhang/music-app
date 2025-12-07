@@ -180,16 +180,6 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  .slick-slide > div {
-    margin: 0 4px;
-  }
-  .slick-list {
-    margin: 0 -4px;
-  }
-  .slick-slider.slick-initialized {
-    margin: 0 -10px 0 -10px;
-  }
-
   .is-mark {
     -webkit-mask-image: linear-gradient(
       180deg,
