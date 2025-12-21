@@ -7,10 +7,18 @@ import { RootState } from "../store";
 import { useEffect } from "react";
 
 export const LayoutAllPage = () => {
-  const currentTheme = useSelector((state: RootState) => state.theme.value);
+  const currentTheme = useSelector(
+    (state: RootState) => state.theme.current.value,
+  );
+  const previewTheme = useSelector(
+    (state: RootState) => state.theme.preview?.value,
+  );
   useEffect(() => {
-    document.documentElement.setAttribute("data-theme", currentTheme);
-  }, [currentTheme]);
+    document.documentElement.setAttribute(
+      "data-theme",
+      previewTheme ?? currentTheme,
+    );
+  }, [currentTheme, previewTheme]);
   return (
     <Modal>
       <PopOvers>

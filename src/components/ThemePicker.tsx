@@ -3,18 +3,18 @@ import { Switch } from "./Switch";
 import { Dialog, DialogContent, DialogTrigger } from "./Dialog";
 import { ThemePickerDialog } from "./ThemePickerDialog";
 import { useSelector } from "react-redux";
-import { RootState } from "../store";
+import { RootState, useAppDispatch } from "../store";
 import { themes } from "../constants/data";
 import { capitalizeFirstLetter } from "../utils/helper";
 import { useState } from "react";
+import { setPreviewTheme } from "../features/theme/themeSlice";
 
 export const ThemePicker = () => {
   const [open, setOpen] = useState(false);
-  const [prevTheme, setPrevTheme] = useState<null | {
-    type: "dark" | "light";
-    value: string;
-  }>(null);
-  const currentTheme = useSelector((state: RootState) => state.theme.value);
+  const dispatch = useAppDispatch();
+  const currentTheme = useSelector(
+    (state: RootState) => state.theme.current.value,
+  );
   const flatThemes = themes.reduce<
     {
       label: string;
@@ -23,19 +23,15 @@ export const ThemePicker = () => {
     }[]
   >((prev, curr) => [...prev, ...curr.colors], []);
   const targetTheme = flatThemes.find((item) => item.value === currentTheme);
-  const handleSetPrevTheme = (theme: {
-    type: "dark" | "light";
-    value: string;
-  }) => {
-    setPrevTheme(theme);
+  const handleDeletePreviousTheme = () => {
+    dispatch(setPreviewTheme(null));
   };
-
-  console.log(prevTheme);
   return (
     <div className="absolute right-full top-0 hidden w-[300px] rounded-xl bg-primary-bg p-[9px] shadow-md group-hover:block">
       <Dialog
         open={open}
         onOpenChange={(open) => {
+          if (!open) handleDeletePreviousTheme();
           setOpen(open);
         }}
       >
@@ -62,7 +58,7 @@ export const ThemePicker = () => {
           closeButtonSize={30}
           className="w-full max-w-[900px] gap-0 p-0 pb-[20px] sm:max-w-[900px]"
         >
-          <ThemePickerDialog handleSetPrevTheme={handleSetPrevTheme} />
+          <ThemePickerDialog setOpen={setOpen} />
         </DialogContent>
       </Dialog>
       <div className="mt-4 h-[1px] bg-border-primary"></div>

@@ -8,39 +8,39 @@ import { PersistGate } from "redux-persist/integration/react";
 import React from "react";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <PersistGate persistor={persistor}>
-        <App />
-        <Toaster
-          reverseOrder={true}
-          gutter={8}
-          toastOptions={{
-            duration: 4000,
-            success: {
-              style: {
-                padding: "12px",
-              },
-              position: "bottom-left",
-              iconTheme: {
-                primary: "var(--purple-primary)",
-                secondary: "white",
-              },
-            },
-            error: {
-              style: {
-                padding: "12px",
-              },
-              position: "bottom-left",
-            },
+  // <React.StrictMode>
+  <Provider store={store}>
+    <PersistGate persistor={persistor}>
+      <App />
+      <Toaster
+        reverseOrder={true}
+        gutter={8}
+        toastOptions={{
+          duration: 4000,
+          success: {
             style: {
-              fontSize: "1.4rem",
-              backgroundColor: "var(--primary-bg)",
-              color: "var(--text-primary)",
+              padding: "12px",
             },
-          }}
-        />
-      </PersistGate>
-    </Provider>
-  </React.StrictMode>,
+            position: "bottom-left",
+            iconTheme: {
+              primary: "var(--purple-primary)",
+              secondary: "white",
+            },
+          },
+          error: {
+            style: {
+              padding: "12px",
+            },
+            position: "bottom-left",
+          },
+          style: {
+            fontSize: "1.4rem",
+            backgroundColor: "var(--primary-bg)",
+            color: "var(--text-primary)",
+          },
+        }}
+      />
+    </PersistGate>
+  </Provider>,
+  // </React.StrictMode>,
 );

@@ -1,7 +1,7 @@
 import React from "react";
 import { capitalizeFirstLetter } from "../utils/helper";
 import { RootState, useAppDispatch } from "../store";
-import { setTheme } from "../features/theme/themeSlice";
+import { setCurrentTheme, setPreviewTheme } from "../features/theme/themeSlice";
 import { useSelector } from "react-redux";
 import clsx from "clsx";
 import { Check } from "lucide-react";
@@ -13,20 +13,21 @@ type Props = {
     backgroundImage: string;
   };
   type: "dark" | "light";
-  handleSetPrevTheme: (theme: {
-    type: "dark" | "light";
-    value: string;
-  }) => void;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export const Theme: React.FC<Props> = ({ item, type, handleSetPrevTheme }) => {
-  const currentTheme = useSelector((state: RootState) => state.theme);
+export const Theme: React.FC<Props> = ({ item, type, setOpen }) => {
+  const theme = useSelector((state: RootState) => state.theme);
   const dispatch = useAppDispatch();
   const handleChangeTheme = () => {
-    dispatch(setTheme({ type, value: item.value }));
+    dispatch(setCurrentTheme({ type, value: item.value }));
+    dispatch(setPreviewTheme(null));
+    setOpen(false);
   };
-  const isActive = currentTheme.value === item.value;
-
+  const handleChangePreviousTheme = () => {
+    dispatch(setPreviewTheme({ type, value: item.value }));
+  };
+  const isActive = theme.current.value === item.value;
   return (
     <div>
       <div
@@ -54,10 +55,7 @@ export const Theme: React.FC<Props> = ({ item, type, handleSetPrevTheme }) => {
             Áp dụng
           </div>
           <div
-            onClick={() => {
-              handleSetPrevTheme(currentTheme);
-              handleChangeTheme();
-            }}
+            onClick={handleChangePreviousTheme}
             className="w-[100px] cursor-pointer rounded-full border border-white py-[5px] text-center hover:brightness-90"
           >
             Xem trước

@@ -9,7 +9,9 @@ type Props = {
 };
 
 export const Skeleton: React.FC<Props> = ({ className, children }) => {
-  const isDark = useSelector((state: RootState) => state.theme.type) === "dark";
+  const currentTheme = useSelector((state: RootState) => state.theme.current);
+  const previewTheme = useSelector((state: RootState) => state.theme.preview);
+  const isDark = (previewTheme?.type ?? currentTheme.type) === "dark";
   return (
     <div
       className={cn(

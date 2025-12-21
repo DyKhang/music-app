@@ -11,13 +11,10 @@ type Props = {
       backgroundImage: string;
     }[];
   };
-  handleSetPrevTheme: (theme: {
-    type: "dark" | "light";
-    value: string;
-  }) => void;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export const ThemeGroup: React.FC<Props> = ({ item, handleSetPrevTheme }) => {
+export const ThemeGroup: React.FC<Props> = ({ item, setOpen }) => {
   return (
     <div>
       <p className="mb-[10px] text-[1.8rem] font-bold">
@@ -31,7 +28,7 @@ export const ThemeGroup: React.FC<Props> = ({ item, handleSetPrevTheme }) => {
             type={
               item.type.toLowerCase().includes("màu tối") ? "dark" : "light"
             }
-            handleSetPrevTheme={handleSetPrevTheme}
+            setOpen={setOpen}
           />
         ))}
       </div>
