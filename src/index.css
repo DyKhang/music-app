@@ -3,38 +3,6 @@
 @tailwind utilities;
 
 @layer base {
-  * {
-    box-sizing: border-box;
-  }
-
-  html {
-    font-size: 62.5%;
-  }
-
-  body {
-    font-size: 1.6rem;
-  }
-
-  ::-webkit-scrollbar {
-    width: 3px;
-    height: 12px;
-  }
-  ::-webkit-scrollbar-track {
-    background: transparent;
-    border-radius: 10px;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: #555;
-  }
-
-  :root {
-    --black-variable: #32323d;
-  }
-
   :root[data-theme="gray"] {
     --purple-primary: #644646;
     --text-item-hover: #844d4d;
@@ -81,6 +49,38 @@
     --box-item-bg: hsla(0, 0%, 100%, 0.1);
     --new-release-box-shadow: none;
     --main-text-stroke: #fff;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    font-size: 62.5%;
+  }
+
+  body {
+    font-size: 1.6rem;
+  }
+
+  ::-webkit-scrollbar {
+    width: 3px;
+    height: 12px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+  :root {
+    --black-variable: #32323d;
   }
 }
 

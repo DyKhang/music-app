@@ -48,7 +48,7 @@ export const SignInForm = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col gap-[30px]"
+        className="flex flex-col gap-[20px]"
       >
         <FormField
           control={form.control}
@@ -76,7 +76,7 @@ export const SignInForm = () => {
         />
         <button
           disabled={isPending}
-          className="bg-purple-primary flex h-[50px] w-full cursor-pointer items-center justify-center rounded-[4px] text-center text-[1.4rem] font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60"
+          className="flex h-[50px] w-full cursor-pointer items-center justify-center rounded-[4px] bg-purple-primary text-center text-[1.4rem] font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60"
         >
           {isPending ? (
             <ArrowPathIcon className="size-[24px] animate-spin" />

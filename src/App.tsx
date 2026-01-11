@@ -13,7 +13,7 @@ import { SignUp } from "./pages/SignUp/SignUp";
 import { LayoutAllPage } from "./ui/LayoutAllPage";
 import { ProfileLayout } from "./ui/ProfileLayout";
 import { ProfileManage } from "./pages/ProfileManage/ProfileManage";
-import { ProfileConversation } from "./pages/ProfileConversation/ProfileConversation";
+// import { ProfileConversation } from "./pages/ProfileConversation/ProfileConversation";
 import { ProfileSecure } from "./pages/ProfileSecure/ProfileSecure";
 import { Favorite } from "./pages/Favorite/Favorite";
 import { ProtectedRoute } from "./ui/ProtectedRoute";
@@ -82,8 +82,8 @@ const router = createBrowserRouter([
         path: "/profile",
         children: [
           { element: <ProfileManage />, path: "manage" },
-          { element: <ProfileConversation />, path: "conversation" },
           { element: <ProfileSecure />, path: "secure" },
+          // { element: <ProfileConversation />, path: "conversation" },
         ],
       },
     ],

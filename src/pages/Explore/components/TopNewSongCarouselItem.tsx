@@ -87,9 +87,9 @@ export const TopNewSongCarouselItem: React.FC<Props> = ({ item, index }) => {
             <PlayIcon className="size-[28px] translate-x-[1px] text-white" />
           </div>
         </div>
-        <div className="flex flex-1 flex-col">
+        <div className="flex min-w-0 flex-1 flex-col">
           <span className="text-[1.4rem] font-[500]">{item.title}</span>
-          <div className="mt-[3px]">
+          <div className="mt-[3px] line-clamp-2">
             <ArtistsSpan
               artists={item.artists.map((item) => ({
                 alias: item.alias,

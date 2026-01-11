@@ -55,34 +55,32 @@ export const SignUpForm = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col gap-[24px]"
+        className="flex flex-col gap-[20px]"
       >
-        <div className="flex justify-between gap-[16px]">
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <Input {...field} label="Email" />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="username"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <Input {...field} label="Tên người dùng" />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <Input {...field} label="Email" />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="username"
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <Input {...field} label="Tên người dùng" />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <FormField
           control={form.control}
           name="password"
@@ -109,7 +107,7 @@ export const SignUpForm = () => {
         />
         <button
           disabled={isPending}
-          className="bg-purple-primary flex h-[50px] w-full cursor-pointer items-center justify-center rounded-[4px] text-center text-[1.4rem] font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60"
+          className="flex h-[50px] w-full cursor-pointer items-center justify-center rounded-[4px] bg-purple-primary text-center text-[1.4rem] font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60"
         >
           {isPending ? (
             <ArrowPathIcon className="size-[24px] animate-spin" />

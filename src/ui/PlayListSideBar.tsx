@@ -17,6 +17,7 @@ import {
 import { arrayMove, SortableContext } from "@dnd-kit/sortable";
 import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
 import { setSongsWhenDrag } from "../features/player/playerSlice";
+import { cn } from "../utils/helper";
 
 interface Props {
   isShow: boolean;
@@ -53,18 +54,29 @@ export const PlayListSideBar: React.FC<Props> = ({ isShow, showKaraoke }) => {
 
   return (
     <section
-      className={`fixed right-[-330px] ${isShow && !showKaraoke && "translate-x-[-330px]"} top-0 z-[55] h-screen w-[330px] bg-queue-player-popup-bg px-[8px] pb-[150px] pt-[14px] shadow-2xl transition duration-700`}
+      className={cn(
+        "fixed right-[-330px] top-0 z-[55] h-screen w-[330px] bg-queue-player-popup-bg px-[8px] pb-[150px] pt-[14px] shadow-2xl transition duration-700",
+        isShow && !showKaraoke && "translate-x-[-330px]",
+      )}
     >
       <div className="flex items-center justify-between">
         <div className="flex rounded-full bg-alpha-bg p-[3px]">
           <div
-            className={`cursor-pointer rounded-full ${state === "playlist" && "shadow-playListSideBarActiveTag bg-[hsla(0,0%,100%,0.3)] text-text-item-hover"} px-[16px] py-[5px] text-[1.2rem]`}
+            className={cn(
+              `cursor-pointer rounded-full px-[16px] py-[5px] text-[1.2rem]`,
+              state === "playlist" &&
+                "shadow-playListSideBarActiveTag bg-[hsla(0,0%,100%,0.3)] text-text-item-hover",
+            )}
             onClick={() => setState("playlist")}
           >
             Danh sách phát
           </div>
           <div
-            className={`cursor-pointer rounded-full px-[16px] py-[5px] text-[1.2rem] ${state === "recent" && "shadow-playListSideBarActiveTag bg-[hsla(0,0%,100%,0.3)] text-text-item-hover"}`}
+            className={cn(
+              `cursor-pointer rounded-full px-[16px] py-[5px] text-[1.2rem]`,
+              state === "recent" &&
+                "shadow-playListSideBarActiveTag bg-[hsla(0,0%,100%,0.3)] text-text-item-hover",
+            )}
             onClick={() => setState("recent")}
           >
             Nghe gần đây

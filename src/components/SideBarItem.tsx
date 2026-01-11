@@ -19,6 +19,7 @@ import { useTogglePlay } from "../hooks/useTogglePlay";
 import { useIsCurrentSong } from "../hooks/useCurrentSong";
 import { useNavigate } from "react-router";
 import { useToggleFavoriteSong } from "../features/user/useToggleFavoriteSong";
+import { cn } from "../utils/helper";
 
 interface Props {
   song: SongReducer;
@@ -75,7 +76,7 @@ export const SideBarItem: React.FC<Props> = ({ song }) => {
             className="absolute inset-0 cursor-move"
           ></div>
           <div
-            className="relative size-[40px] cursor-pointer overflow-hidden rounded-[4px]"
+            className="relative size-[40px] flex-shrink-0 cursor-pointer overflow-hidden rounded-[4px]"
             onClick={togglePlay}
           >
             <img src={song.image} alt="" className="w-full object-cover" />
@@ -89,7 +90,7 @@ export const SideBarItem: React.FC<Props> = ({ song }) => {
               />
             )}
           </div>
-          <div className="relative flex w-[51%] flex-col gap-[3px]">
+          <div className="relative flex flex-col gap-[3px]">
             <span className="line-clamp-1 cursor-pointer text-[1.4rem] font-[500] text-white">
               {song.name}
             </span>
@@ -118,11 +119,11 @@ export const SideBarItem: React.FC<Props> = ({ song }) => {
             Tiếp theo
             {playListInfo.name && (
               <div className="flex items-center gap-[5px]">
-                <span className="text-text-muted flex-shrink-0 font-[400]">
+                <span className="flex-shrink-0 font-[400] text-text-muted">
                   Từ playlist
                 </span>
                 <span
-                  className="text-link-text-hover line-clamp-1 cursor-pointer font-[500]"
+                  className="line-clamp-1 cursor-pointer font-[500] text-link-text-hover"
                   onClick={() => navigate(`/album/${playListInfo.id}`)}
                 >
                   {playListInfo.name}
@@ -138,7 +139,10 @@ export const SideBarItem: React.FC<Props> = ({ song }) => {
     <div
       ref={setNodeRef}
       style={style}
-      className={`group/tag relative flex items-center gap-[10px] rounded-[5px] p-[8px] hover:bg-alpha-bg ${song.isPlayed && "opacity-40 hover:opacity-100"}`}
+      className={cn(
+        `group/tag relative flex items-center gap-[10px] rounded-[5px] p-[8px] hover:bg-alpha-bg`,
+        song.isPlayed && "opacity-40 hover:opacity-100",
+      )}
     >
       <div
         className="absolute inset-0 cursor-move"
@@ -146,7 +150,7 @@ export const SideBarItem: React.FC<Props> = ({ song }) => {
         {...listeners}
       ></div>
       <div
-        className="relative size-[40px] cursor-pointer overflow-hidden rounded-[4px]"
+        className="relative size-[40px] flex-shrink-0 cursor-pointer overflow-hidden rounded-[4px]"
         onClick={handleSelectSong}
       >
         <img src={song.image} alt="" className="w-full object-cover" />
@@ -156,11 +160,11 @@ export const SideBarItem: React.FC<Props> = ({ song }) => {
           className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 text-white group-hover/tag:block"
         />
       </div>
-      <div className="relative flex w-[51%] flex-col gap-[3px]">
-        <span className="hover:text-link-text-hover line-clamp-1 cursor-pointer text-[1.4rem] font-[500]">
+      <div className="relative flex flex-col gap-[3px]">
+        <span className="line-clamp-1 cursor-pointer text-[1.4rem] font-[500] hover:text-link-text-hover">
           {song.name}
         </span>
-        <span className="hover:text-link-text-hover line-clamp-1 cursor-pointer text-[1.2rem] text-text-secondary hover:underline">
+        <span className="line-clamp-1 cursor-pointer text-[1.2rem] text-text-secondary hover:text-link-text-hover hover:underline">
           {song.singer}
         </span>
       </div>
@@ -175,7 +179,6 @@ export const SideBarItem: React.FC<Props> = ({ song }) => {
             <HeartIcon className="size-[18px]" />
           )}
         </div>
-
         <PopOvers.PopOver>
           <>
             <PopOvers.Button open={`side-bar-${song.encodeId}`}>

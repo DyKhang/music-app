@@ -108,7 +108,7 @@ export const PlayListItem: React.FC<Props> = ({ item, type = "desc" }) => {
             >
               {item.title}
             </p>
-            <div className="flex flex-wrap items-center gap-[4px]">
+            <div className="flex flex-wrap items-center gap-[4px] truncate">
               <ArtistsSpan
                 artists={item.artists.slice(0, 4).map((item) => ({
                   alias: item.alias,
@@ -123,7 +123,7 @@ export const PlayListItem: React.FC<Props> = ({ item, type = "desc" }) => {
     );
 
   return (
-    <div>
+    <div className="min-w-0">
       <div className="group/tag relative flex cursor-pointer items-center justify-center overflow-hidden rounded-[5px]">
         <img
           src={item.thumbnailM}
@@ -179,11 +179,11 @@ export const PlayListItem: React.FC<Props> = ({ item, type = "desc" }) => {
           <p
             title={item.title}
             onClick={() => navigate(`/album/${item.encodeId}`)}
-            className="mb-[4px] mt-[12px] line-clamp-1 cursor-pointer text-[1.4rem] font-[700] text-text-primary hover:text-link-text-hover"
+            className="mb-[4px] mt-[12px] cursor-pointer truncate text-[1.4rem] font-[700] text-text-primary hover:text-link-text-hover"
           >
             {item.title}
           </p>
-          <div className="flex flex-wrap items-center gap-[4px]">
+          <div className="truncate">
             <ArtistsSpan
               artists={item.artists.slice(0, 4).map((item) => ({
                 alias: item.alias,

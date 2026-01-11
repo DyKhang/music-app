@@ -13,8 +13,6 @@ import { SwatchIcon } from "@heroicons/react/24/outline";
 import { StarIcon } from "@heroicons/react/24/outline";
 import { UpdateAccount } from "../components/UpdateAccount";
 import { ClockIcon } from "@heroicons/react/24/outline";
-import logoLight from "/logo-light.svg";
-import logoDark from "/logo-dark.svg";
 import dvd from "../../public/dvd.svg";
 import { LibraryIcon } from "../components/LibraryIcon";
 import { DvdIcon } from "../components/DvdIcon";
@@ -24,9 +22,9 @@ import { RootState } from "../store";
 import clsx from "clsx";
 import { currentSongSelector } from "../features/player/selectors";
 import { useEffect, useRef } from "react";
+import { ZingMp3 } from "../components/ZingMp3";
 
 export const SideBar = () => {
-  const isDark = useSelector((state: RootState) => state.theme.type) === "dark";
   const session = useSelector((state: RootState) => state.auth.session);
   const { name } = useSelector(currentSongSelector);
   const scrollableRef = useRef<HTMLDivElement>(null);
@@ -43,16 +41,7 @@ export const SideBar = () => {
 
   return (
     <aside className="w-[50px] bg-sidebar-bg xl:w-[240px]">
-      <Link
-        to="/"
-        className="hidden items-center justify-center p-5 opacity-90 transition-opacity duration-[0.5s] hover:opacity-100 xl:flex"
-      >
-        <img
-          src={isDark ? logoDark : logoLight}
-          alt=""
-          className="w-[150px] object-cover"
-        />
-      </Link>
+      <ZingMp3 />
       <Link
         to="/"
         className="flex items-center justify-center p-5 opacity-80 transition-opacity duration-[0.5s] hover:opacity-100 xl:hidden"

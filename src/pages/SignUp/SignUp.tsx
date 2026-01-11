@@ -3,6 +3,7 @@ import facebook from "../../../public/facebook.svg";
 import { SignUpForm } from "./components/SignUpForm";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
+import { Divider } from "../../components/Divider";
 
 export const SignUp = () => {
   const navigate = useNavigate();
@@ -12,36 +13,29 @@ export const SignUp = () => {
 
   return (
     <section className="flex h-screen w-full items-center justify-center">
-      <div className="w-[32%] rounded-2xl bg-white p-12 shadow-md">
+      <div className="w-[32%] rounded-2xl bg-alpha-bg p-12 shadow-md">
         <div className="flex flex-1 flex-col">
           <span className="text-[2.8rem] font-bold">Đăng ký</span>
           <span>Thiết lập tài khoản để truy cập kho nhạc của bạn</span>
 
-          <div className="mt-[35px]">
+          <div className="mt-[20px]">
             <SignUpForm />
           </div>
-
           <div className="mt-[16px] flex items-center justify-center gap-[4px]">
             <span>Bạn đã có tài khoản?</span>
             <span
-              className="text-purple-primary cursor-pointer"
+              className="cursor-pointer text-purple-primary"
               onClick={() => navigate("/sign-in", { replace: true })}
             >
               Đăng nhập
             </span>
           </div>
-
-          <div className="relative mt-[40px] h-[0.5px] bg-[#afafaf] text-[#afafaf]">
-            <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white text-[1.4rem]">
-              Đăng nhập với
-            </span>
-          </div>
-
-          <div className="mt-[40px] grid grid-cols-2 gap-[16px]">
-            <div className="flex cursor-pointer justify-center rounded-[4px] border-[2px] border-[#afafaf] py-[12px]">
+          <Divider>Đăng nhập với</Divider>
+          <div className="mt-[20px] grid grid-cols-2 gap-[16px]">
+            <div className="flex cursor-pointer justify-center rounded-[4px] border-[2px] border-[#afafaf] py-[8px]">
               <img src={facebook} alt="facebook" />
             </div>
-            <div className="flex cursor-pointer justify-center rounded-[4px] border-[2px] border-[#afafaf] py-[12px]">
+            <div className="flex cursor-pointer justify-center rounded-[4px] border-[2px] border-[#afafaf] py-[8px]">
               <svg
                 height="24"
                 aria-hidden="true"

@@ -1,15 +1,15 @@
 import { Navigate, Outlet } from "react-router";
 import { NavLinkEle } from "../components/NavLinkEle";
 import {
-  ChatBubbleLeftRightIcon,
+  // ChatBubbleLeftRightIcon,
   ShieldCheckIcon,
   UserIcon,
 } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
-import logo from "../../public/logo-light.svg";
 import logoSmall from "../../public/dvd.svg";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
+import { ZingMp3 } from "../components/ZingMp3";
 
 export const ProfileLayout = () => {
   const session = useSelector((state: RootState) => state.auth.session);
@@ -18,13 +18,8 @@ export const ProfileLayout = () => {
 
   return (
     <section className="flex h-screen w-full">
-      <aside className="w-[50px] bg-[#f2f2f2] xl:w-[240px] xl:bg-[#d9d7d4]">
-        <Link
-          to="/"
-          className="hidden items-center justify-center p-5 opacity-80 transition-opacity duration-[0.5s] hover:opacity-100 xl:flex"
-        >
-          <img src={logo} alt="" className="w-[150px] object-cover" />
-        </Link>
+      <aside className="w-[50px] bg-sidebar-bg xl:w-[240px]">
+        <ZingMp3 />
         <Link
           to="/"
           className="flex items-center justify-center p-5 opacity-80 transition-opacity duration-[0.5s] hover:opacity-100 xl:hidden"
@@ -41,13 +36,13 @@ export const ProfileLayout = () => {
           title="Bảo mật"
           to="secure"
         />
-        <NavLinkEle
+        {/* <NavLinkEle
           Icon={() => (
             <ChatBubbleLeftRightIcon className="size-[24px] flex-shrink-0" />
           )}
           title="Tin nhắn"
           to="conversation"
-        />
+        /> */}
       </aside>
       <div className="flex-1 p-[70px]">
         <Outlet />
