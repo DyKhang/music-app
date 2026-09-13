@@ -15,8 +15,8 @@ import { Input } from "../../../components/Input";
 import { userApi } from "../../../api/userApi";
 import { update } from "../../../features/auth/authSlice";
 import { ArrowPathIcon } from "@heroicons/react/24/outline";
-import clsx from "clsx";
 import { zodValidation } from "../../../utils/validations";
+import { cn } from "../../../utils/cn";
 
 const formSchema = z.object({
   username: zodValidation.username,
@@ -85,7 +85,7 @@ export const UpdateProfileForm = () => {
                   <div className="flex justify-end">
                     <button
                       disabled={isPending || !isDirty}
-                      className={clsx(
+                      className={cn(
                         "flex h-[36px] w-[113px] items-center justify-center rounded-md bg-purple-primary px-6 py-3 text-[1.4rem] font-medium text-white",
                         {
                           "cursor-not-allowed opacity-80":

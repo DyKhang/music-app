@@ -1,5 +1,5 @@
-import { ResultNotFound } from "../../../components/ResultNotFound";
+import { NotFound } from "../../../components/NotFound";
 
 export const MVResult = () => {
-  return <ResultNotFound title="Không có MV được tìm thấy" />;
+  return <NotFound title="Không có MV được tìm thấy" />;
 };

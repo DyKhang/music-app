@@ -59,7 +59,7 @@ export interface ArtistApi {
   err: number;
   msg: string;
   timestamp: number;
-  data: {
+  data?: {
     id: string;
     name: string;
     link: string;

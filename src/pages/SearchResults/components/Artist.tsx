@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import { convertTotalFollow } from "../../../utils/helper";
+import { convertTotalFollow } from "../../../utils/convertTotalFollow";
 
 interface Props {
   item:
@@ -55,13 +55,13 @@ export const Artist: React.FC<Props> = ({ item }) => {
         </svg>
       </div>
       <div className="flex flex-col">
-        <span className="text-text-secondary mb-[6px] text-[1.2rem]">
+        <span className="mb-[6px] text-[1.2rem] text-text-secondary">
           Nghệ sĩ
         </span>
-        <span className="hover:text-text-item-hover text-[1.4rem] font-[600] uppercase hover:underline">
+        <span className="text-[1.4rem] font-[600] uppercase hover:text-text-item-hover hover:underline">
           {item.name}
         </span>
-        <span className="text-text-secondary mt-[2px] text-[1.2rem]">
+        <span className="mt-[2px] text-[1.2rem] text-text-secondary">
           {convertTotalFollow(item.totalFollow)} quan tâm
         </span>
       </div>

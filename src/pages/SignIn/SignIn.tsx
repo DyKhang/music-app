@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router";
-import facebook from "../../../public/facebook.svg";
 import { useSearchParams, Navigate } from "react-router-dom";
 import { useEffect } from "react";
 import { userApi } from "../../api/userApi";
@@ -7,10 +6,12 @@ import { SignInForm } from "./components/SignInForm";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { Divider } from "../../components/Divider";
+import { useOauth } from "../../features/oauth/useOauth";
 
 export const SignIn = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const { mutate: loginWithGoogle } = useOauth();
   const emailToken = searchParams.get("emailToken");
   const session = useSelector((state: RootState) => state.auth.session);
 
@@ -28,7 +29,6 @@ export const SignIn = () => {
         <div className="flex flex-1 flex-col">
           <span className="text-[2.8rem] font-bold">Đăng nhập</span>
           <span>Đăng nhập để truy cập kho nhạc của bạn</span>
-
           <div className="mt-[20px]">
             <SignInForm />
           </div>
@@ -46,9 +46,16 @@ export const SignIn = () => {
           <Divider>Đăng nhập với</Divider>
 
           <div className="mt-[20px] grid grid-cols-2 gap-[16px]">
-            <div className="flex cursor-pointer justify-center rounded-[4px] border-[2px] border-[#afafaf] py-[8px]">
-              <img src={facebook} alt="facebook" />
-            </div>
+            <a
+              className="flex cursor-pointer justify-center rounded-[4px] border-[2px] border-[#afafaf] py-[8px]"
+              href="http://localhost:8017/v1/oauth/google"
+            >
+              <img
+                className="size-[24px]"
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/250px-Google_%22G%22_logo.svg.png"
+                alt="facebook"
+              />
+            </a>
             <div className="flex cursor-pointer justify-center rounded-[4px] border-[2px] border-[#afafaf] py-[8px]">
               <svg
                 height="24"

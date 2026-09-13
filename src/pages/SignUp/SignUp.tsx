@@ -1,5 +1,4 @@
 import { useNavigate, Navigate } from "react-router";
-import facebook from "../../../public/facebook.svg";
 import { SignUpForm } from "./components/SignUpForm";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
@@ -33,7 +32,11 @@ export const SignUp = () => {
           <Divider>Đăng nhập với</Divider>
           <div className="mt-[20px] grid grid-cols-2 gap-[16px]">
             <div className="flex cursor-pointer justify-center rounded-[4px] border-[2px] border-[#afafaf] py-[8px]">
-              <img src={facebook} alt="facebook" />
+              <img
+                className="size-[24px]"
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/250px-Google_%22G%22_logo.svg.png"
+                alt="facebook"
+              />
             </div>
             <div className="flex cursor-pointer justify-center rounded-[4px] border-[2px] border-[#afafaf] py-[8px]">
               <svg

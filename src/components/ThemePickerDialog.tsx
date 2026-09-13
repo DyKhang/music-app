@@ -4,9 +4,13 @@ import { ThemeGroup } from "./ThemeGroup";
 
 type Props = {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  prevTheme: React.MutableRefObject<{
+    value: string;
+    type: "dark" | "light";
+  } | null>;
 };
 
-export const ThemePickerDialog: React.FC<Props> = ({ setOpen }) => {
+export const ThemePickerDialog: React.FC<Props> = ({ setOpen, prevTheme }) => {
   return (
     <>
       <DialogDescription className="hidden">Theme Picker</DialogDescription>
@@ -17,7 +21,12 @@ export const ThemePickerDialog: React.FC<Props> = ({ setOpen }) => {
       </DialogHeader>
       <div className="flex h-[500px] flex-col gap-[20px] overflow-y-scroll pl-[30px]">
         {themes.map((item, index) => (
-          <ThemeGroup key={index} item={item} setOpen={setOpen} />
+          <ThemeGroup
+            key={index}
+            item={item}
+            setOpen={setOpen}
+            prevTheme={prevTheme}
+          />
         ))}
       </div>
     </>

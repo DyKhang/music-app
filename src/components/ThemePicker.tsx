@@ -5,16 +5,18 @@ import { ThemePickerDialog } from "./ThemePickerDialog";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../store";
 import { themes } from "../constants/data";
-import { capitalizeFirstLetter } from "../utils/helper";
-import { useState } from "react";
-import { setPreviewTheme } from "../features/theme/themeSlice";
+import { useRef, useState } from "react";
+import { setCurrentTheme } from "../features/theme/themeSlice";
+import { capitalizeFirstLetter } from "../utils/capitalizeFirstLetter";
 
 export const ThemePicker = () => {
   const [open, setOpen] = useState(false);
+  const prevTheme = useRef<{
+    value: string;
+    type: "dark" | "light";
+  } | null>(null);
   const dispatch = useAppDispatch();
-  const currentTheme = useSelector(
-    (state: RootState) => state.theme.current.value,
-  );
+  const currentTheme = useSelector((state: RootState) => state.theme.value);
   const flatThemes = themes.reduce<
     {
       label: string;
@@ -23,15 +25,18 @@ export const ThemePicker = () => {
     }[]
   >((prev, curr) => [...prev, ...curr.colors], []);
   const targetTheme = flatThemes.find((item) => item.value === currentTheme);
-  const handleDeletePreviousTheme = () => {
-    dispatch(setPreviewTheme(null));
+
+  const handleResetPreviousTheme = () => {
+    if (!prevTheme.current) return;
+    dispatch(setCurrentTheme(prevTheme.current));
   };
+
   return (
     <div className="absolute right-full top-0 hidden w-[300px] rounded-xl bg-primary-bg p-[9px] shadow-md group-hover:block">
       <Dialog
         open={open}
         onOpenChange={(open) => {
-          if (!open) handleDeletePreviousTheme();
+          if (!open) handleResetPreviousTheme();
           setOpen(open);
         }}
       >
@@ -58,7 +63,7 @@ export const ThemePicker = () => {
           closeButtonSize={30}
           className="w-full max-w-[900px] gap-0 p-0 pb-[20px] sm:max-w-[900px]"
         >
-          <ThemePickerDialog setOpen={setOpen} />
+          <ThemePickerDialog setOpen={setOpen} prevTheme={prevTheme} />
         </DialogContent>
       </Dialog>
       <div className="mt-4 h-[1px] bg-border-primary"></div>

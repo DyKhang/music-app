@@ -1,6 +1,6 @@
 import { PlayList } from "../../../api/searchApi";
+import { NotFound } from "../../../components/NotFound";
 import { PlayListItem } from "../../../components/PlayListItem";
-import { ResultNotFound } from "../../../components/ResultNotFound";
 
 interface Props {
   playlists: PlayList[] | undefined;
@@ -8,7 +8,7 @@ interface Props {
 
 export const PlayListResult: React.FC<Props> = ({ playlists }) => {
   if (!playlists)
-    return <ResultNotFound title="Không có Playlist/Album được tìm thấy" />;
+    return <NotFound title="Không có Playlist/Album được tìm thấy" />;
 
   return (
     <>

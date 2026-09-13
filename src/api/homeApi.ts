@@ -363,7 +363,6 @@ export const homeApi = {
   },
   getTrending: async () => {
     const data = await axiosClient.get<HomePlayList>("/mp3/home");
-
     return data.data.data.items.find(
       (item) =>
         item.sectionType === "playlist" && item.title === "Nhạc hot thịnh hành",

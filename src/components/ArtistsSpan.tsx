@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import { cn } from "../utils/helper";
+import { cn } from "../utils/cn";
 
 interface Props {
   artists: {

@@ -1,8 +1,8 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { capitalizeFirstLetter } from "../../../utils/helper";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { Section } from "../../../api/artistApi";
 import { PlayListItem } from "../../../components/PlayListItem";
+import { capitalizeFirstLetter } from "../../../utils/capitalizeFirstLetter";
 
 interface Props {
   data: Section | undefined;

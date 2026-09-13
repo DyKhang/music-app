@@ -8,8 +8,7 @@ import {
   type FieldPath,
   type FieldValues,
 } from "react-hook-form";
-
-import { cn } from "../utils/helper";
+import { cn } from "../utils/cn";
 
 const Form = FormProvider;
 

@@ -1,10 +1,10 @@
 import React from "react";
-import { capitalizeFirstLetter } from "../utils/helper";
 import { RootState, useAppDispatch } from "../store";
-import { setCurrentTheme, setPreviewTheme } from "../features/theme/themeSlice";
+import { setCurrentTheme } from "../features/theme/themeSlice";
 import { useSelector } from "react-redux";
-import clsx from "clsx";
 import { Check } from "lucide-react";
+import { cn } from "../utils/cn";
+import { capitalizeFirstLetter } from "../utils/capitalizeFirstLetter";
 
 type Props = {
   item: {
@@ -14,24 +14,32 @@ type Props = {
   };
   type: "dark" | "light";
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  prevTheme: React.MutableRefObject<{
+    value: string;
+    type: "dark" | "light";
+  } | null>;
 };
 
-export const Theme: React.FC<Props> = ({ item, type, setOpen }) => {
-  const theme = useSelector((state: RootState) => state.theme);
+export const Theme: React.FC<Props> = ({ item, type, setOpen, prevTheme }) => {
+  const currentTheme = useSelector((state: RootState) => state.theme);
   const dispatch = useAppDispatch();
+
   const handleChangeTheme = () => {
     dispatch(setCurrentTheme({ type, value: item.value }));
-    dispatch(setPreviewTheme(null));
     setOpen(false);
   };
+
   const handleChangePreviousTheme = () => {
-    dispatch(setPreviewTheme({ type, value: item.value }));
+    dispatch(setCurrentTheme({ type, value: item.value }));
+    if (prevTheme.current) return;
+    prevTheme.current = currentTheme;
   };
-  const isActive = theme.current.value === item.value;
+  const isActive = (prevTheme.current ?? currentTheme).value === item.value;
+
   return (
     <div>
       <div
-        className={clsx(
+        className={cn(
           "group relative overflow-hidden rounded-[5px] border",
           isActive ? "border-purple-primary" : "border-transparent",
         )}

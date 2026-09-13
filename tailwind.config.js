@@ -38,6 +38,7 @@ export default {
         "box-item-bg": "var(--box-item-bg)",
         "new-release-box-shadow": "var(--new-release-box-shadow)",
         "main-text-stroke": "var(--main-text-stroke)",
+        "song-item-action": "var(--song-item-action)",
       },
     },
   },

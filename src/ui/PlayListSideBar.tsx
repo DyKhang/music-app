@@ -17,7 +17,7 @@ import {
 import { arrayMove, SortableContext } from "@dnd-kit/sortable";
 import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
 import { setSongsWhenDrag } from "../features/player/playerSlice";
-import { cn } from "../utils/helper";
+import { cn } from "../utils/cn";
 
 interface Props {
   isShow: boolean;

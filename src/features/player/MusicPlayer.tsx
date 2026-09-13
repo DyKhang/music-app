@@ -16,11 +16,11 @@ import {
 } from "./playerSlice";
 import { LoaderSmall } from "../../components/LoaderSmall";
 import { currentSongSelector, replayStatusSelector } from "./selectors";
-import { formatTime } from "../../utils/helper";
 import { ReplayIcon } from "../../components/ReplayIcon";
 import { ReplayOneIcon } from "../../components/ReplayOneIcon";
 import { ToolTip } from "../../components/ToolTip";
 import { useTogglePlay } from "../../hooks/useTogglePlay";
+import { formatTime } from "../../utils/formatTime";
 
 interface Props {
   showKaraoke: boolean;

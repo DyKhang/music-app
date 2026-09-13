@@ -5,8 +5,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../store";
 
 export const ZingMp3 = () => {
-  const isDark =
-    useSelector((state: RootState) => state.theme.current.type) === "dark";
+  const isDark = useSelector((state: RootState) => state.theme.type) === "dark";
   return (
     <Link
       to="/"

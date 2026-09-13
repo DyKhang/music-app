@@ -1,6 +1,6 @@
 import React from "react";
-import { capitalizeFirstLetter } from "../utils/helper";
 import { Theme } from "./Theme";
+import { capitalizeFirstLetter } from "../utils/capitalizeFirstLetter";
 
 type Props = {
   item: {
@@ -12,9 +12,13 @@ type Props = {
     }[];
   };
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  prevTheme: React.MutableRefObject<{
+    value: string;
+    type: "dark" | "light";
+  } | null>;
 };
 
-export const ThemeGroup: React.FC<Props> = ({ item, setOpen }) => {
+export const ThemeGroup: React.FC<Props> = ({ item, setOpen, prevTheme }) => {
   return (
     <div>
       <p className="mb-[10px] text-[1.8rem] font-bold">
@@ -23,6 +27,7 @@ export const ThemeGroup: React.FC<Props> = ({ item, setOpen }) => {
       <div className="grid grid-cols-2 gap-[14px] pr-[30px] sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
         {item.colors.map((color, index) => (
           <Theme
+            prevTheme={prevTheme}
             key={index}
             item={color}
             type={

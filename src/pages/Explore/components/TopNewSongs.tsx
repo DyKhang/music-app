@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { TopNewSongsCarousel } from "./TopNewSongsCarousel";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { TopSongsType } from "../../../api/homeApi";
-import { capitalizeFirstLetter } from "../../../utils/helper";
+import { capitalizeFirstLetter } from "../../../utils/capitalizeFirstLetter";
 
 interface Props {
   data: TopSongsType | undefined;

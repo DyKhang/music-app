@@ -17,7 +17,6 @@ import {
 import { useSelector } from "react-redux";
 import { AudioAnimation } from "../../../components/AudioAnimation";
 import { PremiumIcon } from "../../../components/PremiumIcon";
-import { formatTime } from "../../../utils/helper";
 import { useNavigate, useParams } from "react-router";
 import { PopOvers } from "../../../components/PopOvers";
 import { SongItemPop } from "./SongItemPop";
@@ -26,7 +25,8 @@ import { useIsCurrentPlayList } from "../../../hooks/useCurrentPlayList";
 import { useIsCurrentSong } from "../../../hooks/useCurrentSong";
 import { ArtistsSpan } from "../../../components/ArtistsSpan";
 import { useToggleFavoriteSong } from "../../../features/user/useToggleFavoriteSong";
-import clsx from "clsx";
+import { cn } from "../../../utils/cn";
+import { formatTime } from "../../../utils/formatTime";
 
 interface Props {
   song: Song;
@@ -71,7 +71,7 @@ export const SongItem: React.FC<Props> = ({ song, index }) => {
     return (
       <div className="group/item flex items-center rounded-[4px] border-b-[1px] border-[rgba(0,0,0,0.05)] bg-[rgba(0,0,0,0.05)] p-[10px]">
         <div className="mr-[10px] flex w-full items-center lg:w-1/2">
-          <MusicalNoteIcon className="text-text-secondary size-[14px] group-hover/item:hidden" />
+          <MusicalNoteIcon className="size-[14px] text-text-secondary group-hover/item:hidden" />
           <div
             className={`hidden size-[14px] flex-shrink-0 cursor-pointer rounded-[3px] border-[1px] ${isChecked ? "border-white bg-[rgba(0,0,0,0.15)]" : "border-[rgba(0,0,0,0.2)]"} group-hover/item:block`}
             onClick={handleCheckSong}
@@ -108,7 +108,7 @@ export const SongItem: React.FC<Props> = ({ song, index }) => {
             </div>
           </div>
         </div>
-        <span className="hover:text-text-item-hover hidden flex-1 cursor-pointer text-[1.2rem] text-[rgba(50,50,61,0.5)] hover:underline lg:block">
+        <span className="hidden flex-1 cursor-pointer text-[1.2rem] text-[rgba(50,50,61,0.5)] hover:text-text-item-hover hover:underline lg:block">
           {hasAlbum && song.album.title}
         </span>
         <div className="hidden items-center gap-[8px] group-hover/item:flex">
@@ -120,13 +120,13 @@ export const SongItem: React.FC<Props> = ({ song, index }) => {
               if (isPending) return;
               toggleFavoriteSong();
             }}
-            className={clsx(
+            className={cn(
               "flex size-[36px] cursor-pointer items-center justify-center rounded-full hover:bg-[rgba(0,0,0,0.05)]",
               { "pointer-events-none": isPending },
             )}
           >
             {song.isLiked && session ? (
-              <HeartIconSolid className="text-text-item-hover size-[16px]" />
+              <HeartIconSolid className="size-[16px] text-text-item-hover" />
             ) : (
               <HeartIcon className="size-[16px]" />
             )}
@@ -154,7 +154,7 @@ export const SongItem: React.FC<Props> = ({ song, index }) => {
   return (
     <div className="group/item flex items-center rounded-[4px] border-b-[1px] border-[rgba(0,0,0,0.05)] p-[10px] hover:bg-[rgba(0,0,0,0.05)]">
       <div className="mr-[10px] flex w-full items-center lg:w-1/2">
-        <MusicalNoteIcon className="text-text-secondary size-[14px] flex-shrink-0 group-hover/item:hidden" />
+        <MusicalNoteIcon className="size-[14px] flex-shrink-0 text-text-secondary group-hover/item:hidden" />
         <div
           className={`hidden size-[14px] flex-shrink-0 cursor-pointer rounded-[3px] border-[1px] ${isChecked ? "border-white bg-[rgba(0,0,0,0.15)]" : "border-[rgba(0,0,0,0.2)]"} group-hover/item:block`}
           onClick={handleCheckSong}
@@ -191,7 +191,7 @@ export const SongItem: React.FC<Props> = ({ song, index }) => {
         onClick={() => {
           song?.album && navigate(`/album/${song.album.encodeId}`);
         }}
-        className="hover:text-text-item-hover hidden flex-1 cursor-pointer text-[1.2rem] text-[rgba(50,50,61,0.5)] hover:underline lg:block"
+        className="text-song-item-action hidden flex-1 cursor-pointer text-[1.2rem] hover:text-link-text-hover hover:underline lg:block"
       >
         {hasAlbum && song.album.title}
       </span>
@@ -204,13 +204,13 @@ export const SongItem: React.FC<Props> = ({ song, index }) => {
             if (isPending) return;
             toggleFavoriteSong();
           }}
-          className={clsx(
+          className={cn(
             "flex size-[36px] cursor-pointer items-center justify-center rounded-full hover:bg-[rgba(0,0,0,0.05)]",
             { "pointer-events-none": isPending },
           )}
         >
           {song.isLiked && session ? (
-            <HeartIconSolid className="text-text-item-hover size-[16px]" />
+            <HeartIconSolid className="size-[16px] text-text-item-hover" />
           ) : (
             <HeartIcon className="size-[16px]" />
           )}

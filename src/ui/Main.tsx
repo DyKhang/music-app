@@ -7,15 +7,25 @@ export const Main = () => {
   const currentSong = useSelector(currentSongSelector);
   const songName = currentSong.name;
   const mainRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     const headerElement = document.querySelector("header");
-    mainRef.current?.addEventListener("scroll", () => {
-      if (mainRef.current && mainRef.current.scrollTop > 0) {
-        headerElement?.classList.add("header-bg-scroll");
+    const mainElement = mainRef.current;
+    if (!headerElement || !mainElement) return;
+
+    const handler = () => {
+      if (mainElement && mainElement.scrollTop > 0) {
+        headerElement.classList.add("header-bg-scroll");
       } else {
-        headerElement?.classList.remove("header-bg-scroll");
+        headerElement.classList.remove("header-bg-scroll");
       }
-    });
+    };
+
+    mainElement.addEventListener("scroll", handler);
+
+    return () => {
+      mainElement.removeEventListener("scroll", handler);
+    };
   }, []);
 
   return (

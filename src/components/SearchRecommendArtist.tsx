@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router";
-import { convertTotalFollow } from "../utils/helper";
 import { Artist } from "../api/musicApi";
+import { convertTotalFollow } from "../utils/convertTotalFollow";
 
 interface Props {
   data: Artist | undefined;

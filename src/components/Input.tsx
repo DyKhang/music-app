@@ -1,5 +1,5 @@
 import { forwardRef } from "react";
-import { cn } from "../utils/helper";
+import { cn } from "../utils/cn";
 
 type Props = {
   label?: string;

@@ -1,5 +1,5 @@
 import { Song } from "../../../api/playlistApi";
-import { ResultNotFound } from "../../../components/ResultNotFound";
+import { NotFound } from "../../../components/NotFound";
 import { SongItem } from "../../Artist/components/SongItem";
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
 
 export const SongResult: React.FC<Props> = ({ songs }) => {
   console.log(songs);
-  if (!songs) return <ResultNotFound title="Không có bài hát được tìm thấy" />;
+  if (!songs) return <NotFound title="Không có bài hát được tìm thấy" />;
 
   return (
     <>

@@ -1,14 +1,13 @@
 import { Artist } from "../../../api/musicApi";
 import { ArtistItem } from "../../../components/ArtistItem";
-import { ResultNotFound } from "../../../components/ResultNotFound";
+import { NotFound } from "../../../components/NotFound";
 
 interface Props {
   artists: Artist[] | undefined;
 }
 
 export const ArtistResult: React.FC<Props> = ({ artists }) => {
-  if (!artists)
-    return <ResultNotFound title="Không có Nghệ sĩ/OA được tìm thấy" />;
+  if (!artists) return <NotFound title="Không có Nghệ sĩ/OA được tìm thấy" />;
 
   return (
     <>

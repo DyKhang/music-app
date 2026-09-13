@@ -3,11 +3,11 @@ import { RootState, useAppDispatch } from "../../../store";
 import { useState } from "react";
 import { userApi } from "../../../api/userApi";
 import { update } from "../../../features/auth/authSlice";
-import clsx from "clsx";
 import { ArrowPathIcon } from "@heroicons/react/24/outline";
 import { Modal } from "../../../components/Modal";
 import { ConfirmDeleteAvatar } from "./ConfirmDeleteAvatar";
 import { USER } from "../../../constants/user";
+import { cn } from "../../../utils/cn";
 
 export const UpdateAvatar = () => {
   const session = useSelector((state: RootState) => state.auth.session);
@@ -45,8 +45,8 @@ export const UpdateAvatar = () => {
         />
 
         <label
-          className={clsx(
-            "bg-purple-primary flex h-[32px] w-[108px] cursor-pointer items-center justify-center rounded-md px-4 py-2 text-[1.4rem] font-medium text-white",
+          className={cn(
+            "flex h-[32px] w-[108px] cursor-pointer items-center justify-center rounded-md bg-purple-primary px-4 py-2 text-[1.4rem] font-medium text-white",
             {
               "pointer-events-none opacity-80": isPending,
             },
@@ -69,7 +69,7 @@ export const UpdateAvatar = () => {
         {!isPending && session?.avatar !== USER.DEFAULT_AVATAR_URL && (
           <>
             <Modal.Open open="delete-avatar">
-              <button className="text-purple-primary rounded-md bg-[#d9d7d4] px-4 py-2 text-[1.4rem] font-medium">
+              <button className="rounded-md bg-[#d9d7d4] px-4 py-2 text-[1.4rem] font-medium text-purple-primary">
                 Xóa ảnh
               </button>
             </Modal.Open>

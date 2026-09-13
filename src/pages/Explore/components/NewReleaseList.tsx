@@ -2,9 +2,9 @@ import { Tag } from "./Tag";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { NewReleaseItem } from "./NewReleaseItem";
-import { capitalizeFirstLetter } from "../../../utils/helper";
 import { useState } from "react";
 import { NewReleasesType } from "../../../api/homeApi";
+import { capitalizeFirstLetter } from "../../../utils/capitalizeFirstLetter";
 
 const tabs = [
   { label: "tất cả", status: "all" },

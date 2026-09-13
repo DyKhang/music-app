@@ -1,7 +1,7 @@
 import { UserPlusIcon } from "@heroicons/react/24/outline";
 import { useDetailArtist } from "../features/artist/useDetailArtist";
 import { useNavigate } from "react-router";
-import { convertTotalFollow } from "../utils/helper";
+import { convertTotalFollow } from "../utils/convertTotalFollow";
 
 interface Props {
   alias: string;
@@ -11,14 +11,13 @@ export const ArtistItem: React.FC<Props> = ({ alias }) => {
   const { data } = useDetailArtist(alias);
   const navigate = useNavigate();
   function handleNavigate() {
-    navigate(`/nghe-si/${data?.data.data.alias}`);
+    navigate(`/nghe-si/${data?.data.data?.alias}`);
   }
-
   return (
     <div className="flex flex-col items-center">
       <div className="group/item relative flex cursor-pointer items-center justify-center overflow-hidden rounded-full">
         <img
-          src={data?.data.data.thumbnailM}
+          src={data?.data.data?.thumbnailM}
           alt=""
           className="w-full object-cover transition-all duration-700 group-hover/item:scale-110"
         />
@@ -53,18 +52,18 @@ export const ArtistItem: React.FC<Props> = ({ alias }) => {
         </div>
       </div>
       <h3
-        className="hover:text-text-item-hover mb-[4px] mt-[15px] cursor-pointer text-[1.4rem] font-[500] hover:underline"
+        className="mb-[4px] mt-[15px] cursor-pointer text-[1.4rem] font-[500] hover:text-text-item-hover hover:underline"
         onClick={handleNavigate}
       >
-        {data?.data.data.name}
+        {data?.data.data?.name}
       </h3>
-      <span className="text-text-secondary text-[1.2rem]">
+      <span className="text-[1.2rem] text-text-secondary">
         {`${
-          data?.data.data.totalFollow &&
+          data?.data.data?.totalFollow &&
           convertTotalFollow(data!.data.data.totalFollow)
         }  quan tâm`}
       </span>
-      <div className="bg-purple-primary mt-[15px] flex cursor-pointer items-center gap-[5px] rounded-full px-[19px] py-[6px] text-white hover:brightness-[0.9]">
+      <div className="mt-[15px] flex cursor-pointer items-center gap-[5px] rounded-full bg-purple-primary px-[19px] py-[6px] text-white hover:brightness-[0.9]">
         <UserPlusIcon className="size-[18px]" />
         <span className="text-[12px] uppercase">quan tâm</span>
       </div>

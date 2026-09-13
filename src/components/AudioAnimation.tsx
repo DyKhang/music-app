@@ -5,17 +5,15 @@ interface Props {
 }
 
 export const AudioAnimation: React.FC<Props> = ({ size = "normal" }) => {
-  let sizeNumber = "";
-  if (size === "normal") {
-    sizeNumber = "26";
-  } else if (size === "small") {
-    sizeNumber = "20";
-  }
+  const mappedSize = {
+    normal: "26",
+    small: "20",
+  };
 
   return (
     <Audio
-      height={sizeNumber}
-      width={sizeNumber}
+      height={mappedSize[size]}
+      width={mappedSize[size]}
       color="#fff"
       ariaLabel="audio-loading"
       wrapperClass="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 text-white group-hover/tag:block"

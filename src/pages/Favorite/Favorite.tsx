@@ -3,10 +3,10 @@ import { useFavoriteSongs } from "../../features/user/useFavoriteSongs";
 import { useInView } from "react-intersection-observer";
 import { SongItemSkeleton } from "../Album/components/SongItemSkeleton";
 import { SongItem } from "../Artist/components/SongItem";
+import { NotFound } from "../../components/NotFound";
 
 export const Favorite = () => {
-  const { data, isLoading, fetchNextPage, isFetchingNextPage } =
-    useFavoriteSongs();
+  const { data, fetchNextPage, isFetchingNextPage } = useFavoriteSongs();
 
   const { ref, inView } = useInView();
 
@@ -16,11 +16,9 @@ export const Favorite = () => {
     }
   }, [fetchNextPage, inView]);
 
-  if (isLoading) return <p>Loading...</p>;
-
   return (
     <section className="pt-[70px]">
-      <div className="bg-layout-bg text-text-secondary z-10 flex items-center border-b-[1px] border-[rgba(0,0,0,0.05)] p-[10px] text-[1.2rem] font-[500] uppercase">
+      <div className="z-10 flex items-center border-b-[1px] border-[rgba(0,0,0,0.05)] bg-layout-bg p-[10px] text-[1.2rem] font-[500] uppercase text-text-secondary">
         <div className="mr-[10px] w-1/2">
           <div className="flex items-center gap-[10px]">
             <div className="size-[16px]"></div>
@@ -37,6 +35,12 @@ export const Favorite = () => {
         page.data.songs.map((song) => (
           <SongItem key={song.encodeId} item={song} />
         )),
+      )}
+      {data?.pages.map(
+        (page) =>
+          !page.data.songs.length && (
+            <NotFound title="Không có bài hát được tìm thấy" />
+          ),
       )}
       <div ref={ref}>{isFetchingNextPage && <SongItemSkeleton />}</div>
     </section>

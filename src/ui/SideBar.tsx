@@ -19,10 +19,10 @@ import { DvdIcon } from "../components/DvdIcon";
 import { ChartIcon } from "../components/ChartIcon";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
-import clsx from "clsx";
 import { currentSongSelector } from "../features/player/selectors";
 import { useEffect, useRef } from "react";
 import { ZingMp3 } from "../components/ZingMp3";
+import { cn } from "../utils/cn";
 
 export const SideBar = () => {
   const session = useSelector((state: RootState) => state.auth.session);
@@ -30,13 +30,19 @@ export const SideBar = () => {
   const scrollableRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    scrollableRef.current?.addEventListener("scroll", () => {
-      if (scrollableRef.current && scrollableRef.current.scrollTop > 0) {
-        scrollableRef.current?.classList.add("is-mark");
+    const scrollElement = scrollableRef.current;
+
+    if (!scrollElement) return;
+    const handler = () => {
+      if (scrollElement && scrollElement.scrollTop > 0) {
+        scrollElement.classList.add("is-mark");
       } else {
-        scrollableRef.current?.classList.remove("is-mark");
+        scrollElement.classList.remove("is-mark");
       }
-    });
+    };
+    scrollElement.addEventListener("scroll", handler);
+
+    return () => scrollElement.removeEventListener("scroll", handler);
   }, []);
 
   return (
@@ -90,7 +96,7 @@ export const SideBar = () => {
           title="Top 100"
         />
         <div
-          className={clsx("m-[20px] hidden xl:block", {
+          className={cn("m-[20px] hidden xl:block", {
             "my-[5px]": !session,
           })}
         >
@@ -145,7 +151,7 @@ export const SideBar = () => {
             />
             <div className="mx-auto my-[15px] hidden h-[1px] w-[80%] bg-border-primary xl:block"></div>
             <div
-              className={clsx(
+              className={cn(
                 "group hidden cursor-pointer items-center justify-between px-[21px] text-navigation-text hover:text-text-item-hover xl:flex",
                 name ? "pb-6" : "pb-8",
               )}

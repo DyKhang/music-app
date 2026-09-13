@@ -2,7 +2,6 @@ import { useSearchParams } from "react-router-dom";
 import { useSearch } from "../../features/search/useSearch";
 import { Loader } from "../../components/Loader";
 import { useState } from "react";
-
 import { AllResult } from "./components/AllResult";
 import { SongResult } from "./components/SongResult";
 import { PlayListResult } from "./components/PlayListResult";

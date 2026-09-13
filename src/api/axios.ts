@@ -22,7 +22,6 @@ axiosClient.interceptors.response.use(
 
       try {
         await userApi.refreshToken();
-
         return axiosClient(originalRequest);
       } catch (error) {
         return Promise.reject(error);
@@ -30,8 +29,9 @@ axiosClient.interceptors.response.use(
     }
 
     const message =
-      error.response?.data?.message || "Đã có lỗi xảy ra. Vui lòng thử lại!";
-    if (error.status !== 401) toast.error(message);
+      error.response?.data?.message ?? "Đã có lỗi xảy ra. Vui lòng thử lại!";
+    console.log(error);
+    toast.error(message);
 
     return Promise.reject(error);
   },

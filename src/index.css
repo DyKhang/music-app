@@ -25,6 +25,7 @@
     --box-item-bg: hsla(0, 0%, 100%, 0.3);
     --new-release-box-shadow: hsla(0, 0%, 81.2%, 0.4);
     --main-text-stroke: #6b3483;
+    --song-item-action: hsla(0, 0%, 100%, 0.5);
   }
 
   :root[data-theme="dark"] {
@@ -49,6 +50,7 @@
     --box-item-bg: hsla(0, 0%, 100%, 0.1);
     --new-release-box-shadow: none;
     --main-text-stroke: #fff;
+    --song-item-action: hsla(0, 0%, 100%, 0.5);
   }
 
   * {

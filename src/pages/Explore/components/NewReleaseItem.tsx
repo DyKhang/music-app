@@ -15,7 +15,7 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "../../../components/DropDown";
-import clsx from "clsx";
+import { cn } from "../../../utils/cn";
 
 interface Props {
   data: NewReleasesItemChild;
@@ -48,7 +48,7 @@ export const NewReleaseItem: React.FC<Props> = ({ data }) => {
 
   return (
     <div
-      className={clsx(
+      className={cn(
         "group relative flex items-center gap-[10px] rounded-[5px] p-[10px] hover:bg-[rgba(0,0,0,0.05)]",
         {
           "bg-[rgba(0,0,0,0.05)]": currentPlay,
@@ -61,7 +61,7 @@ export const NewReleaseItem: React.FC<Props> = ({ data }) => {
       >
         <img src={thumbnailM} alt="" className="w-full object-cover" />
         <div
-          className={clsx(
+          className={cn(
             "absolute inset-0 bg-[rgba(0,0,0,0.5)] group-hover:block",
             currentPlay ? "block" : "hidden",
           )}

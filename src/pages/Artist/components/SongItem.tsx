@@ -2,7 +2,6 @@ import { EllipsisHorizontalIcon, HeartIcon } from "@heroicons/react/24/outline";
 import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMicrophone, faPlay } from "@fortawesome/free-solid-svg-icons";
-import { formatTime } from "../../../utils/helper";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../../store";
 import { AudioAnimation } from "../../../components/AudioAnimation";
@@ -14,6 +13,7 @@ import { useTogglePlay } from "../../../hooks/useTogglePlay";
 import { ArtistsSpan } from "../../../components/ArtistsSpan";
 import { useIsCurrentSong } from "../../../hooks/useCurrentSong";
 import { useToggleFavoriteSong } from "../../../features/user/useToggleFavoriteSong";
+import { formatTime } from "../../../utils/formatTime";
 
 interface Props {
   item: {
@@ -67,7 +67,7 @@ export const SongItem: React.FC<Props> = ({ item }) => {
           )}
         </div>
         <div className="ml-[10px] flex flex-col">
-          <span className="hover:text-text-item-hover flex cursor-pointer items-center gap-[6px] text-[1.4rem] font-[500]">
+          <span className="flex cursor-pointer items-center gap-[6px] text-[1.4rem] font-[500] hover:text-text-item-hover">
             {title} {item.streamingStatus === 2 && <PremiumIcon />}
           </span>
           <div className="mt-[4px] flex flex-wrap items-center gap-[4px]">
@@ -88,7 +88,7 @@ export const SongItem: React.FC<Props> = ({ item }) => {
             className="flex size-[36px] cursor-pointer items-center justify-center rounded-full hover:bg-[rgba(0,0,0,0.05)]"
           >
             {item.isLiked && session ? (
-              <HeartIconSolid className="text-text-item-hover size-[16px]" />
+              <HeartIconSolid className="size-[16px] text-text-item-hover" />
             ) : (
               <HeartIcon className="size-[16px]" />
             )}
@@ -128,7 +128,7 @@ export const SongItem: React.FC<Props> = ({ item }) => {
         />
       </div>
       <div className="ml-[10px] flex flex-col">
-        <span className="hover:text-text-item-hover flex cursor-pointer items-center gap-[6px] text-[1.4rem] font-[500]">
+        <span className="flex cursor-pointer items-center gap-[6px] text-[1.4rem] font-[500] hover:text-text-item-hover">
           {title} {item.streamingStatus === 2 && <PremiumIcon />}
         </span>
         <div className="mt-[4px] flex flex-wrap items-center gap-[4px]">
@@ -149,7 +149,7 @@ export const SongItem: React.FC<Props> = ({ item }) => {
           className="flex size-[36px] cursor-pointer items-center justify-center rounded-full hover:bg-[rgba(0,0,0,0.05)]"
         >
           {item.isLiked && session ? (
-            <HeartIconSolid className="text-text-item-hover size-[16px]" />
+            <HeartIconSolid className="size-[16px] text-text-item-hover" />
           ) : (
             <HeartIcon className="size-[16px]" />
           )}

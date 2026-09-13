@@ -9,7 +9,7 @@ import { Song } from "./Song";
 import { SongItem } from "../../Artist/components/SongItem";
 import { PlayListItem } from "../../../components/PlayListItem";
 import { ArtistItem } from "../../../components/ArtistItem";
-import { ResultNotFound } from "../../../components/ResultNotFound";
+import { NotFound } from "../../../components/NotFound";
 
 interface Props {
   data: AxiosResponse<SearchResult, unknown> | undefined;
@@ -22,7 +22,7 @@ export const AllResult: React.FC<Props> = ({ data }) => {
     data.data.data.counter.playlist === 0 &&
     data.data.data.counter.video === 0
   )
-    return <ResultNotFound title="Không có kết quả được tìm thấy" />;
+    return <NotFound title="Không có kết quả được tìm thấy" />;
   return (
     <>
       {data?.data.data.counter.artist === 0 ||
@@ -46,7 +46,7 @@ export const AllResult: React.FC<Props> = ({ data }) => {
         <>
           <div className="mt-[48px] flex justify-between">
             <h2 className="text-[2rem] font-[700]">Bài Hát</h2>
-            <div className="hover:text-text-item-hover text-text-secondary flex cursor-pointer items-center gap-[6px]">
+            <div className="flex cursor-pointer items-center gap-[6px] text-text-secondary hover:text-text-item-hover">
               <span className="text-[1.2rem]">TẤT CẢ</span>
               <FontAwesomeIcon icon={faChevronRight} />
             </div>
@@ -63,7 +63,7 @@ export const AllResult: React.FC<Props> = ({ data }) => {
         <>
           <div className="mt-[48px] flex justify-between">
             <h2 className="text-[2rem] font-[700]">Playlist/Album</h2>
-            <div className="hover:text-text-item-hover text-text-secondary flex cursor-pointer items-center gap-[6px]">
+            <div className="flex cursor-pointer items-center gap-[6px] text-text-secondary hover:text-text-item-hover">
               <span className="text-[1.2rem]">TẤT CẢ</span>
               <FontAwesomeIcon icon={faChevronRight} />
             </div>
@@ -90,7 +90,7 @@ export const AllResult: React.FC<Props> = ({ data }) => {
         <>
           <div className="mt-[48px] flex justify-between">
             <h2 className="text-[2rem] font-[700]">Nghệ sĩ/OA</h2>
-            <div className="hover:text-text-item-hover text-text-secondary flex cursor-pointer items-center gap-[6px]">
+            <div className="flex cursor-pointer items-center gap-[6px] text-text-secondary hover:text-text-item-hover">
               <span className="text-[1.2rem]">TẤT CẢ</span>
               <FontAwesomeIcon icon={faChevronRight} />
             </div>

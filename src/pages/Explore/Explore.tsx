@@ -8,14 +8,12 @@ import { useChills } from "../../features/home/useChills";
 import { useNewRelease } from "../../features/home/useNewReleases";
 import { useTop100 } from "../../features/home/useTop100";
 import { useTopSongs } from "../../features/home/useTopSongs";
-import { useTrending } from "../../features/home/useTrending";
 import { NewReleaseList } from "./components/NewReleaseList";
 import { PlayList } from "./components/PlayList";
 import { TopNewSongs } from "./components/TopNewSongs";
 import { ZingChart } from "./components/ZingChart";
 
 export const Explore = () => {
-  const { data: trendingData, isLoading: trendingLoading } = useTrending();
   const { data: chills, isLoading: chillsLoading } = useChills();
   const { data: top100, isLoading: top100Loading } = useTop100();
   const { data: albumHot, isLoading: albumHotLoading } = useAlbumHot();
@@ -30,10 +28,6 @@ export const Explore = () => {
         skeleton={<NewReleaseListSkeleton />}
       >
         <NewReleaseList data={newRelease} />
-      </WithSkeleton>
-
-      <WithSkeleton isLoading={trendingLoading} skeleton={<PlayListSkeleton />}>
-        <PlayList data={trendingData} />
       </WithSkeleton>
 
       <WithSkeleton isLoading={chillsLoading} skeleton={<PlayListSkeleton />}>

@@ -19,7 +19,7 @@ import { useTogglePlay } from "../hooks/useTogglePlay";
 import { useIsCurrentSong } from "../hooks/useCurrentSong";
 import { useNavigate } from "react-router";
 import { useToggleFavoriteSong } from "../features/user/useToggleFavoriteSong";
-import { cn } from "../utils/helper";
+import { cn } from "../utils/cn";
 
 interface Props {
   song: SongReducer;

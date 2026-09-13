@@ -12,10 +12,10 @@ import { userApi } from "../../../api/userApi";
 import { useState } from "react";
 import { ArrowPathIcon } from "@heroicons/react/24/outline";
 import { zodValidation } from "../../../utils/validations";
-import clsx from "clsx";
 import { useAppDispatch } from "../../../store";
 import { logout } from "../../../features/auth/authSlice";
 import { InputPassword } from "../../../components/InputPassword";
+import { cn } from "../../../utils/cn";
 
 const formSchema = z
   .object({
@@ -114,8 +114,8 @@ export const SecureForm = () => {
         <div className="flex justify-end">
           <button
             disabled={isPending}
-            className={clsx(
-              "bg-purple-primary flex h-[36px] w-[120px] items-center justify-center rounded-md px-6 py-3 text-[1.4rem] font-medium text-white",
+            className={cn(
+              "flex h-[36px] w-[120px] items-center justify-center rounded-md bg-purple-primary px-6 py-3 text-[1.4rem] font-medium text-white",
               {
                 "cursor-not-allowed opacity-80": isPending,
               },

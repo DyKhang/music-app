@@ -1,7 +1,6 @@
 import { PlayIcon } from "@heroicons/react/24/solid";
 import { TopSongsItemChild } from "../../../api/homeApi";
 import React from "react";
-import { timestampToFormat } from "../../../utils/helper";
 import { RootState, useAppDispatch } from "../../../store";
 import { getSongReducer } from "../../../features/player/playerSlice";
 import { useSelector } from "react-redux";
@@ -9,6 +8,7 @@ import { AudioAnimation } from "../../../components/AudioAnimation";
 import { useTogglePlay } from "../../../hooks/useTogglePlay";
 import { useIsCurrentSong } from "../../../hooks/useCurrentSong";
 import { ArtistsSpan } from "../../../components/ArtistsSpan";
+import { timestampToFormat } from "../../../utils/timestampToFormat";
 
 interface Props {
   item: TopSongsItemChild;

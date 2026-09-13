@@ -1,20 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState: {
-  current: {
-    value: string;
-    type: "dark" | "light";
-  };
-  preview: {
-    value: string;
-    type: "dark" | "light";
-  } | null;
+  value: string;
+  type: "dark" | "light";
 } = {
-  current: {
-    value: "gray",
-    type: "light",
-  },
-  preview: null,
+  value: "gray",
+  type: "light",
 };
 
 const themeSlice = createSlice({
@@ -32,25 +23,12 @@ const themeSlice = createSlice({
         };
       },
     ) => {
-      state.current.value = value;
-      state.current.type = type;
-    },
-    setPreviewTheme: (
-      state,
-      {
-        payload,
-      }: {
-        payload: {
-          value: string;
-          type: "dark" | "light";
-        } | null;
-      },
-    ) => {
-      state.preview = payload;
+      state.value = value;
+      state.type = type;
     },
   },
 });
 
-export const { setCurrentTheme, setPreviewTheme } = themeSlice.actions;
+export const { setCurrentTheme } = themeSlice.actions;
 
 export default themeSlice.reducer;

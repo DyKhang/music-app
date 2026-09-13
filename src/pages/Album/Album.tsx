@@ -16,10 +16,10 @@ import { getPlayList } from "../../features/player/playerSlice";
 import { useSearchParams } from "react-router-dom";
 import { Loader } from "../../components/Loader";
 import toast from "react-hot-toast";
-import { convertTotalFollow } from "../../utils/helper";
 import { useTogglePlay } from "../../hooks/useTogglePlay";
 import { useIsCurrentPlayList } from "../../hooks/useCurrentPlayList";
-import { ResultNotFound } from "../../components/ResultNotFound";
+import { NotFound } from "../../components/NotFound";
+import { convertTotalFollow } from "../../utils/convertTotalFollow";
 
 export const Album = () => {
   const { id } = useParams();
@@ -111,7 +111,7 @@ export const Album = () => {
               <h1 className="text-center text-[2rem] font-[700]">
                 {data?.title}
               </h1>
-              <div className="text-text-secondary flex flex-col items-center text-[1.2rem] leading-[1.75]">
+              <div className="flex flex-col items-center text-[1.2rem] leading-[1.75] text-text-secondary">
                 <span>Cập nhật: 20/06/2024</span>
                 <span className="text-center">{data?.artistsNames}</span>
                 <span>
@@ -120,7 +120,7 @@ export const Album = () => {
               </div>
               <div
                 onClick={handleTogglePlay}
-                className="bg-purple-primary mt-[16px] flex h-[36px] cursor-pointer items-center rounded-full px-[24px] text-[1.4rem] uppercase text-white hover:brightness-[0.9]"
+                className="mt-[16px] flex h-[36px] cursor-pointer items-center rounded-full bg-purple-primary px-[24px] text-[1.4rem] uppercase text-white hover:brightness-[0.9]"
               >
                 {isCurrentPlaylist ? (
                   isPlaying ? (
@@ -160,7 +160,7 @@ export const Album = () => {
         <div className="lg:ml-[330px]">
           {data?.sortDescription && (
             <p>
-              <span className="text-text-secondary text-[1.4rem]">Lời tựa</span>
+              <span className="text-[1.4rem] text-text-secondary">Lời tựa</span>
               <span className="ml-[4px] text-[1.4rem]">
                 {data?.sortDescription}
               </span>
@@ -169,7 +169,7 @@ export const Album = () => {
 
           {hasSongs ? (
             <div className={`${data?.sortDescription && "mt-[10px]"}`}>
-              <div className="bg-layout-bg text-text-secondary z-10 flex items-center border-b-[1px] border-[rgba(0,0,0,0.05)] p-[10px] text-[1.2rem] font-[500] uppercase">
+              <div className="z-10 flex items-center border-b-[1px] border-[rgba(0,0,0,0.05)] bg-layout-bg p-[10px] text-[1.2rem] font-[500] uppercase text-text-secondary">
                 <div className="mr-[10px] w-1/2">
                   <div className="flex items-center gap-[10px]">
                     <div className="size-[16px]"></div>
@@ -185,14 +185,14 @@ export const Album = () => {
                 <SongItem key={song.encodeId} song={song} index={index} />
               ))}
               {hasSongs && (
-                <div className="text-text-secondary mt-[16px] flex items-center gap-[8px] text-[1.3rem]">
+                <div className="mt-[16px] flex items-center gap-[8px] text-[1.3rem] text-text-secondary">
                   <span>{data?.song.items.length} bài hát</span> <div>•</div>
                   <span>7 giờ 39 phút</span>
                 </div>
               )}
             </div>
           ) : (
-            <ResultNotFound title="Danh sách bài hát đang được cập nhật" />
+            <NotFound title="Danh sách bài hát đang được cập nhật" />
           )}
         </div>
       </section>
